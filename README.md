@@ -1,9 +1,9 @@
-# Blockchain Hub for Ark
+# Neo-Market using Neo
 
 2x2 Team Members:
-  Alec Felt
+  Alec Felt (Scrum Master)
   Colin Dunn
   David Liang
   Nicholas Cheung
   Victoria Tran
-  Zachary Olson
+  Zachary Olson (Product Owner) 
