@@ -4,6 +4,7 @@ import Stylesheet from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
 import Child from '../components/child/child.js'
+import SideBar from '../components/sideBar/sideBar.js'
 
 export class Index extends Component {
   constructor (props, context) {
@@ -12,7 +13,6 @@ export class Index extends Component {
       loading: true,
       error: '',
 
-      // Data from Firebase
       data: {}
     }
   }
@@ -42,8 +42,7 @@ export class Index extends Component {
 
     return (
       <main>
-        <h1>App title</h1>
-        <Child data={this.state.data} />
+        <SideBar />
         <Stylesheet sheet={sheet} />
       </main>
     )

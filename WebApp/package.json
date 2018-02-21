@@ -12,6 +12,7 @@
     "body-parser": "^1.17.1",
     "color-convert": "^1.9.0",
     "express": "^4.14.1",
+    "font-awesome": "^4.7.0",
     "js-yaml": "^3.8.4",
     "next": "^5.0.0",
     "node-sass": "^4.5.0",
@@ -38,6 +39,7 @@
     "pre-commit": "^1.2.2",
     "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^16.2.0",
-    "standard": "^10.0.3"
+    "standard": "^10.0.3",
+    "svg-react-loader": "^0.4.5"
   }
 }

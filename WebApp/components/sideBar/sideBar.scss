@@ -1,0 +1,31 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/20/18
+
+**/
+
+.sidenav {
+  height: 80%;
+  width: 15%;
+  position: fixed;
+  z-index: 1;
+  bottom: 0;
+  left: 0;
+  background: $grey70;
+  overflow-x: hidden;
+  box-shadow: 0px 9px 18px $blackShadow;
+}
+
+.sideNavItems {
+  margin-top: 10%;
+  width: auto;
+  height: 60%;
+  display: grid;
+}
