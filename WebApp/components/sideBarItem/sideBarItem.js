@@ -9,7 +9,7 @@ import PeopleIcon from '../assets/PeopleIcon.svg'
 import PurchasesIcon from '../assets/PurchasesIcon.svg'
 import TrashIcon from '../assets/TrashIcon.svg'
 import WalletIcon from '../assets/WalletIcon.svg'
-
+import PromosIcon from '../assets/PromosIcon.svg'
 
 /**
 
@@ -17,9 +17,11 @@ import WalletIcon from '../assets/WalletIcon.svg'
 
 @ 2/20/18
 
-@ Purpose: Allows for SideBar component to pass in props determining contents of its items
+@ Purpose: Allows for SideBar component to pass in props determining contents of its items.
 
-Briefly explain any nuances or specific choices
+TODO: Fix logic for choosing <component>Icon.
+      Currently, whichever Icon component is picked first is then used for all of the SideBarItem icons.
+        (I have no idea why)
 
 **/
 
@@ -38,19 +40,16 @@ export class SideBarItem extends Component {
     People: PeopleIcon,
     Purchases: PurchasesIcon,
     Trash: TrashIcon,
-    Wallet: WalletIcon
+    Wallet: WalletIcon,
+    Promos: PromosIcon
   };
 
   render () {
-    const title = this.props.title
-    console.log(title)
-    const yolo = this.components[title]
-    console.log(yolo)
-    const IconName = this.components['Forums']
-    console.log(IconName)
+    const IconName = this.components[this.props.title.replace(/ /, "")]
+    console.log("IconComponent: "+IconName)
     return (
       <div className="navItem">
-        <IconName />
+        <IconName className="itemIcon"/>
         <a className="itemLink" href="#"> {this.props.title} </a>
         <Stylesheet sheet={item} />
       </div>

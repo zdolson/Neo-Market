@@ -3,8 +3,8 @@ import React, { Component } from 'react'
 import Stylesheet from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
-import Child from '../components/child/child.js'
 import SideBar from '../components/sideBar/sideBar.js'
+import AccountBar from '../components/accountBar/accountBar.js'
 
 export class Index extends Component {
   constructor (props, context) {
@@ -42,6 +42,7 @@ export class Index extends Component {
 
     return (
       <main>
+        <AccountBar />
         <SideBar />
         <Stylesheet sheet={sheet} />
       </main>

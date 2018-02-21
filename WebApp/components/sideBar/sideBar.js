@@ -11,10 +11,14 @@ import SideBarItem from '../sideBarItem/sideBarItem'
 
 @ 2/20/18
 
-Purpose: SideBar component; Provides template for left and right sidebar
+Purpose: SideBar component; Provides template for left and right sidebar.
 
-TODO: allow for a prop passed in from a parent to determine the positioning (left or right)
-      currently this is only a left sidebar
+TODO: Allow for a prop passed in from a parent to determine the positioning (left or right)
+        currently this is only a left sidebar.
+
+TODO: Fix logic for dynamically creating SideBarItem components.
+      For some reason, whichever Icon component is used first is then subsequently
+        used for the rest of the SideBarItems.
 
 **/
 
