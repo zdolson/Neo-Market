@@ -5,6 +5,7 @@ import sheet from '../components/base.scss'
 
 import SideBar from '../components/sideBar/sideBar.js'
 import AccountBar from '../components/accountBar/accountBar.js'
+import TopBar from '../components/topBar/topBar.js'
 
 export class Index extends Component {
   constructor (props, context) {
@@ -33,7 +34,7 @@ export class Index extends Component {
     } else if (this.state.error) {
       return (
         <main>
-          <h1>That's bad. The following error occurred:</h1>
+          <h1>That""s bad. The following error occurred:</h1>
           <div className='error'>{this.state.error}</div>
           <Stylesheet sheet={sheet} />
         </main>
@@ -42,8 +43,9 @@ export class Index extends Component {
 
     return (
       <main>
-        <AccountBar />
+        <TopBar />
         <SideBar />
+        <AccountBar />
         <Stylesheet sheet={sheet} />
       </main>
     )

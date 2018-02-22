@@ -1,0 +1,53 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/22/18
+
+**/
+
+.topnav {
+  display: flex;
+  height: 75px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background: $grey75;
+}
+
+.sideNavItems {
+  margin-top: 10%;
+  width: 100%;
+  height: 60%;
+  display: grid;
+}
+
+.navItem {
+  height: auto;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.itemLink {
+  align-self: center;
+  justify-self: flex-end;
+  text-decoration: none;
+  font-size: 20px;
+  font: $base-font-family;
+  color: $grey20;
+  margin-left: 10%;
+}
+
+.itemIcon {
+  margin-left: 10%;
+  align-self: center;
+  justify-self: start;
+}

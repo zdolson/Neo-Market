@@ -35,7 +35,6 @@ export class SideBar extends Component {
       <div className="sidenav">
         <div className="sideNavItems">
           {sideBarTitles.map(name => {
-            console.log("name: "+name)
             return (
               <SideBarItem title={name} />
             )
