@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import Stylesheet from '../stylesheet.js'
-import sheet from './sideBar.scss'
+import {Stylesheet} from '../stylesheet.js'
+import sheet from './leftSideBar.scss'
 import { sideBarTitles } from '../data.js'
 
 import SideBarItem from '../sideBarItem/sideBarItem'
@@ -11,7 +11,7 @@ import SideBarItem from '../sideBarItem/sideBarItem'
 
 @ 2/20/18
 
-Purpose: SideBar component; Provides template for left and right sidebar.
+Purpose: SideBar component; Provides template for left sidebar.
 
 TODO: Allow for a prop passed in from a parent to determine the positioning (left or right)
         currently this is only a left sidebar.
@@ -22,7 +22,7 @@ TODO: Fix logic for dynamically creating SideBarItem components.
 
 **/
 
-export class SideBar extends Component {
+export class LeftSideBar extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -46,4 +46,4 @@ export class SideBar extends Component {
   }
 }
 
-export default SideBar
+export default LeftSideBar

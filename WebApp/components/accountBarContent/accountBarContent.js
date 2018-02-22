@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Stylesheet from '../stylesheet.js'
+import {Stylesheet} from '../stylesheet.js'
 import sheet from './accountBarContent.scss'
 
 /**
@@ -27,7 +27,7 @@ export class AccountBarContent extends Component {
   render () {
     return (
       <div className="accountNavContent">
-        <button onclick="this.neoInteraction()">Press Me Zach</button>
+        <button onClick={this.neoInteraction}>Press Me Zach</button>
         <Stylesheet sheet={sheet} />
       </div>
     )

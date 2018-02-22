@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import Stylesheet from '../stylesheet.js'
+import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 // import { sideBarTitles } from '../data.js'
-import LogoIcon from 'babel-loader!svg-react-loader!../assets/Logo.svg'
+import LogoIcon from '../assets/Logo.svg'
 
 /**
 

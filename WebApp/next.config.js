@@ -15,6 +15,10 @@ module.exports = {
       {
         test: /\.scss$/,
         loader: 'babel-loader!raw-loader!sass-loader'
+      },
+      {
+        test: /\.svg$/,
+        loader: 'babel-loader!svg-react-loader'
       }
     )
     return config

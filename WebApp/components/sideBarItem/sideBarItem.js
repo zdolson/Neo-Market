@@ -1,15 +1,18 @@
 import React, { Component } from 'react'
-import Stylesheet from '../stylesheet.js'
+import {Stylesheet, Svg} from '../stylesheet.js'
 import item from './sideBarItem.scss'
 
-import ForumsIcon from 'babel-loader!svg-react-loader!../assets/ForumsIcon.svg'
-import ListingsIcon from 'babel-loader!svg-react-loader!../assets/ListingsIcon.svg'
-import MyPostsIcon from 'babel-loader!svg-react-loader!../assets/MyPostsIcon.svg'
-import PeopleIcon from 'babel-loader!svg-react-loader!../assets/PeopleIcon.svg'
-import PurchasesIcon from 'babel-loader!svg-react-loader!../assets/PurchasesIcon.svg'
-import TrashIcon from 'babel-loader!svg-react-loader!../assets/TrashIcon.svg'
-import WalletIcon from 'babel-loader!svg-react-loader!../assets/WalletIcon.svg'
-import PromosIcon from 'babel-loader!svg-react-loader!../assets/PromosIcon.svg'
+import ForumsIcon from '../assets/ForumsIcon.svg'
+import ListingsIcon from '../assets/ListingsIcon.svg'
+import MyPostsIcon from '../assets/MyPostsIcon.svg'
+import PeopleIcon from '../assets/PeopleIcon.svg'
+import PurchasesIcon from '../assets/PurchasesIcon.svg'
+import TrashIcon from '../assets/TrashIcon.svg'
+import WalletIcon from '../assets/WalletIcon.svg'
+import PromosIcon from '../assets/PromosIcon.svg'
+
+import { Wallet } from '../assets/Icons.js'
+import { People } from '../assets/Icons.js'
 
 /**
 
@@ -49,6 +52,7 @@ export class SideBarItem extends Component {
     console.log("IconComponent: "+IconName)
     return (
       <div className="navItem">
+        <IconName className="itemIcon"/>
         <a className="itemLink" href="#"> {this.props.title} </a>
         <Stylesheet sheet={item} />
       </div>

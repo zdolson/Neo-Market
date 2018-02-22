@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Stylesheet from '../stylesheet.js'
+import {Stylesheet} from '../stylesheet.js'
 import sheet from './accountBar.scss'
 
 import AccountBarContent from '../accountBarContent/accountBarContent.js'

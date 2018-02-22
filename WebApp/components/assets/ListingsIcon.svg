@@ -3,10 +3,10 @@
 <desc>Created using Figma</desc>
 <g id="Canvas" transform="translate(-277 -1751)">
 <g id="ListingsIcon" opacity="0.54">
-<use xlink:href="#path0_fill" transform="translate(277.103 1751.58)"/>
+<use xlink:href="#path1_fill" transform="translate(277.103 1751.58)"/>
 </g>
 </g>
 <defs>
-<path id="path0_fill" fill-rule="evenodd" d="M 0 17.9308L 2.55081 17.9308L 2.55081 0L 0 0L 0 17.9308ZM 3.82622 12.3263L 17.857 12.3263L 17.857 0L 3.82622 0L 3.82622 12.3263Z"/>
+<path id="path1_fill" fill-rule="evenodd" d="M 0 17.9308L 2.55081 17.9308L 2.55081 0L 0 0L 0 17.9308ZM 3.82622 12.3263L 17.857 12.3263L 17.857 0L 3.82622 0L 3.82622 12.3263Z"/>
 </defs>
 </svg>

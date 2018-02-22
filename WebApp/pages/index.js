@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 
-import Stylesheet from '../components/stylesheet.js'
+import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
-import SideBar from '../components/sideBar/sideBar.js'
+import LeftSideBar from '../components/sideBar/sideBar.js'
 import AccountBar from '../components/accountBar/accountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 
@@ -44,7 +44,7 @@ export class Index extends Component {
     return (
       <main>
         <TopBar />
-        <SideBar />
+        <LeftSideBar />
         <AccountBar />
         <Stylesheet sheet={sheet} />
       </main>
