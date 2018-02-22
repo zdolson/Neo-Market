@@ -15,5 +15,9 @@
   align-self: center;
   width: 100%;
   height: auto;
+}
+
+button:hover {
+  cursor: crosshair;
   color: $fuchsia;
 }

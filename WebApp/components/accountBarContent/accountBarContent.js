@@ -20,10 +20,14 @@ export class AccountBarContent extends Component {
     }
   }
 
+  neoInteraction = () => {
+    console.log("Put Neo functionality here!!!")
+  }
+
   render () {
     return (
       <div className="accountNavContent">
-        Yolo
+        <button onclick="this.neoInteraction()">Press Me Zach</button>
         <Stylesheet sheet={sheet} />
       </div>
     )
