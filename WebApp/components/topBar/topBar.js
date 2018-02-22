@@ -3,6 +3,7 @@ import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 // import { sideBarTitles } from '../data.js'
 import LogoIcon from '../assets/Logo.svg'
+import SearchIcon from '../assets/SearchIcon.svg'
 
 /**
 
@@ -25,8 +26,14 @@ export class SideBar extends Component {
   render () {
     return (
       <div className="topnav">
-        <LogoIcon />
-        <Stylesheet sheet={sheet}/>
+        <LogoIcon className="logo" />
+        <div className="search">
+          <SearchIcon className="searchicon" />
+          <div className="searchbubble">
+            search...
+          </div>
+        </div>
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }

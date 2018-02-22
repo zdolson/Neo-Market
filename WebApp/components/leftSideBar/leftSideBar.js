@@ -16,10 +16,6 @@ Purpose: SideBar component; Provides template for left sidebar.
 TODO: Allow for a prop passed in from a parent to determine the positioning (left or right)
         currently this is only a left sidebar.
 
-TODO: Fix logic for dynamically creating SideBarItem components.
-      For some reason, whichever Icon component is used first is then subsequently
-        used for the rest of the SideBarItems.
-
 **/
 
 export class LeftSideBar extends Component {

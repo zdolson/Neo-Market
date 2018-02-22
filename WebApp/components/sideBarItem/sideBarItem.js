@@ -11,9 +11,6 @@ import TrashIcon from '../assets/TrashIcon.svg'
 import WalletIcon from '../assets/WalletIcon.svg'
 import PromosIcon from '../assets/PromosIcon.svg'
 
-import { Wallet } from '../assets/Icons.js'
-import { People } from '../assets/Icons.js'
-
 /**
 
 @ Alec

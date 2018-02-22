@@ -13,6 +13,7 @@
 
 .topnav {
   display: flex;
+  justify-content: space-between;
   height: 75px;
   width: 100%;
   position: fixed;
@@ -22,32 +23,29 @@
   background: $grey75;
 }
 
-.sideNavItems {
-  margin-top: 10%;
-  width: 100%;
-  height: 60%;
-  display: grid;
+.logo {
+  align-self: center;
+  margin-left: 3%;
 }
 
-.navItem {
-  height: auto;
-  width: 100%;
+.search {
+  width: 20%;
   display: flex;
-  flex-direction: row;
+  margin-right: 2%;
+  align-items: center;
 }
 
-.itemLink {
-  align-self: center;
-  justify-self: flex-end;
-  text-decoration: none;
-  font-size: 20px;
-  font: $base-font-family;
-  color: $grey20;
-  margin-left: 10%;
+.searchicon {
+  margin-right: 3%;
 }
 
-.itemIcon {
-  margin-left: 10%;
-  align-self: center;
-  justify-self: start;
+.searchbubble {
+  display: flex;
+  padding-left: 5%;
+  align-items: center;
+  border-radius: 25px;
+  height: 50%;
+  width: 100%;
+  background: $grey70;
+  color: $grey50;
 }

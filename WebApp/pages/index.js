@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
-import LeftSideBar from '../components/sideBar/sideBar.js'
+import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
 import AccountBar from '../components/accountBar/accountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 

@@ -1,0 +1,50 @@
+<svg width="36" height="36" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Search Icon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(1121 519)">
+<g id="Search Icon">
+<g id="Rectangle 3" filter="url(#filter0_d)">
+<use xlink:href="#path8_fill" transform="matrix(0.707107 -0.707107 0.707107 0.707107 -1099.91 -497.454)" fill="#C4C4C4"/>
+<use xlink:href="#path8_fill" transform="matrix(0.707107 -0.707107 0.707107 0.707107 -1099.91 -497.454)" fill="url(#paint1_linear)"/>
+</g>
+<g id="Subtract" filter="url(#filter1_d)">
+<use xlink:href="#path9_fill" transform="translate(-1119 -519)" fill="#C4C4C4"/>
+<use xlink:href="#path9_fill" transform="translate(-1119 -519)" fill="url(#paint3_linear)"/>
+</g>
+<g id="Subtract">
+<use xlink:href="#path10_fill" transform="translate(-1114.95 -514.95)" fill="#F7F7F7"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-1101" y="-500" width="16" height="17" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="0" dy="2.3141"/>
+<feGaussianBlur stdDeviation="0.578525"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<filter id="filter1_d" filterUnits="userSpaceOnUse" x="-1121" y="-519" width="30" height="30" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="0" dy="2.3141"/>
+<feGaussianBlur stdDeviation="0.578525"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<linearGradient id="paint1_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(2.12547e-16 16.1987 -3.47115 9.91884e-16 3.47115 -9.91884e-16)">
+<stop offset="0" stop-color="#FFFFFF"/>
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+</linearGradient>
+<linearGradient id="paint3_linear" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1.5941e-15 26.0336 -26.0336 1.5941e-15 26.0336 -1.5941e-15)">
+<stop offset="0" stop-color="#FFFFFF"/>
+<stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+</linearGradient>
+<path id="path8_fill" d="M 0 1.73557C 0 0.777043 0.777043 0 1.73557 0L 1.73557 0C 2.69411 0 3.47115 0.777043 3.47115 1.73557L 3.47115 14.4631C 3.47115 15.4217 2.69411 16.1987 1.73557 16.1987L 1.73557 16.1987C 0.777043 16.1987 0 15.4217 0 14.4631L 0 1.73557Z"/>
+<path id="path9_fill" fill-rule="evenodd" d="M 13.0168 26.0336C 20.2058 26.0336 26.0336 20.2058 26.0336 13.0168C 26.0336 5.82782 20.2058 0 13.0168 0C 5.82788 0 0 5.82782 0 13.0168C 0 20.2058 5.82788 26.0336 13.0168 26.0336ZM 13.0167 23.141C 18.6082 23.141 23.141 18.6082 23.141 13.0168C 23.141 7.42538 18.6082 2.89264 13.0167 2.89264C 7.42529 2.89264 2.89258 7.42538 2.89258 13.0168C 2.89258 18.6082 7.42529 23.141 13.0167 23.141Z"/>
+<path id="path10_fill" fill-rule="evenodd" d="M 10.0731 0C 5.68762 0 1.88391 3.05222 0 7.51743L 0.887695 6.85495C 2.6543 3.39697 5.68555 1.00809 9.18762 0.660828L 10.0731 0Z"/>
+</defs>
+</svg>
