@@ -2,15 +2,15 @@
 Nicholas Cheung, Alec Felt, Victoria Tran
 
 ### Running on localhost
-Navigate to webapp directory:
+1. Navigate to webapp directory:
 ```bash
 cd NeoMarket/WebApp
 ```
-Run webapp on localhost:
+2. Run webapp on localhost:
 ```bash
 npm run dev
 ```
-Open new tab in browser and enter url:
+3. Open new tab in browser and enter url:
 ```
 https://localhost:3000
 ```
