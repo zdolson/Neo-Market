@@ -71,16 +71,16 @@ def is_owner(product_id):
 # this is called after register or
 # running this before register will always return false
 # this checks if the user is registered or not
-# def isRegistered(userList, userAddr):
-#     print("checking if registered") 
-#     if len(userList)) == 1: 
-#         print("someone is here") 
-#         print(userList[userAddr])
-#     curUser = Get(GetContext, userAddr)
-#     if curUser.isRegister(): 
-#         return True 
-#     else; 
-#         return False
+def isRegistered(userList, userAddr):
+    print("checking if registered") 
+    if len(userList)) == 1: 
+        print("someone is here") 
+        print(userList[userAddr])
+    curUser = Get(GetContext, userAddr)
+    if curUser.isRegister(): 
+        return True 
+    else; 
+        return False
 
 """ Main definition
     input: args[0] -> sender, 
@@ -96,11 +96,11 @@ def Main(operation, args):
         
         # functions for owner and what not
     """
-    # # testing here on the register and put(GetContext, userAddr) here 
-    # # and making sure two things work before putting it in the blockchain
-    # productId = args[1]
-    # userList[userHash] = productId
-    # Put(GetContext, userHash) # this should put userHash here
+    # testing here on the register and put(GetContext, userAddr) here 
+    # and making sure two things work before putting it in the blockchain
+    productId = args[1]
+    userList[userHash] = productId
+    Put(GetContext, userHash) # this should put userHash here
 
 
     if len(args) != 2: 
@@ -110,7 +110,7 @@ def Main(operation, args):
     if operation != None: 
         if operation == 'register':
             print("register")
-            # isRegistered(userList, userHash) 
+            isRegistered(userList, userHash) 
         elif operation == 'post':
             print("post")
         elif operation == 'registered':
