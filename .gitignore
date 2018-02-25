@@ -1,2 +1,4 @@
 /neo-python
 .python-version
+/backend/node_modules
+/backend/local-neo/data
