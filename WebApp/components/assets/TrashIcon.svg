@@ -1,0 +1,12 @@
+<svg width="18" height="21" viewBox="0 0 18 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>TrashIcon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-277 -1640)">
+<g id="TrashIcon" opacity="0.54">
+<use xlink:href="#path8_fill" transform="translate(277.103 1640.58)"/>
+</g>
+</g>
+<defs>
+<path id="path8_fill" fill-rule="evenodd" d="M 16.579 4.48413L 1.27411 4.48413L 1.27411 17.9323C 1.27411 19.1695 2.41687 20.1736 3.8262 20.1736L 14.0282 20.1736C 15.4388 20.1736 16.579 19.1695 16.579 17.9323L 16.579 4.48413L 16.579 4.48413ZM 12.1151 0L 5.73806 0L 4.46392 1.1218L 1.27413 1.1218C 0.571382 1.1218 0 1.62386 0 2.24135L 0 3.36315L 17.8557 3.36315L 17.8557 2.24135C 17.8557 1.62386 17.2843 1.1218 16.579 1.1218L 13.3918 1.1218L 12.1151 0L 12.1151 0Z"/>
+</defs>
+</svg>

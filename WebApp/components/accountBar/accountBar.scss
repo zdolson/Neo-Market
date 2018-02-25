@@ -1,0 +1,22 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/21/18
+
+**/
+
+.accountNav {
+  position: fixed;
+  display: flex;
+  top: 75px;
+  left: 0;
+  height: 50px;
+  width: 175px;
+  background: $grey60;
+}

@@ -1,0 +1,29 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/21/18
+
+**/
+
+.accountNavContent {
+  align-self: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  box-shadow: 0px 0px 10px $blackShadow;
+  &:hover {
+    align-self: end;
+    cursor: crosshair;
+    color: $fuchsia;
+  }
+}

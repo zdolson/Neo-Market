@@ -7,3 +7,18 @@
   Nicholas Cheung
   Victoria Tran
   Zachary Olson (Product Owner) 
+
+Commenting Style: (subject to change) --
+
+/** 
+
+@Contributor
+
+@Date
+
+Purpose
+
+Briefly explain any nuances or specific choices
+
+**/
+
