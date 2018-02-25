@@ -70,12 +70,14 @@ def is_owner(product_id):
 
 def isRegistered(userHash): 
     curObject = Get(GetContext, userHash) # should return the hardcoded class object here
-    if curObject.getPostCounts() > 0: 
-        print("did i get it?") 
-        print(curObject.getPostList()) 
-        return True 
-    else:
-        return False
+    print(curObject) 
+    return True
+    # if curObject.getPostCounts() > 0: 
+    #     print("did i get it?") 
+    #     print(curObject.getPostList()) 
+    #     return True 
+    # else:
+    #     return False
 
 """ Main definition
     input: args[0] -> sender, 
