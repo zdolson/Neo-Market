@@ -88,7 +88,7 @@ def isRegistered(userList, userAddr):
            args[2] -> <optional> another script hash
 """
 def Main(operation, args):
-    userList = dict() 
+    userList = list() 
     userHash = args[0] #who am i? 
     authorized = CheckWitness(userHash) 
     """if not authorized: 
@@ -99,7 +99,7 @@ def Main(operation, args):
     # testing here on the register and put(GetContext, userAddr) here 
     # and making sure two things work before putting it in the blockchain
     productId = args[1]
-    userList[userHash] = productId
+    userList.append(userHah, productId)
     Put(GetContext, userHash) # this should put userHash here
 
 
