@@ -26,7 +26,7 @@ class User:
         self.addr = userAddr
         self.register = True
         self.numPosting = 0
-        self.posts = dict() 
+        self.posts = list() # since dict doesn't work then im using a list to work this out 
     
     # getter functions 
     def getName(self):
@@ -61,25 +61,20 @@ class User:
 
 def is_owner(product_id): 
     print("Am I the product owner?")
-    productOwnner = Get(GetContext, product_id) 
+    productOwner = Get(GetContext, product_id) 
     print("this is the productOwner value ", productOwner)
     isOwner = CheckWitness(productOwner)
     if not isOwner:
         print("Not the product Owner") 
     return isOwner
 
-# this is called after register or
-# running this before register will always return false
-# this checks if the user is registered or not
-def isRegistered(userList, userAddr):
-    print("checking if registered") 
-    if len(userList)) == 1: 
-        print("someone is here") 
-        print(userList[userAddr])
-    curUser = Get(GetContext, userAddr)
-    if curUser.isRegister(): 
+def isRegistered(userHash): 
+    curObject = Get(GetContext, userHash) # should return the hardcoded class object here
+    if curObject.getPostCounts() > 0: 
+        print("did i get it?") 
+        print(curObject.getPostList()) 
         return True 
-    else; 
+    else:
         return False
 
 """ Main definition
@@ -88,7 +83,6 @@ def isRegistered(userList, userAddr):
            args[2] -> <optional> another script hash
 """
 def Main(operation, args):
-    userList = list() 
     userHash = args[0] #who am i? 
     authorized = CheckWitness(userHash) 
     """if not authorized: 
@@ -96,12 +90,11 @@ def Main(operation, args):
         
         # functions for owner and what not
     """
-    # testing here on the register and put(GetContext, userAddr) here 
-    # and making sure two things work before putting it in the blockchain
+    # # testing here on the register and put(GetContext, userAddr) here 
+    # # and making sure two things work before putting it in the blockchain
     productId = args[1]
-    userList.append(userHah, productId)
-    Put(GetContext, userHash) # this should put userHash here
-
+    creatingClass = User("David",userHash) 
+    Put(GetContext, creatingClass)
 
     if len(args) != 2: 
         print("Error on args")
@@ -110,7 +103,7 @@ def Main(operation, args):
     if operation != None: 
         if operation == 'register':
             print("register")
-            isRegistered(userList, userHash) 
+            isRegistered(userHash)
         elif operation == 'post':
             print("post")
         elif operation == 'registered':
