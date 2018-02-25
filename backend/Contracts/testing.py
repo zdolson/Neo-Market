@@ -67,8 +67,8 @@ def is_owner(product_id):
     return isOwner
 
 def isRegistered(userHash): 
-    curObject = Get(GetContext, userHash) # should return the hardcoded class object here
-    print(curObject) 
+    #curObject = Get(GetContext, userHash) # should return the hardcoded class object here
+    #print(curObject) 
     return True
 
 """ Main definition
@@ -87,8 +87,8 @@ def Main(operation, args):
     # # testing here on the register and put(GetContext, userAddr) here 
     # # and making sure two things work before putting it in the blockchain
     productId = args[1]
-    obj = User("David", userHash)
-    Put(GetContext, userHash, obj) 
+    # obj = User("David", userHash)
+    # Put(GetContext, userHash, obj) 
 
     if len(args) != 2: 
         print("Error on args")
@@ -97,8 +97,8 @@ def Main(operation, args):
     if operation != None: 
         if operation == 'register':
             print("register")
-            a = Get(GetContext, userHash)
-            print("this is a ", a) 
+            # a = Get(GetContext, userHash)
+            # print("this is a ", a[0]) 
         elif operation == 'post':
             print("post")
         elif operation == 'registered':
