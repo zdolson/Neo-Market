@@ -11,27 +11,27 @@ services:
       - REDISTOGO_URL=redis://redis:6379
       - PYTHONUNBUFFERED=0
       - NET=private
-      - PRIVNET_SEEDS=http://neo-privnet:30333,http://neo-privnet:30334,http://neo-privnet:30335,http://neo-privnet:30336
+      - PRIVNET_SEEDS=http://neo-privatenet:30333,http://neo-privatenet:30334,http://neo-privatenet:30335,http://neo-privatenet:30336
     ports:
       - 5000:5000
     links:
       - mongodb:27017
       - redis:6379
-      - neo-privnet:20333
-      - neo-privnet:20334
-      - neo-privnet:20335
-      - neo-privnet:20336
-      - neo-privnet:30333
-      - neo-privnet:30334
-      - neo-privnet:30335
-      - neo-privnet:30336
+      - neo-privatenet:20333
+      - neo-privatenet:20334
+      - neo-privatenet:20335
+      - neo-privatenet:20336
+      - neo-privatenet:30333
+      - neo-privatenet:30334
+      - neo-privatenet:30335
+      - neo-privatenet:30336
     depends_on:
       - mongodb
       - redis
-      - neo-privnet
-  neo-privnet:
-    image: metachris/neo-privnet-with-gas
-    container_name: "neo-privnet"
+      - neo-privatenet
+  neo-privatenet:
+    image: cityofzion/neo-privatenet
+    container_name: "neo-privatenet"
     ports:
       - 20333:20333
       - 20334:20334
