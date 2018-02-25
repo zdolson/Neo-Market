@@ -26,7 +26,7 @@ class User:
         self.addr = userAddr
         self.register = True
         self.numPosting = 0
-        self.posts = dict() 
+        self.posts = list() 
     
     # getter functions 
     def getName(self):
