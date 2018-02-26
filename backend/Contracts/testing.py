@@ -26,7 +26,7 @@ class User:
         self.addr = userAddr
         self.register = True
         self.numPosting = 0
-        self.posts = list() # since dict doesn't work then im using a list to work this out 
+        self.posts = list() 
     
     # getter functions 
     def getName(self):
@@ -48,8 +48,6 @@ class User:
     def changeOwner(self, name):
         pass
 
-
-
 """ is_owner
     This checks if the address of the wallet is the owner or not 
     it checks Get(GetContext, product_id) => 
@@ -69,15 +67,9 @@ def is_owner(product_id):
     return isOwner
 
 def isRegistered(userHash): 
-    curObject = Get(GetContext, userHash) # should return the hardcoded class object here
-    print(curObject) 
+    #curObject = Get(GetContext, userHash) # should return the hardcoded class object here
+    #print(curObject) 
     return True
-    # if curObject.getPostCounts() > 0: 
-    #     print("did i get it?") 
-    #     print(curObject.getPostList()) 
-    #     return True 
-    # else:
-    #     return False
 
 """ Main definition
     input: args[0] -> sender, 
@@ -95,8 +87,8 @@ def Main(operation, args):
     # # testing here on the register and put(GetContext, userAddr) here 
     # # and making sure two things work before putting it in the blockchain
     productId = args[1]
-    creatingClass = User("David",userHash) 
-    Put(GetContext, creatingClass)
+    # obj = User("David", userHash)
+    # Put(GetContext, userHash, obj) 
 
     if len(args) != 2: 
         print("Error on args")
@@ -105,7 +97,8 @@ def Main(operation, args):
     if operation != None: 
         if operation == 'register':
             print("register")
-            isRegistered(userHash)
+            # a = Get(GetContext, userHash)
+            # print("this is a ", a[0]) 
         elif operation == 'post':
             print("post")
         elif operation == 'registered':
