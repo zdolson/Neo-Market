@@ -32,8 +32,8 @@ docker run --rm -d --name neo-privatenet -p 20333-20336:20333-20336/tcp -p 30333
 ```
 The command above does as follows to the neo-privatenet container:
  * On stopping of the container, it will also be removed (```--rm```)
- * Run the container with the name neo-privatenet
- * Expose ports 20333-6 and 30333-6 on both the host and the container
+ * Run the container with the name neo-privatenet (```--name```)
+ * Expose ports 20333-6 and 30333-6 on both the host and the container (```-p```)
  * Run the container in detached mode (```-d```)
 
 To enter the shell of the PrivateNet container with shell access:

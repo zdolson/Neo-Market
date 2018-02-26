@@ -5,7 +5,7 @@ const config = require('./backend/config')
 const account = Neon.create.account(config.wif)
 
 // Invoke a smart contract with a method and an array of strings
-node.invokeContract('WriteToStorage', ['someStorageKey', 'Hello World!'], account, (res) => {
+node.invokeContract('register', ['zack', 'Hello World!'], account, (res) => {
     if (res.result === true) {
         // Transaction successful. The stored data can be retrieved on the next block.
         console.log('Transaction processed!')
