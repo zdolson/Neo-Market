@@ -8,7 +8,7 @@ import sheet from './leftAccountBarContent.scss'
 
 @ 2/20/18
 
-Purpose: AccountBarContent; Fills the AccountBar component with content
+Purpose: LeftAccountBarContent; Fills the LeftAccountBar component with content
 
 **/
 

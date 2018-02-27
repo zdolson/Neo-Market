@@ -8,6 +8,18 @@ import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
 import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
+import Listings from '../components/listings/listings.js'
+
+/**
+
+@ Alec
+
+@ 2/20/18
+
+Purpose: Entry component. Calls all other components.
+          Acts as master component. First Component that is rendered.
+
+**/
 
 export class Index extends Component {
   constructor (props, context) {
@@ -45,6 +57,7 @@ export class Index extends Component {
 
     return (
       <main>
+        <Listings />
         <TopBar />
         <LeftSideBar />
         <RightSideBar />

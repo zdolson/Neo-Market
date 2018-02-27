@@ -3,7 +3,7 @@ import {Stylesheet} from '../stylesheet.js'
 import sheet from './leftSideBar.scss'
 import { sideBarTitles } from '../data.js'
 
-import SideBarItem from '../sideBarItem/sideBarItem'
+import SideBarItem from '../leftSideBarItem/leftSideBarItem'
 
 /**
 

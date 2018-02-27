@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {Stylesheet, Svg} from '../stylesheet.js'
-import item from './sideBarItem.scss'
+import item from './leftSideBarItem.scss'
 
 import ForumsIcon from '../assets/ForumsIcon.svg'
 import ListingsIcon from '../assets/ListingsIcon.svg'
@@ -17,15 +17,12 @@ import PromosIcon from '../assets/PromosIcon.svg'
 
 @ 2/20/18
 
-@ Purpose: Allows for SideBar component to pass in props determining contents of its items.
-
-TODO: Fix logic for choosing <component>Icon.
-      Currently, whichever Icon component is picked first is then used for all of the SideBarItem icons.
-        (I have no idea why)
+@ Purpose: Allows for LeftSideBar component to pass in props determining contents of its items.
+          Handles svg icon dynamic use.
 
 **/
 
-export class SideBarItem extends Component {
+export class LeftSideBarItem extends Component {
   constructor(props, context) {
     super(props, context)
     this.State = {
@@ -33,6 +30,7 @@ export class SideBarItem extends Component {
     }
   }
 
+  // Icon map for dynamic svg use
   components = {
     Forums: ForumsIcon,
     Listings: ListingsIcon,
@@ -57,4 +55,4 @@ export class SideBarItem extends Component {
   }
 }
 
-export default SideBarItem
+export default LeftSideBarItem
