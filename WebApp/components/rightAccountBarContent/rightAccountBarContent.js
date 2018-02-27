@@ -1,18 +1,18 @@
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
-import sheet from './accountBarContent.scss'
+import sheet from './rightAccountBarContent.scss'
 
 /**
 
 @ Alec
 
-@ 2/20/18
+@ 2/26/18
 
-Purpose: AccountBarContent; Fills the AccountBar component with content
+Purpose: rightAccountBarContent; Fills the RightAccountBar component with content
 
 **/
 
-export class AccountBarContent extends Component {
+export class RightAccountBarContent extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -26,7 +26,7 @@ export class AccountBarContent extends Component {
 
   render () {
     return (
-      <div className="accountNavContent">
+      <div className="rightAccountNavContent">
         <button onClick={this.neoInteraction}>Press Me Zach</button>
         <Stylesheet sheet={sheet} />
       </div>
@@ -34,4 +34,4 @@ export class AccountBarContent extends Component {
   }
 }
 
-export default AccountBarContent
+export default RightAccountBarContent

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
-import sheet from './accountBar.scss'
+import sheet from './leftAccountBar.scss'
 
-import AccountBarContent from '../accountBarContent/accountBarContent.js'
+import LeftAccountBarContent from '../leftAccountBarContent/leftAccountBarContent.js'
 
 /**
 
@@ -17,7 +17,7 @@ TODO: allow for a prop passed in from a parent to determine the positioning (lef
 
 **/
 
-export class AccountBar extends Component {
+export class LeftAccountBar extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -27,12 +27,12 @@ export class AccountBar extends Component {
 
   render () {
     return (
-      <div className="accountNav">
-        <AccountBarContent />
+      <div className="leftAccountNav">
+        <LeftAccountBarContent />
         <Stylesheet sheet={sheet}/>
       </div>
     )
   }
 }
 
-export default AccountBar
+export default LeftAccountBar

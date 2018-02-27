@@ -25,7 +25,7 @@ export class RightSideBar extends Component {
 
   render () {
     return (
-      <div className="sidenav">
+      <div className="rightsidenav">
         <Stylesheet sheet={sheet}/>
       </div>
     )

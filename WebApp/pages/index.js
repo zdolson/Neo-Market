@@ -3,8 +3,10 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
+import RightSideBar from '../components/rightSideBar/rightSideBar.js'
 import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
-import AccountBar from '../components/accountBar/accountBar.js'
+import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
+import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 
 export class Index extends Component {
@@ -45,7 +47,9 @@ export class Index extends Component {
       <main>
         <TopBar />
         <LeftSideBar />
-        <AccountBar />
+        <RightSideBar />
+        <LeftAccountBar />
+        <RightAccountBar />
         <Stylesheet sheet={sheet} />
       </main>
     )
