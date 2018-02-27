@@ -12,6 +12,8 @@ import ListingPic from '../listingPic/listingPic.js'
 
 Purpose: Spacing and style for a listing in the grid
 
+TODO: Add props logic so parent component can determine content of the listing
+
 **/
 
 export class Listing extends Component {

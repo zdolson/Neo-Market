@@ -10,6 +10,8 @@ import sheet from './listingPic.scss'
 
 Purpose: Reusable component for picture of a listing
 
+TODO: props logic so parent Listing can dynamically assign picture
+
 **/
 
 class ListingPic extends Component {

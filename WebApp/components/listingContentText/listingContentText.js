@@ -10,6 +10,8 @@ import sheet from './listingContentText.scss'
 
 Purpose: Reusable component for text withing a ListingContent
 
+TODO: props logic so parent ListingContent can dynamically assign text
+
 **/
 
 class ListingContentText extends Component {

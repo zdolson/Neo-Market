@@ -11,6 +11,8 @@ import Listing from '../listing/listing.js'
 
 @ Purpose: Container providing dynamic spacing and sizing of the listings grid
 
+TODO: do we need to add props logic?
+
 **/
 
 export class Listings extends Component {
