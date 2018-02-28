@@ -8,7 +8,7 @@
   "author": "Nicholas Cheung, Alec Felt, Victoria Tran",
   "license": "MIT",
   "dependencies": {
-    "@cityofzion/neon-js": "^3.3.1",
+    "@cityofzion/neon-js": "^3.3.2",
     "axios": "^0.18.0",
     "babel-plugin-wrap-in-js": "^1.1.1",
     "body-parser": "^1.17.1",
@@ -39,7 +39,6 @@
     "mockdate": "^2.0.1",
     "now": "^9.0.1",
     "pre-commit": "^1.2.2",
-    "react-addons-test-utils": "^15.4.2",
     "react-test-renderer": "^16.2.0",
     "standard": "^10.0.3",
     "svg-react-loader": "^0.4.5"
