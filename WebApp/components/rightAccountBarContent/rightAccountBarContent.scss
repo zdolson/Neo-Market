@@ -18,14 +18,26 @@ Purpose: provides styling and spacing for RightAccountBarContent
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 20px;
+  font-weight: 300;
+  p {
+    margin-top: 35px;
+  }
+}
+
+.cartIcon {
+  margin-left: 10px;
+  margin-bottom: 20px;
+}
+
+.downArrowIcon {
+  margin-right: 10px;
+  margin-bottom: 28px;
 }
 
 button {
   box-shadow: 0px 0px 10px $blackShadow;
-  &:hover {
-    align-self: end;
-    cursor: crosshair;
-    color: $fuchsia;
-  }
 }

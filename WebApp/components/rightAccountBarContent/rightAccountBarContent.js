@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './rightAccountBarContent.scss'
 
+import CartIcon from '../assets/CartIcon.svg'
+import DownArrowIcon from '../assets/DownArrowIcon.svg'
+
 /**
 
 @ Alec
@@ -27,7 +30,9 @@ export class RightAccountBarContent extends Component {
   render () {
     return (
       <div className="rightAccountNavContent">
-        <button onClick={this.neoInteraction}>Press Me Zach</button>
+        <CartIcon className="cartIcon"/>
+        <p>My Cart</p>
+        <DownArrowIcon className="downArrowIcon"/>
         <Stylesheet sheet={sheet} />
       </div>
     )
