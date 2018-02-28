@@ -1,10 +1,10 @@
 ## Prerequisites
 1. Install Docker and pull PrivateNet repo (https://hub.docker.com/r/cityofzion/neo-privatenet/)
-```
+```bash
 docker pull cityofzion/neo-privatenet
 ```
 2. Install all dependencies using npm (@cityofzion/neon-js, axios)
-```
+```bash
 cd /backend && npm install
 ```
 
