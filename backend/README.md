@@ -3,11 +3,15 @@
 ```
 docker pull cityofzion/neo-privatenet
 ```
+2. Install all dependencies using npm (@cityofzion/neon-js, axios)
+```
+cd /backend && npm install
+```
 
 ## Setting up local neon-wallet-db and PrivateNet
 1. Navigate to the local-neo folder, run docker-compose.yml
 ```bash
-cd /backend/local-neo && docker-compose up
+cd /local-neo && docker-compose up
 ```
 2. In another terminal window, check if MongoDB, Redis server and PrivateNet are up and running.
 ```bash
