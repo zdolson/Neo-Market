@@ -12,7 +12,13 @@ def register(name, addr):
         print("who you fucking checking out ya fucker") 
     return True
 
-
+def isdone(name, addr):
+    a = Get(GetContext, name) 
+    if not a:
+        print("he doesn't fucking exist") 
+        return True 
+    else: 
+        return False
 
 """ This is going to be so fucking barebone that it's bare """ 
 
@@ -24,8 +30,7 @@ def Main(operation, args):
     a = args[0]
     b = args[1]
     print("i fucking got it please")
-    print(a) 
-    print(b) 
+    print(a, b)  
     if operation == "register":
         print("you fucking what?")
         register(b, a) 
