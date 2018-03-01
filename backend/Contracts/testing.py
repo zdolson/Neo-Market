@@ -42,8 +42,6 @@ def Main(operation, args):
     print("does this fucking work first?")
     a = args[0]
     b = args[1]
-    print("i fucking got it please")
-    print(a, b)  
     if operation == "register":
         print("you fucking what?")
         register(b, a) 
@@ -53,7 +51,10 @@ def Main(operation, args):
         isdone(b,a) 
     elif operation == "getclass": 
         print("getting this fucking class") 
-        getclass(args[0], args[1], args[2], args[3], args[4])
+        c = args[2]
+        d = args[3] 
+        e = args[4]
+        getclass(a, b, c, d, e)
     else:
         print("fucking run shithead") 
     print("done") 
