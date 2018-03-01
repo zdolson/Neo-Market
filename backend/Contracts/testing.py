@@ -8,6 +8,7 @@ def register(name, addr):
     print("alright, here i am now in register") 
     if not a: 
         print("im not fucking there you fucking shit ass head") 
+        Put(GetContext, name, addr)
     else: 
         print("who you fucking checking out ya fucker") 
     return True
