@@ -13,7 +13,7 @@ def register(name, addr):
         print("who you fucking checking out ya fucker") 
     return True
 
-def isdone(name, addr):
+def isregister(name, addr):
     a = Get(GetContext, name) 
     if not a:
         print("he doesn't fucking exist") 
@@ -22,6 +22,16 @@ def isdone(name, addr):
         print("does exist you idiot ")
         return False
 
+def buy(buyerAddr, sellerAddr): 
+    pass
+
+def createPost(owner, title, desc, price, amount): 
+    pass 
+
+def getPost(owner, title): 
+    pass 
+
+    
 def getclass(owner, title, desc, price, amount):
     post = init_Post(owner, title, desc, price, amount)
     print("this is the owner") 
@@ -46,11 +56,11 @@ def Main(operation, args):
         print("you fucking what?")
         register(b, a) 
         print("after you fucking what?")
-    elif operation == "isdone":
+    elif operation == "isregister":
         a = args[0]
         b = args[1]
         print("why the fuck are you here, push when you get this down")
-        isdone(b,a) 
+        isregister(b,a) 
     elif operation == "getclass": 
         a = args[0]
         b = args[1]

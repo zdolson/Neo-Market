@@ -9,7 +9,6 @@ class Post():
     amount = 1
 
 def init_Post(owner, title, desc, price, amount) -> Post:
-
     # remember to "deserialized" it after you get everything working
     # until then keep using 10 for all integers
 
