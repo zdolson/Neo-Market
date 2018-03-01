@@ -40,16 +40,20 @@ def getclass(owner, title, desc, price, amount):
 # so debugging all the way down
 def Main(operation, args):
     print("does this fucking work first?")
-    a = args[0]
-    b = args[1]
     if operation == "register":
+        a = args[0]
+        b = args[1]
         print("you fucking what?")
         register(b, a) 
         print("after you fucking what?")
     elif operation == "isdone":
+        a = args[0]
+        b = args[1]
         print("why the fuck are you here, push when you get this down")
         isdone(b,a) 
     elif operation == "getclass": 
+        a = args[0]
+        b = args[1]
         print("getting this fucking class") 
         c = args[2]
         d = args[3] 
