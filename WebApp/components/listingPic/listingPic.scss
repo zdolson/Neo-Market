@@ -20,4 +20,15 @@ Purpose: Spacing and style for picture in a listing (top half)
   text-align: center;
   border-radius: 5px;
   vertical-align: middle;
+  display: relative;
+}
+
+.grumpy {
+  margin-top: -250px;
+  margin-bottom: 20px;
+  z-index: 3;
+}
+
+.galaxy {
+  z-index: 2;
 }

@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingPic.scss'
 
+import Galaxy from '../assets/galaxy.svg'
+import Grumpy from '../assets/grumpy.svg'
+
 /**
 
 @ Alec
@@ -25,7 +28,8 @@ class ListingPic extends Component {
   render () {
     return (
       <div class='listingPic'>
-        Pic goes here
+        <Galaxy className="galaxy"/>
+        <Grumpy className="grumpy"/>
         <Stylesheet sheet={sheet} />
       </div>
     )
