@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './rightSideBar.scss'
+import RightSideBarItems from '../rightSideBarItems/rightSideBarItems.js'
+import RightSideBarTotal from '../rightSideBarTotal/rightSideBarTotal.js'
 
 /**
 
@@ -26,6 +28,8 @@ export class RightSideBar extends Component {
   render () {
     return (
       <div className="rightsidenav">
+        <RightSideBarItems />
+        <RightSideBarTotal />
         <Stylesheet sheet={sheet}/>
       </div>
     )

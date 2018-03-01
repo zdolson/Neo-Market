@@ -16,14 +16,19 @@
   width: 100%;
   height: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
 }
 
-button {
-  box-shadow: 0px 0px 10px $blackShadow;
-  &:hover {
-    align-self: end;
-    cursor: crosshair;
-    color: $fuchsia;
-  }
+.profileText {
+  margin-bottom: 25px;
+  margin-left: 10px;
+  font-size: 25px;
+  font-weight: 200;
+}
+
+.downArrowIcon {
+  margin-right: 10px;
+  margin-top: 42px;
 }

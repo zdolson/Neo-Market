@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './leftAccountBarContent.scss'
 
+import DownArrowIcon from '../assets/DownArrowIcon.svg'
+
 /**
 
 @ Alec
@@ -27,7 +29,8 @@ export class LeftAccountBarContent extends Component {
   render () {
     return (
       <div className="leftAccountNavContent">
-        <button onClick={this.neoInteraction}>Press Me Zach</button>
+        <div className="profileText">My Profile</div>
+        <DownArrowIcon className="downArrowIcon"/>
         <Stylesheet sheet={sheet} />
       </div>
     )

@@ -14,9 +14,12 @@ Purpose: Provides spacing and styling to RightSideBar
 **/
 
 .rightsidenav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   width: 175px;
   position: fixed;
-  z-index: 2;
+  z-index: 0;
   top: 100px;
   bottom: 0;
   right: 0;
