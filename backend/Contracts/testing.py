@@ -18,6 +18,7 @@ def isdone(name, addr):
         print("he doesn't fucking exist") 
         return True 
     else: 
+        print("does exist you idiot ")
         return False
 
 """ This is going to be so fucking barebone that it's bare """ 
