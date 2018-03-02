@@ -9,6 +9,7 @@ import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 import Listings from '../components/listings/listings.js'
+import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
 
 /**
 
@@ -57,6 +58,7 @@ export class Index extends Component {
 
     return (
       <main>
+        <FilterDropdown />
         <Listings />
         <TopBar />
         <LeftSideBar />
