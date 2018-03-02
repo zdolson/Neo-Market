@@ -1,7 +1,7 @@
 this is a quick README guide on how to run the contract if you want to 
 
 1. install docker 
-2.there really isn't a need to install neo-python but you should anyways 
+2. there really isn't a need to install neo-python but you should anyways 
     2.1 https://github.com/CityOfZion/neo-python/
 3. download docker and pull https://hub.docker.com/r/metachris/neo-privnet-with-gas/
 4. then docker run the file, the command is inside the link
