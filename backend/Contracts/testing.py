@@ -2,7 +2,7 @@
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
-from serialize import serialize_array, serialize_var_length_item
+# from serialize import serialize_array, serialize_var_length_item
 from boa.code.builtins import list, concat
 
 # this registers a user to their addr in the ocntract
@@ -12,8 +12,8 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        lists = list(length=100)
-        bLists = serialize_array(lists)
+        # lists = list(length=100)
+        # bLists = serialize_array(lists)
         Put(GetContext, name, addr)
         # Put(GetContext, addr, bLists) 
         print("finish registering") 
