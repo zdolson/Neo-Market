@@ -45,7 +45,7 @@ def buy(buyerAddr, sellerAddr, title, amount):
     if title not in sellerExist:
         print("item does not exist") 
         return False 
-    else if title in sellerExist: 
+    elif title in sellerExist: 
         pass ## check for the amount in the list 
 
         # test on how to work with the listings first tho
