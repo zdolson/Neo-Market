@@ -1,4 +1,5 @@
 this is a quick README guide on how to run the contract if you want to 
+this is a rough version of the README.md 
 
 1. install docker 
 2. there really isn't a need to install neo-python but you should anyways 
