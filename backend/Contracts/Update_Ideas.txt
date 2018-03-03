@@ -1,0 +1,6 @@
+### This is a random TODO and update list in case
+
+1. create a list of listings with a default character of 'a' so I can store it 
+
+In the case the list of lists does not work as expected: 
+1. add 1-100 values to the addr and store each list into it, it may take more storage
