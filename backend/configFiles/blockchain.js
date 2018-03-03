@@ -4,6 +4,7 @@ const config = require('./config')
 const axios = require("axios")
 const util = require("./util.js")
 
+
 module.exports = {
 
     getBalance: (address) => {
@@ -34,10 +35,31 @@ module.exports = {
     },
 
     executeTransaction: (fromAccount, invoke, gasCost, intents = []) => {
-        return module.exports.getBalance(fromAccount.address).then((balances) => {
-            const unsignedTx = neon.tx.Transaction.createInvocationTx(balances, intents, invoke, gasCost, {version: 1})
+        console.log('blockchain.js: executeTransaction(): BEGINNING VARIABLES: ')
+        console.log(fromAccount)
+        console.log(invoke)
+        console.log(gasCost)
+        console.log(intents)
+        let newAccount = new neon.wallet.Account(config.wif);
+        let net = 'http://neo-privatenet:5000/'
+        // neon.api.neonDB.getBalance(net, account.address)
+        return neon.api.neonDB.getBalance(net, newAccount.address).then((balances) => {
+            console.log('blockchain.js: executeTransaction(): return: ')
+            console.log('blockchain.js: executeTransaction(): return: balances: ')
+            console.log(balances)
+            // console.log(typeof (invoke))
+            console.log(invoke)
+            const newScript = Neon.create.script(invoke)
+            // ISSUE IS HERE WITH THE UNSIGNEDTX!
+            const unsignedTx = neon.tx.Transaction.createInvocationTx(balances, intents, newScript, gasCost, {})
+            console.log('blockchain.js: executeTransaction(): return: unsignedTx: ')
+            console.log(unsignedTx.attributes)
             const signedTx = neon.tx.signTransaction(unsignedTx, fromAccount.privateKey)
+            console.log('blockchain.js: executeTransaction(): return: signedTx: ')
+            console.log(signedTx.attributes)
             const hexTx = neon.tx.serializeTransaction(signedTx)
+            console.log('blockchain.js: executeTransaction(): return: hexTx: ')
+            console.log(hexTx)
             return module.exports.queryRPC(
                 'sendrawtransaction',
                 [hexTx]
@@ -75,13 +97,18 @@ module.exports = {
             operation: operation,
             args: hexArgs
         }
+        console.log('blockchain.js: testContract(): vmScript: ')
         // Returns vmScript as a hexstring
         const vmScript = Neon.create.script(props)
+        console.log(vmScript)
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
             return neon.rpc.Query.invokeScript(vmScript)
                 .execute(rpcEndpoint)
                 .then((res) => {
                     callback(res)
+                    console.log('blockchain.js: testContract(): result: ')
+                    console.log(res)
+                    console.log('blockchain.js: testContract(): END. ')
                 })
         })
     },
@@ -101,16 +128,27 @@ module.exports = {
         const props = {
             scriptHash: scriptHash,
             operation: operation,
-            args: hexArgs
+            args: hexArgs,
         }
+        console.log('blockchain.js: invokeContract(): vmScript: ')
         // Returns vmScript as a hexstring
         const vmScript = Neon.create.script(props)
+        console.log(vmScript)
+
         //Test the transaction
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
             return neon.rpc.Query.invokeScript(vmScript)
                 .execute(rpcEndpoint)
                 .then((res) => {
+                    console.log('blockchain.js: invokeContract(): invokeScript() result: ')
+                    console.dir(res)
                     if (res.result.state === 'HALT, BREAK') {
+                        console.log('blockchain.js: invokeContract(): HALT, BREAK: ')
+                        console.log('blockchain.js: invokeContract(): vars(account, invoke, gasCost, intents) ')
+                        console.log(account)
+                        console.log(invoke)
+                        console.log(gasCost)
+                        console.log(intents)
                         //Execute the transaction
                         module.exports.executeTransaction(account, invoke, gasCost, intents).then(res => {
                             if (res !== undefined)
@@ -125,4 +163,3 @@ module.exports = {
         })
     }
 }
-
