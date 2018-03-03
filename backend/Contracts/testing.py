@@ -2,6 +2,8 @@
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
+from serialize import serialize_array, serialize_var_length_item
+from boa.code.builtins import list, concat
 
 # this registers a user to their addr in the ocntract
 # then it registers their address to a list of list 
@@ -9,8 +11,10 @@ def register(name, addr):
     a = Get(GetContext, name) 
     print("checking if user exist") 
     if not a: 
-        print("user does not exist - registering") 
+        print("user does not exist - registering")
+        lists = serialize_array(list(length=100))
         Put(GetContext, name, addr)
+        Put(GetContext, addr, lists)
     else: 
         print("user already exist") 
     return True
@@ -28,7 +32,27 @@ def isregister(name, addr):
 # this uses the buyer's address to purchase the address of the seller 
 # perhaps the item of the seller and the amount of it
 def buy(buyerAddr, sellerAddr, title, amount): 
-    pass
+    buyerExist = Get(GetContext, buyerAddr)
+    if not buyerExist:
+        print("buyer does not exist")
+        return False
+    
+    sellerExist = Get(GetContext, sellerAddr)
+    if not sellerExist: 
+        print("seller does not exist") 
+        return False 
+
+    if title not in sellerExist:
+        print("item does not exist") 
+        return False 
+    else if title in sellerExist: 
+        pass ## check for the amount in the list 
+
+        # test on how to work with the listings first tho
+
+    print("purchased")
+    # after purchasing, how do I confirm it actually goes through for the user?
+    return True     
 
 
 # this creates the posting and appens that list of params 
