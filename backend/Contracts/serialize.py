@@ -81,4 +81,4 @@ def serialize_var_length_item(item):
 
     out = concat(byte_len, stuff_len)
 
-return out
+    return out
