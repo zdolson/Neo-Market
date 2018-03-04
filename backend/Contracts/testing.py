@@ -12,14 +12,14 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        lists = list(length=10)
-        # bLists = serialize_array(lists)
+        lists = list[]
+        bLists = serialize_array(lists)
         Put(GetContext, name, addr)
-        print("entering the list into the context")
         Put(GetContext, addr, lists) 
-        print("finish registering") 
+        print("finish registering")
     else: 
-        print("user already exist") 
+        print("user already exist")
+        return False 
     return True
 
 # this checks if the user is registered or not
@@ -27,10 +27,10 @@ def isregister(name, addr):
     a = Get(GetContext, name) 
     if not a:
         print("there is no user in contract") 
-        return True 
+        return False
     else: 
         print("user is in contract")
-        return False
+        return True
 
 # this uses the buyer's address to purchase the address of the seller 
 # perhaps the item of the seller and the amount of it
