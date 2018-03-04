@@ -2,7 +2,7 @@
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
-# from serialize import serialize_array, serialize_var_length_item
+from serialize import serialize_array, serialize_var_length_item, deserialize_bytearray
 from boa.code.builtins import list, concat
 
 # this registers a user to their addr in the ocntract
@@ -12,13 +12,14 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        # lists = list(length=100)
-        # bLists = serialize_array(lists)
+        lists = list[]
+        bLists = serialize_array(lists)
         Put(GetContext, name, addr)
-        # Put(GetContext, addr, bLists) 
-        print("finish registering") 
+        Put(GetContext, addr, lists) 
+        print("finish registering")
     else: 
-        print("user already exist") 
+        print("user already exist")
+        return False 
     return True
 
 # this checks if the user is registered or not
@@ -26,10 +27,10 @@ def isregister(name, addr):
     a = Get(GetContext, name) 
     if not a:
         print("there is no user in contract") 
-        return True 
+        return False
     else: 
         print("user is in contract")
-        return False
+        return True
 
 # this uses the buyer's address to purchase the address of the seller 
 # perhaps the item of the seller and the amount of it
