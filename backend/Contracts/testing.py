@@ -61,12 +61,34 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params 
 # to the list of list (backlog) at the moment
 def createPost(owner, title, desc, price, amount): 
-    pass 
+    if(isregister(owner)):
+        postInfo = list(length=5)
+        postInfo[0] = owner
+        postInfo[1] = title
+        postInfo[2] = desc
+        postInfo[3] = price
+        postInfo[4] = amount
+        serializedPost = serialize_array(postInfo)
+        Put(GetContext, owner, serializedPost)
+        return True
+    else:
+        return False 
 
 # this is a getter for createPost and gets the selected list and returns it 
 # more descriptions to come *backlog*
 def getPost(owner, title): 
-    pass 
+    pubAddress = Get(GetContext, owner)
+    postInfo = Get(GetContext, pubAddress)
+    print("Public Address: " , pubAddress)
+    print("Post info: " , postInfo)
+    dpostInfo = deserialize_bytearray(postInfo)
+    print("ITEMS IN POST")
+    for index in dpostInfo:
+        print(index) 
+
+def deletePost(owner,postindex):
+    #postindex is in backlog
+    Delete(GetContext,owner)
 
 # this is to check if it was possible to build a class in neo-python and 
 # return true if it does, that's it 
@@ -114,6 +136,21 @@ def Main(operation, args):
         d = args[3] 
         e = args[4]
         getclass(a, b, c, d, e)
+    elif operation == "createpost":
+        owner = args[0]
+        title = args[1]
+        desc = args[2]
+        price = args[3]
+        amount = args[4]
+        createPost(owner, title, desc, price, amount)
+    elif operation == 'getpost':
+        owner = args[0]
+        title = args[1]
+        getPost(owner,title)
+    elif operation == 'deletepost':
+        owner = args[0]
+        postIndex = args[1]
+        deletePost(owner,postIndex)
     else:
         print("no op exist - ")
         print(operation) 
