@@ -2,7 +2,7 @@
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
-# from serialize import serialize_array, serialize_var_length_item
+from serialize import serialize_array, serialize_var_length_item, deserialize_bytearray
 from boa.code.builtins import list, concat
 
 # this registers a user to their addr in the ocntract
