@@ -82,10 +82,13 @@ module.exports = {
         } else {
             key = util.str2hex(key)
         }
+        console.log(key)
         return module.exports.queryRPC(
             'getstorage',
             [config.scriptHash, key]
         ).then(function (res) {
+            console.log('blockchain.js: getStorage(): result:')
+            console.log(res)
             return util.hex2str(res.result)
         })
     },

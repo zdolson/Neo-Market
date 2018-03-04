@@ -5,6 +5,7 @@ const neon = require('@cityofzion/neon-js');
 const Neon = neon.default;
 const node = require('../../../backend/configFiles/blockchain')
 const config = require('../../../backend/configFiles/config')
+const util = require('../../../backend/configFiles/util')
 const account = Neon.create.account(config.wif)
 
 /**
@@ -34,14 +35,16 @@ export class AccountBarContent extends Component {
     console.log(myBalanceFromAccount)
     console.log('accountBarContent.js: node.getRPCEndpoint(): ')
     console.log(node.getRPCEndpoint())
+    console.log(util.str2hex('1'))
+
     // Invoke a smart contract with a method and an array of strings
     // console.log('Continuing on to testContract and invokeContract')
 
-    node.testContract('register', ['zack','123'], (res) => {
+    node.testContract('register', ['123','zack'], (res) => {
         console.log('accountBarContent.js: node.testContract: ')
         console.dir(res)
     })
-    node.invokeContract('register', ['zack','123'], account, (res) => {
+    node.invokeContract('register', ['123','zack'], account, (res) => {
         console.log('accountBarContent.js: node.invokeContract(): ')
         console.dir(res)
         if (res.result === true) {
@@ -49,6 +52,13 @@ export class AccountBarContent extends Component {
             console.log('accountBarContent.js: invokeContract(): Transaction successful.')
         } else {
             console.log('accountBarContent.js: invokeContract(): Transaction failed.')
+        }
+    })
+
+    node.getStorage('123').then((res) => {
+        if (typeof res === "string") {
+            console.log(res)
+            console.dir(res)
         }
     })
 
