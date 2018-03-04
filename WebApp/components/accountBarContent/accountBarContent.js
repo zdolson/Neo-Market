@@ -26,25 +26,32 @@ export class AccountBarContent extends Component {
   }
 
   neoInteraction = () => {
-    console.log("Put Neo functionality here!!!")
     var myBalance = node.getBalance('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y')
+    console.log('accountBarContent.js: Balance from getBalance(manualAddress): ')
     console.log(myBalance)
+    var myBalanceFromAccount = node.getBalance(account.address)
+    console.log('accountBarContent.js: Balance from getBalance(account.address): ')
+    console.log(myBalanceFromAccount)
+    console.log('accountBarContent.js: node.getRPCEndpoint(): ')
     console.log(node.getRPCEndpoint())
-
     // Invoke a smart contract with a method and an array of strings
-    /*
-    console.log("Hello World")
-    console.log('DJAOWIJDIWAJDOJAWOIDJ')
-    node.invokeContract('register', ['zack', 'Hello World!'], account, (res) => {
-        console.log('inside of invokeContract from accountBarContents.js')
+    // console.log('Continuing on to testContract and invokeContract')
+
+    node.testContract('register', ['zack','123'], (res) => {
+        console.log('accountBarContent.js: node.testContract: ')
+        console.dir(res)
+    })
+    node.invokeContract('register', ['zack','123'], account, (res) => {
+        console.log('accountBarContent.js: node.invokeContract(): ')
+        console.dir(res)
         if (res.result === true) {
             // Transaction successful. The stored data can be retrieved on the next block.
-            console.log('Transaction processed!')
+            console.log('accountBarContent.js: invokeContract(): Transaction successful.')
         } else {
-            console.log('Transaction has not been processed.')
+            console.log('accountBarContent.js: invokeContract(): Transaction failed.')
         }
     })
-    */
+
   }
 
   render () {
