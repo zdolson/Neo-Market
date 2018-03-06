@@ -51,7 +51,16 @@ def buy(buyerAddr, sellerAddr, title, amount):
         print("item does not exist") 
         return False 
     elif title in sellerExist: 
-        pass ## check for the amount in the list 
+        ## check for the amount in the list
+        # subtrack the number of amounts from the list 
+        listings = deserialize_bytearray(sellerExist)
+        sellerAmount = listings[5] 
+        if (amount - sellerAmount) == 0: 
+            print("transaction done here and confirmed")
+            return True 
+        elif (amount - sellerAmount) < 0: 
+            print("seller does not have enough amount")
+            return False  
 
         # test on how to work with the listings first tho
 
