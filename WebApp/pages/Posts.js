@@ -10,7 +10,6 @@ import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js'
 
 // Imports for the individual page components
 import listingsPage from '../components/listingsPage/listingsPage.js'
@@ -22,6 +21,7 @@ import promosPage from '../components/promosPage/promosPage.js';
 import purchasesPage from '../components/purchasesPage/purchasesPage.js';
 import peoplePage from '../components/peoplePage/peoplePage.js';
 import checkOutPage from '../components/checkOutPage/checkOutPage.js';
+
 
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
@@ -36,7 +36,7 @@ Purpose: Posts page component to allow for navigation to the posts page.
 
 **/
 
-export class Index extends Component {
+export class Posts extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -48,7 +48,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.debug('Posts.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -79,9 +79,11 @@ export class Index extends Component {
             <TopBar />
             <LeftSideBar />
             <RightSideBar />
+            <LeftAccountBar />
+            <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
             <Route path="/Forums" component={forumsPage} />
             <Route path="/Wallet" component={walletPage} />
@@ -91,14 +93,12 @@ export class Index extends Component {
             <Route path="/People" component={peoplePage} />
             <Route path="/CheckOut" component={checkOutPage} />
 
+
           </div>
         </Router>
-        <MoreInfoListing />
-            <LeftAccountBar />
-            <RightAccountBar />
       </main>
     )
   }
 }
 
-export default Index
+export default Posts

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
-import sheet from './listings.scss'
+import sheet from './listingsPage.scss'
 import Listing from '../listing/listing.js'
 
 /**
@@ -15,7 +15,7 @@ TODO: do we need to add props logic?
 
 **/
 
-export class Listings extends Component {
+export class listingsPage extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -32,4 +32,4 @@ export class Listings extends Component {
   }
 }
 
-export default Listings;
+export default listingsPage;

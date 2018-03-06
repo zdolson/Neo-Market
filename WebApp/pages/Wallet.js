@@ -10,7 +10,6 @@ import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js'
 
 // Imports for the individual page components
 import listingsPage from '../components/listingsPage/listingsPage.js'
@@ -32,11 +31,11 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page. 
+Purpose: Wallet page component to allow for navigation to the posts page. 
 
 **/
 
-export class Index extends Component {
+export class Wallet extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -48,7 +47,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.debug('Wallet.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -74,16 +73,17 @@ export class Index extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-
+          
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
             <RightSideBar />
+            <LeftAccountBar />
+            <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
-            <Route path="/Forums" component={forumsPage} />
             <Route path="/Wallet" component={walletPage} />
             <Route path="/Trash" component={trashPage} />
             <Route path="/Promos" component={promosPage} />
@@ -93,12 +93,9 @@ export class Index extends Component {
 
           </div>
         </Router>
-        <MoreInfoListing />
-            <LeftAccountBar />
-            <RightAccountBar />
       </main>
     )
   }
 }
 
-export default Index
+export default Wallet
