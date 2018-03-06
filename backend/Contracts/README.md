@@ -30,4 +30,4 @@
 ```contract search <contract_name> ```
 7. Test whatever function you like or the contract in general
 ```testinvoke hash_addresss function [args]```
-(NOTE: contracts could have no input values so no <function> or <arg>)
+(NOTE: contracts could have no input values)
