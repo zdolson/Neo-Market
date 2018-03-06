@@ -27,7 +27,7 @@ class ListingPic extends Component {
 
   render () {
     return (
-      <div class='listingPic'>
+      <div className='listingPic'>
         <Galaxy className="galaxy"/>
         <Grumpy className="grumpy"/>
         <Stylesheet sheet={sheet} />

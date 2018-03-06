@@ -30,11 +30,11 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page. 
+Purpose: Promos page component to allow for navigation to the posts page. 
 
 **/
 
-export class Index extends Component {
+export class Promos extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -46,7 +46,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.debug('Promos.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -72,7 +72,7 @@ export class Index extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-
+          
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
@@ -81,7 +81,7 @@ export class Index extends Component {
             <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
             <Route path="/Forums" component={forumsPage} />
             <Route path="/Wallet" component={walletPage} />
@@ -96,4 +96,4 @@ export class Index extends Component {
   }
 }
 
-export default Index
+export default Promos

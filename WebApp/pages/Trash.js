@@ -30,11 +30,11 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page. 
+Purpose: Trash page component to allow for navigation to the posts page. 
 
 **/
 
-export class Index extends Component {
+export class Trash extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -46,7 +46,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.debug('Trash.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -81,9 +81,9 @@ export class Index extends Component {
             <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
-            <Route path="/Posts" component={makePost} />
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Forums" component={forumsPage} />
+            <Route path="/Posts" component={makePost} />
             <Route path="/Wallet" component={walletPage} />
             <Route path="/Trash" component={trashPage} />
             <Route path="/Promos" component={promosPage} />
@@ -96,4 +96,4 @@ export class Index extends Component {
   }
 }
 
-export default Index
+export default Trash

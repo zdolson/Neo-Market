@@ -1,0 +1,9 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+h3 {
+  text-align: center;
+  line-height: 500px;
+}

@@ -34,7 +34,7 @@ Purpose: Posts page component to allow for navigation to the posts page.
 
 **/
 
-export class Index extends Component {
+export class Posts extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -46,7 +46,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.debug('Posts.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -81,7 +81,7 @@ export class Index extends Component {
             <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
             <Route path="/Forums" component={forumsPage} />
             <Route path="/Wallet" component={walletPage} />
@@ -89,6 +89,7 @@ export class Index extends Component {
             <Route path="/Promos" component={promosPage} />
             <Route path="/Purchases" component={purchasesPage} />
             <Route path="/People" component={peoplePage} />
+
           </div>
         </Router>
       </main>
@@ -96,4 +97,4 @@ export class Index extends Component {
   }
 }
 
-export default Index
+export default Posts
