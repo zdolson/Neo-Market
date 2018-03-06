@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './checkOutPage.scss'
 
+import CheckOutItem from '../checkOutItem/checkOutItem.js'
+
 export class checkOutPage extends Component {
   constructor (props, context) {
     super(props, context)
@@ -11,11 +13,19 @@ export class checkOutPage extends Component {
   }
 
   render () {
-    const { data } = this.props
-    console.debug('Data is ', data)
     return (
-      <div>
-        <h3> checkOutPage </h3>
+      <div className="checkOutPage">
+        <div className="header">
+          <h1> Items </h1>
+        </div>
+
+        <CheckOutItem />
+        <CheckOutItem />
+        
+        <div className="checkOutTotal">
+          <h1> Total:  </h1>
+        </div>
+
         <Stylesheet sheet={sheet} />
       </div>
     )

@@ -36,3 +36,17 @@ Purpose: Provides spacing for an individual row in the LeftSideBar
   align-self: center;
   justify-self: start;
 }
+
+a {
+  margin-left: 10%;
+  align-self: center;
+  font: $base-font-family;
+  text-decoration: none;
+  justify-self: start;
+  color: #BDBDBD;
+}
+
+a:hover {
+    color: #4285F4;
+    text-decoration: none;
+}
