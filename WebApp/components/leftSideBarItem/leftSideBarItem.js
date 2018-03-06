@@ -11,14 +11,6 @@ import TrashIcon from '../assets/TrashIcon.svg'
 import WalletIcon from '../assets/WalletIcon.svg'
 import PromosIcon from '../assets/PromosIcon.svg'
 
-// Import for react-router package.
-import {
-  Route,
-  NavLink,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
-
 /**
 
 @ Alec
@@ -42,7 +34,7 @@ export class LeftSideBarItem extends Component {
   components = {
     Forums: ForumsIcon,
     Listings: ListingsIcon,
-    Posts: MyPostsIcon,
+    MyPosts: MyPostsIcon,
     People: PeopleIcon,
     Purchases: PurchasesIcon,
     Trash: TrashIcon,
@@ -52,13 +44,11 @@ export class LeftSideBarItem extends Component {
 
   render () {
     const IconName = this.components[this.props.title.replace(/ /, "")]
-    var title = "/" + this.props.title
-
     console.log("IconComponent: "+IconName)
     return (
       <div className="navItem">
         <IconName className="itemIcon"/>
-        <NavLink to={title}> {this.props.title} </NavLink>
+        <a className="itemLink" href="#"> {this.props.title} </a>
         <Stylesheet sheet={item} />
       </div>
     )
