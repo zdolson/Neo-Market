@@ -15,7 +15,7 @@ def register(name, addr):
         lists = list()
         bLists = serialize_array(lists)
         Put(GetContext, name, addr)
-        Put(GetContext, addr, lists) 
+        Put(GetContext, addr, bLists) 
         print("finish registering")
     else: 
         print("user already exist")
