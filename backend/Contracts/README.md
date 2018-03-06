@@ -6,7 +6,7 @@
 ```docker exec -it neo-privatenet /bin/bash ```
 4. go into opt/neo-python 
 5. download the start.sh script file to get started 
-```bash https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/start.sh```
+```https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/start.sh```
 
 ## Activating and rebuilding wallet
 1. open wallet and rebuild it 
@@ -31,3 +31,10 @@
 7. Test whatever function you like or the contract in general
 ```testinvoke hash_addresss function [args]```
 (NOTE: contracts could have no input values)
+
+
+## OPTIONAL if something is wrong with the blockchain and you get something something header is ahead 
+Steps to follow: 
+1. stop docker and rerun it again 
+2. or remove the privnet chain and notifications 
+3. hope for the best and let wallet sync first 

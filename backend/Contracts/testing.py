@@ -34,6 +34,9 @@ def isregister(name, addr):
 
 # this uses the buyer's address to purchase the address of the seller 
 # perhaps the item of the seller and the amount of it
+# not sure if the implementation of Neo coins to other addresses is possible so 
+# for right now ill return the address of the user and allow the integration 
+# of the wallet from neon-js on the other hand
 def buy(buyerAddr, sellerAddr, title, amount): 
     buyerExist = Get(GetContext, buyerAddr)
     if not buyerExist:
