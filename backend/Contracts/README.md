@@ -29,5 +29,5 @@
 6. once done, get the hash from the eventlog or with this command: 
 ```contract search <contract_name> ```
 7. Test whatever function you like or the contract in general
-```testinvoke <hash addresss> <function> <args>````
+```testinvoke "hash addresss" "function" "[args]"````
 (NOTE: contracts could have no input values so no <function> or <arg>)
