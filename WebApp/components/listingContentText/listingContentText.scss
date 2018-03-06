@@ -1,0 +1,20 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/27/18
+
+Purpose: Spacing and style for the bottom half of a listing
+
+**/
+
+.listingContentText {
+  text-align: center;
+  width: 100%;
+  flex: 3;
+}

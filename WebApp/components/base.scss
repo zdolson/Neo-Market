@@ -10,9 +10,10 @@ body {
   font: 16px/20px $base-font-family;
   padding: 4em 10vw;
   font-weight: 400;
+  height: auto;
 
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 }
 
 h1, h2, h3, h4 {

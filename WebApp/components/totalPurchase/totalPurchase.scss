@@ -1,0 +1,33 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Victoria
+
+@ 3/4/18
+
+Purpose: Spacing and style for the listing description in the checkOut page
+
+**/
+
+.price{
+  background:#F6A8;
+}
+
+
+.purchaseBtn {
+    background-color: $brightGreen;
+    color: black;
+    border: 2px solid $brightGreen;
+    border-radius: 4px;
+    width: 200px;
+    margin-left: 455px;
+    margin-top: -465px;
+    border: 2px solid transparent;
+    &:hover {
+      border: 2px solid #F45866;
+    }
+}

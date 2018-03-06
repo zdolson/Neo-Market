@@ -3,9 +3,25 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
+import RightSideBar from '../components/rightSideBar/rightSideBar.js'
 import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
-import AccountBar from '../components/accountBar/accountBar.js'
+import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
+import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
+import Listings from '../components/listings/listings.js'
+import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
+import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js'
+
+/**
+
+@ Alec
+
+@ 2/20/18
+
+Purpose: Entry component. Calls all other components.
+          Acts as master component. First Component that is rendered.
+
+**/
 
 export class Index extends Component {
   constructor (props, context) {
@@ -43,9 +59,13 @@ export class Index extends Component {
 
     return (
       <main>
+        <FilterDropdown />
+        <MoreInfoListing />
         <TopBar />
         <LeftSideBar />
-        <AccountBar />
+        <RightSideBar />
+        <LeftAccountBar />
+        <RightAccountBar />
         <Stylesheet sheet={sheet} />
       </main>
     )

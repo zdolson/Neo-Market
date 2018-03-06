@@ -1,0 +1,39 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/26/18
+
+Purpose: provides styling and spacing for RightAccountBarContent
+
+**/
+
+.rightAccountNavContent {
+  align-self: center;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-size: 25px;
+  font-weight: 200;
+  p {
+    margin-top: 35px;
+  }
+}
+
+.cartIcon {
+  margin-left: 10px;
+  margin-bottom: 25px;
+}
+
+.downArrowIcon {
+  margin-right: 10px;
+  margin-bottom: 33px;
+}
