@@ -15,7 +15,7 @@ TODO: do we need to add props logic?
 
 **/
 
-export class Listings extends Component {
+export class CheckOutTableItems extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -25,11 +25,13 @@ export class Listings extends Component {
 
   render () {
     return (
-      <div class='listings'>
-      <Listing />
+      <div class='checkoutItems'>
+      <CheckOutTableItem />
+      <CheckOutTableItem />
+      <CheckOutTableItem />
       </div>
     )
   }
 }
 
-export default Listings;
+export default CheckOutTableItems;
