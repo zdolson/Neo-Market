@@ -4,7 +4,7 @@ import sheet from './checkOutPage.scss'
 
 import CheckOutItem from '../checkOutItem/checkOutItem.js'
 
-export class checkOutPage extends Component {
+export class CheckOutPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -32,4 +32,4 @@ export class checkOutPage extends Component {
   }
 }
 
-export default checkOutPage
+export default CheckOutPage
