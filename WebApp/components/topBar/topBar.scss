@@ -25,6 +25,17 @@ Purpose: Provides styling to the TopBar component
   background: $grey75;
 }
 
+.zachBtn {
+  height: 30px;
+  width: 150px;
+  text-align: center;
+  vertical-align: center;
+  align-self: center;
+  border-radius: 10px;
+  @box-shadow(0 2 10 10 $black);
+  background: $fuchsia;
+}
+
 .logo {
   align-self: center;
   margin-left: 3%;

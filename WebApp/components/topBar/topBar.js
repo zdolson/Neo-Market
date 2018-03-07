@@ -20,12 +20,20 @@ export class TopBar extends Component {
     this.state = {
 
     }
+    this.zachFunc = this.zachFunc.bind(this);
+  }
+
+  zachFunc = () => {
+    console.log("press me zach");
   }
 
   render () {
     return (
       <div className="topnav">
         <LogoIcon className="logo" />
+        <div className="zachBtn" onClick={this.zachFunc}>
+          Property of Zach
+        </div>
         <div className="search">
           <SearchIcon className="searchicon" />
           <div className="searchbubble">
