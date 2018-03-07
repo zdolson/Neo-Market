@@ -20,8 +20,6 @@ import forumsPage from '../components/forumsPage/forumsPage.js';
 import promosPage from '../components/promosPage/promosPage.js';
 import purchasesPage from '../components/purchasesPage/purchasesPage.js';
 import peoplePage from '../components/peoplePage/peoplePage.js';
-import checkOutPage from '../components/checkOutPage/checkOutPage.js';
-
 
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
@@ -91,8 +89,6 @@ export class People extends Component {
             <Route path="/Promos" component={promosPage} />
             <Route path="/Purchases" component={purchasesPage} />
             <Route path="/People" component={peoplePage} />
-            <Route path="/CheckOut" component={checkOutPage} />
-
           </div>
         </Router>
       </main>

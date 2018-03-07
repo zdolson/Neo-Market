@@ -32,7 +32,7 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Forums page component to allow for navigation to the posts page. 
+Purpose: Forums page component to allow for navigation to the posts page.
 
 **/
 
@@ -74,7 +74,7 @@ export class Forums extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-            
+
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />

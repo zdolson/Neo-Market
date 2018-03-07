@@ -5,14 +5,6 @@ import sheet from './rightAccountBarContent.scss'
 import CartIcon from '../assets/CartIcon.svg'
 import DownArrowIcon from '../assets/DownArrowIcon.svg'
 
-// Import for react-router package.
-import {
-  Route,
-  NavLink,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
-
 /**
 
 @ Alec
@@ -39,7 +31,7 @@ export class RightAccountBarContent extends Component {
     return (
       <div className="rightAccountNavContent">
         <CartIcon className="cartIcon"/>
-        <NavLink to={"/CheckOut"}>CheckOut</NavLink>
+        <p>My Cart</p>
         <DownArrowIcon className="downArrowIcon"/>
         <Stylesheet sheet={sheet} />
       </div>

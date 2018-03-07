@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './checkOutPage.scss'
 
-import CheckOutItem from '../checkOutItem/checkOutItem.js'
-
 export class checkOutPage extends Component {
   constructor (props, context) {
     super(props, context)
@@ -13,6 +11,8 @@ export class checkOutPage extends Component {
   }
 
   render () {
+    const { data } = this.props
+    console.debug('Data is ', data)
     return (
       <div className="checkOutPage">
         <div className="header">
