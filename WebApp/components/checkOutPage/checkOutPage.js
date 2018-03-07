@@ -2,7 +2,19 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './checkOutPage.scss'
 
-import CheckOutItem from '../checkOutItem/checkOutItem.js'
+import CheckOutTableItems from '../checkOutTableItems/checkOutTableItems.js'
+import TotalPurchase from '../totalPurchase/totalPurchase.js'
+import CheckOutPageTotalValue from '../checkOutPageTotalValue/checkOutPageTotalValue.js'
+
+/**
+
+@ Nicholas 
+
+@ Date: 03/06/18
+
+Purpose: Component that holds all of the components that is the checkOutPage.
+
+**/
 
 export class checkOutPage extends Component {
   constructor (props, context) {
@@ -19,11 +31,18 @@ export class checkOutPage extends Component {
           <h1> Items </h1>
         </div>
 
-        <CheckOutItem />
-        <CheckOutItem />
-
+        <CheckOutTableItems />
+        
         <div className="checkOutTotal">
           <h1> Total:  </h1>
+        </div>
+
+        <div className="checkOutTotalValue">
+          <CheckOutPageTotalValue />
+        </div>
+
+        <div className="purchaseButton">
+          <h1> <TotalPurchase /> </h1>
         </div>
 
         <Stylesheet sheet={sheet} />

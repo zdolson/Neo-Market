@@ -3,16 +3,11 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
-<<<<<<< HEAD
-import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
-import AccountBar from '../components/accountBar/accountBar.js'
-=======
 // Import for framework components
 import RightSideBar from '../components/rightSideBar/rightSideBar.js'
 import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
 import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
->>>>>>> 07659982387a5780bbe0e273987ec66b55edf311
 import TopBar from '../components/topBar/topBar.js'
 import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
 
