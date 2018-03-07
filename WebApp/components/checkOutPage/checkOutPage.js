@@ -21,7 +21,7 @@ export class checkOutPage extends Component {
 
         <CheckOutItem />
         <CheckOutItem />
-        
+
         <div className="checkOutTotal">
           <h1> Total:  </h1>
         </div>
