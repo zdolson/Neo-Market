@@ -15,7 +15,7 @@ TODO: do we need to add props logic?
 
 **/
 
-export class listingsPage extends Component {
+export class ListingsPage extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
@@ -36,4 +36,4 @@ export class listingsPage extends Component {
   }
 }
 
-export default listingsPage;
+export default ListingsPage;
