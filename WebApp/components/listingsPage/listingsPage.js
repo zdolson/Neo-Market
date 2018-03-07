@@ -3,6 +3,10 @@ import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingsPage.scss'
 import Listing from '../listing/listing.js'
 
+// Import for react-router package.
+import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
+
+
 /**
 
 @ Alec
@@ -26,10 +30,10 @@ export class ListingsPage extends Component {
   render () {
     return (
       <div class='listings'>
-        <Listing />
-        <Listing />
-        <Listing />
-        <Listing />
+        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
+        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
+        <NavLink to='/moreInfoItem'>  <Listing/></NavLink>
+        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
         <Stylesheet sheet={sheet} />
       </div>
     )

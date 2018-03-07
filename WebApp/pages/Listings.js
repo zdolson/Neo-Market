@@ -32,11 +32,11 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page. 
+Purpose: Forums page component to allow for navigation to the posts page. 
 
 **/
 
-export class Posts extends Component {
+export class Listings extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -48,7 +48,7 @@ export class Posts extends Component {
   }
 
   componentDidMount () {
-    console.debug('Posts.js page loaded')
+    console.debug('Forums.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -74,7 +74,7 @@ export class Posts extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-
+          
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
@@ -101,4 +101,4 @@ export class Posts extends Component {
   }
 }
 
-export default Posts
+export default Listings

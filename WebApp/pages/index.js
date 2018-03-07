@@ -21,6 +21,7 @@ import promosPage from '../components/promosPage/promosPage.js';
 import purchasesPage from '../components/purchasesPage/purchasesPage.js';
 import peoplePage from '../components/peoplePage/peoplePage.js';
 import checkOutPage from '../components/checkOutPage/checkOutPage.js';
+import moreInfoListing from '../components/moreInfoListing/moreInfoListing.js';
 
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
@@ -82,7 +83,7 @@ export class Index extends Component {
             <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
-            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
             <Route path="/Forums" component={forumsPage} />
             <Route path="/Wallet" component={walletPage} />
@@ -91,6 +92,7 @@ export class Index extends Component {
             <Route path="/Purchases" component={purchasesPage} />
             <Route path="/People" component={peoplePage} />
             <Route path="/CheckOut" component={checkOutPage} />
+            <Route path="/moreInfoItem" component={moreInfoListing} />
 
           </div>
         </Router>
