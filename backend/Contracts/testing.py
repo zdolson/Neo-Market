@@ -2,7 +2,7 @@
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
-# from serialize import serialize_array, serialize_var_length_item
+from serialize import serialize_array, serialize_var_length_item, deserialize_bytearray
 from boa.code.builtins import list, concat
 
 # this registers a user to their addr in the ocntract
@@ -12,13 +12,14 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        # lists = list(length=100)
-        # bLists = serialize_array(lists)
+        lists = list()
+        bLists = serialize_array(lists)
         Put(GetContext, name, addr)
-        # Put(GetContext, addr, bLists) 
-        print("finish registering") 
+        Put(GetContext, addr, bLists) 
+        print("finish registering")
     else: 
-        print("user already exist") 
+        print("user already exist")
+        return False 
     return True
 
 # this checks if the user is registered or not
@@ -26,13 +27,16 @@ def isregister(name, addr):
     a = Get(GetContext, name) 
     if not a:
         print("there is no user in contract") 
-        return True 
+        return False
     else: 
         print("user is in contract")
-        return False
+        return True
 
 # this uses the buyer's address to purchase the address of the seller 
 # perhaps the item of the seller and the amount of it
+# not sure if the implementation of Neo coins to other addresses is possible so 
+# for right now ill return the address of the user and allow the integration 
+# of the wallet from neon-js on the other hand
 def buy(buyerAddr, sellerAddr, title, amount): 
     buyerExist = Get(GetContext, buyerAddr)
     if not buyerExist:
@@ -60,12 +64,34 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params 
 # to the list of list (backlog) at the moment
 def createPost(owner, title, desc, price, amount): 
-    pass 
+    if(isregister(owner)):
+        postInfo = list(length=5)
+        postInfo[0] = owner
+        postInfo[1] = title
+        postInfo[2] = desc
+        postInfo[3] = price
+        postInfo[4] = amount
+        serializedPost = serialize_array(postInfo)
+        Put(GetContext, owner, serializedPost)
+        return True
+    else:
+        return False 
 
 # this is a getter for createPost and gets the selected list and returns it 
 # more descriptions to come *backlog*
 def getPost(owner, title): 
-    pass 
+    pubAddress = Get(GetContext, owner)
+    postInfo = Get(GetContext, pubAddress)
+    print("Public Address: " , pubAddress)
+    print("Post info: " , postInfo)
+    dpostInfo = deserialize_bytearray(postInfo)
+    print("ITEMS IN POST")
+    for index in dpostInfo:
+        print(index) 
+
+def deletePost(owner,postindex):
+    #postindex is in backlog
+    Delete(GetContext,owner)
 
 # this is to check if it was possible to build a class in neo-python and 
 # return true if it does, that's it 
@@ -113,6 +139,21 @@ def Main(operation, args):
         d = args[3] 
         e = args[4]
         getclass(a, b, c, d, e)
+    elif operation == "createpost":
+        owner = args[0]
+        title = args[1]
+        desc = args[2]
+        price = args[3]
+        amount = args[4]
+        createPost(owner, title, desc, price, amount)
+    elif operation == 'getpost':
+        owner = args[0]
+        title = args[1]
+        getPost(owner,title)
+    elif operation == 'deletepost':
+        owner = args[0]
+        postIndex = args[1]
+        deletePost(owner,postIndex)
     else:
         print("no op exist - ")
         print(operation) 

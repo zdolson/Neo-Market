@@ -1,19 +1,40 @@
-this is a quick README guide on how to run the contract if you want to 
+## To test smart contracts in docker and the privnet in general 
+1. Follow the Prerequisites from the previous page from the README on backend
+2. Once docker is installed, use this command: 
+```docker run --rm -d --name neo-privatenet -p 20333-20336:20333-20336/tcp -p 30333-30336:30333-30336/tcp cityofzion/neo-privatenet ```
+3. go inside the selected docker container: 
+```docker exec -it neo-privatenet /bin/bash ```
+4. go into opt/neo-python 
+5. download the start.sh script file to get started 
+```https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/start.sh```
 
-1. install docker 
-2. there really isn't a need to install neo-python but you should anyways 
-2.1. https://github.com/CityOfZion/neo-python/
-3. download docker and pull https://hub.docker.com/r/metachris/neo-privnet-with-gas/
-4. then docker run the file, the command is inside the link
-5. run: docker exec -it neo-privatenet /bin/bash 
-6. go to opt/neo-python 
-7. curl https://github.com/zdolson/Neo-Market/blob/master/backend/Contracts/start.sh -o start.sh 
-8. chmod 777 start.sh then ./start.sh 
-8.1. this will give you all the files required to play around with our current smart contract 
-9. go to prompt.py -p using this: python3 prompt.py -p 
-10. open wallet w1.wallet and wallet rebuild to get your funding and wait a bit for the blockchain to finsh
-11. python3 compile.py testing.py 
-12. go back to prompt.py, "import contract testing.avm 0710 05 True False" 
-13. contract search {contract_name} and copy the hash
-14. testinvoke <hash_number> <op_call> [args] 
-15. wait a bit and you'll see the real-time event log and you're set.
+## Activating and rebuilding wallet
+1. open wallet and rebuild it 
+```python3 prompt.py -p```
+```open wallet w1.wallet``` 
+2. the password is "coz" 
+3. rebuild the wallet 
+```wallet rebuild```
+4. to check the content of the wallet, type: wallet 
+
+## To deploy contract 
+1. Find the file you would like to deploy 
+2. compile the file into avm
+```python3 compile.py <filename>.py``` 
+3. go back into the virtual machine with prompt.py 
+4. inside, use this command 
+```import contract <filename>.avm 0710 05 True False```
+(NOTE: I will get back to this on defining what these cases are)
+5. Wait a few second to a few minutes until it says transaction is done
+6. once done, get the hash from the eventlog or with this command: 
+```contract search <contract_name> ```
+7. Test whatever function you like or the contract in general
+```testinvoke hash_addresss function [args]```
+(NOTE: contracts could have no input values)
+
+
+## OPTIONAL if something is wrong with the blockchain and you get something something header is ahead 
+Steps to follow: 
+1. stop docker and rerun it again 
+2. or remove the privnet chain and notifications 
+3. hope for the best and let wallet sync first 
