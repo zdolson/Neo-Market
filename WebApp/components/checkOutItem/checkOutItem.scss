@@ -8,6 +8,14 @@
   width: 100%;
   flex: 3;
   background: blue;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid transparent;
+  &:hover {
+    border: 2px solid $brightGreen;
+  }
 }
 
 h1 {
