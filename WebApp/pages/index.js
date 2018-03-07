@@ -10,7 +10,6 @@ import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
 import TopBar from '../components/topBar/topBar.js'
 import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js'
 
 // Imports for the individual page components
 import listingsPage from '../components/listingsPage/listingsPage.js'
@@ -32,7 +31,7 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page. 
+Purpose: Posts page component to allow for navigation to the posts page.
 
 **/
 
@@ -79,6 +78,8 @@ export class Index extends Component {
             <TopBar />
             <LeftSideBar />
             <RightSideBar />
+            <LeftAccountBar />
+            <RightAccountBar />
 
             <Route exact path="/" component={listingsPage}/>
             <Route exact path="/Listings" component={listingsPage}/>
@@ -93,9 +94,6 @@ export class Index extends Component {
 
           </div>
         </Router>
-        <MoreInfoListing />
-            <LeftAccountBar />
-            <RightAccountBar />
       </main>
     )
   }
