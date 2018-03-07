@@ -1,0 +1,24 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/21/18
+
+Purpose: Provides styling and spacing for LeftAccountBar
+
+**/
+
+.leftAccountNav {
+  position: fixed;
+  display: flex;
+  top: 50px;
+  left: 0;
+  height: 50px;
+  width: 175px;
+  background: $grey60;
+}

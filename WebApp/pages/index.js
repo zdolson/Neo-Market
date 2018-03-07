@@ -3,9 +3,42 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
 
+<<<<<<< HEAD
 import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
 import AccountBar from '../components/accountBar/accountBar.js'
+=======
+// Import for framework components
+import RightSideBar from '../components/rightSideBar/rightSideBar.js'
+import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
+import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
+import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
+>>>>>>> 07659982387a5780bbe0e273987ec66b55edf311
 import TopBar from '../components/topBar/topBar.js'
+import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
+
+// Imports for the individual page components
+import listingsPage from '../components/listingsPage/listingsPage.js'
+import makePost from '../components/makePost/makePost.js';
+import walletPage from '../components/walletPage/walletPage.js';
+import trashPage from '../components/trashPage/trashPage.js';
+import forumsPage from '../components/forumsPage/forumsPage.js';
+import promosPage from '../components/promosPage/promosPage.js';
+import purchasesPage from '../components/purchasesPage/purchasesPage.js';
+import peoplePage from '../components/peoplePage/peoplePage.js';
+import checkOutPage from '../components/checkOutPage/checkOutPage.js';
+
+// Import for react-router package.
+import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Posts page component to allow for navigation to the posts page. 
+
+**/
 
 export class Index extends Component {
   constructor (props, context) {
@@ -19,7 +52,7 @@ export class Index extends Component {
   }
 
   componentDidMount () {
-    console.debug('Loaded')
+    console.debug('index.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -43,10 +76,29 @@ export class Index extends Component {
 
     return (
       <main>
-        <TopBar />
-        <LeftSideBar />
-        <AccountBar />
-        <Stylesheet sheet={sheet} />
+        <Router>
+          <div className="routingPaths">
+
+            <FilterDropdown />
+            <TopBar />
+            <LeftSideBar />
+            <RightSideBar />
+            <LeftAccountBar />
+            <RightAccountBar />
+
+            <Route exact path="/" component={listingsPage}/>
+            <Route exact path="/Listings" component={listingsPage}/>
+            <Route path="/Posts" component={makePost} />
+            <Route path="/Forums" component={forumsPage} />
+            <Route path="/Wallet" component={walletPage} />
+            <Route path="/Trash" component={trashPage} />
+            <Route path="/Promos" component={promosPage} />
+            <Route path="/Purchases" component={purchasesPage} />
+            <Route path="/People" component={peoplePage} />
+            <Route path="/CheckOut" component={checkOutPage} />
+
+          </div>
+        </Router>
       </main>
     )
   }

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
-// import { sideBarTitles } from '../data.js'
 import LogoIcon from '../assets/Logo.svg'
+import SearchIcon from '../assets/SearchIcon.svg'
 
 /**
 
@@ -14,7 +14,7 @@ Purpose: TopBar component; Provides template for top nav bar
 
 **/
 
-export class SideBar extends Component {
+export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -25,11 +25,17 @@ export class SideBar extends Component {
   render () {
     return (
       <div className="topnav">
-        <LogoIcon />
-        <Stylesheet sheet={sheet}/>
+        <LogoIcon className="logo" />
+        <div className="search">
+          <SearchIcon className="searchicon" />
+          <div className="searchbubble">
+            search...
+          </div>
+        </div>
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }
 }
 
-export default SideBar
+export default TopBar
