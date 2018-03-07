@@ -26,7 +26,11 @@ export class listingsPage extends Component {
   render () {
     return (
       <div class='listings'>
-      <Listing />
+        <Listing />
+        <Listing />
+        <Listing />
+        <Listing />
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }
