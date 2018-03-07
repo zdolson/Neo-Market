@@ -2,7 +2,17 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './peoplePage.scss'
 
-export class peoplePage extends Component {
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Component page for logic/render for the people page.
+
+**/
+
+export class PeoplePage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -26,4 +36,4 @@ export class peoplePage extends Component {
   }
 }
 
-export default peoplePage
+export default PeoplePage

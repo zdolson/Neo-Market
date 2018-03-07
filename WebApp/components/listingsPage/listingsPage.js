@@ -17,6 +17,13 @@ import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
 
 TODO: do we need to add props logic?
 
+@ Nicholas 
+
+@ Updated 03/08/2018
+
+@ Purpose: Updated the listing items to be linked with a hard-coded URL. Will need to change this later to
+           have actual logic.
+
 **/
 
 export class ListingsPage extends Component {

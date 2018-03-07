@@ -2,7 +2,17 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './trashPage.scss'
 
-export class trashPage extends Component {
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Component page for logic/render for the Trash.
+
+**/
+
+export class TrashPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -22,4 +32,4 @@ export class trashPage extends Component {
   }
 }
 
-export default trashPage
+export default TrashPage

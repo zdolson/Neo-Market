@@ -16,7 +16,7 @@ Purpose: Component that holds all of the components that is the checkOutPage.
 
 **/
 
-export class checkOutPage extends Component {
+export class CheckOutPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -51,4 +51,4 @@ export class checkOutPage extends Component {
   }
 }
 
-export default checkOutPage
+export default CheckOutPage

@@ -1,7 +1,17 @@
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 
-export class moreInfoPage extends Component {
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Component page for logic/render for the more information page.
+
+**/
+
+export class MoreInfoPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -21,4 +31,4 @@ export class moreInfoPage extends Component {
   }
 }
 
-export default moreInfoPage
+export default MoreInfoPage

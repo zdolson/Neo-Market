@@ -2,23 +2,17 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './makePost.scss'
 
-import RightSideBar from '../rightSideBar/rightSideBar.js'
-import LeftSideBar from '../leftSideBar/leftSideBar.js'
-import LeftAccountBar from '../leftAccountBar/leftAccountBar.js'
-import RightAccountBar from '../rightAccountBar/rightAccountBar.js'
-import TopBar from '../topBar/topBar.js'
-import FilterDropdown from '../filterDropdown/filterDropdown.js'
+/**
 
-// Imports for the page components
-import listingsPage from '../listingsPage/listingsPage.js'
-import walletPage from '../walletPage/walletPage.js';
-import trashPage from '../trashPage/trashPage.js';
-import forumsPage from '../forumsPage/forumsPage.js';
-import promosPage from '../promosPage/promosPage.js';
-import purchasesPage from '../purchasesPage/purchasesPage.js';
-import peoplePage from '../peoplePage/peoplePage.js';
+@ Nicholas
 
-export class makePost extends Component {
+@ 03/04/2018
+
+Purpose: Component page for logic/render for the make post.
+
+**/
+
+export class MakePost extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -38,4 +32,4 @@ export class makePost extends Component {
   }
 }
 
-export default makePost
+export default MakePost
