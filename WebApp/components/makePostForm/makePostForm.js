@@ -72,7 +72,6 @@ export class MakePostForm extends Component {
       <div className = "postBtn">
       <label className="std text">
         <div classname="label">POST</div>
-        <input type ="text" name="post" id="post_1" placeholder="hope you sell it!" maxlength = "32"/>
         </label>
       </div>
       <Stylesheet sheet={sheet} />
