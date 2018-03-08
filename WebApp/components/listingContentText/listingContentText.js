@@ -24,7 +24,7 @@ class ListingContentText extends Component {
 
   render () {
     return (
-      <div class='listingContentText'>
+      <div className='listingContentText'>
         Listing Description goes here
         <Stylesheet sheet={sheet} />
       </div>

@@ -32,7 +32,7 @@ export class LeftSideBar extends Component {
         <div className="sideNavItems">
           {sideBarTitles.map(name => {
             return (
-              <SideBarItem title={name} />
+              <SideBarItem key={name} title={name} />
             )
           })}
         </div>

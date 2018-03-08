@@ -26,7 +26,7 @@ export class Listing extends Component {
 
   render () {
     return (
-      <div class='listing'>
+      <div className='listing'>
         <ListingPic />
         <ListingContent />
         <Stylesheet sheet={sheet} />

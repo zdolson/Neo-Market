@@ -17,7 +17,7 @@ import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
 
 TODO: do we need to add props logic?
 
-@ Nicholas 
+@ Nicholas
 
 @ Updated 03/08/2018
 
@@ -35,11 +35,11 @@ export class ListingsPage extends Component {
 
   render () {
     return (
-      <div class='listings'>
-        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
-        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
-        <NavLink to='/MoreInfoItem'>  <Listing/></NavLink>
-        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
+      <div className='listings'>
+        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
+        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
+        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/></NavLink>
+        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
         <Stylesheet sheet={sheet} />
       </div>
     )

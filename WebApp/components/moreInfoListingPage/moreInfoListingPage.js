@@ -27,7 +27,6 @@ class MoreInfoListingPage extends Component {
     return (
       <div className='moreInfoListingPage'>
         <MoreInfoListingFields />
-
       </div>
     )
   }

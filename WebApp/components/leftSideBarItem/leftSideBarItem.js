@@ -46,10 +46,10 @@ export class LeftSideBarItem extends Component {
   };
 
   render () {
+
     const IconName = this.components[this.props.title.replace(/ /, "")]
     var title = "/" + this.props.title
 
-    console.log("IconComponent: "+IconName)
     return (
       <div className="navItem">
         <IconName className="itemIcon"/>
@@ -57,6 +57,7 @@ export class LeftSideBarItem extends Component {
         <Stylesheet sheet={item} />
       </div>
     )
+    
   }
 }
 

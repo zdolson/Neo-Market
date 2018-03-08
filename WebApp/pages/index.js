@@ -42,7 +42,7 @@ export class Index extends Component {
     this.state = {
       loading: true,
       error: '',
-
+      cart: ['yolo', 'swag'],
       data: {}
     }
   }

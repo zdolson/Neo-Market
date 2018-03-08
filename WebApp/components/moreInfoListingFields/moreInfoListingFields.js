@@ -26,6 +26,10 @@ class MoreInfoListingFields extends Component {
     }
   }
 
+  addItem  = () => {
+    console.log("addItem");
+  }
+
   render () {
     return (
       <div className='MoreInfoListingFields'>
