@@ -2,15 +2,23 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './makePost.scss'
 
-/**
+import RightSideBar from '../rightSideBar/rightSideBar.js'
+import LeftSideBar from '../leftSideBar/leftSideBar.js'
+import LeftAccountBar from '../leftAccountBar/leftAccountBar.js'
+import RightAccountBar from '../rightAccountBar/rightAccountBar.js'
+import TopBar from '../topBar/topBar.js'
+import FilterDropdown from '../filterDropdown/filterDropdown.js'
 
-@ Nicholas
+// Imports for the page components
+import listingsPage from '../listingsPage/listingsPage.js'
+import walletPage from '../walletPage/walletPage.js';
+import trashPage from '../trashPage/trashPage.js';
+import forumsPage from '../forumsPage/forumsPage.js';
+import promosPage from '../promosPage/promosPage.js';
+import purchasesPage from '../purchasesPage/purchasesPage.js';
+import peoplePage from '../peoplePage/peoplePage.js';
 
-@ 03/04/2018
-
-Purpose: Component page for logic/render for the make post.
-
-**/
+import MakePostForm from '../makePostForm/makePostForm.js'
 
 export class MakePost extends Component {
   constructor (props, context) {
@@ -24,10 +32,11 @@ export class MakePost extends Component {
     const { data } = this.props
     console.debug('Data is ', data)
     return (
-      <div>
-        <h3> makePost </h3>
-        <Stylesheet sheet={sheet} />
+      <div className = "makePost">
+      <MakePostForm />
+      <Stylesheet sheet={sheet} />
       </div>
+
     )
   }
 }
