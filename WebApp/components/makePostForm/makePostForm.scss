@@ -19,6 +19,7 @@ Purpose: Styling for the makePostForm component
 	text-align: center;
 	color: #FFFFFF;
   max-height: 50px;
+	background: $brightGreen;
 
 }
 
@@ -103,14 +104,17 @@ Purpose: Styling for the makePostForm component
 
 .postBtn {
 	position: absolute;
-  background: #6C7D47;
-	height: 60px;
+  background: #FFBE28;
+	height: 30px;
+	width: 60px;
+	text-align: center;
 	line-height: 20px;
   margin-left: 70%;
   margin-top:480px;
   border-radius: 5px;
   padding-left:10px;
   padding-right: 10px;
+	padding-top: 10px;
 	&:hover {
 		border: 2px solid $grey10;
 	}
