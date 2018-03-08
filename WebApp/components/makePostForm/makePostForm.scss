@@ -68,6 +68,7 @@ Purpose: Styling for the makePostForm component
 	}
 }
 
+
 .price {
 	position: absolute;
   background: gray;
@@ -77,6 +78,22 @@ Purpose: Styling for the makePostForm component
   margin-bottom: 100%;
 	line-height: 63px;
   margin-top:300px;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+}
+
+.sizeDim {
+	position: absolute;
+  background: gray;
+	width: 469px;
+	height: 80px;
+  margin-left: 20%;
+  margin-bottom: 100%;
+	line-height: 63px;
+  margin-top:390px;
   border-radius: 5px;
   padding-left: 20px;
 	&:hover {
