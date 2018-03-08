@@ -25,6 +25,10 @@ class MoreInfoListingFields extends Component {
     }
   }
 
+  addItem  = () => {
+    console.log("addItem");
+  }
+
   render () {
     return (
       <div class='MoreInfoListingFields'>
@@ -46,8 +50,8 @@ class MoreInfoListingFields extends Component {
           <SellerRating className="sellerRating"/>
           <h3>Seller A</h3>
         </div>
-        <div class='purchaseBtn'>
-        <button>hello! click me to purchase this item!</button>
+        <div class='purchaseBtn' onClick={this.addItem}>
+          hello! click me to purchase this item!
         </div>
       </div>
     )
