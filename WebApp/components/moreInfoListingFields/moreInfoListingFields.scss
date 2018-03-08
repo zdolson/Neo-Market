@@ -16,48 +16,41 @@ Purpose: Spacing and style for the listing description in the checkOut page
 .moreInfoListingTitle {
   height: auto;
   width: 200px;
-  //bottom: 100px;
+  margin-top: 10px;
+  margin-left: 200px;
   left: 60px;
   right: 775px;
   top: -150px;
   justify-content: space-around;
   padding-top: 375px;
-  padding-left: 550px;
+  padding-left: 600px;
   padding-right: 20px;
   position: absolute;
   //display: flex;
   flex-flow: row wrap;
   z-index: 0;
-  color: $brightGreen;
+  color: blue;
 }
 
-.stuffies{
+.infoFields{
   color:grey;
 }
 
-.description{
-  background:#F6A8;
-}
 
 .moreInfoListingDescription {
   height: auto;
   width: auto;
-  bottom: 100px;
+  bottom: 50px;
   left: 60px;
   right: 775px;
-  top: -150px;
+  margin-top: 400px;
   justify-content: space-around;
-  padding-top: 375px;
-  padding-left: 150px;
+  padding-left: 200px;
   padding-right: 20px;
   position: absolute;
   display: flex;
   flex-flow: row wrap;
   z-index: 0;
-}
-
-.price{
-  background:#F6A8;
 }
 
 .MoreInfoListingFields{
@@ -66,23 +59,58 @@ Purpose: Spacing and style for the listing description in the checkOut page
   flex: 3;
 }
 
-.purchaseBtn {
-    background-color: $brightGreen;
-    color: black;
-    border: 2px solid $brightGreen;
-    border-radius: 4px;
-    width: 200px;
-    margin-left: 455px;
-    margin-top: -465px;
-    border: 2px solid transparent;
-    &:hover {
-      border: 2px solid #F45866;
-    }
+h2, h5 {
+  display:inline;
+  color:white;
 }
 
-.sellerRating {
-  margin-top: -500px;
-  margin-bottom: 40px;
-  margin-left: 500px;
-  z-index: 3;
+h5 {
+  color: $brightGreen;
+  font-size: 20px;
+}
+
+h3, .SellerStar {
+  text-align: left;
+  width: 500px;
+  margin-left: -100px;
+  display:inline;
+}
+
+.separator {
+  margin-left: -30px;
+  width: 250px;
+  height: 1px;
+  background: $grey50;
+}
+
+.purchaseBtn2{
+  margin-top: 20px;
+  width:250px;
+  height:30px;
+  background: $brightGreen;
+  padding-top: 15px;
+  margin-left:-30px;
+  text-align: center;
+  border-radius: 5px;
+  color: white;
+  border: 2px solid transparent;
+  &:hover {
+    border: 2px solid #C3F3C0;
+  }
+}
+
+.moreInfoListingPicture {
+  background: #828282;
+  width: 65%;
+  height: 60%;
+  text-align: center;
+  border-radius: 5px;
+  vertical-align: left;
+  display: relative;
+  margin-left: 200px;
+  margin-top: 90px;
+}
+
+.galaxy {
+  z-index: 2;
 }

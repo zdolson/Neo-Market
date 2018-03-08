@@ -5,10 +5,11 @@ import sheet from './checkOutPageItemContent.scss'
 import CheckOutPageAddr from '../checkOutPageAddr/checkOutPageAddr.js'
 import CheckOutPagePrice from '../checkOutPagePrice/checkOutPagePrice.js'
 import CheckOutPageTitle from '../checkOutPageTitle/checkOutPageTitle.js'
+import DeleteCartItem from '../assets/DeleteCartItem.svg'
 
 /**
 
-@ Nicholas 
+@ Nicholas
 
 @ Date: 03/06/18
 
@@ -33,6 +34,7 @@ export class CheckOutPageItemContent extends Component {
             <tr><CheckOutPageAddr /></tr>
             <tr><CheckOutPagePrice /></tr>
             <tr><CheckOutPageTitle /></tr>
+            <tr><DeleteCartItem className = "deleteCartItem"/></tr>
           </tbody>
         </table>
         <Stylesheet sheet={sheet} />
