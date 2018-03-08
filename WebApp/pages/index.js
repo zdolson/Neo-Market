@@ -36,8 +36,6 @@ Purpose: Posts page component to allow for navigation to the posts page.
 
 **/
 
-const CartContext = React.createContext('cart');
-
 export class Index extends Component {
   constructor (props, context) {
     super(props, context)
