@@ -12,12 +12,7 @@ import WalletIcon from '../assets/WalletIcon.svg'
 import PromosIcon from '../assets/PromosIcon.svg'
 
 // Import for react-router package.
-import {
-  Route,
-  NavLink,
-  Link,
-  BrowserRouter
-} from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 /**
 
