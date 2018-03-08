@@ -94,6 +94,8 @@ export class Index extends Component {
             <Route path="/CheckOut" component={CheckOutPage} />
             <Route path="/MoreInfoItem" component={MoreInfoListing} />
 
+            <Stylesheet sheet={sheet} />
+
           </div>
         </Router>
       </main>
