@@ -8,7 +8,7 @@ import CheckOutPageTitle from '../checkOutPageTitle/checkOutPageTitle.js'
 
 /**
 
-@ Nicholas 
+@ Nicholas
 
 @ Date: 03/06/18
 
@@ -28,13 +28,9 @@ export class CheckOutPageItemContent extends Component {
   render () {
     return (
       <div className='checkOutPageItemContent'>
-        <table className='contentTable'>
-          <tbody>
-            <tr><CheckOutPageAddr /></tr>
-            <tr><CheckOutPagePrice /></tr>
-            <tr><CheckOutPageTitle /></tr>
-          </tbody>
-        </table>
+        <CheckOutPageAddr />
+        <CheckOutPagePrice />
+        <CheckOutPageTitle />
         <Stylesheet sheet={sheet} />
       </div>
     )
