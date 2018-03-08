@@ -37,7 +37,7 @@ Purpose: CheckOut page component to allow for navigation to the posts page.
 
 **/
 
-export class Forums extends Component {
+export class MoreInfoItem extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -102,4 +102,4 @@ export class Forums extends Component {
   }
 }
 
-export default Forums
+export default MoreInfoItem

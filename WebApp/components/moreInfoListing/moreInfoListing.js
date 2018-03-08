@@ -26,7 +26,7 @@ class MoreInfoListing extends Component {
 
   render () {
     return (
-      <div class='moreInfoListingText'>
+      <div className='moreInfoListingText'>
       <div>
         <ListingPic />
       </div>

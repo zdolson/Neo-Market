@@ -29,9 +29,11 @@ export class CheckOutPageItemContent extends Component {
     return (
       <div className='checkOutPageItemContent'>
         <table className='contentTable'>
-          <tr><CheckOutPageAddr /></tr>
-          <tr><CheckOutPagePrice /></tr>
-          <tr><CheckOutPageTitle /></tr>
+          <tbody>
+            <tr><CheckOutPageAddr /></tr>
+            <tr><CheckOutPagePrice /></tr>
+            <tr><CheckOutPageTitle /></tr>
+          </tbody>
         </table>
         <Stylesheet sheet={sheet} />
       </div>
