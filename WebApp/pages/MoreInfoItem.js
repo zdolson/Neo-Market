@@ -23,6 +23,7 @@ import PeoplePage from '../components/peoplePage/peoplePage.js';
 import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
 import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js';
 
+
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
@@ -32,11 +33,11 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Wallet page component to allow for navigation to the posts page. 
+Purpose: CheckOut page component to allow for navigation to the posts page. 
 
 **/
 
-export class Wallet extends Component {
+export class MoreInfoItem extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -48,7 +49,7 @@ export class Wallet extends Component {
   }
 
   componentDidMount () {
-    console.debug('Wallet.js page loaded')
+    console.debug('Forums.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -74,7 +75,7 @@ export class Wallet extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-          
+            
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
@@ -93,7 +94,7 @@ export class Wallet extends Component {
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
             <Route path="/MoreInfoItem" component={MoreInfoListing} />
-            
+
           </div>
         </Router>
       </main>
@@ -101,4 +102,4 @@ export class Wallet extends Component {
   }
 }
 
-export default Wallet
+export default MoreInfoItem

@@ -81,16 +81,16 @@ export class Purchases extends Component {
             <LeftAccountBar />
             <RightAccountBar />
 
-            <Route exact path="/" component={listingsPage}/>
-            <Route path="/Listings" component={listingsPage}/>
-            <Route path="/Posts" component={makePost} />
-            <Route path="/Forums" component={forumsPage} />
-            <Route path="/Wallet" component={walletPage} />
-            <Route path="/Trash" component={trashPage} />
-            <Route path="/Promos" component={promosPage} />
-            <Route path="/Purchases" component={purchasesPage} />
-            <Route path="/People" component={peoplePage} />
-            <Route path="/CheckOut" component={checkOutPage} />
+            <Route exact path="/" component={ListingsPage}/>
+            <Route path="/Listings" component={ListingsPage}/>
+            <Route path="/Posts" component={MakePost} />
+            <Route path="/Wallet" component={WalletPage} />
+            <Route path="/Trash" component={TrashPage} />
+            <Route path="/Promos" component={PromosPage} />
+            <Route path="/Purchases" component={PurchasesPage} />
+            <Route path="/People" component={PeoplePage} />
+            <Route path="/CheckOut" component={CheckOutPage} />
+            <Route path="/MoreInfoItem" component={MoreInfoListing} />
 
           </div>
         </Router>

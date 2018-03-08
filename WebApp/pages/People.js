@@ -91,7 +91,7 @@ export class People extends Component {
             <Route path="/Purchases" component={PurchasesPage} />
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/moreInfoItem" component={MoreInfoListing} />
+            <Route path="/MoreInfoItem" component={MoreInfoListing} />
             
           </div>
         </Router>

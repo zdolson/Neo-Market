@@ -82,6 +82,7 @@ export class Forums extends Component {
             <LeftAccountBar />
             <RightAccountBar />
 
+<<<<<<< HEAD
             <Route exact path="/" component={listingsPage}/>
             <Route path="/Listings" component={listingsPage}/>
             <Route path="/Posts" component={makePost} />
@@ -92,6 +93,19 @@ export class Forums extends Component {
             <Route path="/Purchases" component={purchasesPage} />
             <Route path="/People" component={peoplePage} />
             <Route path="/CheckOut" component={checkOutPage} />
+=======
+            <Route exact path="/" component={ListingsPage}/>
+            <Route path="/Listings" component={ListingsPage}/>
+            <Route path="/Posts" component={MakePost} />
+            <Route path="/Forums" component={ForumsPage} />
+            <Route path="/Wallet" component={WalletPage} />
+            <Route path="/Trash" component={TrashPage} />
+            <Route path="/Promos" component={PromosPage} />
+            <Route path="/Purchases" component={PurchasesPage} />
+            <Route path="/People" component={PeoplePage} />
+            <Route path="/CheckOut" component={CheckOutPage} />
+            <Route path="/MoreInfoItem" component={MoreInfoListing} />
+>>>>>>> fe620857eb8ec53c05c39a529580158d784453e0
 
           </div>
         </Router>

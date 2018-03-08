@@ -30,17 +30,16 @@ export class ListingsPage extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-
     }
   }
 
   render () {
     return (
       <div class='listings'>
-        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
-        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
-        <NavLink to='/moreInfoItem'>  <Listing/></NavLink>
-        <NavLink to='/moreInfoItem'>  <Listing/> </NavLink>
+        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
+        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
+        <NavLink to='/MoreInfoItem'>  <Listing/></NavLink>
+        <NavLink to='/MoreInfoItem'>  <Listing/> </NavLink>
         <Stylesheet sheet={sheet} />
       </div>
     )
