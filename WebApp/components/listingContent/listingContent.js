@@ -13,7 +13,7 @@ import ListingContentButton from '../listingContentButton/listingContentButton.j
 
 Purpose: Reusable component for content of a listing
 
-TODO: add props logic so parent Listing can dynamically assign text 
+TODO: add props logic so parent Listing can dynamically assign text
 
 **/
 
@@ -27,7 +27,7 @@ class ListingContent extends Component {
 
   render () {
     return (
-      <div class='listingContent'>
+      <div className='listingContent'>
         <ListingContentText />
         <ListingContentButton />
         <Stylesheet sheet={sheet} />

@@ -24,7 +24,6 @@ class RightSideBarItems extends Component {
   }
 
   render () {
-    console.log("context color: "+this.context.color);
     return (
       <div className="rightSideBarItems">
         <RightSideBarItem />

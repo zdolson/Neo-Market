@@ -31,8 +31,26 @@ class FilterDropdown extends Component {
 
   render () {
     var contentHeight = (this.state.dropdown ? 225 : 0) + 'px';
+    var containerHegith = contentHeight + 25;
+    const styles = {
+      filterDropdown: {
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        position: 'fixed',
+        alignSelf: 'center',
+        left: 30+'%',
+        top: 50+'px',
+        width: 40+'%',
+        height: {contentHeight}+'px',
+        zIndex: 1,
+        overflowY: 'hidden',
+        background: 'transparent',
+      }
+    }
     return (
-      <div className="filterDropdown">
+      <div style={styles.filterDropdown}>
         <FilterDropdownContent width={contentHeight} />
         <ArrowTabDown onClick={this.dropdownToggle} />
         <Stylesheet sheet={sheet}/>

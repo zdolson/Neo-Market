@@ -24,7 +24,8 @@ class ListingContentButton extends Component {
 
   render () {
     return (
-      <div class='listingContentButton'>
+      <div className='listingContentButton'>
+        More Info
         <Stylesheet sheet={sheet} />
       </div>
     )
