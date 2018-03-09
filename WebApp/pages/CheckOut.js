@@ -21,7 +21,7 @@ import PromosPage from '../components/promosPage/promosPage.js';
 import PurchasesPage from '../components/purchasesPage/purchasesPage.js';
 import PeoplePage from '../components/peoplePage/peoplePage.js';
 import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js';
+import MoreInfoListing from '../components/moreInfoListingPage/moreInfoListingPage.js';
 
 
 // Import for react-router package.

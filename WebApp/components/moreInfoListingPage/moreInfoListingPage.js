@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
-import sheet from './moreInfoListing.scss'
+import sheet from './moreInfoListingPage.scss'
 import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
 
 /**

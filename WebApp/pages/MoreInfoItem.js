@@ -21,7 +21,7 @@ import PromosPage from '../components/promosPage/promosPage.js';
 import PurchasesPage from '../components/purchasesPage/purchasesPage.js';
 import PeoplePage from '../components/peoplePage/peoplePage.js';
 import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js';
+import MoreInfoListingPage from '../components/moreInfoListingPage/moreInfoListingPage.js';
 
 
 // Import for react-router package.
@@ -33,7 +33,7 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: CheckOut page component to allow for navigation to the posts page. 
+Purpose: CheckOut page component to allow for navigation to the posts page.
 
 **/
 
@@ -75,7 +75,7 @@ export class MoreInfoItem extends Component {
       <main>
         <Router>
           <div className="routingPaths">
-            
+
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
@@ -93,7 +93,7 @@ export class MoreInfoItem extends Component {
             <Route path="/Purchases" component={PurchasesPage} />
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/MoreInfoItem" component={MoreInfoListing} />
+            <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
 
           </div>
         </Router>
