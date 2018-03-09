@@ -1,0 +1,21 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Styling for the walletPage component
+
+**/
+
+h3 {
+	font: 16px/20px $base-font-family;
+  	text-align: center;
+  	line-height: 500px;
+}
+

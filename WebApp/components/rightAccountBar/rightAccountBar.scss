@@ -1,0 +1,24 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/26/18
+
+Purpose: Provides spacing and styling to RightAccountBar
+
+**/
+
+.rightAccountNav {
+  position: fixed;
+  display: flex;
+  top: 50px;
+  right: 0;
+  height: 50px;
+  width: 175px;
+  background: $grey60;
+}

@@ -1,0 +1,33 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/27/18
+
+Purpose: Spacing for the listings grid
+
+**/
+
+.listings {
+  height: auto;
+  width: auto;
+  bottom: 0;
+  left: 175px;
+  right: 175px;
+  top: 50px;
+  justify-content: space-around;
+  padding-top: 20px;
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+  z-index: 0;
+}
+
+.navLink {
+  margin: 20px 20px 20px 20px;
+}

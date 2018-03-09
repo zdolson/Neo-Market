@@ -1,0 +1,25 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas 
+
+@ Date: 03/06/18
+
+Purpose: CSS styling for title of the checkOutPage item.
+
+**/
+
+.checkOutPageTitle {
+  text-align: left;
+  width: 100%;
+  flex: 3;
+}
+
+h1 {
+  text-align: center;
+  height: 100px;
+}

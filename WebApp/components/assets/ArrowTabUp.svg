@@ -1,0 +1,18 @@
+<svg width="47" height="23" viewBox="0 0 47 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>ArrowTabUp</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(1550 549)">
+<g id="ArrowTabUp">
+<g id="tab">
+<use xlink:href="#path17_fill" transform="translate(-1550 -549)" fill="#333333"/>
+</g>
+<g id="Union">
+<use xlink:href="#path18_fill" transform="matrix(-1 -1.22465e-16 1.22465e-16 -1 -1519.95 -538.516)" fill="#C4C4C4"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path17_fill" d="M 23.085 23C 35.8345 23 46.17 12.7025 46.17 0L 0 0C 0 12.7025 10.3355 23 23.085 23Z"/>
+<path id="path18_fill" fill-rule="evenodd" d="M 6.15137 6.56262L 0 0.661743L 0.670898 0.0181274L 6.823 5.91962L 12.9939 0L 13.6649 0.643677L 7.49194 6.56519L 7.49097 6.56482L 6.81995 7.20844L 6.14905 6.56482L 6.15137 6.56262Z"/>
+</defs>
+</svg>

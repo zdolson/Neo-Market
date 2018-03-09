@@ -9,13 +9,15 @@
 
 @ 2/20/18
 
+Purpose: Provides styling and spacing to LeftSideBar
+
 **/
 
 .sidenav {
   width: 175px;
   position: fixed;
   z-index: 1;
-  top: 125px;
+  top: 100px;
   bottom: 0;
   left: 0;
   background: $grey70;

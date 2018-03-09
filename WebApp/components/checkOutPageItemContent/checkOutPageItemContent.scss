@@ -1,0 +1,34 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas
+
+@ Date: 03/06/18
+
+Purpose: CSS file for styling the component
+
+**/
+
+.checkOutPageItemContent {
+  text-align: left;
+  width: 100%;
+  min-width: 250px;
+  max-width: 250px;
+  margin-left: 10px;
+  flex: 3;
+}
+
+.contentTable{
+	border-collapse:separate;
+	border-spacing:0 15px;
+  
+}
+
+h1 {
+	text-align: center;
+	height: 100px;
+}

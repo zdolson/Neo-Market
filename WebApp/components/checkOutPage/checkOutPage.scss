@@ -1,0 +1,55 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas 
+
+@ Date: 03/06/18
+
+Purpose: CSS file for styling checkOut page
+
+**/
+
+.header {
+	margin-top:10%;
+	text-align: center;
+	color: #FFFFFF;
+    max-height: 50px;
+
+}
+
+.checkOutTotal {
+	position: absolute;
+	width: 69px;
+	height: 20px;
+    margin-left: 20%;
+	line-height: 20px;
+}
+
+.checkOutTotalValue {
+	position: absolute;
+	width: 200px;
+	height: 20px;
+	font-size: 29px;
+	color:$brightGreen;
+    margin-left: 24%;
+	line-height: 63px;
+}
+
+.purchaseButton {
+	position: absolute;
+	height: 20px;
+	line-height: 20px;
+    margin-left: 70%;
+}
+
+
+body {
+	background-color: #4F4F4F;
+}
+
+
+

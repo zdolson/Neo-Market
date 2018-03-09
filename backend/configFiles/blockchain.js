@@ -1,21 +1,26 @@
 const neon = require('@cityofzion/neon-js')
+// import neon from '@cityofzion/neon-js'
 const Neon = neon.default
 const config = require('./config')
 const axios = require("axios")
 const util = require("./util.js")
+const sb = Neon.create.scriptBuilder()
 
 
 module.exports = {
 
     getBalance: (address) => {
-        return axios.get(config.RESTEndpoint + '/v2/address/balance/' + address)
-            .then((res) => {
-                return res.data
-            })
+        // return axios.get(config.RESTEndpoint + '/v2/address/balance/' + address)
+        //     .then((res) => {
+        //         return res.data
+        //     })
+        let account = new neon.wallet.Account(config.wif)
+        return neon.api.neonDB.getBalance(config.RESTEndpoint, account.address)
     },
 
     getRPCEndpoint: () => {
         return axios.get(config.RESTEndpoint + '/v2/network/best_node').then(function (response) {
+            console.log('blockchain.js: getRPCEndpoint(): result:', response.data.node)
             return response.data.node
         })
     },
@@ -27,8 +32,12 @@ module.exports = {
                 params: params,
                 id: id
             }).then(res => {
+                console.log('blockchain.js: queryRPC(): res:')
+                console.log(res)
                 return res
             }).catch(err => {
+                console.log('blockchain.js: queryRPC(): err:')
+                console.log(err)
                 return err
             })
         })
@@ -40,24 +49,24 @@ module.exports = {
         console.log(invoke)
         console.log(gasCost)
         console.log(intents)
-        let newAccount = new neon.wallet.Account(config.wif);
-        let net = 'http://neo-privatenet:5000/'
+        // let newAccount = new neon.wallet.Account(config.wif);
+        // let net = 'http://neo-privatenet:5000/'
         // neon.api.neonDB.getBalance(net, account.address)
-        return neon.api.neonDB.getBalance(net, newAccount.address).then((balances) => {
+        //const account = Neon.create.account(config.wif)
+        return neon.api.neonDB.getBalance(config.RESTEndpoint, fromAccount.address).then((balances) => {
             console.log('blockchain.js: executeTransaction(): return: ')
             console.log('blockchain.js: executeTransaction(): return: balances: ')
             console.log(balances)
             // console.log(typeof (invoke))
             console.log(invoke)
-            const newScript = Neon.create.script(invoke)
-            // ISSUE IS HERE WITH THE UNSIGNEDTX!
-            const unsignedTx = neon.tx.Transaction.createInvocationTx(balances, intents, newScript, gasCost, {})
-            console.log('blockchain.js: executeTransaction(): return: unsignedTx: ')
-            console.log(unsignedTx.attributes)
+            // const newScript = Neon.create.script(invoke)
+            const unsignedTx = neon.tx.Transaction.createInvocationTx(balances, intents, invoke, gasCost, {})
             const signedTx = neon.tx.signTransaction(unsignedTx, fromAccount.privateKey)
-            console.log('blockchain.js: executeTransaction(): return: signedTx: ')
-            console.log(signedTx.attributes)
             const hexTx = neon.tx.serializeTransaction(signedTx)
+            console.log('blockchain.js: executeTransaction(): return: unsignedTx: ')
+            console.log(unsignedTx)
+            console.log('blockchain.js: executeTransaction(): return: signedTx: ')
+            console.log(signedTx)
             console.log('blockchain.js: executeTransaction(): return: hexTx: ')
             console.log(hexTx)
             return module.exports.queryRPC(
@@ -134,6 +143,10 @@ module.exports = {
         // Returns vmScript as a hexstring
         const vmScript = Neon.create.script(props)
         console.log(vmScript)
+
+        // sb.emitAppCall(config.scriptHash,operation,hexArgs)
+        // console.log(sb.str)
+
 
         //Test the transaction
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
