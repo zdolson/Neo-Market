@@ -26,5 +26,8 @@ Purpose: Spacing for the listings grid
   display: flex;
   flex-flow: row wrap;
   z-index: 0;
-  background: $grey70;
+}
+
+.navLink {
+  margin: 20px 20px 20px 20px;
 }

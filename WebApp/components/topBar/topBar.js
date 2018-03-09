@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { NavLink } from "react-router-dom";
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
@@ -114,7 +115,7 @@ export class TopBar extends Component {
   render () {
     return (
       <div className="topnav">
-        <LogoIcon className="logo" />
+        <NavLink to="/"> <LogoIcon className="logo" /> </NavLink>
         <div className="zachBtn" onClick={this.zachFunc}>
           Property of Zach
         </div>

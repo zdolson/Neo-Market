@@ -24,9 +24,15 @@ export class Listing extends Component {
     }
   }
 
+  // {this.props.test_data.map(function(object) {
+  //   return (
+  //     <h1> key={this.props.test_data.id} data={this.props.test_data} </h1>
+  //   )
+  // })}
+  
   render () {
     return (
-      <div class='listing'>
+      <div className='listing'>
         <ListingPic />
         <ListingContent />
         <Stylesheet sheet={sheet} />

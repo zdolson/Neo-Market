@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './rightSideBarItems.scss'
 

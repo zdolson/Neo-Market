@@ -12,7 +12,7 @@ Purpose: Reusable component for a button with listingContent
 
 TODO: props logic to dynamically assign button content
 
-**/
+*/
 
 class ListingContentButton extends Component {
   constructor(props, context) {
@@ -24,7 +24,8 @@ class ListingContentButton extends Component {
 
   render () {
     return (
-      <div class='listingContentButton'>
+      <div className='listingContentButton'>
+        More Info
         <Stylesheet sheet={sheet} />
       </div>
     )

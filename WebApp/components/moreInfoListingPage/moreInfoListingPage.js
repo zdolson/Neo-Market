@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
-import sheet from './listingContentText.scss'
+import sheet from './moreInfoListingPage.scss'
+import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
 
 /**
 
-@ Alec
+@ Victoria
 
-@ 2/27/18
+@ 3/08/18
 
 Purpose: Reusable component for text withing a ListingContent
 
@@ -14,7 +15,7 @@ TODO: props logic so parent ListingContent can dynamically assign text
 
 **/
 
-class ListingContentText extends Component {
+class MoreInfoListingPage extends Component {
   constructor(props, context) {
     super(props, context)
     this.State = {
@@ -24,12 +25,11 @@ class ListingContentText extends Component {
 
   render () {
     return (
-      <div className='listingContentText'>
-        Listing Description goes here
-        <Stylesheet sheet={sheet} />
+      <div className='moreInfoListingPage'>
+        <MoreInfoListingFields />
       </div>
     )
   }
 }
 
-export default ListingContentText
+export default MoreInfoListingPage

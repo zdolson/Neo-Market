@@ -21,7 +21,7 @@ import PromosPage from '../components/promosPage/promosPage.js';
 import PurchasesPage from '../components/purchasesPage/purchasesPage.js';
 import PeoplePage from '../components/peoplePage/peoplePage.js';
 import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
-import MoreInfoListing from '../components/moreInfoListing/moreInfoListing.js';
+import MoreInfoListingPage from '../components/moreInfoListingPage/moreInfoListingPage.js';
 
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
@@ -32,7 +32,7 @@ import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
 
 @ 03/04/2018
 
-Purpose: Posts page component to allow for navigation to the posts page.
+Purpose: index page component to allow for navigation to the posts page.
 
 **/
 
@@ -42,7 +42,7 @@ export class Index extends Component {
     this.state = {
       loading: true,
       error: '',
-
+      cart: ['yolo', 'swag'],
       data: {}
     }
   }
@@ -92,7 +92,8 @@ export class Index extends Component {
             <Route path="/Purchases" component={PurchasesPage} />
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/moreInfoItem" component={MoreInfoListing} />
+            <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
+            <Stylesheet sheet={sheet} />
 
           </div>
         </Router>
