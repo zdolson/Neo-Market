@@ -3,4 +3,4 @@
 .python-version
 /backend/.DS_Store
 /backend/node_modules
-/backend/local-neo/data
+/backend/local-neo/data/
