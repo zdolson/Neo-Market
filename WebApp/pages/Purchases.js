@@ -12,15 +12,17 @@ import TopBar from '../components/topBar/topBar.js'
 import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
 
 // Imports for the individual page components
-import listingsPage from '../components/listingsPage/listingsPage.js'
-import makePost from '../components/makePost/makePost.js';
-import walletPage from '../components/walletPage/walletPage.js';
-import trashPage from '../components/trashPage/trashPage.js';
-import forumsPage from '../components/forumsPage/forumsPage.js';
-import promosPage from '../components/promosPage/promosPage.js';
-import purchasesPage from '../components/purchasesPage/purchasesPage.js';
-import peoplePage from '../components/peoplePage/peoplePage.js';
-import checkOutPage from '../components/checkOutPage/checkOutPage.js';
+import ListingsPage from '../components/listingsPage/listingsPage.js'
+import MakePost from '../components/makePost/makePost.js';
+import WalletPage from '../components/walletPage/walletPage.js';
+import TrashPage from '../components/trashPage/trashPage.js';
+import ForumsPage from '../components/forumsPage/forumsPage.js';
+import PromosPage from '../components/promosPage/promosPage.js';
+import PurchasesPage from '../components/purchasesPage/purchasesPage.js';
+import PeoplePage from '../components/peoplePage/peoplePage.js';
+import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
+import MoreInfoListingPage from '../components/moreInfoListingPage/moreInfoListingPage.js';
+
 
 // Import for react-router package.
 import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
@@ -90,7 +92,8 @@ export class Purchases extends Component {
             <Route path="/Purchases" component={PurchasesPage} />
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/MoreInfoItem" component={MoreInfoListing} />
+            <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
+            <Stylesheet sheet={sheet} />
 
           </div>
         </Router>

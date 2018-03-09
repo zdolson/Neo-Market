@@ -94,6 +94,7 @@ export class MoreInfoItem extends Component {
             <Route path="/People" component={PeoplePage} />
             <Route path="/CheckOut" component={CheckOutPage} />
             <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
+            <Stylesheet sheet={sheet} />
 
           </div>
         </Router>

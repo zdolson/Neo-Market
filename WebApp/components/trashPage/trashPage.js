@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './trashPage.scss'
 
+import TestComponent from '../testComponent/testComponent.js'
+
 /**
 
 @ Nicholas

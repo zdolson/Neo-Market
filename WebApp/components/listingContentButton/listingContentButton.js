@@ -12,7 +12,7 @@ Purpose: Reusable component for a button with listingContent
 
 TODO: props logic to dynamically assign button content
 
-**/
+*/
 
 class ListingContentButton extends Component {
   constructor(props, context) {
