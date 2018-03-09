@@ -15,7 +15,7 @@ TODO: props logic so parent ListingContent can dynamically assign text
 
 **/
 
-class MoreInfoListingPage extends Component {
+class MoreInfoListing extends Component {
   constructor(props, context) {
     super(props, context)
     this.State = {
@@ -32,4 +32,4 @@ class MoreInfoListingPage extends Component {
   }
 }
 
-export default MoreInfoListingPage
+export default MoreInfoListing
