@@ -33,14 +33,26 @@ export class ListingsPage extends Component {
     }
   }
 
+  // {listingItems.map(item => {
+  //   // console.log(item);
+  //   var link = '/MoreInfoItem/'+item[0];
+  //   // console.log(link);
+  //   // <NavLink to={link} className="navLink">  <Listing item={item}/> </NavLink>
+  // })}
+
   render () {
+    var listingItems = this.props.listingItems;
+    console.log(listingItems);
+    console.log(this.props);
     return (
       <div className='listings'>
-        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
-        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
-        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/></NavLink>
-        <NavLink to='/MoreInfoItem' className="navLink">  <Listing/> </NavLink>
+
+        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
+        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
+        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
+        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
         <Stylesheet sheet={sheet} />
+
       </div>
     )
   }

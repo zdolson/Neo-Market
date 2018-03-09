@@ -43,12 +43,18 @@ export class Index extends Component {
       loading: true,
       error: '',
       cart: ['yolo', 'swag'],
-      data: {}
+      data: {},
+      listingItems: [
+        ["add434njdwf7f73n", "Alec Felt", "J's on my feet", "These shoes are Jordans homie.", "100",],
+        ["87wddw877d7d7d89", "Nicholas Cheung", "Chest Slingshot", "How much ya bench .com", "20",],
+        ["sl501mx'[co3qa-]", "Victoria Tran", "Cracking the Coding Interview", "Whiteboarding all dayyy", "90",]
+      ]
+
     }
   }
 
   componentDidMount () {
-    console.debug('index.js page loaded')
+    console.log('index.js page loaded')
     this.setState({ loading: false })
   }
 
@@ -70,6 +76,7 @@ export class Index extends Component {
       )
     }
 
+
     return (
       <main>
         <Router>
@@ -82,8 +89,8 @@ export class Index extends Component {
             <LeftAccountBar />
             <RightAccountBar />
 
-            <Route exact path="/" component={ListingsPage}/>
-            <Route path="/Listings" component={ListingsPage}/>
+            <Route exact path="/" render={()=><ListingsPage listingItems={this.state.listingItems}/>} />
+            <Route path="/Listings" render={()=><ListingsPage listingItems={this.state.listingItems}/>} />
             <Route path="/Posts" component={MakePost} />
             <Route path="/Forums" component={ForumsPage} />
             <Route path="/Wallet" component={WalletPage} />
