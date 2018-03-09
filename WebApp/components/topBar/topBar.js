@@ -8,6 +8,7 @@ const Neon = neon.default;
 const node = require('../../../backend/configFiles/blockchain')
 const config = require('../../../backend/configFiles/config')
 const account = Neon.create.account(config.wif)
+const wallet = neon.wallet
 
 /**
 
@@ -31,30 +32,83 @@ export class TopBar extends Component {
 // My fuc.But. that does stuff.
   zachFunc = () => {
       var myBalance = node.getBalance('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y')
-      console.log('accountBarContent.js: Balance from getBalance(manualAddress): ')
+      console.log('topBar.js: Balance from getBalance(manualAddress): ')
       console.log(myBalance)
       var myBalanceFromAccount = node.getBalance(account.address)
-      console.log('accountBarContent.js: Balance from getBalance(account.address): ')
+      console.log('topBar.js: Balance from getBalance(account.address): ')
       console.log(myBalanceFromAccount)
-      console.log('accountBarContent.js: node.getRPCEndpoint(): ')
+      console.log('topBar.js: node.getRPCEndpoint(): ')
       console.log(node.getRPCEndpoint())
       // Invoke a smart contract with a method and an array of strings
       // console.log('Continuing on to testContract and invokeContract')
 
-      node.testContract('register', ['zack','123'], (res) => {
-          console.log('accountBarContent.js: node.testContract: ')
+      // // Testing Function: register()
+      // console.log('topBar.js: testing register()')
+      // node.testContract('register', ['zack','123'], (res) => {
+      //     console.log('topBar.js: node.testContract: ')
+      //     console.dir(res)
+      // })
+      // node.invokeContract('register', ['zack','123'], account, (res) => {
+      //     console.log('topBar.js: node.invokeContract(): ')
+      //     console.dir(res)
+      //     if (res.result === true) {
+      //         // Transaction successful. The stored data can be retrieved on the next block.
+      //         console.log('topBar.js: invokeContract(): Transaction successful.')
+      //     } else {
+      //         console.log('topBar.js: invokeContract(): Transaction failed.')
+      //     }
+      // })
+
+      // // Testing Function: isregister()
+      // console.log('topBar.js: testing isregister()')
+      // node.testContract('isregister', ['123','zack'], (res) => {
+      //     console.log('topBar.js: node.testContract: ')
+      //     console.dir(res)
+      // })
+      // node.invokeContract('isregister', ['123','zack'], account, (res) => {
+      //     console.log('topBar.js: node.invokeContract(): ')
+      //     console.dir(res)
+      //     if (res.result === true) {
+      //         // Transaction successful. The stored data can be retrieved on the next block.
+      //         console.log('topBar.js: invokeContract(): Transaction successful.')
+      //     } else {
+      //         console.log('topBar.js: invokeContract(): Transaction failed.')
+      //     }
+      // })
+
+      // Testing Function: isregister()
+      console.log('topBar.js: testing isregister()')
+      node.testContract('getclass', ['123','shop','shopping spree',23,3], (res) => {
+          console.log('topBar.js: node.testContract: ')
           console.dir(res)
       })
-      node.invokeContract('register', ['zack','123'], account, (res) => {
-          console.log('accountBarContent.js: node.invokeContract(): ')
+      node.invokeContract('getclass', ['123','shop','shopping spree',23,3], account, (res) => {
+          console.log('topBar.js: node.invokeContract(): ')
           console.dir(res)
           if (res.result === true) {
               // Transaction successful. The stored data can be retrieved on the next block.
-              console.log('accountBarContent.js: invokeContract(): Transaction successful.')
+              console.log('topBar.js: invokeContract(): Transaction successful.')
           } else {
-              console.log('accountBarContent.js: invokeContract(): Transaction failed.')
+              console.log('topBar.js: invokeContract(): Transaction failed.')
           }
       })
+
+      node.getStorage('123').then((res) => {
+          console.log(res)
+      })
+      neon.create.Balance({
+          net: config.RESTEndpoint,
+          address: account.address
+      })
+
+      // let nBalance = new wallet.Balance({
+      //     net: config.RESTEndpoint,
+      //     address: account.address
+      // })
+      // console.log(nBalance)
+      // let filledBalance = neon.api.getBalanceFrom(account.address, config.RESTEndpoint).then((res) =>
+      //     console.log(filledBalance.assetSymbols)
+      // )
   }
 
   render () {
