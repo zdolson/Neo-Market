@@ -60,22 +60,26 @@ def buy(buyerAddr, sellerAddr, title, amount):
     # after purchasing, how do I confirm it actually goes through for the user?
     return True     
 
-
-# this creates the posting and appens that list of params 
+# this creates the posting and appens that list of params
 # to the list of list (backlog) at the moment
-def createPost(owner, title, desc, price, amount): 
-    if(isregister(owner)):
+# Add ID as a 6th param, BACKLOG
+def createPost(owner, title, desc, price, amount):
+    a = Get(GetContext, owner)
+    if a:
+        print("beginning")
         postInfo = list(length=5)
         postInfo[0] = owner
         postInfo[1] = title
         postInfo[2] = desc
         postInfo[3] = price
         postInfo[4] = amount
-        serializedPost = serialize_array(postInfo)
-        Put(GetContext, owner, serializedPost)
+        dPostInfo = serialize_array(postInfo)
+        print(dPostInfo)
+        Put(GetContext, owner , dPostInfo)
         return True
     else:
-        return False 
+        print("failed")
+        return False
 
 # this is a getter for createPost and gets the selected list and returns it 
 # more descriptions to come *backlog*
