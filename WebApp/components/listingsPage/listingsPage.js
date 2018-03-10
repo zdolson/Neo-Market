@@ -41,9 +41,7 @@ export class ListingsPage extends Component {
   // })}
 
   render () {
-    var listingItems = this.props.listingItems;
-    console.log(listingItems);
-    console.log(this.props);
+    console.log(this.props.state);
     return (
       <div className='listings'>
 

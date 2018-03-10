@@ -22,6 +22,7 @@ export class CheckOutPage extends Component {
     this.state = {
       // stuff goes here
     }
+    console.log(this.props);
   }
 
   render () {

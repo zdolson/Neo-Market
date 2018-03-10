@@ -29,11 +29,13 @@ export class App extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      listingItems: [
+      items: [
         ["add434njdwf7f73n", "Alec Felt", "J's on my feet", "These shoes are Jordans homie.", "100",],
         ["87wddw877d7d7d89", "Nicholas Cheung", "Chest Slingshot", "How much ya bench .com", "20",],
         ["sl501mx'[co3qa-]", "Victoria Tran", "Cracking the Coding Interview", "Whiteboarding all dayyy", "90",]
-      ]
+      ],
+      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
+      selectedItem: "add434njdwf7f73n"
     }
   }
 
@@ -65,10 +67,10 @@ export class App extends Component {
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
-            <RightSideBar />
+            <RightSideBar cartItems={this.state.cartItems} />
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent />
+            <RoutingComponent state={this.state} />
           </div>
         </main>
       )

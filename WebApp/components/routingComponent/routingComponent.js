@@ -15,11 +15,11 @@ import MoreInfoListingPage from '../moreInfoListingPage/moreInfoListingPage.js';
 // Import for react-router package.
 import { Switch, Route, hashHistory } from 'react-router-dom'
 
-const RoutingComponent = () => (
+const RoutingComponent = (state) => (
   <main>
     <Switch>
-      <Route exact path="/" component={ListingsPage}/>
-      <Route path="/Listings" component={ListingsPage}/>
+      <Route exact path="/" render={ () => <ListingsPage state={state.state}/> } />
+      <Route path="/Listings" render={ () => <ListingsPage state={state.state}/> } />
       <Route path="/Posts" component={MakePost} />
       <Route path="/Forums" component={ForumsPage} />
       <Route path="/Wallet" component={WalletPage} />
@@ -27,7 +27,7 @@ const RoutingComponent = () => (
       <Route path="/Promos" component={PromosPage} />
       <Route path="/Purchases" component={PurchasesPage} />
       <Route path="/People" component={PeoplePage} />
-      <Route path="/CheckOut" component={CheckOutPage} />
+      <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={state.state.cartItems}/> } />
       <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
   	</Switch>
   </main>
