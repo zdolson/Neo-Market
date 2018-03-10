@@ -1,0 +1,18 @@
+<svg width="12" height="13" viewBox="0 0 12 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>ItemX</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(1277 492)">
+<g id="ItemX">
+<g id="Rectangle 7">
+<use xlink:href="#path21_fill" transform="matrix(0.702582 0.711603 -0.702582 0.711603 -1275.92 -491.4)" fill="#FFFFFF"/>
+</g>
+<g id="Rectangle 7.1">
+<use xlink:href="#path22_fill" transform="matrix(0.702582 -0.711603 0.702582 0.711603 -1276.83 -480.489)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path21_fill" d="M 0 0L 15.3088 0L 15.3088 1.53088L 0 1.53088L 0 0Z"/>
+<path id="path22_fill" d="M 0 0L 15.3088 0L 15.3088 1.53088L 0 1.53088L 0 0Z"/>
+</defs>
+</svg>

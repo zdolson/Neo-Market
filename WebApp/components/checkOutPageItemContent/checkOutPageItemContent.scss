@@ -14,21 +14,9 @@ Purpose: CSS file for styling the component
 **/
 
 .checkOutPageItemContent {
-  text-align: left;
-  width: 100%;
-  min-width: 250px;
-  max-width: 250px;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  max-width: 200px;
   margin-left: 10px;
-  flex: 3;
-}
-
-.contentTable{
-	border-collapse:separate;
-	border-spacing:0 15px;
-  
-}
-
-h1 {
-	text-align: center;
-	height: 100px;
 }

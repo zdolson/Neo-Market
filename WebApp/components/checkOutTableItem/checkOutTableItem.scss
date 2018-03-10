@@ -15,15 +15,35 @@ Purpose: Spacing and style for the listing description in the checkOut page
 
 
 .checkOutTableItem {
-  min-width: 600px;
-  max-width: 600px;
+  height: auto;
+  width: 100%;
+  // padding: 20px;
   flex: 1;
-  min-height: 233px;
-  max-height: 233px;
-  margin: 25px 20px 20px 30%;
-  background: $grey65;
+  // background: $grey65;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
-  border: 2px solid transparent;
+  justify-content: center;
+  margin-bottom: 40px;
+  // border: 20px solid transparent;
+}
+
+.itemSeperator {
+  background: $grey50;
+  width: 2px;
+  display: flex;
+}
+
+.itemX {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemWrapper {
+  width: auto;
+  display: flex;
+  flex-direction: row;
+  border-radius: 5px;
+  padding: 5px 5px 5px 5px;
+  @include box-shadow(0px, 0px, 10px, 4px, $blackShadow);
 }

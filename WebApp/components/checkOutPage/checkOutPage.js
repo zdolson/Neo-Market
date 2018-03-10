@@ -8,7 +8,7 @@ import CheckOutPageTotalValue from '../checkOutPageTotalValue/checkOutPageTotalV
 
 /**
 
-@ Nicholas 
+@ Nicholas
 
 @ Date: 03/06/18
 
@@ -27,22 +27,26 @@ export class CheckOutPage extends Component {
   render () {
     return (
       <div className="checkOutPage">
+
         <div className="header">
-          <h1> Items </h1>
+          <div> Cart </div>
+          <div className="cartHeaderLine"></div>
         </div>
 
         <CheckOutTableItems />
-        
-        <div className="checkOutTotal">
-          <h1> Total:  </h1>
-        </div>
 
-        <div className="checkOutTotalValue">
-          <CheckOutPageTotalValue />
-        </div>
-
-        <div className="purchaseButton">
-          <h1> <TotalPurchase /> </h1>
+        <div className="checkOutBottom">
+          <div className="checkOutDetails">
+            <div className="checkOutTotalWrapper">
+              <div className="checkOutTotal"> Total </div>
+              <div className="totalSpace"></div>
+              <div className="checkOutTotalValue"> 20 NEO </div>
+            </div>
+            <div className="checkOutTotalLine"></div>
+          </div>
+          <div className="purchaseBtn">
+            <div className="purchaseBtnText"> Purchase </div>
+          </div>
         </div>
 
         <Stylesheet sheet={sheet} />
