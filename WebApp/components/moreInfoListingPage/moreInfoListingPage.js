@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './moreInfoListingPage.scss'
 // import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
-import MoreInfoListingLeft from '../moreInfoListingLeft/moreInfoListingLeft.js'
-import MoreInfoListingRight from '../moreInfoListingRight/moreInfoListingRight.js'
+import MoreInfoListingTop from './moreInfoListingTop/moreInfoListingTop.js'
+import MoreInfoListingBottom from './moreInfoListingBottom/moreInfoListingBottom.js'
 
 /**
 
@@ -28,8 +28,9 @@ class MoreInfoListingPage extends Component {
   render () {
     return (
       <div className='moreInfoListingPage'>
-        <MoreInfoListingLeft />
-        <MoreInfoListingRight />
+        <MoreInfoListingTop />
+        <MoreInfoListingBottom />
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }

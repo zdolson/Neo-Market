@@ -1,0 +1,12 @@
+<svg width="301" height="2" viewBox="0 0 301 2" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>ItemSpecsLine</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-55 481)">
+<g id="ItemSpecsLine">
+<use xlink:href="#path20_stroke" transform="matrix(0.999995 0.00309596 -0.00309596 0.999995 55 -480)" fill="#828282"/>
+</g>
+</g>
+<defs>
+<path id="path20_stroke" d="M 0 0L 300 0L 300 -1L 0 -1L 0 0Z"/>
+</defs>
+</svg>

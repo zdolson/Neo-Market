@@ -1,0 +1,111 @@
+@import '../../../vars';
+@import '../../../reset';
+@import '../../../mixins';
+@import '../../../animations';
+
+/**
+
+@ Alec
+
+@ 3/9/18
+
+Purpose: Spacing for the specifications of an item in moreInfoPage
+
+**/
+
+.moreInfoListingSpec {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  height: 240px;
+  width: 300px;
+  margin-left: 5%;
+  padding-top: 5%;
+  // margin-top: 10%;
+}
+
+.titleAndPrice {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  // padding-bottom: 5px;
+}
+
+.title {
+  font-size: 35px;
+}
+
+.prices {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.neoPrice {
+  color: $neoGreen;
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.usPrice {
+  color: $lightBlue;
+  font-size: 10px;
+  font-weight: 200;
+}
+
+.shippingDetails {
+  flex: 1;
+  color: $offWhite;
+  font-size: 12px;
+  font-weight: 200;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+}
+
+.shipsTo {
+  // padding-bottom: -1px;
+}
+
+.sellerAndRating {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  font-weight: 200;
+  font-size: 25px;
+}
+
+.seller {
+  color: $lightBlue;
+}
+
+.rating {
+  color: $offWhite;
+}
+
+.itemSpecsLine {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  flex: 1;
+}
+
+.itemBtn {
+  display: table;
+  // margin-top: 20px;
+  background: $brightGreen;
+  height: 40px;
+  width: 100%;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.itemBtnText {
+  display: table-cell;
+  vertical-align: middle;
+}

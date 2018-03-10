@@ -1,0 +1,21 @@
+@import '../../../../vars';
+@import '../../../../reset';
+@import '../../../../mixins';
+@import '../../../../animations';
+
+/**
+
+@ Alec
+
+@ 3/9/18
+
+Purpose: Spacing / Styling for the img in moreInfoPage
+
+**/
+
+.moreInfoListingImg {
+  background: $grey65;
+  width: auto;
+  margin-bottom: 5%;
+  border-radius: 5px;
+}

@@ -1,0 +1,27 @@
+@import '../../vars';
+@import '../../reset';
+@import '../../mixins';
+@import '../../animations';
+
+/**
+
+@ Alec
+
+@ 3/9/18
+
+Purpose: Spacing for the bottom of the moreInfoListingPage
+
+**/
+
+.moreInfoListingBottom {
+  // height: auto;
+  // width: auto;
+  // padding-top: 375px;
+  // padding-left: 150px;
+  // padding-right: 20px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}

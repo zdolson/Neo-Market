@@ -2,29 +2,10 @@ import React, { Component } from 'react'
 
 import {Stylesheet} from '../components/stylesheet.js'
 import sheet from '../components/base.scss'
+import { render } from 'react-dom'
+import { HashRouter } from 'react-router-dom'
 
-// Import for framework components
-import RightSideBar from '../components/rightSideBar/rightSideBar.js'
-import LeftSideBar from '../components/leftSideBar/leftSideBar.js'
-import LeftAccountBar from '../components/leftAccountBar/leftAccountBar.js'
-import RightAccountBar from '../components/rightAccountBar/rightAccountBar.js'
-import TopBar from '../components/topBar/topBar.js'
-import FilterDropdown from '../components/filterDropdown/filterDropdown.js'
-
-// Imports for the individual page components
-import ListingsPage from '../components/listingsPage/listingsPage.js'
-import MakePost from '../components/makePost/makePost.js';
-import WalletPage from '../components/walletPage/walletPage.js';
-import TrashPage from '../components/trashPage/trashPage.js';
-import ForumsPage from '../components/forumsPage/forumsPage.js';
-import PromosPage from '../components/promosPage/promosPage.js';
-import PurchasesPage from '../components/purchasesPage/purchasesPage.js';
-import PeoplePage from '../components/peoplePage/peoplePage.js';
-import CheckOutPage from '../components/checkOutPage/checkOutPage.js';
-import MoreInfoListingPage from '../components/moreInfoListingPage/moreInfoListingPage.js';
-
-// Import for react-router package.
-import { BrowserRouter as Router, Route, NavLink} from 'react-router-dom'
+import App from '../components/app/app.js'
 
 /**
 
@@ -43,13 +24,7 @@ export class Index extends Component {
       loading: true,
       error: '',
       cart: ['yolo', 'swag'],
-      data: {},
-      listingItems: [
-        ["add434njdwf7f73n", "Alec Felt", "J's on my feet", "These shoes are Jordans homie.", "100",],
-        ["87wddw877d7d7d89", "Nicholas Cheung", "Chest Slingshot", "How much ya bench .com", "20",],
-        ["sl501mx'[co3qa-]", "Victoria Tran", "Cracking the Coding Interview", "Whiteboarding all dayyy", "90",]
-      ]
-
+      data: {}
     }
   }
 
@@ -78,33 +53,12 @@ export class Index extends Component {
 
 
     return (
-      <main>
-        <Router>
-          <div className="routingPaths">
-
-            <FilterDropdown />
-            <TopBar />
-            <LeftSideBar />
-            <RightSideBar />
-            <LeftAccountBar />
-            <RightAccountBar />
-
-            <Route exact path="/" render={()=><ListingsPage listingItems={this.state.listingItems}/>} />
-            <Route path="/Listings" render={()=><ListingsPage listingItems={this.state.listingItems}/>} />
-            <Route path="/Posts" component={MakePost} />
-            <Route path="/Forums" component={ForumsPage} />
-            <Route path="/Wallet" component={WalletPage} />
-            <Route path="/Trash" component={TrashPage} />
-            <Route path="/Promos" component={PromosPage} />
-            <Route path="/Purchases" component={PurchasesPage} />
-            <Route path="/People" component={PeoplePage} />
-            <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
-            <Stylesheet sheet={sheet} />
-
-          </div>
-        </Router>
-      </main>
+      <HashRouter>
+        <div>
+          <App />
+          <Stylesheet sheet={sheet} />
+        </div>
+      </HashRouter>
     )
   }
 }
