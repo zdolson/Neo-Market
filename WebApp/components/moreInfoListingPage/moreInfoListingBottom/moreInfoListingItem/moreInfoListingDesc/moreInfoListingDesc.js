@@ -23,7 +23,7 @@ class MoreInfoListingDesc extends Component {
   render () {
     return (
       <div className='moreInfoListingDesc'>
-        description
+        description description description description description description
         <Stylesheet sheet={sheet} />
       </div>
     )

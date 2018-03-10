@@ -39,10 +39,16 @@ export class App extends Component {
       cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
       selectedItem: "add434njdwf7f73n"
     }
+    this.addCartItem = this.addCartItem.bind(this);
   }
 
   componentDidMount () {
     console.log('App component Loaded');
+  }
+
+  addCartItem(id) {
+    console.log("addCartItem: "+id);
+    this.setState({ cartItems: this.state.cartItems.push(id) });
   }
 
   render () {
@@ -72,7 +78,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} />
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} />
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem}/>
           </div>
         </main>
       )

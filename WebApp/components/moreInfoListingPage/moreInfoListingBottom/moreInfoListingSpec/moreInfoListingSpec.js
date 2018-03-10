@@ -29,7 +29,7 @@ class MoreInfoListingSpec extends Component {
 
         <div className="titleAndPrice">
           <div className="title">
-            title
+            title 
           </div>
           <div className="prices">
             <div className="neoPrice"> Neo price </div>

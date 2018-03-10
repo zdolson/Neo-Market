@@ -23,10 +23,12 @@ class MoreInfoListingBottom extends Component {
   }
 
   render () {
+    var item = this.props.item;
+    var addCartItem = this.props.addCartItem;
     return (
       <div className='moreInfoListingBottom'>
-        <MoreInfoListingItem />
-        <MoreInfoListingSpec />
+        <MoreInfoListingItem item={item}/>
+        <MoreInfoListingSpec item={item} addCartItem={addCartItem}/>
         <Stylesheet sheet={sheet} />
       </div>
     )
