@@ -30,9 +30,11 @@ export class App extends Component {
     super(props, context)
     this.state = {
       items: [
-        ["add434njdwf7f73n", "Alec Felt", "J's on my feet", "These shoes are Jordans homie.", "100",],
-        ["87wddw877d7d7d89", "Nicholas Cheung", "Chest Slingshot", "How much ya bench .com", "20",],
-        ["sl501mx'[co3qa-]", "Victoria Tran", "Cracking the Coding Interview", "Whiteboarding all dayyy", "90",]
+        {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: "100"},
+        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: "20"},
+        {id: "sl501mx'[co3qa-]", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"},
+        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: "20"},
+        {id: "sl501mx'[co3qa-]", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"}
       ],
       cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
       selectedItem: "add434njdwf7f73n"

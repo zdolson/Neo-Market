@@ -23,9 +23,10 @@ class ListingContentButton extends Component {
   }
 
   render () {
+    var price = this.props.price;
     return (
       <div className='listingContentButton'>
-        More Info
+        {price} NEO
         <Stylesheet sheet={sheet} />
       </div>
     )

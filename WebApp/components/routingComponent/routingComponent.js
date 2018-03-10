@@ -28,7 +28,13 @@ const RoutingComponent = (state) => (
       <Route path="/Purchases" component={PurchasesPage} />
       <Route path="/People" component={PeoplePage} />
       <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={state.state.cartItems}/> } />
-      <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
+      {state.state.items.map( (item, key) => {
+        var path="/MoreInfoItem/"+item.id;
+        console.log(path)
+        return (
+          <Route path={path} render={ () => <MoreInfoListingPage cartItems={state.state.cartItems} items={state.state.items}/> } />
+        )
+      })}
   	</Switch>
   </main>
 )

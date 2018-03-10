@@ -33,24 +33,24 @@ export class ListingsPage extends Component {
     }
   }
 
-  // {listingItems.map(item => {
-  //   // console.log(item);
-  //   var link = '/MoreInfoItem/'+item[0];
-  //   // console.log(link);
-  //   // <NavLink to={link} className="navLink">  <Listing item={item}/> </NavLink>
-  // })}
-
   render () {
     console.log(this.props.state);
+    var items = this.props.state.items;
+    var cartItems = this.props.state.cartItems;
+    var selectedItem = this.props.state.selectedItem;
     return (
       <div className='listings'>
 
-        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
-        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
-        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
-        <Link to='/MoreInfoItem' className="navLink">  <Listing/> </Link>
-        <Stylesheet sheet={sheet} />
+        {items.map( (item, key) => {
+          // console.log(item);
+          var link = '/MoreInfoItem/'+item.id;
+          console.log(link);
+          return (
+            <Link to={link} key={key} className="navLink">  <Listing item={item}/> </Link>
+          )
+        })}
 
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }

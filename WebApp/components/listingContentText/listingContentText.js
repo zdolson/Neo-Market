@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingContentText.scss'
 
+import ItemSpecsLine from '../assets/ItemSpecsLine.svg';
+
 /**
 
 @ Alec
@@ -20,12 +22,21 @@ class ListingContentText extends Component {
     this.State = {
 
     }
+    console.log(props)
   }
 
   render () {
+    var title = this.props.title;
+    var description = this.props.description;
     return (
       <div className='listingContentText'>
-        Listing Description goes here
+        <div className="listingContentTitle">
+          {title}
+        </div>
+        <ItemSpecsLine />
+        <div className="listingContentDesc">
+          {description}
+        </div>
         <Stylesheet sheet={sheet} />
       </div>
     )
