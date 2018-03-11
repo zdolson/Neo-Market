@@ -5,15 +5,18 @@
 
 /**
 
-@ Nicholas
+@ Alec
 
-@ Date: 03/06/18
+@ Date: 03/10/18
 
-Purpose: CSS file for styling checkOut page
+Purpose: CSS file for makePost
 
 **/
 
-
-body {
-	background-color: #4F4F4F;
+.makePost {
+	position: absolute;
+	top: 50px;
+	left: 175px;
+	right: 175px;
+	bottom: 0px;
 }
