@@ -24,10 +24,11 @@ export class MakePostForm extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      // stuff goes here
+      img: '',
+      imgUpload: false
     }
-    this.handleUploadImage = this.handleUploadImage.bind(this);
     this.makeId = this.makeId.bind(this);
+    this.makePost = this.makePost.bind(this);
   }
 
   makeId() {
@@ -40,27 +41,22 @@ export class MakePostForm extends Component {
     return text;
   }
 
-  handleUploadImage(ev) {
+  makePost(ev) {
     ev.preventDefault();
-
+    // var file = this.uploadInput.files[0];
     var file = this.uploadInput.files[0];
-    console.log(typeof file)
+    console.log(this.title.value);
+    console.log(this.description.value);
+    console.log(this.price.value);
     console.log(file);
-
-
-    var id = this.makeId();
-    var ref = firebase.storage().ref().child(id);
-    ref.put(file).then(function(snapshot) {
-      console.log('Uploaded a blob or file!');
-    });
-
-    // axios.post('http://localhost:8000/upload', data)
-    //   .then(function (response) {
-    // this.setState({ imageURL: `http://localhost:8000/${body.file}`, uploadStatus: true });
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
+    this.setState({ img: file, imgUpload: true });
+    // var id = this.makeId();
+    //
+    //
+    // var ref = firebase.storage().ref().child(id);
+    // ref.put(file).then(function(snapshot) {
+    //   console.log('Uploaded a blob or file!');
+    // });
   }
 
   render () {
@@ -68,55 +64,49 @@ export class MakePostForm extends Component {
     console.debug('Data is ', data)
     return (
       <div className = "makePostFormFields">
+        <form onSubmit={this.makePost}>
         <div className="header">
           Make a Post
         </div>
-        <div className = "title">
+        <div className = "title form-group">
           <label className="std text">
             <div className="label">title</div>
-            <input type ="text" name="title" id="title_1" placeholder="..." gth = "32"/>
+            <input className="form-control" type ="text" ref={(ref) => { this.title = ref; }} name="title" id="title_1" placeholder="..." gth = "32"/>
           </label>
         </div>
-        <div className = "description">
+        <div className = "description form-group">
           <label className="std text">
             <div className="label">description</div>
-            <input type ="text" name="descr" id="descri_1" placeholder="..." maxLength = "32"/>
+            <input className="form-control" type ="text" ref={(ref) => { this.description = ref; }} name="descr" id="descri_1" placeholder="..." maxLength = "32"/>
           </label>
         </div>
-        <div className = "loadImage">
+        <div className = "loadImage form-group">
           <label className="std text">
             <div className="label">load an image</div>
-            <input type ="text" name="img" id="img_1" placeholder="upload w/ a filename" maxLength = "32"/>
+            <input className="form-control" type ="text" name="img" id="img_1" placeholder="upload w/ a filename" maxLength = "32"/>
           </label>
           <label className="std text">
             <div className="label">image should be loaded right here</div>
             <div className="uploadContainer">
-              <form onSubmit={this.handleUploadImage}>
-                <div className="form-group">
-                  <input className="form-image"  ref={(ref) => { this.uploadInput = ref; }} type="file" />
-                </div>
+              <div className="form-group">
+                <input className="form-image"  ref={(ref) => { this.uploadInput = ref; }} type="file" />
+              </div>
 
-                <div className="form-group">
-                  <input className="form-control" ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Optional name for the file" />
-                </div>
+              <div className="form-group">
+                <input className="form-control" ref={(ref) => { this.fileName = ref; }} type="text" placeholder="Optional name for the file" />
+              </div>
 
-                <input type="submit" value="Submit" />
-
-              </form>
             </div>
           </label>
         </div>
-        <div className = "price">
+        <div className = "price form-group">
           <label className="std text">
             <div className="label">NEO Price</div>
-            <input type ="text" name="price" id="price_1" placeholder="..." maxLength = "32"/>
+            <input className="form-control" type ="text" ref={(ref) => { this.price = ref; }} name="price" id="price_1" placeholder="..." maxLength = "32"/>
           </label>
         </div>
-        <div className = "postBtn">
-          <label className="std text">
-            <div className="label">POST</div>
-          </label>
-        </div>
+        <input type="submit" value="Submit" />
+        </form>
         <Stylesheet sheet={sheet} />
       </div>
 

@@ -40,6 +40,7 @@ export class App extends Component {
       selectedItem: "add434njdwf7f73n"
     }
     this.addCartItem = this.addCartItem.bind(this);
+    this.addItem = this.addItem.bind(this);
   }
 
   componentDidMount () {
@@ -49,7 +50,13 @@ export class App extends Component {
   addCartItem(id) {
     console.log("addCartItem: "+ id);
     this.setState({ cartItems: this.state.cartItems.concat(id) });
-    console.log("This is the state.cartItems: " + this.state.cartItems)
+    console.log("This is the state.cartItems: " + this.state.cartItems);
+  }
+
+  addItem(item) {
+    console.log("addItem: "+item);
+    this.setState({ items: this.state.items.concat(item) });
+    console.log("This is the state.items: " + this.state.items);
   }
 
   render () {
@@ -79,7 +86,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} />
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} addItem={this.addItem}/>
           </div>
         </main>
       )

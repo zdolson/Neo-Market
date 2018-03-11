@@ -29,11 +29,10 @@ export class MakePost extends Component {
   }
 
   render () {
-    const { data } = this.props
-    console.debug('Data is ', data)
+    var addItem = this.props.addItem;
     return (
       <div className = "makePost">
-        <MakePostForm />
+        <MakePostForm addItem={addItem}/>
         <Stylesheet sheet={sheet} />
       </div>
 
