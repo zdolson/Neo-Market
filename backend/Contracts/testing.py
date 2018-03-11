@@ -11,7 +11,9 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        lists = list()
+        lists = list(length=10)
+        for i in range(10): 
+            lists[i] = "" 
         bLists = serialize_array(lists)
         Put(GetContext, name, addr)
         Put(GetContext, addr, bLists) 
@@ -73,6 +75,7 @@ def createPost(owner, title, desc, price, amount, counter):
         postInfo[3] = price
         postInfo[4] = amount
 
+        
         b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
 
         # dPostInfo = serialize_array(postInfo)
