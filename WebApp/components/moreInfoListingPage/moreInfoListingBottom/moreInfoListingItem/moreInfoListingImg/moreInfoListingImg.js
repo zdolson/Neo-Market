@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../../stylesheet.js'
 import sheet from './moreInfoListingImg.scss'
 
-import Grumpy from '../../../../assets/grumpy.svg'
+import * as firebase from 'firebase'
 
 /**
 
@@ -17,15 +17,38 @@ Purpose: img that for moreInfoPage
 class MoreInfoListingImg extends Component {
   constructor(props, context) {
     super(props, context)
-    this.State = {
-
+    this.state = {
+      imgUrl: '',
+      imgLoad: false
     }
   }
 
+  componentWillMount() {
+    var ref = firebase.storage().ref().child('OmaCypLYi9');
+    ref.getDownloadURL().then(url => {
+      console.log('image download successful: '+url)
+      this.setState({ imgUrl: url, imgLoad: true });
+    }).catch(err => {
+      console.error(err)
+    });
+    // var ref = firebase.storage().ref().child(this.props.id);
+    // ref.getDownloadURL().then(url => {
+    //   console.log('image download successful: '+url)
+    //   this.setState({ imgUrl: url });
+    // }).catch(err => {
+    //   console.error(err)
+    // });
+  }
+
   render () {
+    var img = (
+      this.state.imgLoad ?
+      <img src={this.state.imgUrl} alt='loading...' width="350"/> :
+      <div className="imgLoading"> <div>loading...</div> </div>
+    );
     return (
       <div className='moreInfoListingImg'>
-        <Grumpy />
+        {img}
         <Stylesheet sheet={sheet} />
       </div>
     )

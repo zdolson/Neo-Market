@@ -27,10 +27,10 @@ class MoreInfoListingItem extends Component {
 
     var item = this.props.item
     var addCartItem = this.props.addCartItem
-    
+
     return (
       <div className='moreInfoListingItem'>
-        <MoreInfoListingImg />
+        <MoreInfoListingImg id={item.id}/>
         <MoreInfoListingDesc listingDescription={item['description']}/>
         <Stylesheet sheet={sheet} />
       </div>
