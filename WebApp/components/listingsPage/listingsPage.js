@@ -36,7 +36,6 @@ export class ListingsPage extends Component {
   render () {
     var items = this.props.state.items;
     var cartItems = this.props.state.cartItems;
-    var selectedItem = this.props.state.selectedItem;
     return (
       <div className='listings'>
 
