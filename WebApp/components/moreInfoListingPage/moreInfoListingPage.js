@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './moreInfoListingPage.scss'
 // import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
@@ -23,7 +24,6 @@ class MoreInfoListingPage extends Component {
     this.State = {
 
     }
-    console.log(props)
   }
 
   render () {

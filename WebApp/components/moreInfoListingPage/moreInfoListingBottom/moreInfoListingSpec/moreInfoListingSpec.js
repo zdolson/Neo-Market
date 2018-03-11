@@ -7,11 +7,11 @@ import Star from '../../../assets/Star.svg'
 
 /**
 
-@ Alec
+@ Alec/Nicholas 
 
 @ 3/09/18
 
-Purpose: Specifications of the item
+Purpose: Specifications of the item, as well as passing in props to dynamically populate each listing Item
 
 **/
 
@@ -21,18 +21,26 @@ class MoreInfoListingSpec extends Component {
     this.State = {
 
     }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    console.log('Purchase Button was clicked!')
   }
 
   render () {
+    var item = this.props.item
+    var addCartItem = this.props.addCartItem
+
     return (
       <div className='moreInfoListingSpec'>
 
         <div className="titleAndPrice">
           <div className="title">
-            title 
+            {item['title']} 
           </div>
           <div className="prices">
-            <div className="neoPrice"> Neo price </div>
+            <div className="neoPrice"> {item['price']} </div>
             <div className="usPrice"> US price </div>
           </div>
         </div>
@@ -54,7 +62,9 @@ class MoreInfoListingSpec extends Component {
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="itemBtn">
-          <div className="itemBtnText"> Add to Cart </div>
+          <div className="itemBtnText"> 
+            Add to Cart
+          </div>
         </div>
 
         <Stylesheet sheet={sheet} />
