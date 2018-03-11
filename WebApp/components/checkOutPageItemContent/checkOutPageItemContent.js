@@ -27,11 +27,12 @@ export class CheckOutPageItemContent extends Component {
   }
 
   render () {
+    var currCheckOutItem = this.props.currCheckOutItem
     return (
       <div className='checkOutPageItemContent'>
-        <CheckOutPageAddr />
-        <CheckOutPagePrice />
-        <CheckOutPageTitle />
+        <CheckOutPageAddr currCheckOutItemOwner={currCheckOutItem['owner']}/>
+        <CheckOutPagePrice currCheckOutItemPrice={currCheckOutItem['price']}/>
+        <CheckOutPageTitle currCheckOutItemTitle={currCheckOutItem['title']}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

@@ -22,10 +22,10 @@ export class CheckOutPage extends Component {
     this.state = {
       // stuff goes here
     }
-    console.log(this.props);
   }
 
   render () {
+    var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     return (
       <div className="checkOutPage">
 
@@ -34,7 +34,12 @@ export class CheckOutPage extends Component {
           <div className="cartHeaderLine"></div>
         </div>
 
-        <CheckOutTableItems />
+        {this.props.cartItems.map( (id, key) => {
+          var currCheckOutItem = returnCheckOutDataByID(id)
+          return (
+            <CheckOutTableItems currCheckOutItem={currCheckOutItem}/>
+          )
+        })}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">
