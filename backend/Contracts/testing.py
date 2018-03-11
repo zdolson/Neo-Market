@@ -11,7 +11,7 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        lists = list(length=10)
+        lists = list()
         bLists = serialize_array(lists)
         Put(GetContext, name, addr)
         Put(GetContext, addr, bLists) 
