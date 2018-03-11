@@ -19,6 +19,7 @@ import purchasesPage from '../purchasesPage/purchasesPage.js';
 import peoplePage from '../peoplePage/peoplePage.js';
 
 import MakePostForm from '../makePostForm/makePostForm.js'
+import MakePostFormNew from '../makePostForm/makePostFormNew.js'
 
 export class MakePost extends Component {
   constructor (props, context) {
@@ -32,7 +33,7 @@ export class MakePost extends Component {
     var addItem = this.props.addItem;
     return (
       <div className = "makePost">
-        <MakePostForm addItem={addItem}/>
+        <MakePostFormNew addItem={addItem}/>
         <Stylesheet sheet={sheet} />
       </div>
 
