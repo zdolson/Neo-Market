@@ -29,6 +29,7 @@ class RoutingComponent extends Component {
     var items = state.items;
     var cartItems = state.cartItems;
     var addCartItem = this.props.addCartItem;
+    var removeCartItem = this.props.removeCartItem;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
     return (
       <main>
@@ -42,7 +43,7 @@ class RoutingComponent extends Component {
           <Route path="/Promos" component={PromosPage} />
           <Route path="/Purchases" component={PurchasesPage} />
           <Route path="/People" component={PeoplePage} />
-          <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={cartItems} returnCheckOutDataByID={returnCheckOutDataByID}/> } />
+          <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={cartItems} removeCartItem={removeCartItem} returnCheckOutDataByID={returnCheckOutDataByID}/> } />
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (

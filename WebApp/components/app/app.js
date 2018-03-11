@@ -36,10 +36,11 @@ export class App extends Component {
         {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: "30"},
         {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: "900"}
       ],
-      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]", "jnfekjnkjelfkajf", "fjawfiajofiaa;ieoj;i"],
+      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
       selectedItem: "add434njdwf7f73n"
     }
     this.addCartItem = this.addCartItem.bind(this);
+    this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
   }
 
@@ -50,6 +51,12 @@ export class App extends Component {
   addCartItem(id) {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
     // This isnt going to showup the first time, it will show up after the re-render.
+  }
+
+  removeCartItem(id){
+    var index = this.state.cartItems.indexOf(id)
+    this.state.cartItems.splice(index, 1)
+    this.setState({ cartItems: this.state.cartItems})
   }
 
   returnCheckOutDataByID(id){
@@ -91,7 +98,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem}/>
           </div>
         </main>
       )
