@@ -11,7 +11,7 @@ def register(name, addr):
     print("checking if user exist") 
     if not a: 
         print("user does not exist - registering")
-        lists = list()
+        lists = list(length=10)
         bLists = serialize_array(lists)
         Put(GetContext, name, addr)
         Put(GetContext, addr, bLists) 
@@ -62,7 +62,7 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params
 # to the list of list (backlog) at the moment
 # Add ID as a 6th param, BACKLOG
-def createPost(owner, title, desc, price, amount):
+def createPost(owner, title, desc, price, amount, counter):
     a = Get(GetContext, owner)
     if a:
         print("beginning")
@@ -80,7 +80,7 @@ def createPost(owner, title, desc, price, amount):
         addr = Get(GetContext, a)
         addList = Get(GetContext, addr) 
         curList = deserialize_bytearray(addList)
-        curList.append(b)
+        curList[counter] = b
         tempList = serialize_array(curList)
         Put(GetContext, addr, tempList)
         return True
@@ -96,9 +96,13 @@ def getPost(owner, title):
     print("Public Address: " , pubAddress)
     print("Post info: " , postInfo)
     dpostInfo = deserialize_bytearray(postInfo)
-    print("ITEMS IN POST")
-    for index in dpostInfo:
-        print(index) 
+    print("check stuff")
+    a1 = dpostInfo[1] 
+    a2 = dpostInfo[2] 
+    print("yes") 
+    print(a1)
+    print(a2) 
+    return True
 
 def deletePost(owner,postindex):
     #postindex is in backlog
