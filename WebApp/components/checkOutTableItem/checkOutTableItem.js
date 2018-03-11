@@ -27,13 +27,15 @@ class CheckOutTableItem extends Component {
   }
 
   render () {
+    var currCheckOutItem = this.props.currCheckOutItem
+    var removeCartItem = this.props.removeCartItem
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
           <CheckOutPagePicture />
           <div className="itemSeperator"></div>
-          <CheckOutPageItemContent />
-          <div className="itemX"> <ItemX/> </div>
+          <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
+          <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>
           <Stylesheet sheet={sheet} />
         </div>
       </div>

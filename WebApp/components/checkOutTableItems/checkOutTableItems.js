@@ -22,11 +22,12 @@
     }
 
     render () {
+      //Pass in values here to populate rest.
+      var currCheckOutItem = this.props.currCheckOutItem
+      var removeCartItem = this.props.removeCartItem
       return (
         <div className='checkoutItems'>
-          <CheckOutTableItem />
-          <CheckOutTableItem />
-          <CheckOutTableItem />
+          <CheckOutTableItem currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
         </div>
       )
     }
