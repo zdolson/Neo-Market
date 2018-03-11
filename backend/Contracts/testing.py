@@ -1,4 +1,3 @@
-""" my god this is difficult """
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
@@ -75,7 +74,11 @@ def createPost(owner, title, desc, price, amount):
         postInfo[4] = amount
         dPostInfo = serialize_array(postInfo)
         print(dPostInfo)
-        Put(GetContext, owner , dPostInfo)
+        addList = Get(GetContext, a)
+        curList = deserialize_bytearray(addList)
+        curList.append(dPostInfo)
+        tempList = serialize_array(curList)
+        Put(GetContext, owner , tempList)
         return True
     else:
         print("failed")
@@ -110,6 +113,9 @@ def getclass(owner, title, desc, price, amount):
     print("GOING TO SLEEP BOYS")
     return True # PLEASE WORK SO I CAN NAP
 
+# this adds item to the cart the user would want to buy from
+def addItems(items):
+    
 
 """ the list of operations the file will run in
     1. register
