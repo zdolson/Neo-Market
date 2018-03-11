@@ -17,6 +17,7 @@ import forumsPage from '../forumsPage/forumsPage.js';
 import promosPage from '../promosPage/promosPage.js';
 import purchasesPage from '../purchasesPage/purchasesPage.js';
 import peoplePage from '../peoplePage/peoplePage.js';
+import cF from '../../../backend/contractFunctions'
 
 import * as firebase from 'firebase'
 
@@ -50,6 +51,7 @@ export class MakePostForm extends Component {
     console.log(this.price.value);
     console.log(file);
     this.setState({ img: file, imgUpload: true });
+    // cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
     // var id = this.makeId();
     //
     //
