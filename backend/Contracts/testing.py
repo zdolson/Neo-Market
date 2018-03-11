@@ -73,15 +73,16 @@ def createPost(owner, title, desc, price, amount):
         postInfo[3] = price
         postInfo[4] = amount
 
-        b = owner + "|" + title + "|" + desc + "|" + str(price) + "|" + str(amount)
+        b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
 
         # dPostInfo = serialize_array(postInfo)
         # print(dPostInfo)
-        addList = Get(GetContext, a)
+        addr = Get(GetContext, a)
+        addList = Get(GetContext, addr) 
         curList = deserialize_bytearray(addList)
         curList.append(b)
         tempList = serialize_array(curList)
-        Put(GetContext, owner , tempList)
+        Put(GetContext, addr, tempList)
         return True
     else:
         print("failed")
