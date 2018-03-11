@@ -47,8 +47,9 @@ export class App extends Component {
   }
 
   addCartItem(id) {
-    console.log("addCartItem: "+id);
-    this.setState({ cartItems: this.state.cartItems.push(id) });
+    console.log("addCartItem: "+ id);
+    this.setState({ cartItems: this.state.cartItems.concat(id) });
+    console.log("This is the state.cartItems: " + this.state.cartItems)
   }
 
   render () {
