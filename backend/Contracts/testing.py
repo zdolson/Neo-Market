@@ -115,7 +115,7 @@ def getclass(owner, title, desc, price, amount):
 
 # this adds item to the cart the user would want to buy from
 def addItems(items):
-    
+    pass
 
 """ the list of operations the file will run in
     1. register
@@ -127,7 +127,6 @@ def addItems(items):
 
     Until they are functionally good then we'll separate them into separate
     files to make this code look nicer 
-
 """
 def Main(operation, args):
     print("starting")
