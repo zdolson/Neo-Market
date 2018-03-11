@@ -33,8 +33,8 @@ export class MakePost extends Component {
     console.debug('Data is ', data)
     return (
       <div className = "makePost">
-      <MakePostForm />
-      <Stylesheet sheet={sheet} />
+        <MakePostForm />
+        <Stylesheet sheet={sheet} />
       </div>
 
     )
