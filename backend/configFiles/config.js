@@ -6,8 +6,10 @@ module.exports = {
      */
      // scriptHash: 'cede76463adbae198b50a8df499c342ddf85c331',
      // //name: death1
-     scriptHash: '845c5206b025ec3c38e8b54805b12818e25de624',
-     //name: hope3
+     // scriptHash: '845c5206b025ec3c38e8b54805b12818e25de624',
+     // //name: hope3
+     scriptHash: 'eab09cfd13ef43e4280b7be118ca12f2d2f7100c',
+     //name: death2
 
     /*
      * RESTEndpoint is an endpoint to a neon-wallet-db REST server that's connected to your desired net (MainNet, TestNet, PrivNet)
