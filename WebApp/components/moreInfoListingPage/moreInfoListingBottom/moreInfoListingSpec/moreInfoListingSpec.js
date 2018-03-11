@@ -21,15 +21,11 @@ class MoreInfoListingSpec extends Component {
     this.State = {
 
     }
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleClick() {
-    console.log('Purchase Button was clicked!')
   }
 
   render () {
     var item = this.props.item
+    var itemID = this.props.item['id']
     var addCartItem = this.props.addCartItem
 
     return (
@@ -62,7 +58,7 @@ class MoreInfoListingSpec extends Component {
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="itemBtn">
-          <div className="itemBtnText"> 
+          <div className="itemBtnText" onClick={() => {addCartItem(itemID)}}> 
             Add to Cart
           </div>
         </div>
