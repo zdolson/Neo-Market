@@ -1,4 +1,3 @@
-""" my god this is difficult """
 
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
@@ -63,7 +62,7 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params
 # to the list of list (backlog) at the moment
 # Add ID as a 6th param, BACKLOG
-def createPost(owner, title, desc, price, amount):
+def createPost(owner, title, desc, price, amount, counter):
     a = Get(GetContext, owner)
     if a:
         print("beginning")
@@ -73,9 +72,17 @@ def createPost(owner, title, desc, price, amount):
         postInfo[2] = desc
         postInfo[3] = price
         postInfo[4] = amount
-        dPostInfo = serialize_array(postInfo)
-        print(dPostInfo)
-        Put(GetContext, owner , dPostInfo)
+
+        b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
+
+        # dPostInfo = serialize_array(postInfo)
+        # print(dPostInfo)
+        addr = Get(GetContext, a)
+        addList = Get(GetContext, addr) 
+        curList = deserialize_bytearray(addList)
+        curList[counter] = b
+        tempList = serialize_array(curList)
+        Put(GetContext, addr, tempList)
         return True
     else:
         print("failed")
@@ -89,9 +96,13 @@ def getPost(owner, title):
     print("Public Address: " , pubAddress)
     print("Post info: " , postInfo)
     dpostInfo = deserialize_bytearray(postInfo)
-    print("ITEMS IN POST")
-    for index in dpostInfo:
-        print(index) 
+    print("check stuff")
+    a1 = dpostInfo[1] 
+    a2 = dpostInfo[2] 
+    print("yes") 
+    print(a1)
+    print(a2) 
+    return True
 
 def deletePost(owner,postindex):
     #postindex is in backlog
@@ -110,6 +121,9 @@ def getclass(owner, title, desc, price, amount):
     print("GOING TO SLEEP BOYS")
     return True # PLEASE WORK SO I CAN NAP
 
+# this adds item to the cart the user would want to buy from
+def addItems(items):
+    pass
 
 """ the list of operations the file will run in
     1. register
@@ -121,8 +135,7 @@ def getclass(owner, title, desc, price, amount):
 
     Until they are functionally good then we'll separate them into separate
     files to make this code look nicer 
-
- """
+"""
 def Main(operation, args):
     print("starting")
     if operation == "register":

@@ -22,11 +22,11 @@
     }
 
     render () {
+      //Pass in values here to populate rest.
+      var currCheckOutItem = this.props.currCheckOutItem
       return (
         <div className='checkoutItems'>
-          <CheckOutTableItem />
-          <CheckOutTableItem />
-          <CheckOutTableItem />
+          <CheckOutTableItem currCheckOutItem={currCheckOutItem}/>
         </div>
       )
     }
