@@ -24,10 +24,14 @@ class MoreInfoListingItem extends Component {
   }
 
   render () {
+
+    var item = this.props.item
+    var addCartItem = this.props.addCartItem
+    
     return (
       <div className='moreInfoListingItem'>
         <MoreInfoListingImg />
-        <MoreInfoListingDesc />
+        <MoreInfoListingDesc listingDescription={item['description']}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

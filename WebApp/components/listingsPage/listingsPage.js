@@ -34,7 +34,6 @@ export class ListingsPage extends Component {
   }
 
   render () {
-    console.log(this.props.state);
     var items = this.props.state.items;
     var cartItems = this.props.state.cartItems;
     var selectedItem = this.props.state.selectedItem;
@@ -42,7 +41,6 @@ export class ListingsPage extends Component {
       <div className='listings'>
 
         {items.map( (item, key) => {
-          // console.log(item);
           var link = '/MoreInfoItem/'+item.id;
           console.log(link);
           return (
