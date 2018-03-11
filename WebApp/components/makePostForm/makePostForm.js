@@ -44,6 +44,9 @@ export class MakePostForm extends Component {
     ev.preventDefault();
 
     var file = this.uploadInput.files[0];
+    console.log(typeof file)
+    console.log(file);
+
 
     var id = this.makeId();
     var ref = firebase.storage().ref().child(id);
