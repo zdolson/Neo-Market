@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './moreInfoListingPage.scss'
-import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
+// import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
+import MoreInfoListingTop from './moreInfoListingTop/moreInfoListingTop.js'
+import MoreInfoListingBottom from './moreInfoListingBottom/moreInfoListingBottom.js'
 
 /**
 
@@ -24,9 +27,13 @@ class MoreInfoListingPage extends Component {
   }
 
   render () {
+    var item = this.props.item;
+    var addCartItem = this.props.addCartItem;
     return (
       <div className='moreInfoListingPage'>
-        <MoreInfoListingFields />
+        <MoreInfoListingTop />
+        <MoreInfoListingBottom item={item} addCartItem={addCartItem}/>
+        <Stylesheet sheet={sheet} />
       </div>
     )
   }

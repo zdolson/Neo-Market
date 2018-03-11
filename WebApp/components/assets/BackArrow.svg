@@ -1,0 +1,12 @@
+<svg width="28" height="8" viewBox="0 0 28 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>BackArrow</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(361 490)">
+<g id="BackArrow">
+<use xlink:href="#path19_stroke" transform="matrix(-0.99999 -0.00442404 0.00442404 -0.99999 -333.997 -485.885)"/>
+</g>
+</g>
+<defs>
+<path id="path19_stroke" d="M 26.3567 0.353553C 26.5519 0.158291 26.5519 -0.158291 26.3567 -0.353553L 23.1747 -3.53553C 22.9794 -3.7308 22.6628 -3.7308 22.4676 -3.53553C 22.2723 -3.34027 22.2723 -3.02369 22.4676 -2.82843L 25.296 0L 22.4676 2.82843C 22.2723 3.02369 22.2723 3.34027 22.4676 3.53553C 22.6628 3.7308 22.9794 3.7308 23.1747 3.53553L 26.3567 0.353553ZM 0 0.5L 26.0031 0.5L 26.0031 -0.5L 0 -0.5L 0 0.5Z"/>
+</defs>
+</svg>

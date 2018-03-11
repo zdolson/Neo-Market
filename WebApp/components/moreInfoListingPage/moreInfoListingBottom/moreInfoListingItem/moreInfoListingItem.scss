@@ -1,0 +1,21 @@
+@import '../../../vars';
+@import '../../../reset';
+@import '../../../mixins';
+@import '../../../animations';
+
+/**
+
+@ Alec
+
+@ 3/9/18
+
+Purpose: Spacing / Styling for the img and desc of moreInfoPage
+
+**/
+
+.moreInfoListingItem {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}

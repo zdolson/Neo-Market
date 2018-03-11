@@ -23,13 +23,18 @@ class ListingContent extends Component {
     this.State = {
 
     }
+    console.log(this.props)
   }
 
   render () {
+    var item = this.props.item;
+    var price = item.price;
+    var title = item.title;
+    var description = item.description;
     return (
       <div className='listingContent'>
-        <ListingContentText />
-        <ListingContentButton />
+        <ListingContentText title={title} description={description}/>
+        <ListingContentButton price={price}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

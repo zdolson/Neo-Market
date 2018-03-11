@@ -39,7 +39,7 @@ export class RightAccountBarContent extends Component {
     return (
       <div className="rightAccountNavContent">
         <CartIcon className="cartIcon"/>
-        <NavLink to={"/CheckOut"}>CheckOut</NavLink>
+        <NavLink to={"/CheckOut"}> <p>CheckOut</p> </NavLink>
         <DownArrowIcon className="downArrowIcon"/>
         <Stylesheet sheet={sheet} />
       </div>
