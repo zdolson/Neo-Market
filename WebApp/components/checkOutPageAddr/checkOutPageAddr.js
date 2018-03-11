@@ -24,7 +24,7 @@ export class CheckOutPageAddr extends Component {
   render () {
     return (
       <div className='checkOutPageAddr'>
-        CheckOutPageAddr here!
+        {this.props.currCheckOutItemOwner}
         <Stylesheet sheet={sheet} />
       </div>
     )

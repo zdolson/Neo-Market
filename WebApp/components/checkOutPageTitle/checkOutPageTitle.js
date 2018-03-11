@@ -24,7 +24,7 @@ export class CheckOutPageTitle extends Component {
   render () {
     return (
       <div className='checkOutPageTitle'>
-        CheckOutPageTitle here!
+        {this.props.currCheckOutItemTitle}
         <Stylesheet sheet={sheet} />
       </div>
     )

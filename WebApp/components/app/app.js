@@ -32,15 +32,15 @@ export class App extends Component {
       items: [
         {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: "100"},
         {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: "20"},
-        {id: "sl501mx'[co3qa-]", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"},
-        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: "20"},
-        {id: "sl501mx'[co3qa-]", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"}
+        {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"},
+        {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: "30"},
+        {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: "900"}
       ],
-      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
+      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]", "jnfekjnkjelfkajf", "fjawfiajofiaa;ieoj;i"],
       selectedItem: "add434njdwf7f73n"
     }
     this.addCartItem = this.addCartItem.bind(this);
-    this.addItem = this.addItem.bind(this);
+    this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
   }
 
   componentDidMount () {
@@ -48,15 +48,20 @@ export class App extends Component {
   }
 
   addCartItem(id) {
-    console.log("addCartItem: "+ id);
     this.setState({ cartItems: this.state.cartItems.concat(id) });
-    console.log("This is the state.cartItems: " + this.state.cartItems);
+    // This isnt going to showup the first time, it will show up after the re-render.
   }
 
-  addItem(item) {
-    console.log("addItem: "+item);
-    this.setState({ items: this.state.items.concat(item) });
-    console.log("This is the state.items: " + this.state.items);
+  returnCheckOutDataByID(id){
+    var dict = this.state.items
+    var returnCartItem = null
+    for (let key in dict) {
+      if (dict[key]['id'] == id) {
+        returnCartItem = dict[key]
+        break
+      }
+    }
+    return returnCartItem
   }
 
   render () {
@@ -83,10 +88,10 @@ export class App extends Component {
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
-            <RightSideBar cartItems={this.state.cartItems} />
+            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} addItem={this.addItem}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
           </div>
         </main>
       )

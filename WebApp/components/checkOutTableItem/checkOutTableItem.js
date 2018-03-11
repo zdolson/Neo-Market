@@ -27,12 +27,13 @@ class CheckOutTableItem extends Component {
   }
 
   render () {
+    var currCheckOutItem = this.props.currCheckOutItem
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
           <CheckOutPagePicture />
           <div className="itemSeperator"></div>
-          <CheckOutPageItemContent />
+          <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
           <div className="itemX"> <ItemX/> </div>
           <Stylesheet sheet={sheet} />
         </div>
