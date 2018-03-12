@@ -9,6 +9,17 @@ from boa.interop.Neo.Runtime import Log, Notify
     4. can i select a certain index of the list? - ready up 
     
     AFTER THAT REPORT BACK
+
+    1. can i create a post? 
+    2. can i add another post to the list?
+    3. can i select an index of that post? 
+    4. can i delete a post? 
+    5. can i "buy" - NOTE cannot use other wallet so that's an issue leave that to zack
+    
+    SHOULD BE DONE BY HERE
+    1. is there any bugs? 
+    2. what are the test cases for this code? 
+    3. can it be improved upon? 
 """ 
 # splitting things up here - helper to create master 
 def fillMaster(name): 
