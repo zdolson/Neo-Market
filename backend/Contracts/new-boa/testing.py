@@ -149,6 +149,9 @@ def Main(operation, args):
     elif operation == "addone":
         print("addone op - here")
         addone(args)
+    elif operation == "createpost":
+        print("creating a post - here") 
+        createpost(args)
     else: 
         print("what op?")
         return False
