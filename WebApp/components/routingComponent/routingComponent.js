@@ -31,19 +31,20 @@ class RoutingComponent extends Component {
     var addCartItem = this.props.addCartItem;
     var removeCartItem = this.props.removeCartItem;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
+    var sumTotalCartItems = this.props.sumTotalCartItems;
     return (
       <main>
         <Switch>
           <Route exact path="/" render={ () => <ListingsPage state={state}/> } />
           <Route path="/Listings" render={ () => <ListingsPage state={state}/> } />
-          <Route path="/Post"  render={ () => <MakePost addItem={addItem}/> } />
+          <Route path="/Post"  render={ () => <MakePost addCartItem={addCartItem}/> } />
           <Route path="/Forums" component={ForumsPage} />
           <Route path="/Wallet" component={WalletPage} />
           <Route path="/Trash" component={TrashPage} />
           <Route path="/Promos" component={PromosPage} />
           <Route path="/Purchases" component={PurchasesPage} />
           <Route path="/People" component={PeoplePage} />
-          <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={cartItems} removeCartItem={removeCartItem} returnCheckOutDataByID={returnCheckOutDataByID}/> } />
+          <Route path="/CheckOut" render={ () => <CheckOutPage cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID}/> }/>
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (

@@ -70,9 +70,9 @@ export class MakePostForm extends Component {
         <div className="header">
           Make a Post
         </div>
+        <div className="label">title</div>
         <div className = "title form-group">
           <label className="std text">
-            <div className="label">title</div>
             <input className="form-control" type ="text" ref={(ref) => { this.title = ref; }} name="title" id="title_1" placeholder="..." gth = "32"/>
           </label>
         </div>
@@ -107,7 +107,7 @@ export class MakePostForm extends Component {
             <input className="form-control" type ="text" ref={(ref) => { this.price = ref; }} name="price" id="price_1" placeholder="..." maxLength = "32"/>
           </label>
         </div>
-        <input type="submit" value="Submit" />
+        <input className="postBtn" type="submit" value="Submit" />
         </form>
         <Stylesheet sheet={sheet} />
       </div>

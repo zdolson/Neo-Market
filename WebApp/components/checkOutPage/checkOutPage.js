@@ -27,6 +27,8 @@ export class CheckOutPage extends Component {
   render () {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
+    var sumTotalCartItems = this.props.sumTotalCartItems
+
     return (
       <div className="checkOutPage">
 
@@ -47,7 +49,7 @@ export class CheckOutPage extends Component {
             <div className="checkOutTotalWrapper">
               <div className="checkOutTotal"> Total </div>
               <div className="totalSpace"></div>
-              <div className="checkOutTotalValue"> 20 NEO </div>
+              <div className="checkOutTotalValue"> {sumTotalCartItems()} </div>
             </div>
             <div className="checkOutTotalLine"></div>
           </div>

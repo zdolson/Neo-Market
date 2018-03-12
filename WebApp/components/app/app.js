@@ -15,6 +15,8 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
+const cF = require('../../../backend/contractFunctions')
+
 /**
 
 @ Nicholas
@@ -30,11 +32,12 @@ export class App extends Component {
     super(props, context)
     this.state = {
       items: [
-        {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: "100"},
-        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: "20"},
-        {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: "90"},
-        {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: "30"},
-        {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: "900"}
+        {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100},
+        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20},
+        {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90},
+        {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30},
+        {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900},
+        {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300}
       ],
       cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
       selectedItem: "add434njdwf7f73n"
@@ -42,10 +45,17 @@ export class App extends Component {
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
+    this.sumTotalCartItems = this.sumTotalCartItems.bind(this);
   }
 
   componentDidMount () {
     console.log('App component Loaded');
+  }
+
+  componentWillMount () {
+    // get all listings
+    // let listings = cF.accessStorage('tom');
+    // console.log(listings);
   }
 
   addCartItem(id) {
@@ -71,6 +81,17 @@ export class App extends Component {
     return returnCartItem
   }
 
+  sumTotalCartItems(){
+    var dict = this.state.items
+    var currTotal = 0;
+    for (var i = 0; i < this.state.cartItems.length; i++){
+      var currCartItem = this.state.cartItems[i]
+      var currCartItemData = this.returnCheckOutDataByID(currCartItem)
+      currTotal = currTotal + currCartItemData['price']
+    }
+    return currTotal
+  }
+
   render () {
       if (this.state.loading) {
         return (
@@ -89,16 +110,18 @@ export class App extends Component {
         )
       }
 
+      console.log(this.sumTotalCartItems())
+
       return (
         <main>
           <div>
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
-            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
+            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           </div>
         </main>
       )
