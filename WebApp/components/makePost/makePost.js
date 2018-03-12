@@ -33,11 +33,7 @@ export class MakePost extends Component {
     var addCartItem = this.props.addCartItem;
     return (
       <div className = "makePost">
-<<<<<<< HEAD
-        <MakePostFormNew addItem={addItem}/>
-=======
         <MakePostForm addCartItem={addCartItem}/>
->>>>>>> 16ded5ba98515ff78033cd782acf86d8779c4c4b
         <Stylesheet sheet={sheet} />
       </div>
 
