@@ -1,9 +1,9 @@
-##THIS IS FOR THE NEWEST BOA-COMPILER HEADS UP
-##INSTALLATION
+## THIS IS FOR THE NEWEST BOA-COMPILER HEADS UP
+## INSTALLATION
 1. docker pull cityofzion/neo-privatenet <- not metachris but cityofzion
 2. git clone https://github.com/CityOfZion/neo-python.git <-needs python3.6 to run 
 
-##INFORMATION ABOUT THIS COMPILER AND HOW DAVID FIGURED THINGS OUT
+## INFORMATION ABOUT THIS COMPILER AND HOW DAVID FIGURED THINGS OUT
 1. https://www.youtube.com/watch?v=ZZXz261AXrM&t=785s <- by local human
 2.https://github.com/neo-project/neo/blob/master/neo/SmartContract/ContractParameterType.cs 
     2.1. information about the parameter and what to input 
@@ -15,7 +15,7 @@
 6. https://github.com/CityOfZion/neo-boa/blob/master/boa_test/example/demo/LargeArrayStorageTest.py
 
 
-##HOW TO TEST testing.py - important
+## HOW TO TEST testing.py - important
 1. run docker with city of zion 
 2. once inside - copy: 
 ```https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/start.sh```
