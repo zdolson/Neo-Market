@@ -79,6 +79,8 @@ def createpost(args):
     
 # params 'delete' [owner, index]
 def deletepost(args):
+    pass 
+"""
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
     stuff = deserialize_bytearray(bList)
@@ -87,6 +89,7 @@ def deletepost(args):
     Log(len(stuff))
     bList = deserialize_bytearray(stuff)
     Put(GetContext(), addr, bList)
+"""
 # params 'select' [username, index of item]
 def select(args): 
     addr = Get(GetContext(), args[0]) 
