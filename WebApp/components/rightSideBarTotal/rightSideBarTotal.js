@@ -22,9 +22,13 @@ class RightSideBarTotal extends Component {
   }
 
   render () {
+    var sumTotalCartItems = this.props.sumTotalCartItems
     return (
       <div className="rightSideBarTotal">
-        <div className="totalText">Total $</div>
+        <div className="totalText">
+          Total $
+          {sumTotalCartItems()}
+        </div>
         <TotalLine />
         <Stylesheet sheet={sheet} />
       </div>

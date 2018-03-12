@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../stylesheet.js'
 import sheet from './moreInfoListingTop.scss'
 import MoreInfoListingBackBtn from './moreInfoListingBackBtn/moreInfoListingBackBtn.js'
+import { NavLink } from 'react-router-dom'
 
 /**
 
@@ -24,7 +25,7 @@ class MoreInfoListingTop extends Component {
   render () {
     return (
       <div className='moreInfoListingTop'>
-        <MoreInfoListingBackBtn />
+        <NavLink to="/"> <MoreInfoListingBackBtn /> </NavLink>
         <Stylesheet sheet={sheet} />
       </div>
     )

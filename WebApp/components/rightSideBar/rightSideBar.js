@@ -31,10 +31,11 @@ export class RightSideBar extends Component {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
     var addCartItem = this.props.addCartItem
+    var sumTotalCartItems = this.props.sumTotalCartItems
     return (
       <div className="rightsidenav">
         <RightSideBarItems cartItems={cartItems} returnCheckOutDataByID={returnCheckOutDataByID} removeCartItem={removeCartItem} addCartItem={addCartItem}/>
-        <RightSideBarTotal />
+        <RightSideBarTotal sumTotalCartItems={sumTotalCartItems}/>
         <Stylesheet sheet={sheet}/>
       </div>
     )
