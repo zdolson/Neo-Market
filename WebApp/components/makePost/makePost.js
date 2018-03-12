@@ -30,10 +30,10 @@ export class MakePost extends Component {
   }
 
   render () {
-    var addCartItem = this.props.addCartItem;
+    var addItem = this.props.addItem;
     return (
       <div className = "makePost">
-        <MakePostFormNew addCartItem={addCartItem}/>
+        <MakePostFormNew addItem={addItem}/>
         <Stylesheet sheet={sheet} />
       </div>
 

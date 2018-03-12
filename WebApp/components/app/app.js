@@ -51,6 +51,8 @@ export class App extends Component {
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
     this.sumTotalCartItems = this.sumTotalCartItems.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount () {
@@ -71,12 +73,24 @@ export class App extends Component {
     // This isnt going to showup the first time, it will show up after the re-render.
   }
 
-  addItem(item) {
+  addItem(id, owner, title, desc, price, amount) {
     /// Dev Version ///
+    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(item) })
     /// Production Version ///
     /*
-      cF.createPost()
+      cF.createPost(id, owner, title, desc, price, amount);
+    */
+  }
+
+  removeItem(id) {
+    /// Dev Version ///
+    let index = this.state.items.indexOf(id);
+    this.setState({ items: this.state.items.splice(index, 1) });
+    /// Production Version ///
+    /*
+      let owner = ???
+      cF.deletePost(owner, index);
     */
   }
 
@@ -138,7 +152,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
           </div>
         </main>
       )

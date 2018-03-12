@@ -119,6 +119,9 @@ input[type=submit] {
 
 input[type=text] {
   width: 100%;
+  background: $grey65;
+  padding: 5px;
+  border-radius: 10px;
 }
 
 input[type=file] {
