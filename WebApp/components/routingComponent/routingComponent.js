@@ -36,7 +36,7 @@ class RoutingComponent extends Component {
         <Switch>
           <Route exact path="/" render={ () => <ListingsPage state={state}/> } />
           <Route path="/Listings" render={ () => <ListingsPage state={state}/> } />
-          <Route path="/Post"  render={ () => <MakePost addItem={addItem}/> } />
+          <Route path="/Post"  render={ () => <MakePost addCartItem={addCartItem}/> } />
           <Route path="/Forums" component={ForumsPage} />
           <Route path="/Wallet" component={WalletPage} />
           <Route path="/Trash" component={TrashPage} />
