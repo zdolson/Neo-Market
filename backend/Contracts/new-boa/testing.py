@@ -5,7 +5,7 @@ from boa.interop.Neo.Runtime import Log, Notify
 """ CHECKLIST: 
     1. make sure list of one item work - done 
     2. call same function and see if item is there and add another one to it - done
-    3. can you print the entire set of list? - ready up 
+    3. can you print the entire set of list? - done 
     4. can i select a certain index of the list? - ready up 
     
     AFTER THAT REPORT BACK
@@ -13,9 +13,7 @@ from boa.interop.Neo.Runtime import Log, Notify
 
 
 
-
-# set one nuame only at the moment 
-# then do multiple names 
+# params 'register' [username, addr]
 def register(args): 
     print("in register") 
     print("after creation of list") 
@@ -29,8 +27,9 @@ def register(args):
     Put(GetContext(), b, bstuff)
     print("donnnnne")
 
+# params 'addone' [username, one_item]
 def addone(args):
-    addr = args[0]
+    addr = Get(GetContext(), args[0])
     bstuff = Get(GetContext(), addr)
     stuff = deserialize_bytearray(bstuff)
     stuff.append(args[1])
@@ -41,8 +40,7 @@ def addone(args):
     Put(GetContext(), addr, bstuff)
     print("done with addone")
     
-
-# just pick user name, and index of the list
+# params 'select' [username, index of item]
 def select(args): 
     addr = Get(GetContext(), args[0]) 
     # i got the addr now 
@@ -53,6 +51,7 @@ def select(args):
     print(stuff[args[1]]) 
     print("done with select") 
 
+# params 'isregister' [username] 
 def isregister(args):
     a = GetContext(GetContext(), args[0]) 
     if not a: 
@@ -61,6 +60,7 @@ def isregister(args):
     else: 
         print("the user is registered") 
         return True
+
 
 def Main(operation, args): 
     if operation == "register":
@@ -72,7 +72,7 @@ def Main(operation, args):
     elif operation == "select": 
         print("select op - here") 
         select(args) 
-    elif operation == "addone"
+    elif operation == "addone":
         print("addone op - here")
         addone(args)
     else: 
