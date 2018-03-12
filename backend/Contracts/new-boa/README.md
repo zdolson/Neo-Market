@@ -1,5 +1,5 @@
 ## THIS IS FOR THE NEWEST BOA-COMPILER HEADS UP
-## INSTALLATION
+## INSTALLATION - GETTING STARTED
 1. docker pull cityofzion/neo-privatenet <- not metachris but cityofzion
 2. git clone https://github.com/CityOfZion/neo-python.git <-needs python3.6 to run 
 
@@ -29,4 +29,4 @@
 7. to deploy contract: 
 ```build testing.py
 import contract testing.avm 0710 01 True False
-testinvoke <hash> <funcion> <list>```
+testinvoke <hash> <funcion> <list> ``
