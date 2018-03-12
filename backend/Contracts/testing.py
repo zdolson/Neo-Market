@@ -83,7 +83,7 @@ def createPost(owner, title, desc, price, amount, counter):
         postInfo[4] = amount
 
         
-        # b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
+        b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
 
         print(b) 
         print("this is the message above") 
