@@ -5,12 +5,12 @@ from boa.interop.Neo.Runtime import Log, Notify
 """ CHECKLIST: 
     1. make sure list of one item work - done 
     2. call same function and see if item is there and add another one to it - done
-    3. can you print the entire set of list? - done 
+    3. can you print the entire set of list? - TODO: DO LAST - no need to rush this one 
     4. can i select a certain index of the list? - ready up 
     
     AFTER THAT REPORT BACK
 
-    1. can i create a post? 
+    1. can i create a post? - starting at 5:15
     2. can i add another post to the list?
     3. can i select an index of that post? 
     4. can i delete a post? 
@@ -65,7 +65,28 @@ def addone(args):
     bstuff = serialize_array(stuff)
     Put(GetContext(), addr, bstuff)
     print("done with addone")
+# params 'createpost' [owner, title, desc, price, amount]
+def createpost(args):
+    combine = args[0]+"|"+args[1]+"|"+args[2]+"|"+args[3]+"|"+args[4]
+    addr = Get(GetContext(), args[0])
+    bList = Get(GetContext(), addr) 
+    stuff = deserialize_bytearray(bList)
+    stuff.append(combine)
+    bList = serialize_array(stuff)
+    Put(GetContext(), addr, bList)
+    Log("printing post down there in the format")
+    Log(combine)
     
+# params 'delete' [owner, index]
+def deletepost(args):
+    addr = Get(GetContext(), args[0])
+    bList = Get(GetContext(), addr)
+    stuff = deserialize_bytearray(bList)
+    stuff.pop(args[1])
+    Log("done - new list length is")
+    Log(len(stuff))
+    bList = deserialize_bytearray(stuff)
+    Put(GetContext(), addr, bList)
 # params 'select' [username, index of item]
 def select(args): 
     addr = Get(GetContext(), args[0]) 
@@ -80,11 +101,11 @@ def select(args):
 # params 'getposts' [username] - will do multiple usernames as well
 def getposts(args): 
     for i in range(len(args)): 
-        addr = Get(GetContext(), i)
+        addr = Get(GetContext(), args[i])
         bList = Get(GetContext(), addr)
         stuff = deserialize_bytearray(bList)
         for j in range(len(stuff)): 
-            Log(j)
+            Log(stuff[j])
     
 # params 'getallposts' [] 
 # no args please
