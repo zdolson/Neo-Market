@@ -15,6 +15,8 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
+const cF = require('../../../backend/contractFunctions')
+
 /**
 
 @ Nicholas
@@ -45,6 +47,12 @@ export class App extends Component {
 
   componentDidMount () {
     console.log('App component Loaded');
+  }
+
+  componentWillMount () {
+    // get all listings
+    // let listings = cF.accessStorage('tom');
+    // console.log(listings);
   }
 
   addCartItem(id) {
