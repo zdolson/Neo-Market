@@ -95,7 +95,7 @@ export class App extends Component {
             <FilterDropdown />
             <TopBar />
             <LeftSideBar />
-            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID}/>
+            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem}/>
             <LeftAccountBar />
             <RightAccountBar />
             <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem}/>

@@ -27,9 +27,13 @@ export class RightSideBar extends Component {
   }
 
   render () {
+    var cartItems = this.props.cartItems
+    var returnCheckOutDataByID = this.props.returnCheckOutDataByID
+    var removeCartItem = this.props.removeCartItem
+    var addCartItem = this.props.addCartItem
     return (
       <div className="rightsidenav">
-        <RightSideBarItems />
+        <RightSideBarItems cartItems={cartItems} returnCheckOutDataByID={returnCheckOutDataByID} removeCartItem={removeCartItem} addCartItem={addCartItem}/>
         <RightSideBarTotal />
         <Stylesheet sheet={sheet}/>
       </div>

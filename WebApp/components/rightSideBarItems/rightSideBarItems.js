@@ -24,10 +24,19 @@ class RightSideBarItems extends Component {
   }
 
   render () {
+    var cartItems = this.props.cartItems
+    var returnCheckOutDataByID = this.props.returnCheckOutDataByID
+    var removeCartItem = this.props.removeCartItem
+    var addCartItem = this.props.addCartItem
+
     return (
       <div className="rightSideBarItems">
-        <RightSideBarItem />
-        <RightSideBarItem />
+        {this.props.cartItems.map( (id, key) => {
+          var currCheckOutItem = returnCheckOutDataByID(id)
+          return (
+            <RightSideBarItem currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+          )
+        })}
         <Stylesheet sheet={sheet} />
       </div>
     )
