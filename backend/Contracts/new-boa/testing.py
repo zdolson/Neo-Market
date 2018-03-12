@@ -10,22 +10,37 @@ from boa.interop.Neo.Runtime import Log, Notify
     
     AFTER THAT REPORT BACK
 """ 
-
-
+# splitting things up here - helper to create master 
+def fillMaster(name): 
+    masterbList = Get(GetContext(), '1')
+    masterList = deserialize_bytearray(masterbList) 
+    masterList.append(name) 
+    masterbList = serialize_array(masterList) 
+    Put(GetContext(), '1', masterbList)
 
 # params 'register' [username, addr]
 def register(args): 
+    if args[0] == '1': 
+        Log("please no - this is for master list") 
+        return False
+    else: 
+        isMasterThere = Get(GetContext(), '1') 
+        if not isMasterThere: 
+            # create master here 
+            masterList = serialize_array([])
+            Put(GetContext(), '1', masterList) 
     print("in register") 
     print("after creation of list") 
     #b = list(length=2)
-    a = args[0] 
+    a = args[0] # no need to do this tbh
     b = args[1]
     print("allocating a and b") 
     bstuff = serialize_array([])
     print("done serializing array here") 
     Put(GetContext(), a, b)
     Put(GetContext(), b, bstuff)
-    print("donnnnne")
+    print("donnnnne")    
+    fillMaster(args[0]) # only want the names
 
 # params 'addone' [username, one_item]
 def addone(args):
@@ -51,6 +66,30 @@ def select(args):
     print(stuff[args[1]]) 
     print("done with select") 
 
+# params 'getposts' [username] - will do multiple usernames as well
+def getposts(args): 
+    for i in range(len(args)): 
+        addr = Get(GetContext(), i)
+        bList = Get(GetContext(), addr)
+        stuff = deserialize_bytearray(bList)
+        for j in range(len(stuff)): 
+            Log(j)
+    
+# params 'getallposts' [] 
+# no args please
+def getallposts(): 
+    masterbList = Get(GetContext(), '1') 
+    masterList = deserialize_bytearray(masterbList)
+    for i in range(len(masterList)):
+        Log(i) # this is the name of a registered person 
+        addr = Get(GetContext(), i)
+        bList = Get(GetContext(), addr) 
+        stuff = deserialize_bytearray(bList)
+        for j in range(len(stuff)): 
+            Log(j)
+    ## should be done here 
+    Log("done getting all post")
+
 # params 'isregister' [username] 
 def isregister(args):
     a = GetContext(GetContext(), args[0]) 
@@ -72,6 +111,9 @@ def Main(operation, args):
     elif operation == "select": 
         print("select op - here") 
         select(args) 
+    elif operation == "getposts":
+        print("getpost op - here") 
+        getposts(args)
     elif operation == "addone":
         print("addone op - here")
         addone(args)
