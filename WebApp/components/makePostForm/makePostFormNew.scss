@@ -105,7 +105,7 @@ Purpose: Styling for the makePostForm component
 .inputWrapper {
   padding: 5px;
   text-align: center;
-  background: $grey20;
+  // background: $grey20;
   border-radius: 5px;
   width: 100%;
 }
@@ -117,7 +117,7 @@ input[type=submit] {
   }
 }
 
-input {
+input[type=text] {
   width: 100%;
 }
 
