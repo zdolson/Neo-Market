@@ -26,28 +26,6 @@ Purpose: Provides styling to the TopBar component
   background: $grey75;
 }
 
-.zachBtn {
-  height: 30px;
-  width: 150px;
-  text-align: center;
-  vertical-align: center;
-  align-self: center;
-  border-radius: 10px;
-  @box-shadow(0 2 10 10 $black);
-  background: $fuchsia;
-}
-
-.registerBtn {
-  height: 30px;
-  width: 150px;
-  text-align: center;
-  vertical-align: center;
-  align-self: center;
-  border-radius: 10px;
-  @box-shadow(0 2 10 10 $black);
-  background: $aqua;
-}
-
 .logo {
   align-self: center;
   margin-left: 3%;
@@ -73,18 +51,4 @@ Purpose: Provides styling to the TopBar component
   width: 100%;
   background: $grey70;
   color: $grey50;
-}
-
-input[type=text] {
-  width: 75px;
-  height: 30px;
-  background: white;
-  color: black;
-  border-radius: 10px;
-}
-
-.formGroup {
-  background: $fuchsia;
-  display: flex;
-  flex-direction: row;
 }
