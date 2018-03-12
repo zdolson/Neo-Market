@@ -9,3 +9,4 @@ apt-get install nano # for easier copying ability
 
 curl https://raw.githubusercontent.com/zdolson/Neo-Market/david_develop/backend/Contracts/new-boa/testing.py -o testing.py 
 curl https://raw.githubusercontent.com/zdolson/Neo-Market/david_develop/backend/Contracts/new-boa/compile.py -o compile.py
+curl https://s3.amazonaws.com/neo-experiments/neo-privnet.wallet -o w1.wallet
