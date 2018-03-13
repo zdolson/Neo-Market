@@ -84,9 +84,21 @@ export class App extends Component {
   }
 
   removeItem(id) {
+    console.log("removeItem("+id+")");
     /// Dev Version ///
-    let index = this.state.items.indexOf(id);
-    this.setState({ items: this.state.items.splice(index, 1) });
+    var index = -1;
+    for(let i = 0; i < this.state.items.length; i++) {
+      if(this.state.items[i].id == id) {
+        index = i;
+        break;
+      }
+    }
+    if(index == -1){
+      console.error("item trying to be removed does not exist");
+    }else{
+      this.removeCartItem(id);
+      this.setState({ items: this.state.items.splice(index, 1) });
+    }
     /// Production Version ///
     /*
       let owner = ???
@@ -95,9 +107,14 @@ export class App extends Component {
   }
 
   removeCartItem(id){
+    console.log("removeCartItem("+id+")");
     var index = this.state.cartItems.indexOf(id)
-    this.state.cartItems.splice(index, 1)
-    this.setState({ cartItems: this.state.cartItems})
+    if(index != -1){
+      this.state.cartItems.splice(index, 1)
+      this.setState({ cartItems: this.state.cartItems})
+    }else{
+      console.log("item doesn't exist in cart")
+    }
   }
 
   returnCheckOutDataByID(id){
@@ -141,7 +158,7 @@ export class App extends Component {
         )
       }
 
-      console.log(this.sumTotalCartItems())
+      // console.log(this.sumTotalCartItems())
 
       return (
         <main>
