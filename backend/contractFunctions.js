@@ -111,8 +111,8 @@ module.exports = {
      * Purpose: Creates a Post on the smart contract.
      *          Calls invokeContract() with createpost function to smart contract.
      */
-    createPost: (owner, title, desc, price, amount) => {
-        node.invokeContract('createpost', [owner,title,desc,price,amount], account, (res) => {
+    createPost: (id, owner, title, desc, price, amount) => {
+        node.invokeContract('createpost', [id,owner,title,desc,price,amount], account, (res) => {
             console.log('contractFunctions.js: invokeContract(createPost)')
             console.dir(res)
             if (res.result === true) {

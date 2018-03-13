@@ -103,15 +103,39 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
   margin: 10px 0px;
 }
 
-.itemBtn {
+.btnContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  height: auto;
+}
+
+.cartBtn {
   display: table;
   // margin-top: 20px;
   background: $brightGreen;
   height: 40px;
-  width: 100%;
+  width: 40%;
   border-radius: 10px;
   text-align: center;
   vertical-align: middle;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.removeBtn {
+  display: table;
+  background: $red;
+  height: 40px;
+  width: 40%;
+  border-radius: 10px;
+  text-align: center;
+  vertical-align: middle;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .itemBtnText {

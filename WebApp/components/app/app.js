@@ -31,6 +31,7 @@ export class App extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
+      /// Dev Version ///
       items: [
         {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100},
         {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20},
@@ -39,13 +40,19 @@ export class App extends Component {
         {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900},
         {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300}
       ],
-      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"],
-      selectedItem: "add434njdwf7f73n"
+      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"]
+      /// Production Version ///
+      /*
+      items: [],
+      cartItems: []
+      */
     }
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
     this.sumTotalCartItems = this.sumTotalCartItems.bind(this);
+    this.addItem = this.addItem.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
 
   componentDidMount () {
@@ -53,14 +60,38 @@ export class App extends Component {
   }
 
   componentWillMount () {
-    // get all listings
-    // let listings = cF.accessStorage('tom');
-    // console.log(listings);
+    /// Production Version ///
+    /*
+      let listings = cF.accessStorage('tom');
+      console.log(listings);
+      this.setState({ items: listings });
+    */
   }
 
   addCartItem(id) {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
     // This isnt going to showup the first time, it will show up after the re-render.
+  }
+
+  addItem(id, owner, title, desc, price, amount) {
+    /// Dev Version ///
+    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
+    this.setState({ items: this.state.items.concat(item) })
+    /// Production Version ///
+    /*
+      cF.createPost(id, owner, title, desc, price, amount);
+    */
+  }
+
+  removeItem(id) {
+    /// Dev Version ///
+    let index = this.state.items.indexOf(id);
+    this.setState({ items: this.state.items.splice(index, 1) });
+    /// Production Version ///
+    /*
+      let owner = ???
+      cF.deletePost(owner, index);
+    */
   }
 
   removeCartItem(id){
@@ -121,7 +152,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
+            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
           </div>
         </main>
       )

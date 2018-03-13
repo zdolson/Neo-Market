@@ -22,23 +22,8 @@ export class TopBar extends Component {
     this.state = {
 
     }
-    // this.zachFunc = this.zachFunc.bind(this);
-    this.registerUser = this.registerUser.bind(this);
-    this.isRegister = this.isRegister.bind(this);
   }
 
-  registerUser = () => {
-    let userName = this.userName.value;
-    let address = this.address.value;
-    console.log(userName);
-    console.log(address);
-    console.log('registerUser');
-    cF.register(userName, address);
-  }
-
-  isRegister = () => {
-    cF.isRegister('bob', 7635);
-  }
 
 // // My fuc.But. that does stuff.
 //   zachFunc = () => {
@@ -84,15 +69,7 @@ export class TopBar extends Component {
   render () {
     return (
       <div className="topnav">
-        <NavLink to="/"> <LogoIcon className="logo" /> </NavLink>
-        <form className="formGroup" onSubmit={this.registerUser}>
-          <div className="form-group"> <input className="form-control" ref={ (ref) => { this.userName = ref; }} type="text"/> </div>
-          <div className="form-group"> <input className="form-control" ref={ (ref) => { this.address = ref; }} type="text"/> </div>
-          <div className="form-group"> <input type="submit" value="submit"/> </div>
-        </form>
-        <form className="formGroup" onSubmit={this.isRegister}>
-          <div className="form-group"> <input type="submit" value="submit"/> </div>
-        </form>
+        <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
         <div className="search">
           <SearchIcon className="searchicon" />
           <div className="searchbubble">

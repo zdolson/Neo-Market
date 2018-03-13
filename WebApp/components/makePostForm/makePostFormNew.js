@@ -30,6 +30,7 @@ export class MakePostForm extends Component {
     }
     this.makeId = this.makeId.bind(this);
     this.makePost = this.makePost.bind(this);
+    console.log(this.props);
   }
 
   makeId() {
@@ -51,11 +52,16 @@ export class MakePostForm extends Component {
     console.log(this.price.value);
     console.log(this.amount.value);
     console.log(file);
-    this.setState({ img: file, imgUpload: true });
     var id = this.makeId();
 
-    this.props.addItem({id: id, owner: 'Alec', title: this.title.value, description: this.desc.value, price: this.price.value });
-    // cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
+    /* Implement check for valid user input */
+
+    /// Dev Version ///
+    this.props.addItem({id: id, owner: 'Alec', title: this.title.value, description: this.desc.value, price: this.price.value, amount: this.amount.value });
+    /// Production Version ///
+    /*
+      cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
+    */
 
     //
     // var ref = firebase.storage().ref().child(id);
