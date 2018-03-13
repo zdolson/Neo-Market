@@ -7,7 +7,7 @@ import Star from '../../../assets/Star.svg'
 
 /**
 
-@ Alec/Nicholas 
+@ Alec/Nicholas
 
 @ 3/09/18
 
@@ -24,16 +24,17 @@ class MoreInfoListingSpec extends Component {
   }
 
   render () {
-    var item = this.props.item
-    var itemID = this.props.item['id']
-    var addCartItem = this.props.addCartItem
-
+    let item = this.props.item;
+    let itemID = this.props.item['id'];
+    let addCartItem = this.props.addCartItem;
+    let removeItem = this.props.removeItem;
+    console.log(this.props);
     return (
       <div className='moreInfoListingSpec'>
 
         <div className="titleAndPrice">
           <div className="title">
-            {item['title']} 
+            {item['title']}
           </div>
           <div className="prices">
             <div className="neoPrice"> {item['price']} </div>
@@ -57,9 +58,16 @@ class MoreInfoListingSpec extends Component {
 
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
-        <div className="itemBtn">
-          <div className="itemBtnText" onClick={() => {addCartItem(itemID)}}> 
-            Add to Cart
+        <div className="btnContainer">
+          <div className="cartBtn">
+            <div className="itemBtnText" onClick={() => {addCartItem(itemID)}}>
+              Add to Cart
+            </div>
+          </div>
+          <div className="removeBtn">
+            <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
+              Remove Item
+            </div>
           </div>
         </div>
 

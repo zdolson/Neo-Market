@@ -50,7 +50,7 @@ class RoutingComponent extends Component {
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (
-              <Route path={path} key={key} render={ () => <MoreInfoListingPage addCartItem={addCartItem} item={items[key]} removeItem={this.removeItem} /> } />
+              <Route path={path} key={key} render={ () => <MoreInfoListingPage item={items[key]} addCartItem={addCartItem} removeItem={removeItem} /> } />
             )
           })}
       	</Switch>
