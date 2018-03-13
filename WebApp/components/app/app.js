@@ -33,14 +33,14 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100},
-        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20},
-        {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90},
-        {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30},
-        {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900},
-        {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300}
+        // {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100, amount: 1},
+        // {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20, amount: 1},
+        // {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90, amount: 1},
+        // {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30, amount: 1},
+        // {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900, amount: 1},
+        // {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300, amount: 1}
       ],
-      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"]
+      cartItems: []//["add434njdwf7f73n", "sl501mx'[co3qa-]"]
       /// Production Version ///
       /*
       items: [],
@@ -59,6 +59,7 @@ export class App extends Component {
 
   componentDidMount () {
     console.log('App component Loaded');
+    console.log(this.state);
   }
 
   componentWillMount () {
@@ -180,11 +181,7 @@ export class App extends Component {
         )
       }
 
-<<<<<<< HEAD
-      // console.log(this.sumTotalCartItems())
 
-=======
->>>>>>> 6cee7d3eef22acb61f808b5a02f9ed27ec63cb54
       return (
         <main>
           <div>

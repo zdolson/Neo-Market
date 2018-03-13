@@ -25,7 +25,7 @@ class MoreInfoListingTop extends Component {
   render () {
     return (
       <div className='moreInfoListingTop'>
-        <NavLink to="/"> <MoreInfoListingBackBtn /> </NavLink>
+        <NavLink className="navLinkBackBtn" to="/"> <MoreInfoListingBackBtn /> </NavLink>
         <Stylesheet sheet={sheet} />
       </div>
     )

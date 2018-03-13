@@ -23,6 +23,7 @@ export class Listing extends Component {
 
     }
     console.log(props)
+    console.log(this.props.item)
   }
 
   render () {

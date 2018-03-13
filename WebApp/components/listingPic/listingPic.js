@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingPic.scss'
 
-import Galaxy from '../assets/galaxy.svg'
-import Grumpy from '../assets/grumpy.svg'
-
 import * as firebase from 'firebase'
 
 /**
@@ -30,7 +27,9 @@ class ListingPic extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref().child('OmaCypLYi9');
+    // var ref = firebase.storage().ref().child('OmaCypLYi9');
+    console.log(this.props.id)
+    var ref = firebase.storage().ref().child(this.props.id);
     ref.getDownloadURL().then(url => {
       console.log('image download successful: '+url)
       this.setState({ imgUrl: url, imgLoad: true });
