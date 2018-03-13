@@ -4,6 +4,7 @@ import sheet from './moreInfoListingSpec.scss'
 
 import ItemSpecsLine from '../../../assets/ItemSpecsLine.svg'
 import Star from '../../../assets/Star.svg'
+import { NavLink } from 'react-router-dom'
 
 /**
 
@@ -64,11 +65,13 @@ class MoreInfoListingSpec extends Component {
               Add to Cart
             </div>
           </div>
-          <div className="removeBtn">
-            <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
-              Remove Item
+            <div className="removeBtn">
+                <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
+                  <NavLink to="/">
+                    Remove Item
+                  </NavLink> 
+                </div>
             </div>
-          </div>
         </div>
 
         <Stylesheet sheet={sheet} />

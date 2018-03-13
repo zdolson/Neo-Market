@@ -53,6 +53,8 @@ export class App extends Component {
     this.sumTotalCartItems = this.sumTotalCartItems.bind(this);
     this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
+    this.isIDInItemList = this.isIDInItemList.bind(this);
+    this.itemsListToString = this.itemsListToString.bind(this);
   }
 
   componentDidMount () {
@@ -76,7 +78,7 @@ export class App extends Component {
   addItem(id, owner, title, desc, price, amount) {
     /// Dev Version ///
     let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
-    this.setState({ items: this.state.items.concat(item) })
+    this.setState({ items: this.state.items.concat(newItem) })
     /// Production Version ///
     /*
       cF.createPost(id, owner, title, desc, price, amount);
@@ -85,8 +87,16 @@ export class App extends Component {
 
   removeItem(id) {
     /// Dev Version ///
-    let index = this.state.items.indexOf(id);
-    this.setState({ items: this.state.items.splice(index, 1) });
+
+    //If the item is also in the cart then it will be removed as well. Else it will just keep going.
+    this.removeCartItem(id)
+    for (var i = 0; i < this.state.items.length; i++){
+      var currItem = this.state.items[i]
+      if (currItem['id'] == id) {
+        this.state.items.splice(i, 1)
+      }
+      this.setState({ items: this.state.items});
+    }
     /// Production Version ///
     /*
       let owner = ???
@@ -100,25 +110,48 @@ export class App extends Component {
     this.setState({ cartItems: this.state.cartItems})
   }
 
-  returnCheckOutDataByID(id){
-    var dict = this.state.items
-    var returnCartItem = null
-    for (let key in dict) {
-      if (dict[key]['id'] == id) {
-        returnCartItem = dict[key]
+  isIDInItemList(id) {
+    this.itemsListToString()
+    var itemList = this.state.items
+    for (var i = 0; i < this.state.items.length; i++){
+      if (itemList[i]['id'] == id) {
+        return true
         break
       }
     }
-    return returnCartItem
+    return false
+  }
+
+  returnCheckOutDataByID(id){
+    var dict = this.state.items
+    if (this.isIDInItemList(id) == true){
+      for (let key in dict) {
+        if (dict[key]['id'] == id) {
+          var returnCartItem = dict[key]
+          return returnCartItem
+          break
+        }
+      }
+    }
+  }
+
+  // Debugging method for toString
+  itemsListToString(){
+    for (var i = 0; i < this.state.items.length; i++){
+      var currItem = this.state.items[i]
+    }
   }
 
   sumTotalCartItems(){
-    var dict = this.state.items
     var currTotal = 0;
     for (var i = 0; i < this.state.cartItems.length; i++){
       var currCartItem = this.state.cartItems[i]
       var currCartItemData = this.returnCheckOutDataByID(currCartItem)
-      currTotal = currTotal + currCartItemData['price']
+      if (currCartItemData == null) {
+        break
+      } else {
+        currTotal = currTotal + currCartItemData['price']
+      }
     }
     return currTotal
   }
@@ -140,8 +173,6 @@ export class App extends Component {
           </main>
         )
       }
-
-      console.log(this.sumTotalCartItems())
 
       return (
         <main>
