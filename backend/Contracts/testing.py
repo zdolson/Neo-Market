@@ -7,6 +7,7 @@ def fillMaster(name):
     masterbList = Get(GetContext, '1')
     masterList = deserialize_bytearray(masterbList)
     masterList.append(name)
+    masterList.append(",")
     masterbList = serialize_array(masterList)
     Put(GetContext, '1', masterbList)
     print("done with master") 
@@ -87,10 +88,26 @@ def buy(buyerAddr, sellerAddr, title, amount):
 def createPost(index, owner, title, desc, price, amount):
     a = Get(GetContext, owner)
     if a:
-        strings = index+"|"+owner+"|"+title+"|"+desc+"|"+price+"|"+amount
-        bList = Get(GetContext,a)
+        bList = Get(GetContext, a) 
         stuff = deserialize_bytearray(bList)
-        stuff.append(strings)    
+        
+        stuff.append(index) 
+        stuff.append(",")
+        stuff.append(owner)
+        stuff.append(",")
+        stuff.append(title)
+        stuff.append(",")
+        stuff.append(desc)
+        stuff.append(",")
+        stuff.append(price)
+        stuff.append(",")
+        stuff.append(amount)
+        stuff.append(";")
+
+        #strings = index+","+owner+","+title+","+desc+","+price+","+amount
+        #bList = Get(GetContext,a)
+        #stuff = deserialize_bytearray(bList)
+        #stuff.append(strings)    
         bList = serialize_array(stuff)
         Put(GetContext, a, bList)
 
@@ -125,7 +142,14 @@ def getPost(owner, title):
 
 def deletePost(owner,postindex):
     #postindex is in backlog
-    Delete(GetContext,owner)
+    addr = Get(GetContext, owner) 
+    bList = Get(GetContext, addr) 
+    stuff = deserialize_bytearray(bList) 
+    len_stuff = len(stuff) 
+    if len_stuff != 0: 
+        stuff[postindex] = "0" 
+    bList = serialize_array(stuff) 
+    Put(GetContext, addr, bList) 
 
 # this is to check if it was possible to build a class in neo-python and 
 # return true if it does, that's it 
