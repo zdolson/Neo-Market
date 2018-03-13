@@ -87,7 +87,7 @@ def buy(buyerAddr, sellerAddr, title, amount):
 def createPost(index, owner, title, desc, price, amount):
     a = Get(GetContext, owner)
     if a:
-        strings = index+"|"+owner+"|"+title+"|"+desc+"|"+price+"|"+amount
+        strings = index+","+owner+","+title+","+desc+","+price+","+amount
         bList = Get(GetContext,a)
         stuff = deserialize_bytearray(bList)
         stuff.append(strings)    
