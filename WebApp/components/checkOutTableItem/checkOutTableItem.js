@@ -5,6 +5,8 @@ import sheet from './checkOutTableItem.scss'
 import CheckOutPagePicture from '../checkOutPagePicture/checkOutPagePicture.js'
 import CheckOutPageItemContent from '../checkOutPageItemContent/checkOutPageItemContent.js'
 
+import ItemX from '../assets/ItemX.svg'
+
 /**
 
 @ Victoria/Nicholas
@@ -25,11 +27,17 @@ class CheckOutTableItem extends Component {
   }
 
   render () {
+    var currCheckOutItem = this.props.currCheckOutItem
+    var removeCartItem = this.props.removeCartItem
     return (
       <div className='checkOutTableItem'>
-        <CheckOutPagePicture />
-        <CheckOutPageItemContent />
-        <Stylesheet sheet={sheet} />
+        <div className="itemWrapper">
+          <CheckOutPagePicture />
+          <div className="itemSeperator"></div>
+          <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
+          <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>
+          <Stylesheet sheet={sheet} />
+        </div>
       </div>
     )
   }

@@ -15,12 +15,10 @@ Purpose: Styling for the makePostForm component
 
 
 .header {
-	margin-top:10%;
+	margin:10% 0%;
 	text-align: center;
-	color: #FFFFFF;
-  max-height: 50px;
-	background: $brightGreen;
-
+	color: white;
+	font-size: 50px;
 }
 
 .title {
@@ -55,6 +53,8 @@ Purpose: Styling for the makePostForm component
 
 .loadImage {
 	position: absolute;
+	display: flex;
+	flex-direction: row;
   background: gray;
 	width: 469px;
 	height: 120px;
@@ -67,6 +67,11 @@ Purpose: Styling for the makePostForm component
 	&:hover {
 		border: 2px solid $brightGreen;
 	}
+}
+
+.form-image {
+	border: 2px solid $black;
+	width: 100%;
 }
 
 
@@ -108,6 +113,7 @@ Purpose: Styling for the makePostForm component
 	height: 30px;
 	width: 60px;
 	text-align: center;
+	vertical-align: middle;
 	line-height: 20px;
   margin-left: 70%;
   margin-top:480px;

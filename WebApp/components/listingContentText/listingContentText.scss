@@ -14,6 +14,25 @@ Purpose: Spacing and style for the bottom half of a listing
 **/
 
 .listingContentText {
-  text-align: center;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px 0px 10px 0px;
+}
+
+.listingContentTitle {
+  line-height: 30px;
+  color: white;
+  font-size: 30px;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.listingContentDesc {
+  font-weight: 300;
+  margin-top: 5px;
+  width: 100%;
+  text-align: center;
 }

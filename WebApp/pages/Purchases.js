@@ -71,34 +71,7 @@ export class Purchases extends Component {
       )
     }
 
-    return (
-      <main>
-        <Router>
-          <div className="routingPaths">
-
-            <FilterDropdown />
-            <TopBar />
-            <LeftSideBar />
-            <RightSideBar />
-            <LeftAccountBar />
-            <RightAccountBar />
-
-            <Route exact path="/" component={ListingsPage}/>
-            <Route path="/Listings" component={ListingsPage}/>
-            <Route path="/Posts" component={MakePost} />
-            <Route path="/Wallet" component={WalletPage} />
-            <Route path="/Trash" component={TrashPage} />
-            <Route path="/Promos" component={PromosPage} />
-            <Route path="/Purchases" component={PurchasesPage} />
-            <Route path="/People" component={PeoplePage} />
-            <Route path="/CheckOut" component={CheckOutPage} />
-            <Route path="/MoreInfoItem" component={MoreInfoListingPage} />
-            <Stylesheet sheet={sheet} />
-
-          </div>
-        </Router>
-      </main>
-    )
+    return (null);
   }
 }
 

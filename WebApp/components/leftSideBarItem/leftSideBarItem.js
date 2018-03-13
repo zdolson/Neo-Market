@@ -37,7 +37,7 @@ export class LeftSideBarItem extends Component {
   components = {
     Forums: ForumsIcon,
     Listings: ListingsIcon,
-    Posts: MyPostsIcon,
+    Post: MyPostsIcon,
     People: PeopleIcon,
     Purchases: PurchasesIcon,
     Trash: TrashIcon,
@@ -57,7 +57,7 @@ export class LeftSideBarItem extends Component {
         <Stylesheet sheet={item} />
       </div>
     )
-    
+
   }
 }
 

@@ -16,17 +16,13 @@ Purpose: Spacing and style for the listing description in the checkOut page
 .moreInfoListingPage {
   // height: auto;
   // width: auto;
-  // bottom: 100px;
-  // left: 60px;
-  // right: 775px;
-  // top: -150px;
-  // justify-content: space-around;
-  // padding-top: 375px;
-  // padding-left: 150px;
-  // padding-right: 20px;
-  // position: absolute;
-  // display: flex;
-  // flex-flow: row wrap;
+  left: 175px;
+  right: 175px;
+  top: 50px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
   // z-index: 0;
-  background: $grey70;
 }

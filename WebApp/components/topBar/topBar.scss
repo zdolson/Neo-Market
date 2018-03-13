@@ -20,20 +20,10 @@ Purpose: Provides styling to the TopBar component
   width: 100%;
   position: fixed;
   z-index: 1;
+  align-items: center;
   top: 0;
   left: 0;
   background: $grey75;
-}
-
-.zachBtn {
-  height: 30px;
-  width: 150px;
-  text-align: center;
-  vertical-align: center;
-  align-self: center;
-  border-radius: 10px;
-  @box-shadow(0 2 10 10 $black);
-  background: $fuchsia;
 }
 
 .logo {

@@ -24,7 +24,7 @@ export class CheckOutPagePrice extends Component {
   render () {
     return (
       <div className='checkOutPagePrice'>
-        CheckOutPagePrice here!
+        {this.props.currCheckOutItemPrice}
         <Stylesheet sheet={sheet} />
       </div>
     )

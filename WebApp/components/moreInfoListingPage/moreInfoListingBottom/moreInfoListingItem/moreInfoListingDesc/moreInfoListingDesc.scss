@@ -1,0 +1,21 @@
+@import '../../../../vars';
+@import '../../../../reset';
+@import '../../../../mixins';
+@import '../../../../animations';
+
+/**
+
+@ Alec
+
+@ 3/9/18
+
+Purpose: Spacing / Styling for the description in moreInfoPage
+
+**/
+
+.moreInfoListingDesc {
+  background: $grey65;
+  width: 350px;
+  border-radius: 5px;
+  padding: 5px;
+}

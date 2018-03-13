@@ -8,7 +8,7 @@ import CheckOutPageTotalValue from '../checkOutPageTotalValue/checkOutPageTotalV
 
 /**
 
-@ Nicholas 
+@ Nicholas
 
 @ Date: 03/06/18
 
@@ -25,24 +25,37 @@ export class CheckOutPage extends Component {
   }
 
   render () {
+    var returnCheckOutDataByID = this.props.returnCheckOutDataByID
+    var removeCartItem = this.props.removeCartItem
+    var sumTotalCartItems = this.props.sumTotalCartItems
+
     return (
       <div className="checkOutPage">
+
         <div className="header">
-          <h1> Items </h1>
+          <div> Cart </div>
+          <div className="cartHeaderLine"></div>
         </div>
 
-        <CheckOutTableItems />
-        
-        <div className="checkOutTotal">
-          <h1> Total:  </h1>
-        </div>
+        {this.props.cartItems.map( (id, key) => {
+          var currCheckOutItem = returnCheckOutDataByID(id)
+          return (
+            <CheckOutTableItems currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+          )
+        })}
 
-        <div className="checkOutTotalValue">
-          <CheckOutPageTotalValue />
-        </div>
-
-        <div className="purchaseButton">
-          <h1> <TotalPurchase /> </h1>
+        <div className="checkOutBottom">
+          <div className="checkOutDetails">
+            <div className="checkOutTotalWrapper">
+              <div className="checkOutTotal"> Total </div>
+              <div className="totalSpace"></div>
+              <div className="checkOutTotalValue"> {sumTotalCartItems()} </div>
+            </div>
+            <div className="checkOutTotalLine"></div>
+          </div>
+          <div className="purchaseBtn">
+            <div className="purchaseBtnText"> Purchase </div>
+          </div>
         </div>
 
         <Stylesheet sheet={sheet} />
