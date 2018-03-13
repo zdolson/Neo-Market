@@ -65,31 +65,30 @@ def addone(args):
     bstuff = serialize_array(stuff)
     Put(GetContext(), addr, bstuff)
     print("done with addone")
-# params 'createpost' [owner, title, desc, price, amount]
+# params 'createpost' [id, owner, title, desc, price, amount]
 def createpost(args):
-    combine = args[0]+"|"+args[1]+"|"+args[2]+"|"+args[3]+"|"+args[4]
-    addr = Get(GetContext(), args[0])
+    combine = args[0]+"|"+args[1]+"|"+args[2]+"|"+args[3]+"|"+args[4]+"|"args[5]
+    addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr) 
     stuff = deserialize_bytearray(bList)
     stuff.append(combine)
+    Log('new lenght of stuff:')
+    Log(len(stuff)) # this may break it here
     bList = serialize_array(stuff)
     Put(GetContext(), addr, bList)
     Log("printing post down there in the format")
     Log(combine)
     
 # params 'delete' [owner, index]
-def deletepost(args):
-    pass 
-"""
+def deletepost(args): 
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
     stuff = deserialize_bytearray(bList)
-    stuff.pop(args[1])
-    Log("done - new list length is")
-    Log(len(stuff))
-    bList = deserialize_bytearray(stuff)
-    Put(GetContext(), addr, bList)
-"""
+    stuff[args[1]] = "0"
+    bList = serialize_array(stuff)
+    Put(GetContext(), addr, bList) 
+    print("done with setting the post to 0")
+
 # params 'select' [username, index of item]
 def select(args): 
     addr = Get(GetContext(), args[0]) 
@@ -101,29 +100,29 @@ def select(args):
     print(stuff[args[1]]) 
     print("done with select") 
 
-# params 'getposts' [username] - will do multiple usernames as well
-def getposts(args): 
-    for i in range(len(args)): 
-        addr = Get(GetContext(), args[i])
-        bList = Get(GetContext(), addr)
-        stuff = deserialize_bytearray(bList)
-        for j in range(len(stuff)): 
-            Log(stuff[j])
+# # params 'getposts' [username] - will do multiple usernames as well
+# def getposts(args): 
+#     for i in range(len(args)): 
+#         addr = Get(GetContext(), args[i])
+#         bList = Get(GetContext(), addr)
+#         stuff = deserialize_bytearray(bList)
+#         for j in range(len(stuff)): 
+#             Log(stuff[j])
     
-# params 'getallposts' [] 
-# no args please
-def getallposts(): 
-    masterbList = Get(GetContext(), '1') 
-    masterList = deserialize_bytearray(masterbList)
-    for i in range(len(masterList)):
-        Log(i) # this is the name of a registered person 
-        addr = Get(GetContext(), i)
-        bList = Get(GetContext(), addr) 
-        stuff = deserialize_bytearray(bList)
-        for j in range(len(stuff)): 
-            Log(j)
-    ## should be done here 
-    Log("done getting all post")
+# # params 'getallposts' [] 
+# # no args please
+# def getallposts(): 
+#     masterbList = Get(GetContext(), '1') 
+#     masterList = deserialize_bytearray(masterbList)
+#     for i in range(len(masterList)):
+#         Log(i) # this is the name of a registered person 
+#         addr = Get(GetContext(), i)
+#         bList = Get(GetContext(), addr) 
+#         stuff = deserialize_bytearray(bList)
+#         for j in range(len(stuff)): 
+#             Log(j)
+#     ## should be done here 
+#     Log("done getting all post")
 
 # params 'isregister' [username] 
 def isregister(args):
@@ -155,6 +154,9 @@ def Main(operation, args):
     elif operation == "createpost":
         print("creating a post - here") 
         createpost(args)
+    elif operation == "deletepost":
+        print("deleting a post") 
+        deletepost(args)
     else: 
         print("what op?")
         return False
