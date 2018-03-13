@@ -73,20 +73,16 @@ def createPost(owner, title, desc, price, amount, counter):
         postInfo[3] = price
         postInfo[4] = amount
 
-        
-        # b = owner + "|" + title + "|" + desc + "|" + price + "|" + amount
+        stuff = list(length=5)
+        stuff[0] = owner 
+        stuff[1] = title 
+        stuff[2] = desc 
+        stuff[3] = price 
+        stuff[4] = amount 
 
-        print(b) 
-        print("this is the message above") 
-        # dPostInfo = serialize_array(postInfo)
-        # print(dPostInfo)
-        addr = Get(GetContext, a)
-        addList = Get(GetContext, addr) 
-        curList = deserialize_bytearray(addList)
-        curList.append(b) 
-        # curList[counter] = b
-        tempList = serialize_array(curList)
-        Put(GetContext, addr, tempList)
+        bList = serialize_array(stuff) 
+        Put(GetContext, a, bList) 
+
         return True
     else:
         print("failed")
@@ -101,11 +97,16 @@ def getPost(owner, title):
     print("Post info: " , postInfo)
     dpostInfo = deserialize_bytearray(postInfo)
     print("check stuff")
-    a1 = dpostInfo[1] 
-    a2 = dpostInfo[2] 
-    print("yes") 
-    print(a1)
-    print(a2) 
+    owner = dpostInfo[0] 
+    title = dpostInfo[1]
+    desc = dpostInfo[2] 
+    price = dpostInfo[3] 
+    amount = dpostInfo[4] 
+    print(owner) 
+    print(title)
+    print(desc)
+    print(price)
+    print(amount)
     return True
 
 def deletePost(owner,postindex):
