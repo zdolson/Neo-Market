@@ -1,33 +1,12 @@
+
 from boa.blockchain.vm.Neo.Storage import GetContext, Put, Delete, Get
 from post import init_Post
 from serialize import serialize_array, serialize_var_length_item, deserialize_bytearray
 from boa.code.builtins import list, concat
 
-def fillMaster(name):
-    masterbList = Get(GetContext, '1')
-    masterList = deserialize_bytearray(masterbList)
-    masterList.append(name)
-    masterbList = serialize_array(masterList)
-    Put(GetContext, '1', masterbList)
-    print("done with master") 
-    print(name) 
-    print("master length: ") 
-    a = len(masterList) 
-    print(a) 
-
 # this registers a user to their addr in the ocntract
 # then it registers their address to a list of list 
 def register(name, addr): 
-    check = name 
-    if check == '1':
-        print("no")
-        return False 
-    else:
-        isMasterThere = Get(GetContext, '1') 
-        if not isMasterThere:
-            masterList = serialize_array([])
-            Put(GetContext, '1', masterList) 
-
     a = Get(GetContext, name) 
     print("checking if user exist") 
     if not a: 
@@ -37,7 +16,6 @@ def register(name, addr):
         Put(GetContext, name, addr)
         Put(GetContext, addr, bLists) 
         print("finish registering")
-        fillMaster(name) 
     else: 
         print("user already exist")
         return False 
@@ -84,15 +62,26 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params
 # to the list of list (backlog) at the moment
 # Add ID as a 6th param, BACKLOG
-def createPost(index, owner, title, desc, price, amount, counter):
+def createPost(owner, title, desc, price, amount, counter):
     a = Get(GetContext, owner)
     if a:
-        strings = index+"|"+owner+"|"+title+"|"+desc+"|"+price+"|"+amount+"|"+counter
-        bList = Get(GetContext,a)
-        stuff = deserialize_bytearray(bList)
-        stuff.append(strings)    
-        bList = serialize_array(stuff)
-        Put(GetContext, a, bList)
+        print("beginning")
+        postInfo = list(length=5)
+        postInfo[0] = owner
+        postInfo[1] = title
+        postInfo[2] = desc
+        postInfo[3] = price
+        postInfo[4] = amount
+
+        stuff = list(length=5)
+        stuff[0] = owner 
+        stuff[1] = title 
+        stuff[2] = desc 
+        stuff[3] = price 
+        stuff[4] = amount 
+
+        bList = serialize_array(stuff) 
+        Put(GetContext, a, bList) 
 
         return True
     else:
@@ -101,21 +90,18 @@ def createPost(index, owner, title, desc, price, amount, counter):
 
 # this is a getter for createPost and gets the selected list and returns it 
 # more descriptions to come *backlog*
-# title = index 
 def getPost(owner, title): 
     pubAddress = Get(GetContext, owner)
     postInfo = Get(GetContext, pubAddress)
     print("Public Address: " , pubAddress)
     print("Post info: " , postInfo)
-    
     dpostInfo = deserialize_bytearray(postInfo)
     print("check stuff")
-    c = dpostInfo[title]
-    owner = c[0] 
-    title = c[1]
-    desc = c[2] 
-    price = c[3] 
-    amount = c[4] 
+    owner = dpostInfo[0] 
+    title = dpostInfo[1]
+    desc = dpostInfo[2] 
+    price = dpostInfo[3] 
+    amount = dpostInfo[4] 
     print(owner) 
     print(title)
     print(desc)
@@ -176,13 +162,12 @@ def Main(operation, args):
         e = args[4]
         getclass(a, b, c, d, e)
     elif operation == "createpost":
-        index1 = args[0]
-        owner = args[1]
-        title = args[2]
-        desc = args[3]
-        price = args[4]
-        amount = args[5]
-        createPost(index1, owner, title, desc, price, amount)
+        owner = args[0]
+        title = args[1]
+        desc = args[2]
+        price = args[3]
+        amount = args[4]
+        createPost(owner, title, desc, price, amount)
     elif operation == 'getpost':
         owner = args[0]
         title = args[1]
