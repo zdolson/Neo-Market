@@ -84,10 +84,10 @@ def buy(buyerAddr, sellerAddr, title, amount):
 # this creates the posting and appens that list of params
 # to the list of list (backlog) at the moment
 # Add ID as a 6th param, BACKLOG
-def createPost(index, owner, title, desc, price, amount, counter):
+def createPost(index, owner, title, desc, price, amount):
     a = Get(GetContext, owner)
     if a:
-        strings = index+"|"+owner+"|"+title+"|"+desc+"|"+price+"|"+amount+"|"+counter
+        strings = index+"|"+owner+"|"+title+"|"+desc+"|"+price+"|"+amount
         bList = Get(GetContext,a)
         stuff = deserialize_bytearray(bList)
         stuff.append(strings)    
