@@ -46,6 +46,16 @@ class ListingPic extends Component {
   }
 
   render () {
+    if(this.props.tryAgain && !this.state.imgLoad){
+      var ref = firebase.storage().ref().child(this.props.id);
+      ref.getDownloadURL().then(url => {
+        console.log('image download successful: '+url)
+        this.setState({ imgUrl: url, imgLoad: true });
+      }).catch(err => {
+        console.error(err)
+        this.setState({ tryAgain: false });
+      });
+    }
     var img = (
       this.state.imgLoad ?
       <img src={this.state.imgUrl} alt='loading...' width="350"/> :

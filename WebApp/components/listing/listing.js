@@ -28,9 +28,10 @@ export class Listing extends Component {
 
   render () {
     var item = this.props.item;
+    var tryAgain = this.props.tryAgain;
     return (
       <div className='listing'>
-        <ListingPic id={item.id}/>
+        <ListingPic id={item.id} tryAgain={tryAgain}/>
         <ListingContent item={item} />
         <Stylesheet sheet={sheet} />
       </div>

@@ -28,7 +28,6 @@ export class CheckOutPage extends Component {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
-
     return (
       <div className="checkOutPage">
 

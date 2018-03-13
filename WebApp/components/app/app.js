@@ -40,12 +40,13 @@ export class App extends Component {
         // {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900, amount: 1},
         // {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300, amount: 1}
       ],
-      cartItems: []//["add434njdwf7f73n", "sl501mx'[co3qa-]"]
+      cartItems: [],//["add434njdwf7f73n", "sl501mx'[co3qa-]"]
       /// Production Version ///
       /*
       items: [],
       cartItems: []
       */
+      tryAgain: false
     }
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
@@ -55,6 +56,7 @@ export class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
+    this.tryAgain = this.tryAgain.bind(this);
   }
 
   componentDidMount () {
@@ -163,6 +165,11 @@ export class App extends Component {
     return currTotal
   }
 
+  tryAgain() {
+    this.setState({ tryAgain: false });
+    this.setState({ tryAgain: true });
+  }
+
   render () {
       if (this.state.loading) {
         return (
@@ -191,7 +198,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+            <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
           </div>
         </main>
       )

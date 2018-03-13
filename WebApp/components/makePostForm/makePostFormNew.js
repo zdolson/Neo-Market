@@ -61,6 +61,7 @@ export class MakePostForm extends Component {
     var ref = firebase.storage().ref().child(id);
     ref.put(file).then(function(snapshot) {
       console.log('Uploaded a blob or file!');
+      this.props.tryAgain();
     });
 
     /// Dev Version ///
@@ -119,7 +120,11 @@ export class MakePostForm extends Component {
 
           <div className="makePostFormBtn form-group">
               <div className="inputWrapper">
-                  <input value="submit" type="submit" />
+                  <div className="submitBtn" onClick={this.makePost}>
+                      <NavLink className="navLinkSubmitBtn" to="/">
+                          submit
+                      </NavLink>
+                  </div>
               </div>
           </div>
 
