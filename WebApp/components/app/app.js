@@ -33,19 +33,20 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100},
-        {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20},
-        {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90},
-        {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30},
-        {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900},
-        {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300}
+        // {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100, amount: 1},
+        // {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20, amount: 1},
+        // {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90, amount: 1},
+        // {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30, amount: 1},
+        // {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900, amount: 1},
+        // {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300, amount: 1}
       ],
-      cartItems: ["add434njdwf7f73n", "sl501mx'[co3qa-]"]
+      cartItems: [],//["add434njdwf7f73n", "sl501mx'[co3qa-]"]
       /// Production Version ///
       /*
       items: [],
       cartItems: []
       */
+      tryAgain: false
     }
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
@@ -55,10 +56,12 @@ export class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
+    this.tryAgain = this.tryAgain.bind(this);
   }
 
   componentDidMount () {
     console.log('App component Loaded');
+    console.log(this.state);
   }
 
   componentWillMount () {
@@ -86,6 +89,7 @@ export class App extends Component {
   }
 
   removeItem(id) {
+    console.log("removeItem("+id+")");
     /// Dev Version ///
 
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
@@ -105,9 +109,14 @@ export class App extends Component {
   }
 
   removeCartItem(id){
+    console.log("removeCartItem("+id+")");
     var index = this.state.cartItems.indexOf(id)
-    this.state.cartItems.splice(index, 1)
-    this.setState({ cartItems: this.state.cartItems})
+    if(index != -1){
+      this.state.cartItems.splice(index, 1)
+      this.setState({ cartItems: this.state.cartItems})
+    }else{
+      console.log("item doesn't exist in cart")
+    }
   }
 
   isIDInItemList(id) {
@@ -156,6 +165,11 @@ export class App extends Component {
     return currTotal
   }
 
+  tryAgain() {
+    this.setState({ tryAgain: false });
+    this.setState({ tryAgain: true });
+  }
+
   render () {
       if (this.state.loading) {
         return (
@@ -174,6 +188,7 @@ export class App extends Component {
         )
       }
 
+
       return (
         <main>
           <div>
@@ -183,7 +198,7 @@ export class App extends Component {
             <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
             <LeftAccountBar />
             <RightAccountBar />
-            <RoutingComponent state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+            <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
           </div>
         </main>
       )

@@ -36,6 +36,7 @@ export class ListingsPage extends Component {
   render () {
     var items = this.props.state.items;
     var cartItems = this.props.state.cartItems;
+    var tryAgain = this.props.tryAgain;
     return (
       <div className='listings'>
 
@@ -43,7 +44,7 @@ export class ListingsPage extends Component {
           var link = '/MoreInfoItem/'+item.id;
           console.log(link);
           return (
-            <Link to={link} key={key} className="navLink">  <Listing item={item}/> </Link>
+            <Link to={link} key={key} className="navLink">  <Listing item={item} tryAgain={tryAgain}/> </Link>
           )
         })}
 

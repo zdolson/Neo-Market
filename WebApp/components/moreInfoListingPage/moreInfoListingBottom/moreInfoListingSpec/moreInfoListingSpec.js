@@ -26,7 +26,8 @@ class MoreInfoListingSpec extends Component {
 
   render () {
     let item = this.props.item;
-    let itemID = this.props.item['id'];
+    let itemID = item['id'];
+    let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     console.log(this.props);
@@ -38,8 +39,8 @@ class MoreInfoListingSpec extends Component {
             {item['title']}
           </div>
           <div className="prices">
-            <div className="neoPrice"> {item['price']} </div>
-            <div className="usPrice"> US price </div>
+            <div className="neoPrice">{item['price']} NEO</div>
+            <div className="usPrice">US price: ?</div>
           </div>
         </div>
 
@@ -50,7 +51,7 @@ class MoreInfoListingSpec extends Component {
 
         <div className="sellerAndRating">
           <div className="seller">
-            seller
+            {owner}
           </div>
           <div className="rating">
             rating <Star />
@@ -69,7 +70,7 @@ class MoreInfoListingSpec extends Component {
                 <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
                   <NavLink to="/">
                     Remove Item
-                  </NavLink> 
+                  </NavLink>
                 </div>
             </div>
         </div>
