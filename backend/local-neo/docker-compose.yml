@@ -30,7 +30,7 @@ services:
       - redis
       - neo-privatenet
   neo-privatenet:
-    image: cityofzion/neo-privatenet
+    image: metachris/neo-privnet-with-gas
     container_name: "neo-privatenet"
     ports:
       - 20333:20333

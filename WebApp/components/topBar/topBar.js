@@ -22,8 +22,38 @@ export class TopBar extends Component {
     this.state = {
 
     }
+    this.isRegister = this.isRegister.bind(this);
   }
 
+
+  isRegister = () => {
+
+      // cF.register('42','satan');
+      // cF.isRegister('42','satan');
+      // cF.createPost('123','satan','rice','fried rice brah','3','1');
+      // cF.createPost('123','satan','Vs','dem victories breh','9000','1');
+      // cF.accessStorage('1');
+      // cF.getUserPostsFromStorage('42');
+
+
+
+      // cF.register('79','tom');
+      // cF.isRegister('79','tom');
+      // cF.createPost('10','tom','bananas','soooo yellow','10','6');
+      cF.createPost('13','tom','fathead','much big','12','1');
+
+      // cF.getUserPostsFromStorage('tom').then(users => {
+      //     console.log(users)
+      // }).catch(err => {
+      //     console.error(err)
+      // })
+      // cF.getAllPostsFromStorage();
+
+      // cF.createPost('456','jesus','eggs','friedeggs','1','12');
+      // cF.accessStorage('666');
+      // cF.register('666','jesus');
+
+  }
 
 // // My fuc.But. that does stuff.
 //   zachFunc = () => {
@@ -62,14 +92,15 @@ export class TopBar extends Component {
 
 
 // Old render button part.
-// <div className="zachBtn" onClick={this.zachFunc}>
-//   Property of Zach
-// </div>
+
 
   render () {
     return (
       <div className="topnav">
         <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
+        <div className="zachBtn" onClick={this.isRegister}>
+          Property of Zach
+        </div>
         <div className="search">
           <SearchIcon className="searchicon" />
           <div className="searchbubble">
