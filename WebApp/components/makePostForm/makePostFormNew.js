@@ -19,6 +19,8 @@ import purchasesPage from '../purchasesPage/purchasesPage.js';
 import peoplePage from '../peoplePage/peoplePage.js';
 import cF from '../../../backend/contractFunctions'
 
+import { NavLink } from 'react-router-dom'
+
 import * as firebase from 'firebase'
 
 export class MakePostForm extends Component {
@@ -44,6 +46,7 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
+    console.log("makePost");
     ev.preventDefault();
     // var file = this.uploadInput.files[0];
     var file = this.uploadInput.files[0];
@@ -55,19 +58,18 @@ export class MakePostForm extends Component {
     var id = this.makeId();
 
     /* Implement check for valid user input */
+    var ref = firebase.storage().ref().child(id);
+    ref.put(file).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
+      this.props.tryAgain();
+    });
 
     /// Dev Version ///
-    this.props.addItem({id: id, owner: 'Alec', title: this.title.value, description: this.desc.value, price: this.price.value, amount: this.amount.value });
+    this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
     /// Production Version ///
     /*
       cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
     */
-
-    //
-    // var ref = firebase.storage().ref().child(id);
-    // ref.put(file).then(function(snapshot) {
-    //   console.log('Uploaded a blob or file!');
-    // });
   }
 
   render () {
@@ -117,7 +119,13 @@ export class MakePostForm extends Component {
           </div>
 
           <div className="makePostFormBtn form-group">
-            <div className="inputWrapper"> <input value="submit" type="submit" /> </div>
+              <div className="inputWrapper">
+                  <div className="submitBtn" onClick={this.makePost}>
+                      <NavLink className="navLinkSubmitBtn" to="/">
+                          submit
+                      </NavLink>
+                  </div>
+              </div>
           </div>
 
         </form>

@@ -30,7 +30,7 @@ class ListingContent extends Component {
     var item = this.props.item;
     var price = item.price;
     var title = item.title;
-    var description = item.description;
+    var description = item.desc;
     return (
       <div className='listingContent'>
         <ListingContentText title={title} description={description}/>
