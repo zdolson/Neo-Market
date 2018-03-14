@@ -45,7 +45,7 @@ def register(name, addr):
     return True
 
 # this checks if the user is registered or not
-def isregister(name, addr):
+def isRegister(name, addr):
     a = Get(GetContext, name) 
     if not a:
         print("there is no user in contract") 
@@ -104,7 +104,7 @@ def createPost(index, owner, title, desc, price, amount):
         stuff.append(amount)
         stuff.append(";")
 
-        #strings = index+","+owner+","+title+","+desc+","+price+","+amount
+        # strings = index+","+owner+","+title+","+desc+","+price+","+amount
         #bList = Get(GetContext,a)
         #stuff = deserialize_bytearray(bList)
         #stuff.append(strings)    
@@ -153,7 +153,7 @@ def deletePost(owner,postindex):
 
 # this is to check if it was possible to build a class in neo-python and 
 # return true if it does, that's it 
-def getclass(owner, title, desc, price, amount):
+def getClass(owner, title, desc, price, amount):
     post = init_Post(owner, title, desc, price, amount)
     print("this is the owner") 
     print(post.owner)
@@ -190,7 +190,7 @@ def Main(operation, args):
         a = args[0]
         b = args[1]
         print("in op - isRegister")
-        isregister(b,a) 
+        isRegister(b,a) 
     elif operation == "getclass": 
         a = args[0]
         b = args[1]
@@ -198,7 +198,7 @@ def Main(operation, args):
         c = args[2]
         d = args[3] 
         e = args[4]
-        getclass(a, b, c, d, e)
+        getClass(a, b, c, d, e)
     elif operation == "createpost":
         index1 = args[0]
         owner = args[1]
