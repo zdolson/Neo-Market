@@ -86,6 +86,7 @@ module.exports = {
     },
 
     getStorage: (key) => {
+        console.log(key)
         if (neon.wallet.isAddress(key)) {
             key = module.exports.getScriptHash(key)
         } else {

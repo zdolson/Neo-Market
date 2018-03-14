@@ -26,23 +26,119 @@ module.exports = {
      * @Return: {string} res
      * Purpose: Returns the string of information stored on the smart contract under the specified user.
      */
-    accessStorage: (name) => {
-        node.getStorage(name).then((res) => {
-            console.log(res)
-            return res
+    getAddressFromUser: (name) => {
+        console.log(name);
+        return new Promise((resolve,reject) => {
+            node.getStorage(name).then(address => {
+                console.log(address)
+                resolve(address)
+            }).catch(err => {
+                console.error(err)
+                reject(err)
+            })
         })
     },
 
     /*
-     * @Function: register
+     * @Function: accessStorage
      * @Contributor: Zachary Olson
      * @Param: {string} name
+     * @Return: {string} res
+     * Purpose: Returns the string of information stored on the smart contract under the specified user.
+     */
+    getUserPostsFromStorage: (name) => {
+        console.log(name);
+        return new Promise((resolve,reject) => {
+            node.getStorage(name).then(address => {
+                console.log(address)
+                node.getStorage(address).then((res) => {
+                    let posts = res.split(';')
+                    console.log(posts)
+                    // console.log(res)
+                    resolve(posts)
+                }).catch(err => {
+                    console.error(err)
+                    reject(err)
+                })
+            }).catch(err => {
+                console.error(err)
+                reject(err)
+            })
+
+        })
+    },
+
+    /*
+     * @Function: accessStorage
+     * @Contributor: Zachary Olson
+     * @Param: {string} name
+     * @Return: {string} res
+     * Purpose: Returns the string of information stored on the smart contract under the specified user.
+     */
+    getAllUsersFromStorage: () => {
+        return new Promise((resolve, reject) => {
+            node.getStorage('1').then((res) => {
+                let users = res.split(',')
+                console.log(users)
+                // console.log(res)
+                resolve(users)
+            }).catch(err => {
+                console.error(err)
+                reject(err)
+            })
+        })
+
+    },
+
+    /*
+     * @Function: accessStorage
+     * @Contributor: Zachary Olson
+     * @Param: {string} name
+     * @Return: {string} res
+     * Purpose: Returns the string of information stored on the smart contract under the specified user.
+     */
+
+     // get all getAllUsersFromStorage
+        // get each users posts
+    getAllPostsFromStorage: () => {
+        return new Promise((resolve,reject) => {
+
+            var allPosts = [];
+
+            module.exports.getAllUsersFromStorage().then(userList => {
+                // resolve(userList)
+                for (var i = 0; i < userList.length-1; i++) {
+                    console.log(userList[i]);
+                    module.exports.getUserPostsFromStorage('satan').then((posts) => {
+                        console.log(posts);
+                        allPosts.push(posts)
+                        // for(let j = 0; j < posts.length-1; j++){
+                        //     allPosts.push(posts[j])
+                        // }
+                        if(i == userList.length - 1) {
+                            resolve(allPosts)
+                        }
+                    }).catch(err => {
+                        reject(err)
+                    })
+                }
+            }).catch(err => {
+                reject(err)
+            })
+        })
+    },
+
+
+    /*
+     * @Function: register
+     * @Contributor: Zachary Olson
      * @Param: {string} address
+     * @Param: {string} name
      * @Return: Nothing
      * Purpose: Register a new user on the smart contract.
      *          Calls invokeContract() with register function to smart contract.
      */
-    register: (name, address) => {
+    register: (address, name) => {
         node.invokeContract('register', [address, name], account, (res) => {
             console.log('contractFunctions.js: invokeContract(register)')
             console.dir(res)
@@ -57,13 +153,13 @@ module.exports = {
     /*
      * @Function: isRegister
      * @Contributor: Zachary Olson
-     * @Param: {string} name
      * @Param: {string} address
+     * @Param: {string} name
      * @Return: Nothing
      * Purpose: Checks if user is already registered on smart contract.
      *          Calls invokeContract() with isregister function to smart contract.
      */
-    isRegister: (name, address) => {
+    isRegister: (address, name) => {
         node.invokeContract('isregister', [address, name], account, (res) => {
             console.log('contractFunctions.js: invokeContract(isRegister)')
             console.dir(res)
@@ -102,11 +198,12 @@ module.exports = {
     /*
      * @Function: createPost
      * @Contributor: Zachary Olson
+     * @Param: {string} id
      * @Param: {string} owner
      * @Param: {string} title
      * @Param: {string} desc
-     * @Param: {int} price
-     * @Param: {int} amount
+     * @Param: {string} price
+     * @Param: {string} amount
      * @Return: Nothing
      * Purpose: Creates a Post on the smart contract.
      *          Calls invokeContract() with createpost function to smart contract.
