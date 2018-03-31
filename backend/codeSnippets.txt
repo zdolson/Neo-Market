@@ -1,0 +1,10 @@
+// Creates a network config for a privatenet and adds it to the list of network variables.
+let netConfig = {
+    name: 'PrivateNet',
+    extra: {
+        // neonDB: 'http://localhost:5000'
+        neoscan: 'http://localhost:4000/api/main_net'
+    }
+}
+const privateNet = new neon.rpc.Network(netConfig);
+Neon.add.network(privateNet);

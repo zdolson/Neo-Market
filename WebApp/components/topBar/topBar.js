@@ -31,16 +31,24 @@ export class TopBar extends Component {
       // cF.register('42','satan');
       // cF.isRegister('42','satan');
       // cF.createPost('123','satan','rice','fried rice brah','3','1');
-      // cF.createPost('123','satan','Vs','dem victories breh','9000','1');
-      // cF.accessStorage('1');
-      // cF.getUserPostsFromStorage('42');
+      // cF.createPost('42','satan','Vs','dem victories breh','9000','1');
+      // cF.getAllUsersFromStorage();
+      // cF.getUserPostsFromStorage('satan');
+      // cF.getUserPostsFromStorage('tom');
+      // cF.getAddressFromUser('satan');
 
+      cF.getAllPostsFromStorage();
 
+      // cF.getContractState();
 
-      // cF.register('79','tom');
+      // cF.register('tom','5');
+      // cF.register('satan','42');
+      // let block = cF.getBlockCount();
+      // console.log(block);
+
       // cF.isRegister('79','tom');
       // cF.createPost('10','tom','bananas','soooo yellow','10','6');
-      cF.createPost('13','tom','fathead','much big','12','1');
+      // cF.createPost('13','tom','fathead','much big','12','1');
 
       // cF.getUserPostsFromStorage('tom').then(users => {
       //     console.log(users)
@@ -54,45 +62,6 @@ export class TopBar extends Component {
       // cF.register('666','jesus');
 
   }
-
-// // My fuc.But. that does stuff.
-//   zachFunc = () => {
-//       // var myBalance = node.getBalance('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y')
-//       // console.log('topBar.js: Balance from getBalance(manualAddress): ')
-//       // console.log(myBalance)
-//       // var myBalanceFromAccount = node.getBalance(account.address)
-//       // console.log('topBar.js: Balance from getBalance(account.address): ')
-//       // console.log(myBalanceFromAccount)
-//       // console.log('topBar.js: node.getRPCEndpoint(): ')
-//       // console.log(node.getRPCEndpoint())
-//
-//
-//       // cF.register('tom','456')
-//       // cF.isRegister('tom','456')
-//       // cF.createPost('tom','test post','make a post here.',3,1)
-//       // cF.getPost('tom','test post')
-//       // cF.deletePost()
-//       // cF.accessStorage('tom')
-//
-//
-//       // neon.create.Balance({
-//       //     net: config.RESTEndpoint,
-//       //     address: account.address
-//       // })
-//
-//       // let nBalance = new wallet.Balance({
-//       //     net: config.RESTEndpoint,
-//       //     address: account.address
-//       // })
-//       // console.log(nBalance)
-//       // let filledBalance = neon.api.getBalanceFrom(account.address, config.RESTEndpoint).then((res) =>
-//       //     console.log(filledBalance.assetSymbols)
-//       // )
-//   }
-
-
-// Old render button part.
-
 
   render () {
     return (
