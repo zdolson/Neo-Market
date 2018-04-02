@@ -27,7 +27,7 @@ Purpose: App component that encapsulates the whole application.
 
 **/
 
-// Testing new comment again.
+// New comment for gitlab test
 
 export class App extends Component {
   constructor (props, context) {
