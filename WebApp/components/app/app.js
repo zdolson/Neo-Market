@@ -29,6 +29,8 @@ Purpose: App component that encapsulates the whole application.
 
 // Test Comment
 
+// Test Comment 2
+
 export class App extends Component {
   constructor (props, context) {
     super(props, context)
