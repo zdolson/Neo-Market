@@ -24,13 +24,15 @@ class MoreInfoListingImg extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref().child('OmaCypLYi9');
+    var ref = firebase.storage().ref('doge.jpg');
     ref.getDownloadURL().then(url => {
       console.log('image download successful: '+url)
       this.setState({ imgUrl: url, imgLoad: true });
     }).catch(err => {
       console.error(err)
     });
+
+    // Dev Version
     // var ref = firebase.storage().ref().child(this.props.id);
     // ref.getDownloadURL().then(url => {
     //   console.log('image download successful: '+url)

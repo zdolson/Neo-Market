@@ -17,6 +17,8 @@ import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
 const cF = require('../../../backend/contractFunctions')
 
+import * as firebase from 'firebase'
+
 /**
 
 @ Nicholas
@@ -27,28 +29,23 @@ Purpose: App component that encapsulates the whole application.
 
 **/
 
-// New comment for gitlab test
-
 export class App extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
       /// Dev Version ///
       items: [
-        // {id: "add434njdwf7f73n", owner: "Alec Felt", title: "J's on my feet", description: "These shoes are Jordans homie.", price: 100, amount: 1},
-        // {id: "87wddw877d7d7d89", owner: "Nicholas Cheung", title: "Chest Slingshot", description: "How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com How much ya bench .com ", price: 20, amount: 1},
-        // {id: "jnfekjnkjelfkajf", owner: "Victoria Tran", title: "Cracking the Coding Interview", description: "Whiteboarding all dayyy", price: 90, amount: 1},
-        // {id: "fjawfiajofiaa;ieoj;i", owner: "David Liang", title: "Nuked OS", description: "Kill it with fire", price: 30, amount: 1},
-        // {id: "sl501mx'[co3qa-]", owner: "Zachary Olson", title: "Honey D", description: "No honey all D", price: 900, amount: 1},
-        // {id: "iaseodifjai2", owner: "Colin Dunn", title: "Overwatch", description: "Justice reins from above", price: 300, amount: 1}
+        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0},
       ],
-      cartItems: [],//["add434njdwf7f73n", "sl501mx'[co3qa-]"]
+      cartItems: [],
+      loadItemsAgain:false,
+      tryAgain: false
+
       /// Production Version ///
       /*
       items: [],
       cartItems: []
       */
-      tryAgain: false
     }
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
@@ -73,6 +70,33 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
+
+    var arrayItemList = []
+    var currItem = {}
+    
+    // Whole section is for creating the arrayItemList from firebase storage
+    firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
+      snapshot.forEach(function (childSnapshot) {
+        currItem = {
+          id: childSnapshot.child('id').val(),
+          owner: childSnapshot.child('owner').val(),
+          title: childSnapshot.child('title').val(),
+          description: childSnapshot.child('description').val(),
+          price: childSnapshot.child('price').val(),
+          amount: childSnapshot.child('amount').val()
+        }
+        arrayItemList.push(currItem)
+        
+      }.bind(this))
+
+      // First pass will usually be undefined so we have to account for it.
+      if(typeof arrayItemList !== 'undefined') {
+        this.setState({ items: arrayItemList, loadItemsAgain: false, })
+      } 
+
+    }.bind(this)).catch(err => {
+      console.error(err)
+    });
   }
 
   addCartItem(id) {
@@ -84,6 +108,7 @@ export class App extends Component {
     /// Dev Version ///
     let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(newItem) })
+    
     /// Production Version ///
     /*
       cF.createPost(id, owner, title, desc, price, amount);
@@ -91,7 +116,6 @@ export class App extends Component {
   }
 
   removeItem(id) {
-    console.log("removeItem("+id+")");
     /// Dev Version ///
 
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
@@ -103,6 +127,7 @@ export class App extends Component {
       }
       this.setState({ items: this.state.items});
     }
+    
     /// Production Version ///
     /*
       let owner = ???
@@ -111,7 +136,6 @@ export class App extends Component {
   }
 
   removeCartItem(id){
-    console.log("removeCartItem("+id+")");
     var index = this.state.cartItems.indexOf(id)
     if(index != -1){
       this.state.cartItems.splice(index, 1)
@@ -122,7 +146,6 @@ export class App extends Component {
   }
 
   isIDInItemList(id) {
-    this.itemsListToString()
     var itemList = this.state.items
     for (var i = 0; i < this.state.items.length; i++){
       if (itemList[i]['id'] == id) {
@@ -146,7 +169,7 @@ export class App extends Component {
     }
   }
 
-  // Debugging method for toString
+  // Debugging method toString to printout list
   itemsListToString(){
     for (var i = 0; i < this.state.items.length; i++){
       var currItem = this.state.items[i]
@@ -172,7 +195,34 @@ export class App extends Component {
     this.setState({ tryAgain: true });
   }
 
+
   render () {
+      if(this.state.loadItemsAgain) {
+        var arrayItemList = []
+        var currItem = {}
+        
+        firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
+          snapshot.forEach(function (childSnapshot) {
+            currItem = {
+              id: childSnapshot.child('id').val(),
+              owner: childSnapshot.child('owner').val(),
+              title: childSnapshot.child('title').val(),
+              description: childSnapshot.child('description').val(),
+              price: childSnapshot.child('price').val(),
+              amount: childSnapshot.child('amount').val()
+            }
+            arrayItemList.push(currItem)
+          }.bind(this))
+        }.bind(this)).catch(err => {
+          console.error(err)
+        });
+
+        // First pass will usually be undefined so we have to account for it.
+        if(typeof arrayItemList !== 'undefined') {
+          this.setState({ items: arrayItemList, loadItemsAgain: false, })
+        }
+      }
+
       if (this.state.loading) {
         return (
           <main>
@@ -189,7 +239,6 @@ export class App extends Component {
           </main>
         )
       }
-
 
       return (
         <main>

@@ -23,19 +23,19 @@ class ListingPic extends Component {
       imgUrl: '',
       imgLoad: false
     }
-    console.log(props);
   }
 
   componentWillMount() {
-    // var ref = firebase.storage().ref().child('OmaCypLYi9');
-    console.log(this.props.id)
-    var ref = firebase.storage().ref().child(this.props.id);
+    var ref = firebase.storage().ref('doge.jpg');
+    //var ref = firebase.storage().ref().child(this.props.id);
     ref.getDownloadURL().then(url => {
       console.log('image download successful: '+url)
       this.setState({ imgUrl: url, imgLoad: true });
     }).catch(err => {
       console.error(err)
     });
+
+    // Dev Version
     // var ref = firebase.storage().ref().child(this.props.id);
     // ref.getDownloadURL().then(url => {
     //   console.log('image download successful: '+url)
@@ -47,7 +47,8 @@ class ListingPic extends Component {
 
   render () {
     if(this.props.tryAgain && !this.state.imgLoad){
-      var ref = firebase.storage().ref().child(this.props.id);
+      //var ref = firebase.storage().ref().child(this.props.id);
+      var ref = firebase.storage().ref('doge.jpg');
       ref.getDownloadURL().then(url => {
         console.log('image download successful: '+url)
         this.setState({ imgUrl: url, imgLoad: true });
