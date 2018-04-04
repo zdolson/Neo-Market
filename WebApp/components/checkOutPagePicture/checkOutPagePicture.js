@@ -28,20 +28,13 @@ class CheckOutPagePictures extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref('doge.jpg');
+    var ref = firebase.storage().ref(this.props.imageName);
     ref.getDownloadURL().then(url => {
       console.log('image download successful: '+url)
       this.setState({ imgUrl: url, imgLoad: true });
     }).catch(err => {
       console.error(err)
     });
-    // var ref = firebase.storage().ref().child(this.props.id);
-    // ref.getDownloadURL().then(url => {
-    //   console.log('image download successful: '+url)
-    //   this.setState({ imgUrl: url });
-    // }).catch(err => {
-    //   console.error(err)
-    // });
   }
 
   render () {

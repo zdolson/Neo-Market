@@ -30,8 +30,8 @@ class MoreInfoListingItem extends Component {
 
     return (
       <div className='moreInfoListingItem'>
-        <MoreInfoListingImg id={item.id}/>
-        <MoreInfoListingDesc listingDescription={item['desc']}/>
+        <MoreInfoListingImg imageName={item.imageName}/>
+        <MoreInfoListingDesc listingDescription={item.description}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

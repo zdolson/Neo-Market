@@ -35,7 +35,7 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0},
+        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0, imageName:'defaultName'},
       ],
       cartItems: [],
       loadItemsAgain:false,
@@ -83,7 +83,8 @@ export class App extends Component {
           title: childSnapshot.child('title').val(),
           description: childSnapshot.child('description').val(),
           price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val()
+          amount: childSnapshot.child('amount').val(),
+          imageName: childSnapshot.child('imageName').val()
         }
         arrayItemList.push(currItem)
         
@@ -104,9 +105,9 @@ export class App extends Component {
     // This isnt going to showup the first time, it will show up after the re-render.
   }
 
-  addItem(id, owner, title, desc, price, amount) {
+  addItem(id, owner, title, desc, price, amount, imageName) {
     /// Dev Version ///
-    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
+    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount, imageName: imageName};
     this.setState({ items: this.state.items.concat(newItem) })
     
     /// Production Version ///
@@ -209,7 +210,8 @@ export class App extends Component {
               title: childSnapshot.child('title').val(),
               description: childSnapshot.child('description').val(),
               price: childSnapshot.child('price').val(),
-              amount: childSnapshot.child('amount').val()
+              amount: childSnapshot.child('amount').val(),
+              imageName: childSnapshot.child('imageName').val()
             }
             arrayItemList.push(currItem)
           }.bind(this))
