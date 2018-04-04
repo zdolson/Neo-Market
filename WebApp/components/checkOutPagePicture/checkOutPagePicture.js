@@ -28,7 +28,7 @@ class CheckOutPagePictures extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref().child('OmaCypLYi9');
+    var ref = firebase.storage().ref('doge.jpg');
     ref.getDownloadURL().then(url => {
       console.log('image download successful: '+url)
       this.setState({ imgUrl: url, imgLoad: true });
