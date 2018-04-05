@@ -2,7 +2,11 @@ before_script:
 - env
 - ls
 - pwd
-- pacman -S nodejs npm
+- apt -v
+- pkg -v
+- dpkg -v
+- yum -v
+- dnf -v
 
 
 build:
