@@ -1,12 +1,7 @@
 before_script:
-- env
-- ls
-- pwd
-- apt -v
-- pkg -v
-- dpkg -v
-- yum -v
-- dnf -v
+- apt-get install -y nodejs
+- apt-get install -y npm
+
 
 
 build:
