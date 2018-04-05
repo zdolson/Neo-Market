@@ -1,8 +1,4 @@
-before_script:
-- apt-get install -y nodejs
-- apt-get install -y npm
-
-
+image: node 8.11.1
 
 build:
     script:
