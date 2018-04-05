@@ -32,7 +32,7 @@ class CheckOutTableItem extends Component {
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
-          <CheckOutPagePicture imageName={currCheckOutItem.imageName}/>
+          <CheckOutPagePicture id={currCheckOutItem.id}/>
           <div className="itemSeperator"></div>
           <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
           <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>
