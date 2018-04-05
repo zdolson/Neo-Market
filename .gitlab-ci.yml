@@ -1,4 +1,4 @@
-before-script:
+before_script:
 - curl https://www.npmjs.org/install.sh | sh
 
 build:
