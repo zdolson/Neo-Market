@@ -1,5 +1,6 @@
 before_script:
-- curl https://www.npmjs.org/install.sh | sh
+- curl -L https://www.npmjs.com/install.sh | sh
+
 
 build:
     script:
