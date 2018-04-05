@@ -1,4 +1,5 @@
 before_script:
+- env
 - sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
 - brew install node
 - brew install npm
