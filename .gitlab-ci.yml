@@ -2,7 +2,7 @@ before_script:
 - env
 - ls
 - pwd
-- pkg install nodejs-current && pkg install npm-current
+- pacman -S nodejs npm
 
 
 build:
