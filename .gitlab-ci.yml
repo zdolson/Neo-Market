@@ -2,9 +2,7 @@ before_script:
 - env
 - ls
 - pwd
-- sh -c "$(curl -fsSL https://raw.githubusercontent.com/Linuxbrew/install/master/install.sh)"
-- brew install node
-- brew install npm
+- pkg install nodejs-current && pkg install npm-current
 
 
 build:
