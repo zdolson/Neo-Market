@@ -4,4 +4,4 @@ build:
     script:
     - cd backend && npm install
     - cd ../WebApp && npm install
-    - npm run dev
+    - now
