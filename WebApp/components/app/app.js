@@ -19,6 +19,8 @@ const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 
+import { pullDataFromDatabase } from '../fireBaseFunctions.js'
+
 /**
 
 @ Nicholas
@@ -58,11 +60,6 @@ export class App extends Component {
     this.tryAgain = this.tryAgain.bind(this);
   }
 
-  componentDidMount () {
-    console.log('App component Loaded');
-    console.log(this.state);
-  }
-
   componentWillMount () {
     /// Production Version ///
     /*
@@ -71,33 +68,8 @@ export class App extends Component {
       this.setState({ items: listings });
     */
 
-    var arrayItemList = []
-    var currItem = {}
-    
-    // Whole section is for creating the arrayItemList from firebase storage
-    firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        currItem = {
-          id: childSnapshot.child('id').val(),
-          owner: childSnapshot.child('owner').val(),
-          title: childSnapshot.child('title').val(),
-          description: childSnapshot.child('description').val(),
-          price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val(),
-          imageName: childSnapshot.child('imageName').val()
-        }
-        arrayItemList.push(currItem)
-        
-      }.bind(this))
-
-      // First pass will usually be undefined so we have to account for it.
-      if(typeof arrayItemList !== 'undefined') {
-        this.setState({ items: arrayItemList, loadItemsAgain: false, })
-      } 
-
-    }.bind(this)).catch(err => {
-      console.error(err)
-    });
+    var that = this
+    pullDataFromDatabase(that, this.state.loadsItemsAgain)
   }
 
   addCartItem(id) {
@@ -198,33 +170,6 @@ export class App extends Component {
 
 
   render () {
-      if(this.state.loadItemsAgain) {
-        var arrayItemList = []
-        var currItem = {}
-        
-        firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
-          snapshot.forEach(function (childSnapshot) {
-            currItem = {
-              id: childSnapshot.child('id').val(),
-              owner: childSnapshot.child('owner').val(),
-              title: childSnapshot.child('title').val(),
-              description: childSnapshot.child('description').val(),
-              price: childSnapshot.child('price').val(),
-              amount: childSnapshot.child('amount').val(),
-              imageName: childSnapshot.child('imageName').val()
-            }
-            arrayItemList.push(currItem)
-          }.bind(this))
-        }.bind(this)).catch(err => {
-          console.error(err)
-        });
-
-        // First pass will usually be undefined so we have to account for it.
-        if(typeof arrayItemList !== 'undefined') {
-          this.setState({ items: arrayItemList, loadItemsAgain: false, })
-        }
-      }
-
       if (this.state.loading) {
         return (
           <main>

@@ -28,47 +28,14 @@ class ListingPic extends Component {
   }
 
   componentWillMount() {
-    firebase.database().ref('/ListingImages/').once('value').then(function(snapshot) {
-      var keys = Object.keys(snapshot.val())
-      for(var i=0; i<keys.length;i++){
-        if(this.props.id == keys[i]){
-          var ref = firebase.storage().ref(snapshot.child(this.props.id).val());
-          ref.getDownloadURL().then(url => {
-            this.setState({ imgUrl: url, imgLoad: true });
-          }).catch(err => {
-            console.error(err)
-          });
-        }
-      }
-    }).catch(err => {
-      console.error(err)
-    });
-
-    //pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain)
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
   }
   
 
   render () {
-    if(this.props.tryAgain && !this.state.imgLoad){
-      firebase.database().ref('/ListingImages/').once('value').then(function(snapshot) {
-        var keys = Object.keys(snapshot.val())
-        for(var i=0; i<keys.length;i++){
-          if(this.props.id == keys[i]){
-            var ref = firebase.storage().ref(snapshot.child(this.props.id).val());
-            ref.getDownloadURL().then(url => {
-              this.setState({ imgUrl: url, imgLoad: true });
-            }).catch(err => {
-              console.error(err)
-            });
-          }
-        }
-      }.bind(this)).catch(err => {
-        console.error(err)
-        this.setState({tryAgain: false})
-      });
-    }
-
-    //pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain)
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
     
 
     var img = (
