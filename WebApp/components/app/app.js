@@ -37,7 +37,7 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0, imageName:'defaultName'},
+        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0},
       ],
       cartItems: [],
       loadItemsAgain:false,
@@ -77,9 +77,9 @@ export class App extends Component {
     // This isnt going to showup the first time, it will show up after the re-render.
   }
 
-  addItem(id, owner, title, desc, price, amount, imageName) {
+  addItem(id, owner, title, desc, price, amount) {
     /// Dev Version ///
-    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount, imageName: imageName};
+    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(newItem) })
     
     /// Production Version ///

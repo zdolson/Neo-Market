@@ -37,7 +37,6 @@ export function pullDataFromDatabase(that){
         description: childSnapshot.child('description').val(),
         price: childSnapshot.child('price').val(),
         amount: childSnapshot.child('amount').val(),
-        imageName: childSnapshot.child('imageName').val()
       }
       arrayItemList.push(currItem)
     })
