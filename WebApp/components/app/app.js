@@ -19,6 +19,8 @@ const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 
+import { pullDataFromDatabase, pullUsersFromDatabase } from '../fireBaseFunctions.js'
+
 /**
 
 @ Nicholas
@@ -35,18 +37,32 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0},
+        {
+          id: 'defaultValue', 
+          owner:'...', 
+          title: '...', 
+          description: '...', 
+          price: '0', 
+          amount: 0
+        }
+      ],
+
+      users: [
+        {
+          wif: 'defaultWif',
+          email: 'defaultEmail',
+          firstName: 'defaultFirstName',
+          lastName: 'defaultLastName',
+          password: 'defaultPassword',
+          userName: 'defaultUserName'
+        }
       ],
       cartItems: [],
       loadItemsAgain:false,
       tryAgain: false
-
-      /// Production Version ///
-      /*
-      items: [],
-      cartItems: []
-      */
     }
+
+    // Function List
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
@@ -58,11 +74,6 @@ export class App extends Component {
     this.tryAgain = this.tryAgain.bind(this);
   }
 
-  componentDidMount () {
-    console.log('App component Loaded');
-    console.log(this.state);
-  }
-
   componentWillMount () {
     /// Production Version ///
     /*
@@ -71,37 +82,13 @@ export class App extends Component {
       this.setState({ items: listings });
     */
 
-    var arrayItemList = []
-    var currItem = {}
-    
-    // Whole section is for creating the arrayItemList from firebase storage
-    firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
-      snapshot.forEach(function (childSnapshot) {
-        currItem = {
-          id: childSnapshot.child('id').val(),
-          owner: childSnapshot.child('owner').val(),
-          title: childSnapshot.child('title').val(),
-          description: childSnapshot.child('description').val(),
-          price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val()
-        }
-        arrayItemList.push(currItem)
-        
-      }.bind(this))
-
-      // First pass will usually be undefined so we have to account for it.
-      if(typeof arrayItemList !== 'undefined') {
-        this.setState({ items: arrayItemList, loadItemsAgain: false, })
-      } 
-
-    }.bind(this)).catch(err => {
-      console.error(err)
-    });
+    var that = this
+    pullDataFromDatabase(that)
+    pullUsersFromDatabase(that)
   }
 
   addCartItem(id) {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
-    // This isnt going to showup the first time, it will show up after the re-render.
   }
 
   addItem(id, owner, title, desc, price, amount) {
@@ -116,7 +103,6 @@ export class App extends Component {
   }
 
   removeItem(id) {
-    /// Dev Version ///
 
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
     this.removeCartItem(id)
@@ -197,32 +183,6 @@ export class App extends Component {
 
 
   render () {
-      if(this.state.loadItemsAgain) {
-        var arrayItemList = []
-        var currItem = {}
-        
-        firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
-          snapshot.forEach(function (childSnapshot) {
-            currItem = {
-              id: childSnapshot.child('id').val(),
-              owner: childSnapshot.child('owner').val(),
-              title: childSnapshot.child('title').val(),
-              description: childSnapshot.child('description').val(),
-              price: childSnapshot.child('price').val(),
-              amount: childSnapshot.child('amount').val()
-            }
-            arrayItemList.push(currItem)
-          }.bind(this))
-        }.bind(this)).catch(err => {
-          console.error(err)
-        });
-
-        // First pass will usually be undefined so we have to account for it.
-        if(typeof arrayItemList !== 'undefined') {
-          this.setState({ items: arrayItemList, loadItemsAgain: false, })
-        }
-      }
-
       if (this.state.loading) {
         return (
           <main>

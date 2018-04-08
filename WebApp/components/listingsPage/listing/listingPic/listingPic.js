@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../stylesheet.js'
 import sheet from './listingPic.scss'
 
+import { pullingDatabaseImage } from '../fireBaseFunctions.js'
+
 import * as firebase from 'firebase'
 
 /**
@@ -20,43 +22,22 @@ class ListingPic extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-      imgUrl: '',
+      imgUrl: 'defaultURL',
       imgLoad: false
     }
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref('doge.jpg');
-    //var ref = firebase.storage().ref().child(this.props.id);
-    ref.getDownloadURL().then(url => {
-      console.log('image download successful: '+url)
-      this.setState({ imgUrl: url, imgLoad: true });
-    }).catch(err => {
-      console.error(err)
-    });
-
-    // Dev Version
-    // var ref = firebase.storage().ref().child(this.props.id);
-    // ref.getDownloadURL().then(url => {
-    //   console.log('image download successful: '+url)
-    //   this.setState({ imgUrl: url });
-    // }).catch(err => {
-    //   console.error(err)
-    // });
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
   }
+  
 
   render () {
-    if(this.props.tryAgain && !this.state.imgLoad){
-      //var ref = firebase.storage().ref().child(this.props.id);
-      var ref = firebase.storage().ref('doge.jpg');
-      ref.getDownloadURL().then(url => {
-        console.log('image download successful: '+url)
-        this.setState({ imgUrl: url, imgLoad: true });
-      }).catch(err => {
-        console.error(err)
-        this.setState({ tryAgain: false });
-      });
-    }
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
+    
+
     var img = (
       this.state.imgLoad ?
       <img src={this.state.imgUrl} alt='loading...' width="350"/> :

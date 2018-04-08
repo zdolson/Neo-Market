@@ -30,11 +30,12 @@ class MoreInfoListingPage extends Component {
     let item = this.props.item;
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
-    console.log(this.props);
+    let tryAgain = this.props.tryAgain;
+
     return (
       <div className='moreInfoListingPage'>
         <MoreInfoListingTop />
-        <MoreInfoListingBottom item={item} addCartItem={addCartItem} removeItem={removeItem}/>
+        <MoreInfoListingBottom item={item} tryAgain={tryAgain} addCartItem={addCartItem} removeItem={removeItem}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

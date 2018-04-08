@@ -5,6 +5,8 @@ import sheet from './checkOutPagePicture.scss'
 import Galaxy from '../../../../assets/galaxy.svg'
 import Grumpy from '../../../../assets/grumpy.svg'
 
+import { pullingDatabaseImage } from '../fireBaseFunctions.js'
+
 import * as firebase from 'firebase'
 
 /**
@@ -19,7 +21,6 @@ Purpose: Picture component for the checkout page
 
 class CheckOutPagePictures extends Component {
   constructor(props, context) {
-    console.log("CheckoutPagePictres component was created.")
     super(props, context)
     this.state = {
       imgUrl: '',
@@ -28,20 +29,8 @@ class CheckOutPagePictures extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref('doge.jpg');
-    ref.getDownloadURL().then(url => {
-      console.log('image download successful: '+url)
-      this.setState({ imgUrl: url, imgLoad: true });
-    }).catch(err => {
-      console.error(err)
-    });
-    // var ref = firebase.storage().ref().child(this.props.id);
-    // ref.getDownloadURL().then(url => {
-    //   console.log('image download successful: '+url)
-    //   this.setState({ imgUrl: url });
-    // }).catch(err => {
-    //   console.error(err)
-    // });
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
   }
 
   render () {
