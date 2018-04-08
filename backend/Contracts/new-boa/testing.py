@@ -41,12 +41,17 @@ def register(args):
     # a = args[0] # no need to do this tbh
     # b = args[1]
     # print("allocating a and b")
-    bstuff = Serialize([]) # allocating an empty list to the user's address
-    print("done serializing array here")
-    Put(GetContext(), args[0], args[1])
-    Put(GetContext(), args[1], bstuff)
-    print("done registering")
-    fillMaster(args[0]) # only want the names
+    isUserThere = Get(GetContext(), args[0]) 
+    isAddrThere = Get(GetContext(), args[1]) 
+    if not isUserThere and not isAddrThere: 
+        bstuff = Serialize([]) # allocating an empty list to the user's address
+        Notify("done serializing array here")
+        Put(GetContext(), args[0], args[1])
+        Put(GetContext(), args[1], bstuff)
+        Notify("registered")
+        fillMaster(args[0]) # only want the names
+    elif isUserThere or isAddrThere:
+        Notify("User or Address exist - please choose another one")
 
 """
 @Function: createpost
@@ -63,18 +68,14 @@ Purpose: for each register call, append the name to master list
 def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
-    stuff = Deserialize(bList)
-    stuff.append(args[0])
-    stuff.append(',')
-    stuff.append(args[1])
-    stuff.append(',')
-    stuff.append(args[2])
-    stuff.append(',')
-    stuff.append(args[3])
-    stuff.append(',')
-    stuff.append(args[4])
-    stuff.append(',')
-    stuff.append(args[5])
+    stuff = deserialize_bytearray(bList)
+    length = 6
+    n = 0
+    while(n < length):
+        stuff.append(args[n])
+        if(n==5): break
+        stuff.append(',')
+        n += 1
     stuff.append(';')
     Log('new length of stuff:')
     Log(len(stuff)) # this may break it here
@@ -151,25 +152,25 @@ def Main(operation, args):
         register(args)
     elif operation == "isregister":
         print("checking if registered op")
-        if len(args) != 2:
+        if len(args) != 1:
             Notify("wrong length of args")
             boolStatus = False
         isregister(args)
     elif operation == "select":
         print("select op - here")
-        if len(args) != 2:
+        if len(args) != 1:
             Notify("wrong length of args")
             boolStatus = False
         select(args)
     elif operation == "createpost":
         print("creating a post - here")
-        if len(args) != 2:
+        if len(args) != 5:
             Notify("wrong length of args")
             boolStatus = False
         createpost(args)
     elif operation == "deletepost":
         print("deleting a post")
-        if len(args) != 2:
+        if len(args) != 1:
             Notify("wrong length of args")
             boolStatus = False
         deletepost(args)
