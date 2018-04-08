@@ -48,7 +48,18 @@ def register(args):
     print("done registering")
     fillMaster(args[0]) # only want the names
 
-# params 'createpost' [id, owner, title, desc, price, amount]
+"""
+@Function: createpost
+@Contributor: Colin
+@Param: {list} args 
+        1. {string} owner 
+        2. {string} title
+        3. {string} description of item 
+        4. {int} price 
+        5. {int} amount
+@Return: void 
+Purpose: for each register call, append the name to master list
+"""
 def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
@@ -106,7 +117,13 @@ def select(args):
     print(stuff[args[1]])
     print("done with select")
 
-# params 'isregister' [username]
+"""
+@Function: isregister
+@Contributor: Colin
+@Param: {string} name
+@Return: boolean 
+Purpose: checks if username is registered or not
+"""
 def isregister(args):
     a = GetContext(GetContext(), args[0])
     if not a:
