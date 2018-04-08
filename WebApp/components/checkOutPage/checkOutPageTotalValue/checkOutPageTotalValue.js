@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import {Stylesheet} from '../stylesheet.js'
+import {Stylesheet} from '../../stylesheet.js'
 import sheet from './checkOutPageTotalValue.scss'
 
 /**
 
-@ Nicholas 
+@ Nicholas
 
 @ Date: 03/06/18
 
