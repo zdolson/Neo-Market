@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './filterDropdown.scss'
 
-import FilterDropdownContent from '../filterDropdownContent/filterDropdownContent.js'
+import FilterDropdownContent from './filterDropdownContent/filterDropdownContent.js'
 import ArrowTabDown from '../assets/ArrowTabDown.svg'
 
 /**

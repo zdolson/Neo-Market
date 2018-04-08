@@ -1,0 +1,24 @@
+@import '../../../../../vars';
+@import '../../../../../reset';
+@import '../../../../../mixins';
+@import '../../../../../animations';
+
+/**
+
+@ Nicholas
+
+@ Date: 03/06/18
+
+Purpose: CSS file for styling the address component
+
+**/
+
+.checkOutPageAddr {
+  text-align: left;
+  flex: 3;
+}
+
+h1 {
+	text-align: center;
+	height: 100px;
+}

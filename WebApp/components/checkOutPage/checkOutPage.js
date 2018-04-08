@@ -2,9 +2,9 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './checkOutPage.scss'
 
-import CheckOutTableItems from '../checkOutTableItems/checkOutTableItems.js'
-import TotalPurchase from '../totalPurchase/totalPurchase.js'
-import CheckOutPageTotalValue from '../checkOutPageTotalValue/checkOutPageTotalValue.js'
+import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
+import TotalPurchase from './totalPurchase/totalPurchase.js'
+import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
 
 /**
 

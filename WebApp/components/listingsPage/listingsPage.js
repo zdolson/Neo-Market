@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingsPage.scss'
-import Listing from '../listing/listing.js'
+import Listing from './listing/listing.js'
 
 // Import for react-router package.
 import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
