@@ -19,7 +19,7 @@ const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase } from '../fireBaseFunctions.js'
 
 /**
 
@@ -37,18 +37,32 @@ export class App extends Component {
     this.state = {
       /// Dev Version ///
       items: [
-        {id: 'defaultValue', owner:'...', title: '...', description: '...', price: '0', amount: 0},
+        {
+          id: 'defaultValue', 
+          owner:'...', 
+          title: '...', 
+          description: '...', 
+          price: '0', 
+          amount: 0
+        }
+      ],
+
+      users: [
+        {
+          wif: 'defaultWif',
+          email: 'defaultEmail',
+          firstName: 'defaultFirstName',
+          lastName: 'defaultLastName',
+          password: 'defaultPassword',
+          userName: 'defaultUserName'
+        }
       ],
       cartItems: [],
       loadItemsAgain:false,
       tryAgain: false
-
-      /// Production Version ///
-      /*
-      items: [],
-      cartItems: []
-      */
     }
+
+    // Function List
     this.addCartItem = this.addCartItem.bind(this);
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
@@ -69,12 +83,12 @@ export class App extends Component {
     */
 
     var that = this
-    pullDataFromDatabase(that, this.state.loadsItemsAgain)
+    pullDataFromDatabase(that)
+    pullUsersFromDatabase(that)
   }
 
   addCartItem(id) {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
-    // This isnt going to showup the first time, it will show up after the re-render.
   }
 
   addItem(id, owner, title, desc, price, amount) {
@@ -89,7 +103,6 @@ export class App extends Component {
   }
 
   removeItem(id) {
-    /// Dev Version ///
 
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
     this.removeCartItem(id)

@@ -23,7 +23,6 @@ export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
 	}
 }
 
-
 export function pullDataFromDatabase(that){
   var arrayItemList = []
   var currItem = {}
@@ -41,10 +40,37 @@ export function pullDataFromDatabase(that){
       arrayItemList.push(currItem)
     })
 
-    // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
       that.setState({ items: arrayItemList})
     }
+
+  }).catch(err => {
+    console.error(err)
+  });
+}
+
+export function pullUsersFromDatabase(that){
+  var arrayUserList = []
+  var currUser = {}
+
+  firebase.database().ref('/Users/').once('value').then((snapshot) => {
+    snapshot.forEach((childSnapshot) => {
+      currUser = {
+        wif: childSnapshot.child('WIF').val(),
+        email: childSnapshot.child('email').val(),
+        firstName: childSnapshot.child('firstName').val(),
+        lastName: childSnapshot.child('lastName').val(),
+        password: childSnapshot.child('password').val(),
+        userName: childSnapshot.child('userName').val()
+      }
+
+      arrayUserList.push(currUser)
+
+      if(typeof arrayUserList !== 'undefined') {
+        that.setState({ users: arrayUserList})
+      }
+      
+    })
 
   }).catch(err => {
     console.error(err)
