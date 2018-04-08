@@ -38,11 +38,11 @@ export class App extends Component {
       /// Dev Version ///
       items: [
         {
-          id: 'defaultValue', 
-          owner:'...', 
-          title: '...', 
-          description: '...', 
-          price: '0', 
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
           amount: 0
         }
       ],
