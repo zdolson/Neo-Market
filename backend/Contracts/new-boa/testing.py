@@ -90,15 +90,17 @@ def createpost(args):
         1. {string} args[0] 
 @Return: void 
 Purpose: This is used to delete a post
-"""def deletepost(args):
+"""
+def deletepost(args):
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
     stuff = Deserialize(bList)
-    stuff[args[1]] = "0"
-    bList = Serialize(stuff)
-    Put(GetContext(), addr, bList)
-    print("done with setting the post to 0")
-
+    if len(stuff) < args[1]:
+        Notify("Out of bound selection to delete") 
+    else: 
+        stuff.remove(args[1]) 
+        bList = Serialize(stuff)
+        Put(GetContext(), addr, bList)
 """
 @Function: select
 @Contributor: dliang 
