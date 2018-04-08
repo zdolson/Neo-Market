@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../../stylesheet.js'
 import sheet from './moreInfoListingImg.scss'
 
+import { pullingDatabaseImage } from '../../../../fireBaseFunctions.js'
+
 import * as firebase from 'firebase'
 
 /**
@@ -24,22 +26,8 @@ class MoreInfoListingImg extends Component {
   }
 
   componentWillMount() {
-    var ref = firebase.storage().ref('doge.jpg');
-    ref.getDownloadURL().then(url => {
-      console.log('image download successful: '+url)
-      this.setState({ imgUrl: url, imgLoad: true });
-    }).catch(err => {
-      console.error(err)
-    });
-
-    // Dev Version
-    // var ref = firebase.storage().ref().child(this.props.id);
-    // ref.getDownloadURL().then(url => {
-    //   console.log('image download successful: '+url)
-    //   this.setState({ imgUrl: url });
-    // }).catch(err => {
-    //   console.error(err)
-    // });
+    var that = this
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
   }
 
   render () {
