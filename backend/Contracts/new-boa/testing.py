@@ -67,7 +67,6 @@ def addone(args):
     Put(GetContext(), addr, bstuff)
     print("done with addone")
 # params 'createpost' [id, owner, title, desc, price, amount]
-# Test Commit
 def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
