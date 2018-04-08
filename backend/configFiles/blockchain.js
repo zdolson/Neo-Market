@@ -25,19 +25,20 @@ module.exports = {
 
     queryRPC: (method, params, id = 1) => {
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
-            // console.log(rpcEndpoint)
+            // console.log('queryRPC: (rpcEndpoint): ', rpcEndpoint);
+            // console.log('queryRPC: (method): ', method)
+            // console.log('queryRPC: (params): ', params)
+
             const client = Neon.create.rpcClient(rpcEndpoint)
             let custQuery = Neon.create.query({
                 method: method,
                 params: params
             })
             return client.execute(custQuery).then(res => {
-                console.log('blockchain.js: queryRPC(): res:')
-                console.log(res)
+                console.log('blockchain.js: queryRPC(): res: ', res)
                 return res
             }).catch(err => {
-                console.log('blockchain.js: queryRPC(): err:')
-                console.log(err)
+                console.log('blockchain.js: queryRPC(): err: ', err);
                 return err
             })
         })
@@ -102,10 +103,10 @@ module.exports = {
             operation: operation,
             args: hexArgs
         }
-        console.log('blockchain.js: testContract(): vmScript: ')
+        // console.log('blockchain.js: testContract(): vmScript: ')
         // Returns vmScript as a hexstring
         const vmScript = Neon.create.script(props)
-        console.log(vmScript)
+        // console.log(vmScript)
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
             return neon.rpc.Query.invokeScript(vmScript)
                 .execute(rpcEndpoint)
@@ -139,10 +140,10 @@ module.exports = {
             operation: operation,
             args: hexArgs
         }
-        console.log('blockchain.js: invokeContract(): vmScript: ')
+        // console.log('blockchain.js: invokeContract(): vmScript: ')
         // Returns vmScript as a hexstring
         const vmScript = Neon.create.script(props)
-        console.log(vmScript)
+        // console.log(vmScript)
 
         //Test the transaction, if success then send to execute.
         return module.exports.getRPCEndpoint().then(rpcEndpoint => {
@@ -153,11 +154,11 @@ module.exports = {
                     console.dir(res)
                     if (res.result.state === 'HALT, BREAK') {
                         console.log('blockchain.js: invokeContract(): HALT, BREAK: ')
-                        console.log('blockchain.js: invokeContract(): vars(account, invoke, gasCost, intents) ')
-                        console.log(account)
-                        console.log(invoke)
-                        console.log(gasCost)
-                        console.log(intents)
+                        // console.log('blockchain.js: invokeContract(): vars(account, invoke, gasCost, intents) ')
+                        // console.log(account)
+                        // console.log(invoke)
+                        // console.log(gasCost)
+                        // console.log(intents)
                         //Execute the transaction
                         module.exports.executeTransaction(account, invoke, gasCost, intents).then(res => {
                             if (res !== undefined)

@@ -62,6 +62,7 @@ module.exports = {
     },
 
     hex2str: hex => {
+        console.log('hex2str: ', hex);
         return module.exports.ab2str(module.exports.hexstring2ab(hex))
     },
 
@@ -84,4 +85,3 @@ module.exports = {
         })
     }
 };
-
