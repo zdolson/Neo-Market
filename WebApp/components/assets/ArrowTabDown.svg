@@ -1,0 +1,18 @@
+<svg width="47" height="23" viewBox="0 0 47 23" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>ArrowTabDown</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(1636 549)">
+<g id="ArrowTabDown">
+<g id="tab">
+<use xlink:href="#path15_fill" transform="translate(-1636 -549)" fill="#333333"/>
+</g>
+<g id="Union">
+<use xlink:href="#path16_fill" transform="translate(-1619.61 -545.725)" fill="#C4C4C4"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path15_fill" d="M 23.085 23C 35.8345 23 46.17 12.7025 46.17 0L 0 0C 0 12.7025 10.3355 23 23.085 23Z"/>
+<path id="path16_fill" fill-rule="evenodd" d="M 6.15137 6.56262L 0 0.661743L 0.670898 0.0181274L 6.823 5.91962L 12.9939 0L 13.6649 0.643677L 7.49194 6.56519L 7.49097 6.56482L 6.81995 7.20844L 6.14905 6.56482L 6.15137 6.56262Z"/>
+</defs>
+</svg>

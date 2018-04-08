@@ -1,0 +1,27 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Styling for the trashPage component
+
+**/
+
+h3 {
+  text-align: center;
+  height: 100px;
+  width: 100%;
+  margin-top: 20%;
+}
+
+testComponent {
+	text-align: center;
+	height: 100px;
+	width: 100%
+}

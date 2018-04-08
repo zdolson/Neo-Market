@@ -1,0 +1,22 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ Date: 03/10/18
+
+Purpose: CSS file for makePost
+
+**/
+
+.makePost {
+	position: absolute;
+	top: 50px;
+	left: 175px;
+	right: 175px;
+	bottom: 0px;
+}

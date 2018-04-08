@@ -1,0 +1,12 @@
+<svg width="25" height="25" viewBox="0 0 25 25" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>ForumsIcon</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(-273 -1695)">
+<g id="ForumsIcon" opacity="0.54">
+<use xlink:href="#path0_fill" transform="translate(273.277 1695.55)"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" fill-rule="evenodd" d="M 24.234 4.48389L 21.6819 4.48389L 21.6819 14.57L 5.10034 14.57L 5.10034 16.8113C 5.10034 17.4299 5.67427 17.932 6.37702 17.932L 20.4052 17.932L 25.5081 22.4147L 25.5081 5.60456C 25.5081 4.98483 24.9367 4.48389 24.234 4.48389L 24.234 4.48389ZM 17.857 0L 1.27541 0C 0.571382 0 0 0.502063 0 1.1218L 0 16.8113L 5.10035 12.3286L 17.857 12.3286C 18.5597 12.3286 19.1311 11.8265 19.1311 11.2068L 19.1311 1.1218C 19.1311 0.502063 18.5597 0 17.857 0L 17.857 0Z"/>
+</defs>
+</svg>

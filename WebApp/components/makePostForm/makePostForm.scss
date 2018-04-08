@@ -1,0 +1,133 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Victoria
+
+@ 03/04/2018
+
+Purpose: Styling for the makePostForm component
+
+**/
+
+
+.header {
+	margin:10% 0%;
+	text-align: center;
+	color: white;
+	font-size: 50px;
+}
+
+.title {
+	position: absolute;
+	width: 380px;
+	height: 50px;
+  margin-left: 20%;
+	line-height: 20px;
+  background: gray;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+
+}
+
+.description {
+	position: absolute;
+  background: gray;
+	width: 469px;
+	height: 80px;
+  margin-left: 20%;
+	line-height: 63px;
+  margin-top:80px;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+}
+
+.loadImage {
+	position: absolute;
+	display: flex;
+	flex-direction: row;
+  background: gray;
+	width: 469px;
+	height: 120px;
+  margin-left: 20%;
+  margin-bottom: 100%;
+	line-height: 63px;
+  margin-top:170px;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+}
+
+.form-image {
+	border: 2px solid $black;
+	width: 100%;
+}
+
+
+.price {
+	position: absolute;
+  background: gray;
+	width: 469px;
+	height: 80px;
+  margin-left: 20%;
+  margin-bottom: 100%;
+	line-height: 63px;
+  margin-top:300px;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+}
+
+.sizeDim {
+	position: absolute;
+  background: gray;
+	width: 469px;
+	height: 80px;
+  margin-left: 20%;
+  margin-bottom: 100%;
+	line-height: 63px;
+  margin-top:390px;
+  border-radius: 5px;
+  padding-left: 20px;
+	&:hover {
+		border: 2px solid $brightGreen;
+	}
+}
+
+.postBtn {
+	position: absolute;
+  background: #FFBE28;
+	height: 30px;
+	width: 60px;
+	text-align: center;
+	vertical-align: middle;
+	line-height: 20px;
+  margin-left: 70%;
+  margin-top:480px;
+  border-radius: 5px;
+  padding-left:10px;
+  padding-right: 10px;
+	padding-top: 10px;
+	&:hover {
+		border: 2px solid $grey10;
+	}
+}
+
+
+
+body {
+	background-color: #4F4F4F;
+}

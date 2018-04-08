@@ -1,0 +1,113 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas
+
+@ Date: 03/06/18
+
+Purpose: CSS file for styling checkOut page
+
+**/
+
+.checkOutPage {
+	position: absolute;
+	top: 50px;
+	left: 175px;
+	right: 175px;
+	bottom: 0px;
+	display: flex;
+	flex-direction: column;
+}
+
+.header {
+	// margin-top: 5%;
+	min-height: 25%;
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 50px;
+}
+
+.checkOutBottom {
+	// margin-top: 5%;
+	// margin-bottom: 5%;
+	padding-top: 5%;
+	display: flex;
+	min-height: 15%;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 30px;
+}
+
+.checkOutDetails {
+	padding-top: 10px;
+	margin-left: 5%;
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
+	order: 0;
+}
+
+.checkOutTotalWrapper {
+	// margin-bottom: 5px;3
+	height: 30px;
+	display: flex;
+	flex-direction: row;
+	width: auto;
+}
+
+.checkOutTotal {
+	font-weight: 400;
+}
+
+.totalSpace {
+	width: 30px;
+}
+
+.checkOutTotalValue {
+	font-weight: 200;
+	color: $neoGreen;
+	// margin-left: 5%;
+}
+
+.checkOutTotalLine {
+	min-height: 1px;
+	min-width: 100%;
+	background: $brightGreen;
+}
+
+.cartHeaderLine {
+	min-height: 2px;
+	margin-top: 3%;
+	min-width: 50%;
+	background: $white;
+}
+
+.purchaseBtn {
+	margin-right: 5%;
+	height: 50px;
+	width: 200px;
+	border-radius: 10px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background: $brightGreen;
+}
+
+.purchaseBtnText {
+	text-align: center;
+	height: auto;
+	width: auto;
+}
+
+
+// body {
+// 	background-color: #4F4F4F;
+// }

@@ -1,0 +1,54 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Alec
+
+@ 2/22/18
+
+Purpose: Provides styling to the TopBar component
+
+**/
+
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  z-index: 1;
+  align-items: center;
+  top: 0;
+  left: 0;
+  background: $grey75;
+}
+
+.logo {
+  align-self: center;
+  margin-left: 3%;
+}
+
+.search {
+  width: 20%;
+  display: flex;
+  margin-right: 2%;
+  align-items: center;
+}
+
+.searchicon {
+  margin-right: 3%;
+}
+
+.searchbubble {
+  display: flex;
+  padding-left: 5%;
+  align-items: center;
+  border-radius: 25px;
+  height: 50%;
+  width: 100%;
+  background: $grey70;
+  color: $grey50;
+}

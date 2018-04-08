@@ -1,0 +1,59 @@
+version: '3'
+services:
+  neon-wallet-db:
+    container_name: "neon-wallet-db"
+    image: slipoh/neon-wallet-db:latest
+    environment:
+      - MONGOURL=mongodb:27017
+      - MONGOPASS=neo
+      - MONGOUSER=gas
+      - MONGOAPP=test
+      - REDISTOGO_URL=redis://redis:6379
+      - PYTHONUNBUFFERED=0
+      - NET=private
+      - PRIVNET_SEEDS=http://neo-privatenet:30333,http://neo-privatenet:30334,http://neo-privatenet:30335,http://neo-privatenet:30336
+    ports:
+      - 5000:5000
+    links:
+      - mongodb:27017
+      - redis:6379
+      - neo-privatenet:20333
+      - neo-privatenet:20334
+      - neo-privatenet:20335
+      - neo-privatenet:20336
+      - neo-privatenet:30333
+      - neo-privatenet:30334
+      - neo-privatenet:30335
+      - neo-privatenet:30336
+    depends_on:
+      - mongodb
+      - redis
+      - neo-privatenet
+  neo-privatenet:
+    image: cityofzion/neo-privatenet
+    container_name: "neo-privatenet"
+    ports:
+      - 20333:20333
+      - 20334:20334
+      - 20335:20335
+      - 20336:20336
+      - 30333:30333
+      - 30334:30334
+      - 30335:30335
+      - 30336:30336
+  redis:
+    image: redis:latest
+    container_name: "redis"
+    ports:
+      - 6379:6379
+  mongodb:
+    image: mongo:latest
+    container_name: "mongodb"
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    volumes:
+      - ./data/db:/data/db
+    ports:
+        - 27017:27017
+    command: mongod --smallfiles --logpath=/dev/null # --quiet

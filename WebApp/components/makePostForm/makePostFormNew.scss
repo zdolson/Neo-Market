@@ -1,0 +1,133 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Victoria
+
+@ 03/04/2018
+
+Purpose: Styling for the makePostForm component
+
+**/
+
+.makePostFormWrapper {
+  height: auto;
+  min-width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.makePostFormHeader {
+  margin: 5% 0%;
+  text-align: center;
+  width: 100%;
+  font-size: 50px;
+  line-height: 50px;
+  height: auto;
+}
+
+.makePostFormFields {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.makePostFormTitle {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 5px 0px;
+}
+
+.makePostFormDesc {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 5px 0px;
+}
+
+.makePostFormImg {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 5px 0px;
+}
+
+.makePostFormPrice {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 5px 0px;
+}
+
+.makePostFormAmount {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: auto;
+  text-align: center;
+  margin-bottom: 2%;
+  padding: 5px 0px;
+}
+
+.makePostFormBtn {
+  color: $brightGreen;
+  width: 100px;
+  height: auto;
+  text-align: center;
+  margin: 4% 0%;
+}
+
+.bubbleTitle {
+  font-size: 30px;
+  line-height: 30px;
+  font-weight: 300;
+  margin-bottom: 2%;
+}
+
+.inputWrapper {
+  padding: 5px;
+  text-align: center;
+  // background: $grey20;
+  border-radius: 5px;
+  width: 100%;
+}
+
+.navLinkSubmitBtn {
+  margin-left: 0px;
+}
+
+input[type=submit] {
+  color: $lightBlue;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+input[type=text] {
+  width: 100%;
+  background: $grey60;
+  padding: 5px;
+  border-radius: 10px;
+}
+
+input[type=file] {
+  border: 2px dotted $blackShadow;
+}

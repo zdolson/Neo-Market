@@ -1,0 +1,28 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Victoria
+
+@ 3/4/18
+
+Purpose: Spacing and style for the listing description in the checkOut page
+
+**/
+
+.moreInfoListingPage {
+  // height: auto;
+  // width: auto;
+  left: 175px;
+  right: 175px;
+  top: 50px;
+  bottom: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  position: absolute;
+  // z-index: 0;
+}

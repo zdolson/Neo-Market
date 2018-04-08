@@ -1,0 +1,29 @@
+$black:  #000000;
+$blackShadow: rgba(0, 0, 0, 0.18);
+$grey90: #161616;
+$grey80: #262626;
+$grey75: #333333;
+$grey70: #464B54;
+$grey65: #525863;
+$grey60: #616161;
+$grey50: #828282;
+$grey20: #BDBDBD;
+$grey10: #D3D3D3;
+
+$offWhite: #E0E0E0;
+$white: #FFFFFF;
+
+$lightBlue: #2F80ED;
+$brightGreen: #27AE60;
+$neoGreen: #769333;
+$blue:    #0074D9;
+$aqua:    #7FDBFF;
+$lime:    #01FF70;
+$yellow:  #FFDC00;
+$orange:  #FF851B;
+$red:     #FF4136;
+$fuchsia: #F012BE;
+
+@import url('https://fonts.googleapis.com/css?family=Nunito:200,300,400');
+$base-font-family: 'Nunito', monospace;
+$base-font: 16px/20px $base-font-family;

@@ -1,0 +1,19 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Styling for the promosPage component
+
+**/
+
+h3 {
+  text-align: center;
+  line-height: 500px;
+}
