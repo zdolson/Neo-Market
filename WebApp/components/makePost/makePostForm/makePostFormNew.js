@@ -23,7 +23,7 @@ import { NavLink } from 'react-router-dom'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, postNewPostingToDatabase } from '../../fireBaseFunctions.js'
+import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
 
 export class MakePostForm extends Component {
   constructor (props, context) {
@@ -47,20 +47,10 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
-    console.log("makePost");
-    ev.preventDefault();
-
-    //maybe wrap in a try
-
-    // var file = this.uploadInput.files[0];
     var file = this.uploadInput.files[0];
-    console.log(this.title.value);
-    console.log(this.description.value);
-    console.log(this.price.value);
-    console.log(this.amount.value);
-    console.log(file);
-    console.log(file['name'])
     var id = this.makeId();
+
+    // Hard coded user since we dont have have users fully setup yet. 
     var hard_coded_owner = 'Foo Bar'
     postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
 

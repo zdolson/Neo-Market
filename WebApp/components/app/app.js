@@ -82,10 +82,8 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-
-    var that = this
-    pullDataFromDatabase(that)
-    pullUsersFromDatabase(that)
+    pullDataFromDatabase(this)
+    pullUsersFromDatabase(this)
   }
 
   addCartItem(id) {
