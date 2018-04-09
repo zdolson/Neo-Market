@@ -21,6 +21,8 @@ import cF from '../../../../backend/contractFunctions'
 
 import * as firebase from 'firebase'
 
+import { pullDataFromDatabase, postNewPostingToDatabase } from '../../fireBaseFunctions.js'
+
 export class MakePostForm extends Component {
   constructor (props, context) {
     super(props, context)

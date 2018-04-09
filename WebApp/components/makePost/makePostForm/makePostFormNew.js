@@ -23,7 +23,7 @@ import { NavLink } from 'react-router-dom'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, postNewPostingToDatabase } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, postNewPostingToDatabase } from '../../fireBaseFunctions.js'
 
 export class MakePostForm extends Component {
   constructor (props, context) {
