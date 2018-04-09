@@ -21,7 +21,6 @@ class RoutingComponent extends Component {
     this.state = {
 
     }
-    console.log(this.props);
   }
 
   render() {
@@ -40,7 +39,7 @@ class RoutingComponent extends Component {
         <Switch>
           <Route exact path="/" render={ () => <ListingsPage tryAgain={tryAgain} state={state}/> } />
           <Route path="/Listings" render={ () => <ListingsPage state={state} tryAgain={tryAgain}/> } />
-          <Route path="/Post"  render={ () => <MakePost addItem={addItem} removeItem={removeItem}/> } />
+          <Route path="/Post"  render={ () => <MakePost items={items} addItem={addItem} removeItem={removeItem}/> } />
           <Route path="/Forums" component={ForumsPage} />
           <Route path="/Wallet" component={WalletPage} />
           <Route path="/Trash" component={TrashPage} />
