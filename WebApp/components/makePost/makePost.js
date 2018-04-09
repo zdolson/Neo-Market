@@ -34,7 +34,7 @@ export class MakePost extends Component {
     var items = this.props.items
     return (
       <div className = "makePost">
-        <MakePostFormNew item={items} addItem={addItem}/>
+        <MakePostFormNew addItem={addItem}/>
         <Stylesheet sheet={sheet} />
       </div>
 
