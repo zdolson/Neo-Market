@@ -68,7 +68,7 @@ Purpose: for each register call, append the name to master list
 def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
-    stuff = deserialize_bytearray(bList)
+    stuff = Deserialize(bList)
     length = 6
     n = 0
     while(n < length):
