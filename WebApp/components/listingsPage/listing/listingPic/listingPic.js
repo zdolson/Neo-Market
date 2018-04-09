@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../stylesheet.js'
 import sheet from './listingPic.scss'
 
-import { pullingDatabaseImage } from '../fireBaseFunctions.js'
+import { pullingDatabaseImage } from '../../../fireBaseFunctions.js'
 
 import * as firebase from 'firebase'
 
@@ -31,12 +31,12 @@ class ListingPic extends Component {
     var that = this
     pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
   }
-  
+
 
   render () {
     var that = this
     pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
-    
+
 
     var img = (
       this.state.imgLoad ?
