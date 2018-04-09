@@ -1,0 +1,22 @@
+@import '../../../../vars';
+@import '../../../../reset';
+@import '../../../../mixins';
+@import '../../../../animations';
+
+/**
+
+@ Nicholas
+
+@ Date: 03/06/18
+
+Purpose: CSS file for styling the component
+
+**/
+
+.checkOutPageItemContent {
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  max-width: 200px;
+  margin-left: 10px;
+}
