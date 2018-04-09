@@ -31,7 +31,6 @@ export class MakePost extends Component {
 
   render () {
     var addItem = this.props.addItem;
-    var items = this.props.items
     return (
       <div className = "makePost">
         <MakePostFormNew addItem={addItem}/>
