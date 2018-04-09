@@ -1,0 +1,33 @@
+@import '../../../../vars';
+@import '../../../../reset';
+@import '../../../../mixins';
+@import '../../../../animations';
+
+/**
+
+@ Nicholas
+
+@ 03/08/18
+
+Purpose: Spacing and styling for the checkout page image
+
+**/
+
+.checkOutPagePicture {
+  width: 350px;
+  height: auto;
+  // text-align: center;
+  border-radius: 5px;
+  // vertical-align: left;
+  // display: relative;
+}
+
+.grumpy {
+  margin-top: -250px;
+  margin-bottom: 20px;
+  z-index: 3;
+}
+
+.galaxy {
+  z-index: 2;
+}
