@@ -1,0 +1,25 @@
+@import '../../../../vars';
+@import '../../../../reset';
+@import '../../../../mixins';
+@import '../../../../animations';
+
+/**
+
+@ Alec
+
+@ 2/27/18
+
+Purpose: Spacing and style for the bottom half of a listing
+
+**/
+
+.listingContentButton {
+  margin: 3px;
+  color: white;
+  padding: 5px 0px 5px 0px;
+  background: $brightGreen;
+  width: 50%;
+  text-align: center;
+  align-self: center;
+  border-radius: 15px;
+}

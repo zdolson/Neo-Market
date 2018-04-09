@@ -71,17 +71,13 @@ def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
     stuff = deserialize_bytearray(bList)
-    stuff.append(args[0])
-    stuff.append(',')
-    stuff.append(args[1])
-    stuff.append(',')
-    stuff.append(args[2])
-    stuff.append(',')
-    stuff.append(args[3])
-    stuff.append(',')
-    stuff.append(args[4])
-    stuff.append(',')
-    stuff.append(args[5])
+    length = 6
+    n = 0
+    while(n < length):
+        stuff.append(args[n])
+        if(n==5): break
+        stuff.append(',')
+        n += 1
     stuff.append(';')
     Log('new length of stuff:')
     Log(len(stuff)) # this may break it here
