@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './leftAccountBar.scss'
 
-import LeftAccountBarContent from '../leftAccountBarContent/leftAccountBarContent.js'
+import LeftAccountBarContent from './leftAccountBarContent/leftAccountBarContent.js'
 
 /**
 

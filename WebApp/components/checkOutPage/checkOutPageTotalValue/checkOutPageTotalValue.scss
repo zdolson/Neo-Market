@@ -1,0 +1,24 @@
+@import '../../vars';
+@import '../../reset';
+@import '../../mixins';
+@import '../../animations';
+
+/**
+
+@ Nicholas
+
+@ Date: 03/06/18
+
+Purpose: CSS styling for the total displayed on the checkOutPage.
+
+**/
+
+.checkOutPageTotalValue {
+  text-align: center;
+  flex: 3;
+}
+
+h1 {
+	text-align: center;
+	height: 100px;
+}
