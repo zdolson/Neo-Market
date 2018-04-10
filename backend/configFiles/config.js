@@ -19,8 +19,3 @@ module.exports = {
      wif: 'KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr',
 
 };
-
-
-// curl -X POST http://neo-privatenet:30333/ -H 'Content-Type: application/json' -d '{ "jsonrpc": "2.0", "id": 1234, "method": "getcontractstate", "params": ["688841e275b9a16d07cdcf66cf102cbbe264d4b8",[]]}'
-// curl -X POST http://neo-privatenet:30333/ -H 'Content-Type: application/json' -d '{ "jsonrpc": "2.0", "id": 1234, "method": "invokescript", "params": ["688841e275b9a16d07cdcf66cf102cbbe264d4b8",["013503746f6d52c108726567697374657267b8d464e2bb2c10cf66cfcd076da1b975e2418868"]]}'
-// curl -X POST http://neo-privatenet:30333/ -H 'Content-Type: application/json' -d '{ "jsonrpc": "2.0", "id": 1234, "method": "invokefunction", "params": ["688841e275b9a16d07cdcf66cf102cbbe264d4b8","register",["746f6d","35"]]}'
