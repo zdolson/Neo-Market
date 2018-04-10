@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import RightSideBarTotal from '../components/rightSideBarTotal/rightSideBarTotal.js'
+import RightSideBarTotal from '../components/rightSideBar/rightSideBarTotal/rightSideBarTotal.js'
 
 /**
 
