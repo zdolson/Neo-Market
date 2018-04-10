@@ -5,6 +5,9 @@ const node = require('./configFiles/blockchain')
 const axios = require("axios")
 const account = Neon.create.account(config.wif)
 
+const masterList = '1';
+var debug = false;
+
 
 /**
 
@@ -19,165 +22,167 @@ const account = Neon.create.account(config.wif)
 
 module.exports = {
 
+    /*
+     * @Function: getBlockCount
+     * @Contributor: Zachary Olson
+     * @Return: {string} blockHeight
+     * Purpose: Returns the current block height.
+     */
     getBlockCount: () => {
-        return node.getBlockCount()
+        return new Promise((resolve,reject) => {
+            node.getBlockCount().then(blockHeight => {
+                if (debug){
+                    console.log('getBlockCount(): blockHeight: ', blockHeight);
+                }
+                resolve(blockHeight);
+            }).catch(err => {
+                if (debug){
+                    console.error('getBlockCount(): err: ', err);
+                }
+                reject(err);
+            })
+        })
     },
 
+    /*
+     * @Function: getContractState
+     * @Contributor: Zachary Olson
+     * @Return: {string array} state
+     * Purpose: Returns an array of strings, providing information regarding the contract's state.
+     */
     getContractState: () => {
-        return node.getRPCEndpoint().then(rpcEndpoint => {
-            let client = Neon.create.rpcClient(rpcEndpoint)
-            return client.getContractState(config.scriptHash).then(res => {
-                // cut here
-                console.log('blockchain.js: getContractState(): res:')
-                console.log(res)
-                return res
-            }).catch(err => {
-                console.log('blockchain.js: getContractState(): err:')
-                console.log(err)
-                return err
-            })
-        })
-    },
-
-    /*
-     * @Function: accessStorage
-     * @Contributor: Zachary Olson
-     * @Param: {string} name
-     * @Return: {string} res
-     * Purpose: Returns the string of information stored on the smart contract under the specified user.
-     */
-    getAddressFromUser: (name) => {
-        console.log(name);
         return new Promise((resolve,reject) => {
-            node.getStorage(name).then(address => {
-                console.log(address)
-                resolve(address)
-            }).catch(err => {
-                console.error(err)
-                reject(err)
-            })
-        })
-    },
-
-    /*
-     * @Function: accessStorage
-     * @Contributor: Zachary Olson
-     * @Param: {string} name
-     * @Return: {string} res
-     * Purpose: Returns the string of information stored on the smart contract under the specified user.
-     */
-    getUserPostsFromStorage: (name) => {
-        // console.log(name);
-        // return new Promise((resolve,reject) => {
-        //     node.getStorage(name).then(address => {
-        //         console.log(address)
-        //         node.getStorage(address).then((res) => {
-        //             let posts = res.split(';')
-        //             console.log(posts)
-        //             // console.log(res)
-        //             resolve(posts)
-        //         }).catch(err => {
-        //             console.error(err)
-        //             reject(err)
-        //         })
-        //     }).catch(err => {
-        //         console.error(err)
-        //         reject(err)
-        //     })
-        //
-        // })
-        return new Promise((resolve,reject) => {
-            const username = name;
-            console.log(name);
-            return node.getStorage(name).then(address => {
-                console.log(address)
-                return node.getStorage(address).then((res) => {
-                    let posts = res.split(';')
-                    console.log(posts)
-                    // console.log(res)
-                    resolve(posts)
+            node.getRPCEndpoint().then(rpcEndpoint => {
+                let client = Neon.create.rpcClient(rpcEndpoint);
+                client.getContractState(config.scriptHash).then(state => {
+                    if (debug){
+                        console.log('getContractState(): state: ', state);
+                    }
+                    resolve(state);
                 }).catch(err => {
-                    console.error(err)
-                    reject(err)
+                    if (debug){
+                        console.log('getContractState(): err: ', err);
+                    }
+                    reject(err);
                 })
             }).catch(err => {
-                console.error(err)
-                reject(err)
+                if (debug){
+                    console.log('getContractState(): err: ', err);
+                }
+                reject(err);
             })
-
         })
     },
 
     /*
-     * @Function: accessStorage
+     * @Function: getAddressFromUser
      * @Contributor: Zachary Olson
      * @Param: {string} name
-     * @Return: {string} res
-     * Purpose: Returns the string of information stored on the smart contract under the specified user.
+     * @Return: {string} address
+     * Purpose: Returns the String, address, under a username on the SC.
+     */
+    getAddressFromUser: (name) => {
+        return new Promise((resolve,reject) => {
+            node.getStorage(name).then(address => {
+                if (debug){
+                    console.log('getAddressFromUser(): address: ', address);
+                }
+                resolve(address);
+            }).catch(err => {
+                if (debug){
+                    console.error('getAddressFromUser(): err: ', err);
+                }
+                reject(err);
+            })
+        })
+    },
+
+    /*
+     * @Function: getUserPostsFromStorage
+     * @Contributor: Zachary Olson
+     * @Param: {string} name
+     * @Return: {string array} posts
+     * Purpose: Returns array of strings, each index is a separate post under the passed username.
+     */
+    getUserPostsFromStorage: (name) => {
+        return new Promise((resolve,reject) => {
+            module.exports.getAddressFromUser(name).then(address => {
+                node.getStorage(address).then(res => {
+                    let posts = res.split(';');
+                    if (debug){
+                        console.log('getUserPostsFromStorage(): posts: ', posts);
+                    }
+                    resolve(posts);
+                }).catch(err => {
+                    if (debug){
+                        console.error('getUserPostsFromStorage(): err: ', err);
+                    }
+                    reject(err);
+                })
+            }).catch(err => {
+                if (debug){
+                    console.error('getUserPostsFromStorage(): err: ', err);
+                }
+                reject(err);
+            })
+        })
+    },
+
+    /*
+     * @Function: getAllUsersFromStorage
+     * @Contributor: Zachary Olson
+     * @Return: {string array} users
+     * Purpose: Returns a string array of all users registered on the SC.
      */
     getAllUsersFromStorage: () => {
         return new Promise((resolve, reject) => {
-            return node.getStorage('1').then((res) => {
-                let users = res.split(',')
-                console.log(users)
-                // console.log(res)
-                resolve(users)
+            node.getStorage(masterList).then(res => {
+                let users = res.replace(/[^\x20-\x7E]/g, '');
+                users = users.split(',');
+                if (debug){
+                    console.log('getAllUsersFromStorage(): users: ', users);
+                }
+                resolve(users);
             }).catch(err => {
-                console.error(err)
-                reject(err)
+                if (debug){
+                    console.error('getAllUsersFromStorage(): err: ', err);
+                }
+                reject(err);
             })
         })
-
     },
 
     /*
-     * @Function: accessStorage
+     * @Function: getAllPostsFromStorage
      * @Contributor: Zachary Olson
-     * @Param: {string} name
-     * @Return: {string} res
-     * Purpose: Returns the string of information stored on the smart contract under the specified user.
+     * @Return: {string array} allPosts
+     * Purpose: Returns a string array of all postings stored on the SC.
      */
-
-     // get all getAllUsersFromStorage =>
-        // get each users posts, deliminated by ';'
     getAllPostsFromStorage: () => {
         return new Promise((resolve,reject) => {
-
             var allPosts = [];
-
-            return module.exports.getAllUsersFromStorage().then(userList => {
-                // resolve(userList)
-                let promises = [];
+            module.exports.getAllUsersFromStorage().then(userList => {
                 for (var i = 0; i < userList.length-1; i++) {
-                    console.log(i);
-                    // console.log(userList[i]);
-                    var user = userList[i];
-                    console.log(user);
-                    let newPromise = new Promise((resolve,reject) => {
-                        module.exports.getAddressFromUser(user);
-                    });
-                    promises.push(newPromise);
+                    module.exports.getUserPostsFromStorage(userList[i]).then((posts) => {
+                        allPosts.push(posts);
+                        if(i == userList.length - 1) {
+                            if (debug){
+                                console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
+                            }
+                            resolve(allPosts);
+                        }
+                    }).catch(err => {
+                        if (debug){
+                            console.error('getAllPostsFromStorage(): err: ', err);
+                        }
+                        reject(err);
+                    })
                 }
-                // console.log(promises);
-                Promise.all(promises).then(results => {
-                    setTimeout( function() {
-                        console.log(results);
-                    });
-                })
-                    // module.exports.getUserPostsFromStorage(user).then((posts) => {
-                    //     console.log(posts);
-                    //     allPosts.push(posts)
-                    //     // for(let j = 0; j < posts.length-1; j++){
-                    //     //     allPosts.push(posts[j])
-                    //     // }
-                    //     if(i == userList.length - 1) {
-                    //         return allPosts
-                    //     }
-                    // }).catch(err => {
-                    //     reject(err)
-                    // })
             }).catch(err => {
-                reject(err)
+                if (debug){
+                    console.error('getAllPostsFromStorage(): err: ', err);
+                }
+                reject(err);
             })
         })
     },
@@ -194,12 +199,22 @@ module.exports = {
      */
     register: (name, address) => {
         node.invokeContract('register', [name, address], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(register)')
-            console.dir(res)
+            if (debug){
+                console.log('register(): res: ');
+                console.dir(res);
+            }
             if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(register): Transaction successful.')
+                if (debug){
+                    console.log('register(): Transaction successful.')
+                }
+                // return true;
+                //can do other things if successful, like transition pages, etc.
             } else {
-                console.log('contractFunctions.js: invokeContract(register): Transaction failed.')
+                if (debug){
+                    console.log('register(): Transaction failed.')
+                }
+                // return false;
+                //can do other things if failed, like scream at user.
             }
         })
     },
@@ -215,36 +230,20 @@ module.exports = {
      */
     isRegister: (name, address) => {
         node.invokeContract('isregister', [name, address], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(isRegister)')
-            console.dir(res)
-            if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(isRegister): Transaction successful.')
-            } else {
-                console.log('contractFunctions.js: invokeContract(isRegister): Transaction failed.')
+            if (debug){
+                console.log('isRegister(): res: ');
+                console.dir(res);
             }
-        })
-    },
-
-    /*
-     * @Function: getClass
-     * @Contributor: Zachary Olson
-     * @Param: {string} owner
-     * @Param: {string} title
-     * @Param: {string} desc
-     * @Param: {int} price
-     * @Param: {int} amount
-     * @Return: Nothing
-     * Purpose: Used for testing creating a Post on the smart contract.
-     *          Calls invokeContract() with getclass function to smart contract.
-     */
-    getClass: (owner, title, desc, price, amount) => {
-        node.invokeContract('getclass', [owner,title,desc,price,amount], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(getClass)')
-            console.dir(res)
             if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(getClass): Transaction successful.')
+                if (debug){
+                    console.log('isRegister(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
             } else {
-                console.log('contractFunctions.js: invokeContract(getClass): Transaction failed.')
+                if (debug){
+                    console.log('isRegister(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
             }
         })
     },
@@ -264,38 +263,25 @@ module.exports = {
      */
     createPost: (id, owner, title, desc, price, amount) => {
         node.invokeContract('createpost', [id,owner,title,desc,price,amount], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(createPost)')
-            console.dir(res)
+            if (debug){
+                console.log('createPost(): res: ');
+                console.dir(res);
+            }
             if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(createPost): Transaction successful.')
+                if (debug){
+                    console.log('createPost(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
             } else {
-                console.log('contractFunctions.js: invokeContract(createPost): Transaction failed.')
+                if (debug){
+                    console.log('createPost(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
             }
         })
     },
 
-    /*
-     * @Function: getPost
-     * @Contributor: Zachary Olson
-     * @Param: {string} owner
-     * @Param: {string} title
-     * @Return: Nothing
-     * Purpose: Retrieves Post under owner's storage on the smart contract and prints to prompt.py.
-     *          Calls invokeContract() with getpost function to smart contract.
-     */
-    getPost: (owner, title) => {
-        node.invokeContract('getpost', [owner,title], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(getPost)')
-            console.dir(res)
-            if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(getPost): Transaction successful.')
-            } else {
-                console.log('contractFunctions.js: invokeContract(getPost): Transaction failed.')
-            }
-        })
-    },
-
-    // NOT YET IMPLEMENTED!
+    // NOT YET IMPLEMENTED! -in the works 4/9
     /*
      * @Function: deletePost
      * @Contributor: Zachary Olson
@@ -307,67 +293,21 @@ module.exports = {
      */
     deletePost: (owner, index) => {
         node.invokeContract('deletepost', [owner,index], account, (res) => {
-            console.log('contractFunctions.js: invokeContract(deletePost)')
-            console.dir(res)
+            if (debug){
+                console.log('deletePost(): res: ');
+                console.dir(res);
+            }
             if (res.result === true) {
-                console.log('contractFunctions.js: invokeContract(deletePost): Transaction successful.')
+                if (debug){
+                    console.log('deletePost(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
             } else {
-                console.log('contractFunctions.js: invokeContract(deletePost): Transaction failed.')
+                if (debug){
+                    console.log('deletePost(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
             }
         })
-    },
-
-    // Testing Function: register()
-    testRegister: (name, address) => {
-        node.testContract('register', [name, address], (res) => {
-            console.log('contractFunctions.js: testing register() result:')
-            console.dir(res)
-        })
-    },
-
-    // Testing Function: isRegister()
-    testIsRegister: (name, address) => {
-        node.testContract('isregister', [name, address], (res) => {
-            console.log('contractFunctions.js: testing isRegister() result:')
-            console.dir(res)
-        })
-    },
-
-    // Testing Function: getPost()
-    testGetPost: (owner, title) => {
-        console.log('contractFunctions.js: testing getPost()')
-        node.testContract('getpost', [owner,title], (res) => {
-            console.log('contractFunctions.js: testing getPost() result:')
-            console.dir(res)
-        })
-    },
-
-    // Testing Function: getClass()
-    testGetClass: (owner, title, desc, price, amount) => {
-        console.log('contractFunctions.js: testing getClass()')
-        node.testContract('getclass', [owner,title,desc,price,amount], (res) => {
-            console.log('contractFunctions.js: testing getClass() result:')
-            console.dir(res)
-        })
-    },
-
-    // Testing Function: createPost()
-    testCreatePost: (owner, title, desc, price, amount) => {
-        console.log('contractFunctions.js: testing createPost()')
-        node.testContract('createpost', [owner,title,desc,price,amount], (res) => {
-            console.log('contractFunctions.js: testing createPost() result:')
-            console.dir(res)
-        })
-    },
-
-    // NOT YET IMPLEMENTED!
-    // Testing Function: deletePost()
-    testDeletePost: (owner, index) => {
-        console.log('contractFunctions.js: testing deletePost()')
-        node.testContract('deletepost', [owner,index], (res) => {
-            console.log('contractFunctions.js: testing deletePost() result:')
-            console.dir(res)
-        })
     }
-
 }
