@@ -64,13 +64,12 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   var ref = firebase.storage().ref().child(imageFile['name']);
   ref.put(imageFile).then(function(snapshot) {
     console.log('Uploaded a blob or file!');
-  });
 
-  // Adds new posting ID to databse storage -> 'ListingImages'
-  firebase.database().ref('/ListingImages/' + id).set(imageFile['name']);
+    // Adds new posting ID to databse storage -> 'ListingImages'
+    firebase.database().ref('/ListingImages/' + id).set(imageFile['name']);
 
-  // Adds new posting to database storage -> 'Listings'
-  firebase.database().ref('/Listings/' + id).set({
+    // Adds new posting to database storage -> 'Listings'
+    firebase.database().ref('/Listings/' + id).set({
       id: id,
       owner: owner,
       title: title,
@@ -78,6 +77,7 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
       price: price,
       amount: amount,
       imageName: imageFile['name']
+    });
   });
 }
 

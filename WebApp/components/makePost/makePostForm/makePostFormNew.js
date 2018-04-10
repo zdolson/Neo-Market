@@ -19,7 +19,7 @@ import purchasesPage from '../../purchasesPage/purchasesPage.js';
 import peoplePage from '../../peoplePage/peoplePage.js';
 import cF from '../../../../backend/contractFunctions'
 
-import { NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import * as firebase from 'firebase'
 
@@ -111,15 +111,15 @@ export class MakePostForm extends Component {
           <div className="makePostFormBtn form-group">
               <div className="inputWrapper">
                   <div className="submitBtn" onClick={this.makePost}>
-                      <NavLink className="navLinkSubmitBtn" to="/">
-                          submit
-                      </NavLink>
+                      <Route render={({ history}) => (
+                          <button type='button' onClick={() => { history.push('/') }}>
+                            Submit
+                          </button>
+                        )}/>
                   </div>
               </div>
           </div>
-
         </form>
-
         <Stylesheet sheet={sheet}/>
       </div>
 
