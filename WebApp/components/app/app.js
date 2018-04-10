@@ -38,11 +38,11 @@ export class App extends Component {
       /// Dev Version ///
       items: [
         {
-          id: 'defaultValue', 
-          owner:'...', 
-          title: '...', 
-          description: '...', 
-          price: '0', 
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
           amount: 0
         }
       ],
@@ -87,6 +87,10 @@ export class App extends Component {
     pullUsersFromDatabase(that)
   }
 
+  componentDidMount() {
+    console.log('app.js component loaded successfully.');
+  }
+
   addCartItem(id) {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
   }
@@ -95,7 +99,7 @@ export class App extends Component {
     /// Dev Version ///
     let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(newItem) })
-    
+
     /// Production Version ///
     /*
       cF.createPost(id, owner, title, desc, price, amount);
@@ -113,7 +117,7 @@ export class App extends Component {
       }
       this.setState({ items: this.state.items});
     }
-    
+
     /// Production Version ///
     /*
       let owner = ???
