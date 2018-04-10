@@ -1,6 +1,7 @@
-from boa.builtins import list, concat, range, take
+from boa.builtins import list, concat, range, concat, take
 from boa.interop.Neo.Storage import GetContext, Get, Put, Delete
-from boa.interop.Neo.Runtime import Log, Notify, Serialize, Deserialize
+from serialize import serialize_array, serialize_var_length_item, deserialize_bytearray
+from boa.interop.Neo.Runtime import Log, Notify
 
 """
 @Function: fillMaster
@@ -11,12 +12,12 @@ Purpose: for each register call, append the name to master list
 """
 def fillMaster(name):
     masterbList = Get(GetContext(), '1')
-    masterList = Deserialize(masterbList)
+    masterList = deserialize_bytearray(masterbList)
     masterList.append(name)
     masterList.append(',')
-    masterbList = Serialize(masterList)
+    masterbList = serialize_array(masterList)
     Put(GetContext(), '1', masterbList)
-    
+
 """
 @Function: register
 @Contributor: dliang 
@@ -29,29 +30,31 @@ Purpose: This will register the user and their address to the smart contract
 """
 def register(args):
     if args[0] == '1':
-        Log("This is only avaliable for MasterList")
+        Log("please no - this is for master list")
         return False
     else:
         isMasterThere = Get(GetContext(), '1')
         if not isMasterThere:
             # create master here
-            masterList = Serialize([])
+            masterList = serialize_array([])
             Put(GetContext(), '1', masterList)
     print("in register")
-    # a = args[0] # no need to do this tbh
-    # b = args[1]
-    # print("allocating a and b")
-    isUserThere = Get(GetContext(), args[0]) 
-    isAddrThere = Get(GetContext(), args[1]) 
-    if not isUserThere and not isAddrThere: 
-        bstuff = Serialize([]) # allocating an empty list to the user's address
-        Notify("done serializing array here")
-        Put(GetContext(), args[0], args[1])
-        Put(GetContext(), args[1], bstuff)
-        Notify("registered")
+    print("after creation of list")
+    #b = list(length=2)
+    a = args[0] # no need to do this tbh
+    b = args[1]
+    print("allocating a and b")
+    isUserThere = Get(GetContext(), a)
+    isAddrThere = Get(GetContext(), a)
+    if isAddrThere or isUserThere:
+        Notify("Already registered here")
+    else: 
+        bstuff = serialize_array([])
+        print("done serializing array here")
+        Put(GetContext(), a, b)
+        Put(GetContext(), b, bstuff)
+        print("donnnnne")
         fillMaster(args[0]) # only want the names
-    elif isUserThere or isAddrThere:
-        Notify("User or Address exist - please choose another one")
 
 """
 @Function: createpost
@@ -64,11 +67,12 @@ def register(args):
         5. {int} amount
 @Return: void 
 Purpose: for each register call, append the name to master list
+```createPost: (id, owner, title, desc, price, amount)```
 """
 def createpost(args):
     addr = Get(GetContext(), args[1])
     bList = Get(GetContext(), addr)
-    stuff = Deserialize(bList)
+    stuff = deserialize_bytearray(bList)
     length = 6
     n = 0
     while(n < length):
@@ -79,7 +83,7 @@ def createpost(args):
     stuff.append(';')
     Log('new length of stuff:')
     Log(len(stuff)) # this may break it here
-    bList = Serialize(stuff)
+    bList = serialize_array(stuff)
     Put(GetContext(), addr, bList)
     Log("printing post down there in the format")
 
@@ -90,17 +94,21 @@ def createpost(args):
         1. {string} args[0] 
 @Return: void 
 Purpose: This is used to delete a post
+
+- there's a slight problem in trying to remove an element, seems to evaluate the list
+differently from what I expected.
 """
 def deletepost(args):
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
-    stuff = Deserialize(bList)
+    stuff = deserialize_bytearray(bList)
     if len(stuff) < args[1]:
         Notify("Out of bound selection to delete") 
     else: 
         stuff.remove(args[1]) 
-        bList = Serialize(stuff)
+        bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
+
 """
 @Function: select
 @Contributor: dliang 
@@ -115,7 +123,7 @@ def select(args):
     # i got the addr now
     bList = Get(GetContext(), addr)
     # i got the byte array now - time to deserialize
-    stuff = Deserialize(bList)
+    stuff = deserialize_bytearray(bList)
     print("printing the value of the list now")
     print(stuff[args[1]])
     print("done with select")
@@ -145,38 +153,22 @@ def isregister(args):
 Purpose: Runs the smart contract and acts accordingly to the user and their respective args
 """
 def Main(operation, args):
-    boolStatus = True # assuming it's true by default
     if operation == "register":
         print("register op - here")
-        if len(args) != 2:
-            Notify("wrong length of args") 
-            boolStatus = False
         register(args)
     elif operation == "isregister":
         print("checking if registered op")
-        if len(args) != 1:
-            Notify("wrong length of args")
-            boolStatus = False
         isregister(args)
     elif operation == "select":
         print("select op - here")
-        if len(args) != 1:
-            Notify("wrong length of args")
-            boolStatus = False
         select(args)
     elif operation == "createpost":
         print("creating a post - here")
-        if len(args) != 5:
-            Notify("wrong length of args")
-            boolStatus = False
         createpost(args)
     elif operation == "deletepost":
         print("deleting a post")
-        if len(args) != 1:
-            Notify("wrong length of args")
-            boolStatus = False
         deletepost(args)
     else:
-        Notify("Bad operation name or it does not exist") 
-        boolStatus = False
-    return boolStatus
+        print("what op?")
+        return False
+    return True
