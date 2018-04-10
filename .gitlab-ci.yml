@@ -13,13 +13,11 @@ before_script:
 build:
   stage: build
   script:
-    - cd WebApp
     - yarn build
 
 test:
   stage: test
   script:
-    - cd WebApp
     - yarn test
 
 deploy:
