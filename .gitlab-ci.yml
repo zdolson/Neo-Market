@@ -1,8 +1,29 @@
 image: node:8.11.1
 
-build:
-    script:
+stages:
+  - install
+  - build
+  - test
+  - deploy
+
+install:
+  stage: install
+  script:
     - cd backend && npm install
     - cd ../WebApp && npm install
     - npm install -g now
+
+build:
+  stage: build
+  script:
+    - yarn build
+
+test:
+  stage: test
+  script:
+    - yarn test
+
+deploy:
+  stage: deploy
+  script:
     - now
