@@ -27,40 +27,6 @@ export class TopBar extends Component {
 
 
   isRegister = () => {
-
-      // cF.register('42','satan');
-      // cF.isRegister('42','satan');
-      // cF.createPost('123','satan','rice','fried rice brah','3','1');
-      // cF.createPost('42','satan','Vs','dem victories breh','9000','1');
-      // cF.getAllUsersFromStorage();
-      // cF.getUserPostsFromStorage('satan');
-      // cF.getUserPostsFromStorage('tom');
-      // cF.getAddressFromUser('satan');
-
-      cF.getAllPostsFromStorage();
-
-      // cF.getContractState();
-
-      // cF.register('tom','5');
-      // cF.register('satan','42');
-      // let block = cF.getBlockCount();
-      // console.log(block);
-
-      // cF.isRegister('79','tom');
-      // cF.createPost('10','tom','bananas','soooo yellow','10','6');
-      // cF.createPost('13','tom','fathead','much big','12','1');
-
-      // cF.getUserPostsFromStorage('tom').then(users => {
-      //     console.log(users)
-      // }).catch(err => {
-      //     console.error(err)
-      // })
-      // cF.getAllPostsFromStorage();
-
-      // cF.createPost('456','jesus','eggs','friedeggs','1','12');
-      // cF.accessStorage('666');
-      // cF.register('666','jesus');
-
   }
 
   render () {
