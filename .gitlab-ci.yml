@@ -9,8 +9,8 @@ stages:
 install:
   stage: install
   script:
-    - cd backend && npm install
-    - cd ../WebApp && npm install
+    - cd backend && yarn install
+    - cd ../WebApp && yarn install
     - npm install -g now
 
 build:
