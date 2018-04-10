@@ -65,6 +65,7 @@ You have several commands available for you to start prompt.py:
 ```bash
 docker exec -it neo-privnet /bin/bash
 ```
+
 2. Curl our script start.sh, enable and run.
 ```bash
 curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/start.sh -o start.sh
@@ -73,7 +74,9 @@ curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contrac
 ```
 This will update any modules inside of the PrivateNet, download a wallet with 100M NEO and ~160k GAS, as well as
 download the current version of Smart Contract testing.py from our repo.
+
 3. Enter prompt.py with either of the three available commands above.
+
 4. Open the wallet for use of assets.
 ```neo-cli
 open wallet w1.wallet
@@ -140,7 +143,7 @@ You will very likely use this to retrieve the deployed Smart Contract's ScriptHa
 earlier in the wall of text that comes after deploying the Smart Contract. Simply locate the ScriptHash field
 and record the value.
 
-## Known issues that may occur in these most of these steps:
+## Known issues that may occur in most of these steps:
 1. Issues with starting any image in docker.
  * Try stopping and then removing all docker containers. Note, this will restart any progress inside of those
    containers.
