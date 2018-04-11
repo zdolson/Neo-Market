@@ -24,4 +24,5 @@ deploy:
   stage: deploy
   script:
     - now login -t $ NOW_LOGIN
+    - now ls
     - now
