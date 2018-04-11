@@ -21,7 +21,6 @@ class RoutingComponent extends Component {
     this.state = {
 
     }
-    console.log(this.props);
   }
 
   render() {
