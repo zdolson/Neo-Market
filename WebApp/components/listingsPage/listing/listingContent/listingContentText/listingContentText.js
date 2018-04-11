@@ -22,7 +22,6 @@ class ListingContentText extends Component {
     this.State = {
 
     }
-    console.log(props)
   }
 
   render () {

@@ -19,9 +19,11 @@ import purchasesPage from '../../purchasesPage/purchasesPage.js';
 import peoplePage from '../../peoplePage/peoplePage.js';
 import cF from '../../../../backend/contractFunctions'
 
-import { NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import * as firebase from 'firebase'
+
+import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
 
 export class MakePostForm extends Component {
   constructor (props, context) {
@@ -32,7 +34,6 @@ export class MakePostForm extends Component {
     }
     this.makeId = this.makeId.bind(this);
     this.makePost = this.makePost.bind(this);
-    console.log(this.props);
   }
 
   makeId() {
@@ -46,30 +47,19 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
-    console.log("makePost");
-    ev.preventDefault();
-    // var file = this.uploadInput.files[0];
     var file = this.uploadInput.files[0];
-    console.log(this.title.value);
-    console.log(this.desc.value);
-    console.log(this.price.value);
-    console.log(this.amount.value);
-    console.log(file);
     var id = this.makeId();
 
-    /* Implement check for valid user input */
-    var ref = firebase.storage().ref().child(id);
-    ref.put(file).then(function(snapshot) {
-      console.log('Uploaded a blob or file!');
-      this.props.tryAgain();
-    });
+    // Hard coded user since we dont have have users fully setup yet. 
+    var hard_coded_owner = 'Foo Bar'
+    postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
 
-    /// Dev Version ///
-    this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
-    /// Production Version ///
-    /*
-      cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
-    */
+    // /// Dev Version ///
+    // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
+    // /// Production Version ///
+    // /*
+    //   cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
+    // */
   }
 
   render () {
@@ -94,7 +84,7 @@ export class MakePostForm extends Component {
             <div className="bubbleTitle">
               description
             </div>
-            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.desc = ref; }} type="text" placeholder="..."/> </div>
+            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.description = ref; }} type="text" placeholder="..."/> </div>
           </div>
 
           <div className="makePostFormImg form-group">
@@ -121,15 +111,15 @@ export class MakePostForm extends Component {
           <div className="makePostFormBtn form-group">
               <div className="inputWrapper">
                   <div className="submitBtn" onClick={this.makePost}>
-                      <NavLink className="navLinkSubmitBtn" to="/">
-                          submit
-                      </NavLink>
+                      <Route render={({ history}) => (
+                          <button type='button' onClick={() => { history.push('/') }}>
+                            Submit
+                          </button>
+                        )}/>
                   </div>
               </div>
           </div>
-
         </form>
-
         <Stylesheet sheet={sheet}/>
       </div>
 

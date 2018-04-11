@@ -22,8 +22,6 @@ export class Listing extends Component {
     this.State = {
 
     }
-    console.log(props)
-    console.log(this.props.item)
   }
 
   render () {
