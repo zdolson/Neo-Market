@@ -72,7 +72,6 @@ export class App extends Component {
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
     this.tryAgain = this.tryAgain.bind(this);
-    this.checkForReRender = this.checkForReRender.bind(this);
   }
 
   componentWillMount () {
@@ -183,15 +182,6 @@ export class App extends Component {
     this.setState({ tryAgain: false });
     this.setState({ tryAgain: true });
   }
-
-  checkForReRender(){
-    // check ids and check if anything is different.
-    for (var i = 0; i < this.state.items.length; i++){
-      var currItem = this.state.items[i]
-      console.log(currItem)
-    }
-  }
-
 
   render () {
       if (this.state.loading) {
