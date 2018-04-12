@@ -1,26 +1,31 @@
 image: node:8.11.1
 
+# stages:
+#   - build
+#   - test
+#   - deploy
+
 stages:
-  - build
-  - test
-  - deploy
+  -deploy
 
 before_script:
   - cd backend && yarn install
   - cd ../WebApp && yarn install
   - npm install -g now
 
-build:
-  stage: build
-  script:
-    - yarn build
-
-test:
-  stage: test
-  script:
-    - yarn test
+# build:
+#   stage: build
+#   script:
+#     - yarn build
+#
+# test:
+#   stage: test
+#   script:
+#     - yarn test
 
 deploy:
   stage: deploy
   script:
-    - now
+    - npm run deploy
+    - npm run alias
+    - npm run now-rm

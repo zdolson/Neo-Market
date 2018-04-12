@@ -32,6 +32,9 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "deploy": "now -e NODE_ENV=production --token $NOW_TOKEN --npm",
+    "alias": "now alias --token=$NOW_TOKEN",
+    "now-rm": "now rm neomkt --safe --yes --token=$NOW_TOKEN",
     "test": "NODE_ENV=test jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
