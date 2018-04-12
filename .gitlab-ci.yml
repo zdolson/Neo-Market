@@ -1,7 +1,7 @@
 image: node:8.11.1
 
 stages:
-  -deploy
+  - deploy
 
 before_script:
   - cd backend && yarn install
