@@ -1,6 +1,8 @@
 image: node:8.11.1
 
 stages:
+  - build
+  - test
   - deploy
 
 before_script:
@@ -8,7 +10,17 @@ before_script:
   - cd ../WebApp && yarn install
   - npm install -g now
 
-deploy:
+build_WebApp:
+  stage: build
+  script:
+    - yarn build
+
+test_WebApp:
+  stage: test
+  script:
+    - yarn test
+
+deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
     - npm run deploy
