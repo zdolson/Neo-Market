@@ -48,7 +48,6 @@ export class Listings extends Component {
   }
 
   componentDidMount () {
-    console.log('Listings.js page loaded')
     this.setState({ loading: false })
   }
 

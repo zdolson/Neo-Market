@@ -21,6 +21,8 @@ import peoplePage from '../../peoplePage/peoplePage.js';
 
 import * as firebase from 'firebase'
 
+import { pullDataFromDatabase, postNewPostingToDatabase } from '../../fireBaseFunctions.js'
+
 export class MakePostForm extends Component {
   constructor (props, context) {
     super(props, context)

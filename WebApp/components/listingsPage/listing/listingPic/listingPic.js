@@ -27,15 +27,8 @@ class ListingPic extends Component {
     }
   }
 
-  componentWillMount() {
-    var that = this
-    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
-  }
-
-
   render () {
-    var that = this
-    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, this)
 
 
     var img = (

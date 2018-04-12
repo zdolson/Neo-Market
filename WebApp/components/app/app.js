@@ -81,10 +81,8 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-
-    var that = this
-    pullDataFromDatabase(that)
-    pullUsersFromDatabase(that)
+    pullDataFromDatabase(this)
+    pullUsersFromDatabase(this)
   }
 
   componentDidMount() {
@@ -174,7 +172,11 @@ export class App extends Component {
       if (currCartItemData == null) {
         break
       } else {
-        currTotal = currTotal + currCartItemData['price']
+        var currNum = currCartItemData['price']
+        if (typeof currCartItemData['price'] !== 'number') {
+          currNum = parseInt(currNum)
+        }
+        currTotal = currTotal + currNum
       }
     }
     return currTotal
@@ -184,7 +186,6 @@ export class App extends Component {
     this.setState({ tryAgain: false });
     this.setState({ tryAgain: true });
   }
-
 
   render () {
       if (this.state.loading) {

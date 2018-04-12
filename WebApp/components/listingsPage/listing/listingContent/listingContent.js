@@ -23,7 +23,6 @@ class ListingContent extends Component {
     this.State = {
 
     }
-    console.log(this.props)
   }
 
   render () {
