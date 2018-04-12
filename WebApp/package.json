@@ -26,7 +26,8 @@
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",
     "styled-jsx": "^2.2.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "svg-react-loader": "^0.4.5"
   },
   "scripts": {
     "dev": "next",
@@ -56,6 +57,5 @@
     "react-test-renderer": "^16.3.1",
     "regenerator-runtime": "^0.11.1",
     "standard": "^10.0.3",
-    "svg-react-loader": "^0.4.5"
   }
 }
