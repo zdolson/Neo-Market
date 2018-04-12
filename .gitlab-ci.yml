@@ -11,6 +11,7 @@ before_script:
 deploy:
   stage: deploy
   script:
+    - cat $NOW_TOKEN
     - npm run deploy
     - npm run alias
     - npm run now-rm
