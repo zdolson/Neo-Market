@@ -26,12 +26,16 @@
     "react-router-dom": "^4.2.2",
     "sass-loader": "^6.0.6",
     "styled-jsx": "^2.2.1",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "svg-react-loader": "^0.4.5"
   },
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
+    "deploy": "now -e NODE_ENV=test --token $NOW_TOKEN",
+    "alias": "now alias --token=$NOW_TOKEN",
+    "now-rm": "now rm neomkt --safe --yes --token=$NOW_TOKEN",
     "test": "NODE_ENV=test jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
@@ -52,7 +56,6 @@
     "pre-commit": "^1.2.2",
     "react-test-renderer": "^16.3.1",
     "regenerator-runtime": "^0.11.1",
-    "standard": "^10.0.3",
-    "svg-react-loader": "^0.4.5"
+    "standard": "^10.0.3"
   }
 }
