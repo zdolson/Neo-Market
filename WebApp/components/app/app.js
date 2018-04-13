@@ -15,7 +15,7 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
-const cF = require('../../../backend/contractFunctions')
+// const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 

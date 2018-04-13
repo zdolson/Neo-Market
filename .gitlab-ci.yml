@@ -10,19 +10,19 @@ before_script:
   - cd ../WebApp && yarn install
   - npm install -g now
 
-build:
+build_WebApp:
   stage: build
   script:
     - yarn build
 
-test:
+test_WebApp:
   stage: test
   script:
     - yarn test
 
-deploy:
+deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
-    - now login -t $ NOW_LOGIN
-    - now ls
-    - now
+    - npm run deploy
+    - npm run alias
+    - npm run now-rm

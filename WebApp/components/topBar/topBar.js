@@ -4,7 +4,7 @@ import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
-import cF from '../../../backend/contractFunctions'
+// import cF from '../../../backend/contractFunctions'
 
 /**
 
