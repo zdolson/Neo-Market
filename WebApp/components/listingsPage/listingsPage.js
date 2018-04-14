@@ -42,7 +42,6 @@ export class ListingsPage extends Component {
 
         {items.map( (item, key) => {
           var link = '/MoreInfoItem/'+item.id;
-          console.log(link);
           return (
             <Link to={link} key={key} className="navLink">  <Listing item={item} tryAgain={tryAgain}/> </Link>
           )

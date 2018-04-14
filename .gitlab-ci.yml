@@ -1,8 +1,28 @@
 image: node:8.11.1
 
-build:
-    script:
-    - cd backend && npm install
-    - cd ../WebApp && npm install
-    - npm install -g now
-    - now
+stages:
+  - build
+  - test
+  - deploy
+
+before_script:
+  - cd backend && yarn install
+  - cd ../WebApp && yarn install
+  - npm install -g now
+
+build_WebApp:
+  stage: build
+  script:
+    - yarn build
+
+test_WebApp:
+  stage: test
+  script:
+    - yarn test
+
+deploy_to_neomkt-test.now.sh:
+  stage: deploy
+  script:
+    - npm run deploy
+    - npm run alias
+    - npm run now-rm

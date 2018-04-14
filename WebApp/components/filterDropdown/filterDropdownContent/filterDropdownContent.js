@@ -24,7 +24,6 @@ class FilterDropdownContent extends Component {
 
   render () {
     var background = '#333333';
-    console.log(this.props.width);
     const styles = {
       filterDropdownContent: {
         height: this.props.width,

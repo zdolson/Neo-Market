@@ -15,7 +15,7 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
-const cF = require('../../../backend/contractFunctions')
+// const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 
@@ -38,11 +38,11 @@ export class App extends Component {
       /// Dev Version ///
       items: [
         {
-          id: 'defaultValue', 
-          owner:'...', 
-          title: '...', 
-          description: '...', 
-          price: '0', 
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
           amount: 0
         }
       ],
@@ -81,10 +81,12 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
+    pullDataFromDatabase(this)
+    pullUsersFromDatabase(this)
+  }
 
-    var that = this
-    pullDataFromDatabase(that)
-    pullUsersFromDatabase(that)
+  componentDidMount() {
+    console.log('app.js component loaded successfully.');
   }
 
   addCartItem(id) {
@@ -95,7 +97,7 @@ export class App extends Component {
     /// Dev Version ///
     let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(newItem) })
-    
+
     /// Production Version ///
     /*
       cF.createPost(id, owner, title, desc, price, amount);
@@ -113,7 +115,7 @@ export class App extends Component {
       }
       this.setState({ items: this.state.items});
     }
-    
+
     /// Production Version ///
     /*
       let owner = ???
@@ -170,7 +172,11 @@ export class App extends Component {
       if (currCartItemData == null) {
         break
       } else {
-        currTotal = currTotal + currCartItemData['price']
+        var currNum = currCartItemData['price']
+        if (typeof currCartItemData['price'] !== 'number') {
+          currNum = parseInt(currNum)
+        }
+        currTotal = currTotal + currNum
       }
     }
     return currTotal
@@ -181,39 +187,38 @@ export class App extends Component {
     this.setState({ tryAgain: true });
   }
 
-
   render () {
-      if (this.state.loading) {
-        return (
-          <main>
-            Just a second...
-            <Stylesheet sheet={sheet} />
-          </main>
-        )
-      } else if (this.state.error) {
-        return (
-          <main>
-            <h1>That""s bad. The following error occurred:</h1>
-            <div className='error'>{this.state.error}</div>
-            <Stylesheet sheet={sheet} />
-          </main>
-        )
-      }
-
+    if (this.state.loading) {
       return (
         <main>
-          <div>
-            <FilterDropdown />
-            <TopBar />
-            <LeftSideBar />
-            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
-            <LeftAccountBar />
-            <RightAccountBar />
-            <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
-          </div>
+          Just a second...
+          <Stylesheet sheet={sheet} />
+        </main>
+      )
+    } else if (this.state.error) {
+      return (
+        <main>
+          <h1>That""s bad. The following error occurred:</h1>
+          <div className='error'>{this.state.error}</div>
+          <Stylesheet sheet={sheet} />
         </main>
       )
     }
+
+    return (
+      <main>
+        <div>
+          <FilterDropdown />
+          <TopBar />
+          <LeftSideBar />
+          <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
+          <LeftAccountBar />
+          <RightAccountBar />
+          <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+        </div>
+      </main>
+    )
+  }
 }
 
 export default App

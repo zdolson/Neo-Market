@@ -23,7 +23,6 @@ export class RightSideBar extends Component {
     this.state = {
 
     }
-    console.log(this.props);
   }
 
   render () {
