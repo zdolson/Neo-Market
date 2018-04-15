@@ -15,7 +15,7 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
-const cF = require('../../../backend/contractFunctions')
+// const cF = require('../../../backend/contractFunctions')
 
 import * as firebase from 'firebase'
 
@@ -188,37 +188,37 @@ export class App extends Component {
   }
 
   render () {
-      if (this.state.loading) {
-        return (
-          <main>
-            Just a second...
-            <Stylesheet sheet={sheet} />
-          </main>
-        )
-      } else if (this.state.error) {
-        return (
-          <main>
-            <h1>That""s bad. The following error occurred:</h1>
-            <div className='error'>{this.state.error}</div>
-            <Stylesheet sheet={sheet} />
-          </main>
-        )
-      }
-
+    if (this.state.loading) {
       return (
         <main>
-          <div>
-            <FilterDropdown />
-            <TopBar />
-            <LeftSideBar />
-            <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
-            <LeftAccountBar />
-            <RightAccountBar />
-            <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
-          </div>
+          Just a second...
+          <Stylesheet sheet={sheet} />
+        </main>
+      )
+    } else if (this.state.error) {
+      return (
+        <main>
+          <h1>That""s bad. The following error occurred:</h1>
+          <div className='error'>{this.state.error}</div>
+          <Stylesheet sheet={sheet} />
         </main>
       )
     }
+
+    return (
+      <main>
+        <div>
+          <FilterDropdown />
+          <TopBar />
+          <LeftSideBar />
+          <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
+          <LeftAccountBar />
+          <RightAccountBar />
+          <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+        </div>
+      </main>
+    )
+  }
 }
 
 export default App

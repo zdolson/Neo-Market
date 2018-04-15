@@ -133,7 +133,38 @@ export function registerUserToDatabase(wif, firstName, lastName, password, email
     var userWIFList = Object.keys(snapshot.val())
     if(!isUserRegisterd(wif, userWIFList)){
       firebase.database().ref('/Users/' + wif).set(newUser);
-      that.setState({users: users.concat(newUser)})
+      that.setState({users: that.state.users.concat(newUser)})
+
+      //Add users to firebase database auth
+      firebase.auth().createUserWithEmailAndPassword(email, password).then(console.log('Created user successfully')).catch(function(error) {
+        // Handle Errors here.
+        console.log('An error has occured while creating the user via Firebase: ')
+        console.log(error.code)
+        console.log(error.message)
+      });
     }
   })
 }
+
+export function loginUser(email, password) {
+  firebase.auth().signInWithEmailAndPassword(email, password).then(
+    console.log('User: ' + email + ' has been sucessfully logged in')
+
+  ).catch(function(error) {
+    // Handle Errors here.
+    console.log('An error has occured while logging in the user via Firebase: ')
+    console.log(error.code)
+    console.log(error.message)
+  });
+}
+
+export function logoutUser(email, password){
+  firebase.auth().signOut().then(function() {
+    console.log('User: ' + email + ' was logged out successfullly')
+  }).catch(function(error) {
+    console.log('An error has occured while logging out the user via Firebase: ')
+    console.log(error.code)
+    console.log(error.message)
+  });
+}
+
