@@ -70,22 +70,28 @@ Purpose: for each register call, append the name to master list
 ```createPost: (id, owner, title, desc, price, amount)```
 """
 def createpost(args):
-    addr = Get(GetContext(), args[1])
-    bList = Get(GetContext(), addr)
-    stuff = deserialize_bytearray(bList)
-    length = 6
-    n = 0
-    while(n < length):
-        stuff.append(args[n])
-        if(n==5): break
-        stuff.append(',')
-        n += 1
-    stuff.append(';')
-    Log('new length of stuff:')
-    Log(len(stuff)) # this may break it here
-    bList = serialize_array(stuff)
-    Put(GetContext(), addr, bList)
-    Log("printing post down there in the format")
+    a = Get(GetContext(), args[1])
+    if not a:
+	print("Cant createpost - user is not registered")
+	return 0
+    else:
+        addr = Get(GetContext(), args[1])
+        bList = Get(GetContext(), addr)
+        stuff = deserialize_bytearray(bList)
+        length = 6
+        n = 0
+        while(n < length):
+            stuff.append(args[n])
+            if(n==5): break
+            stuff.append(',')
+            n += 1
+        stuff.append(';')
+        Log('new length of stuff:')
+        Log(len(stuff)) # this may break it here
+        bList = serialize_array(stuff)
+        Put(GetContext(), addr, bList)
+        Log("printing post down there in the format")
+        return 1
 
 """
 @Function: select
@@ -136,13 +142,13 @@ def select(args):
 Purpose: checks if username is registered or not
 """
 def isregister(args):
-    a = GetContext(GetContext(), args[0])
+    a = Get(GetContext(), args[0])
     if not a:
         print("the user is not registered")
-        return False
+        return 0
     else:
         print("the user is registered")
-        return True
+        return 1
 
 """
 @Function: fillMaster
