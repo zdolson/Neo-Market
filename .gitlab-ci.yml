@@ -19,6 +19,7 @@ test_WebApp:
   stage: test
   script:
     - curl -O https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+    - apt-get install zip unzip
     - unzip chromedriver_linux64.zip
     - rm chromedriver_linux64.zip
     - yarn test
