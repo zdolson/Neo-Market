@@ -18,6 +18,9 @@ build_WebApp:
 test_WebApp:
   stage: test
   script:
+    - curl -O https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+    - unzip chromedriver_linux64.zip
+    - rm chromedriver_linux64.zip
     - yarn test
 
 deploy_to_neomkt-test.now.sh:
