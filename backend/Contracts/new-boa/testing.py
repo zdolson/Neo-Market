@@ -68,7 +68,7 @@ def addone(args):
     print("done with addone")
 # params 'createpost' [id, owner, title, desc, price, amount]
 def createpost(args):
-    a = Get(GetContext(), args[0])
+    a = Get(GetContext(), args[1])
     if not a:
 	print("Cant createpost - user is not registered")
 	return 0
