@@ -28,13 +28,14 @@ test_WebApp:
     - mv chromedriver /usr/local/bin
     - apt-get install unzip
     - rm chromedriver_linux64.zip
-    - yarn test
+    - cd WebApp && yarn test
   dependencies:
     - build_WebApp
 
 deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
+    - cd WebApp
     - npm install -g now
     - npm run deploy
     - npm run alias
