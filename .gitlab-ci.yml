@@ -11,7 +11,7 @@ build_WebApp:
     - cd ../WebApp && yarn install
     - yarn build
   artifacts:
-    path:
+    paths:
       - WebApp/node_modules
 
 test_WebApp:
