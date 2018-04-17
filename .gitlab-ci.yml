@@ -5,15 +5,14 @@ stages:
   - test
   - deploy
 
-before_script:
-  - cd backend && yarn install
-  - cd ../WebApp && yarn install
-  - npm install -g now
-
 build_WebApp:
   stage: build
   script:
+    - cd ../WebApp && yarn install
     - yarn build
+  artifacts:
+    path:
+      - WebApp/node_modules
 
 test_WebApp:
   stage: test
@@ -30,10 +29,14 @@ test_WebApp:
     - apt-get install unzip
     - rm chromedriver_linux64.zip
     - yarn test
+  dependencies:
+    - build_WebApp
 
 deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
+    - npm install -g now
     - npm run deploy
     - npm run alias
     - npm run now-rm
+  dependencies: []
