@@ -95,7 +95,6 @@ export function pullUsersFromDatabase(that){
         password: childSnapshot.child('password').val(),
         userName: childSnapshot.child('userName').val()
       }
-
       arrayUserList.push(currUser)
 
       if(typeof arrayUserList !== 'undefined') {
@@ -103,15 +102,14 @@ export function pullUsersFromDatabase(that){
       }
       
     })
-
   }).catch(err => {
     console.error(err)
   });
 }
 
-function isUserRegisterd(wif, userList) {
+function isUserRegisterd(userName, userList) {
   for(var i = 0; i<userList.length; i++) {
-    if(wif == userList[i]){
+    if(userName == userList[i]){
       return true
     }
   }
@@ -120,7 +118,6 @@ function isUserRegisterd(wif, userList) {
 
 export function registerUserToDatabase(wif, firstName, lastName, password, email, userName, that) {
   firebase.database().ref('/Users/').once('value').then((snapshot) => {
-    
     var newUser = {
       wif: wif,
       firstName: firstName,
@@ -129,10 +126,9 @@ export function registerUserToDatabase(wif, firstName, lastName, password, email
       email: email,
       userName: userName
     }
-
-    var userWIFList = Object.keys(snapshot.val())
-    if(!isUserRegisterd(wif, userWIFList)){
-      firebase.database().ref('/Users/' + wif).set(newUser);
+    var userNameList = Object.keys(snapshot.val())
+    if(!isUserRegisterd(userName, userNameList)){
+      firebase.database().ref('/Users/' + userName).set(newUser);
       that.setState({users: that.state.users.concat(newUser)})
 
       //Add users to firebase database auth
