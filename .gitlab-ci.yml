@@ -10,9 +10,13 @@ build_WebApp:
   script:
     - cd WebApp && yarn install
     - yarn build
+  cache:
+    key: ${CI_BUILD_REF_NAME}
+    paths:
+      - WebApp/node_modules/
   artifacts:
     paths:
-      - WebApp/node_modules
+      - WebApp/node_modules/
 
 test_WebApp:
   stage: test
