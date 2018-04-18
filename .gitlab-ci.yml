@@ -26,7 +26,6 @@ test_WebApp:
     - apt-get install unzip
     - unzip chromedriver_linux64.zip
     - mv chromedriver /usr/local/bin
-    - apt-get install unzip
     - rm chromedriver_linux64.zip
     - cd WebApp && yarn test
   dependencies:
