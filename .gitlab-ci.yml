@@ -40,9 +40,9 @@ deploy_to_neomkt-test.now.sh:
   script:
     - cd WebApp
     - npm install -g now
-    - cat $NOW_TOKEN
+    - echo $NOW_TOKEN
     - npm run deploy
-    - cat $NOW_TOKEN
+    - echo $NOW_TOKEN
     - npm run alias
     - npm run now-rm
   dependencies:
