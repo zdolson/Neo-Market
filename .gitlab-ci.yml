@@ -39,7 +39,7 @@ deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
     - cd WebApp
-    - npm install now
+    - npm install -g now
     - npm run deploy
     - npm run alias
     - npm run now-rm
