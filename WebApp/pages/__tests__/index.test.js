@@ -4,6 +4,17 @@ import Index from '../index.js'
 import {HashRouter} from 'react-router-dom'
 import * as firebase from "firebase"
 
+/*
+
+@ Author: Alec Felt
+
+@ Date: 4/22/18
+
+Purpose: Define exactly what Index's responsibilites are,
+        Test these responsibilites
+
+*/
+
 describe("Index component", () => {
   it("renders one child", () => {
     let wrapper = shallow(<Index/>);
