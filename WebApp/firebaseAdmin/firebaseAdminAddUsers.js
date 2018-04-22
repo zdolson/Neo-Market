@@ -49,6 +49,11 @@ function setupFunction(){
   return promise
 }
 
+function fireBaseExit(){
+  // Library function call to end firebase node process 
+  admin.app().delete()
+}
+
 function fireBaseAddUsers(){
   var read_json = grab('--read_json');
   var db = admin.database();
@@ -58,37 +63,48 @@ function fireBaseAddUsers(){
     console.log('Please pass a file for the script to read')
   } else {
     var fs = require('fs');
-
     var readtext = fs.readFileSync(read_json, 'utf8');
     var split_json = readtext.split('\n')
 
     ref.once("value", function(snapshot) { 
-      for(var i = 0; i<Object.keys(split_json).length;i++) {
+      var userIndex = 0;
+      var userListLength = Object.keys(split_json).length-1;
+      while(userIndex<=userListLength){
         try {
-          var curr_user = JSON.parse(split_json[i])
+          var curr_user = JSON.parse(split_json[userIndex])
           var userNameList = Object.keys(snapshot.val())
           if(!isUserRegisterd(curr_user['userName'], userNameList)){
-            admin.database().ref('/Users/' + curr_user['userName']).set(curr_user);
+            if(userIndex == userListLength) {
+              admin.database().ref('/Users/' + curr_user['userName']).set(curr_user).then(() => fireBaseExit());
+            } else {
+              admin.database().ref('/Users/' + curr_user['userName']).set(curr_user);
+            }
             console.log('The user ' + curr_user['userName'] + ' was added to the database')
           } else {
-            console.log('The user ' + curr_user['userName'] + ' is already in the database. Therefore, skipping adding this user.')
+            console.log('The user ' + curr_user['userName'] + ' is already in the database. Therefore, skipping this user.')
+            if(userIndex == userListLength) {
+              fireBaseExit()
+            }
           }
         } catch(err) {
           console.log('There was a problem parsing the JSON, please double check that the user json is formatted correctly.')
           console.log(err)
+          fireBaseExit()
         }
+        userIndex++;
       }
 
-      if(snapshot.child('placeholderUser').val() != null){
-        admin.database().ref('/Users/placeholderUser/').remove()
+      if(snapshot.child('placeholderUser').exists()){
+        admin.database().ref('/Users/placeholderUser/').remove().then(() => fireBaseExit())
+        console.log('Removing extra placeholder')
       }
     });
   }
 }
 
 function main() {
-  return setupFunction().then(() => fireBaseAddUsers());
+  setupFunction().then(() => fireBaseAddUsers());
 }
 
-main();
+main()
 
