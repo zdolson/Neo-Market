@@ -23,7 +23,7 @@
 4. go into python3 prompt.py -p 
 5. open wallet w1.wallet pass: coz 
 6. to test things right away: 
-```build testing.py test 0710 01 True False <function> <list>```
+```build testing.py test 0710 05 True False <function> <list>```
     6.1. OPTIONAL: to see print statements
     ```config sc-events on```
 7. to deploy contract: 
