@@ -1,3 +1,5 @@
+// import * as firebase from 'firebase'
+const firebase = require('firebase')
 const neon = require('@cityofzion/neon-js')
 const Neon = neon.default
 const config = require('./configFiles/config')
@@ -21,6 +23,82 @@ var debug = false;
 
 
 module.exports = {
+
+
+    /*
+     * @Function: purchase
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownerName
+     * @Param: {string} buyerName
+     * @Return:
+     * Purpose: Transfers assets from buyer to owner.
+     */
+    purchase: (ownerName, buyerName) => {
+        return new Promise((resolve,reject) => {
+
+            //Need to get both WIFs from Firebase using ownerName and buyerName
+            // Temporarily store retrieved WIF in variables for account creation
+            var firebaseConfig = {
+              apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
+              authDomain: "neo-market-8a303.firebaseapp.com",
+              databaseURL: "https://neo-market-8a303.firebaseio.com",
+              projectId: "neo-market-8a303",
+              storageBucket: "neo-market-8a303.appspot.com",
+              messagingSenderId: "1035941360979"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            // Need authentication to allow access to database.
+            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+              // ...
+            });
+
+
+            firebase.database().ref('/Users/'+ownerName).once('value').then((snapshot) => {
+                var oWif = snapshot.child('wif').val();
+                console.log(oWif);
+                firebase.database().ref('/Users/'+buyerName).once('value').then((snapshot) => {
+                    var bWif = snapshot.child('wif').val();
+                    console.log(bWif);
+
+                    var ownerAccount = Neon.create.account(oWif);
+                    var buyerAccount = Neon.create.account(bWif);
+                    // console.log(ownerAccount.address);
+                    const intents = neon.api.makeIntent({NEO:1}, ownerAccount.address)
+
+                    console.log(config.RESTEndpoint);
+                    console.log(buyerAccount.address);
+                    console.log(buyerAccount.privateKey);
+                    console.log(intents);
+                    const sendConfig = {
+                      net: config.RESTEndpoint,
+                      address: buyerAccount.address,  // This is the address which the assets come from.
+                      privateKey: buyerAccount.privateKey,
+                      intents: intents
+                   };
+
+                    Neon.sendAsset(sendConfig).then(sendConfig => {
+                        console.log(sendConfig.response)
+                        resolve(sendConfig);
+                    }).catch(sendConfig => {
+                        console.log(sendConfig)
+                        reject(sendConfig);
+                    })
+                });
+            });
+
+            //------------- Working shit below.
+            // var oWif = 'KySLWEJDrGh7HmnZNVP3QzvkFBdDHX3dX7qh7tamxrpTcM1GNrkh'; //w2.wallet testing123
+            // var bWif = 'KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr'; //w1.wallet coz
+
+        })
+    },
 
     /*
      * @Function: getBlockCount
@@ -158,17 +236,40 @@ module.exports = {
      * @Return: {string array} allPosts
      * Purpose: Returns a string array of all postings stored on the SC.
      */
-    getAllPostsFromStorage: () => {
+    getAllPostsFromStorage: (that) => {
         return new Promise((resolve,reject) => {
             var allPosts = [];
+            var currItem = {};
             module.exports.getAllUsersFromStorage().then(userList => {
-                for (var i = 0; i < userList.length-1; i++) {
+                for (var i = 0; i < userList.length -1; i++) {
                     module.exports.getUserPostsFromStorage(userList[i]).then((posts) => {
-                        allPosts.push(posts);
+                        if (debug) {
+                            console.log('getAllPostsFromStorage(): posts: ', posts);
+                            console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                        }
+                        if (posts.length > 1){
+                            let cutPosts = posts[0].split(',');
+                            if (debug) {
+                                console.log('getAllPostsFromStorage(): cutPosts: ', cutPosts);
+                            }
+                            currItem = {
+                              id: cutPosts[0],
+                              owner: cutPosts[1],
+                              title: cutPosts[2],
+                              description: cutPosts[3],
+                              price: cutPosts[4],
+                              amount: cutPosts[5],
+                            }
+                            if (debug) {
+                                console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                            }
+                            allPosts.push(currItem);
+                        }
                         if(i == userList.length - 1) {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
+                            that.setState({ items: allPosts});
                             resolve(allPosts);
                         }
                     }).catch(err => {

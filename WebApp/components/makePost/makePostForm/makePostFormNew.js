@@ -17,7 +17,7 @@ import forumsPage from '../../forumsPage/forumsPage.js';
 import promosPage from '../../promosPage/promosPage.js';
 import purchasesPage from '../../purchasesPage/purchasesPage.js';
 import peoplePage from '../../peoplePage/peoplePage.js';
-// import cF from '../../../../backend/contractFunctions'
+import cF from '../../../../backend/contractFunctions'
 
 import { Route } from 'react-router-dom'
 
@@ -50,9 +50,12 @@ export class MakePostForm extends Component {
     var file = this.uploadInput.files[0];
     var id = this.makeId();
 
-    // Hard coded user since we dont have have users fully setup yet. 
+    // Hard coded user since we dont have have users fully setup yet.
     var hard_coded_owner = 'Foo Bar'
-    postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
+    // postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
+
+    // createPost works on pushing a posting to the SC.
+    cF.createPost(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value)
 
     // /// Dev Version ///
     // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );

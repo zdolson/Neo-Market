@@ -5,6 +5,7 @@ import sheet from './checkOutPage.scss'
 import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
 import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
+import cF from '../../../backend/contractFunctions'
 
 /**
 
@@ -22,6 +23,15 @@ export class CheckOutPage extends Component {
     this.state = {
       // stuff goes here
     }
+    this.purchaseLogic = this.purchaseLogic.bind(this);
+  }
+
+  purchaseLogic = () => {
+      //If there is more than one item in the cart then do for loop, else just fire function once.
+      // nick put shit here.
+      //if 0 items, lock/gray button
+      //elif 1 item, fire one cF.purchase()
+      //else more than 1 item, fire multiple cF.purchase().
   }
 
   render () {
@@ -29,7 +39,7 @@ export class CheckOutPage extends Component {
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
     var tryAgain = this.props.tryAgain
-    
+
     return (
       <div className="checkOutPage">
 
@@ -54,7 +64,7 @@ export class CheckOutPage extends Component {
             </div>
             <div className="checkOutTotalLine"></div>
           </div>
-          <div className="purchaseBtn">
+          <div className="purchaseBtn" onClick={this.purchaseLogic}>
             <div className="purchaseBtnText"> Purchase </div>
           </div>
         </div>

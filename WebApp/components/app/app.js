@@ -15,7 +15,7 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
-// const cF = require('../../../backend/contractFunctions')
+import cF from '../../../backend/contractFunctions'
 
 import * as firebase from 'firebase'
 
@@ -81,8 +81,9 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-    pullDataFromDatabase(this)
+    // pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
+    cF.getAllPostsFromStorage(this);
   }
 
   componentDidMount() {
