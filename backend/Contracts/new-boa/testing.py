@@ -70,8 +70,8 @@ def addone(args):
 def createpost(args):
     a = Get(GetContext(), args[1])
     if not a:
-	print("Cant createpost - user is not registered")
-	return 0
+        print("Cant createpost - user is not registered")
+        return 0
     else:
         addr = Get(GetContext(), args[1])
         bList = Get(GetContext(), addr)
