@@ -5,24 +5,42 @@ stages:
   - test
   - deploy
 
-before_script:
-  - cd backend && yarn install
-  - cd ../WebApp && yarn install
-  - npm install -g now
-
 build_WebApp:
   stage: build
   script:
+    - cd WebApp && yarn install
     - yarn build
+  cache:
+    key: ${CI_BUILD_REF_NAME}
+    paths:
+      - WebApp/node_modules/
+  artifacts:
+    paths:
+      - WebApp/node_modules/
 
 test_WebApp:
   stage: test
   script:
-    - yarn test
+    - curl -O https://chromedriver.storage.googleapis.com/2.37/chromedriver_linux64.zip
+    - apt-get update -y
+    - apt-get upgrade -y
+    - apt-get dist-upgrade -y
+    - apt-get -y autoremove
+    - apt-get clean
+    - apt-get install unzip
+    - unzip chromedriver_linux64.zip
+    - mv chromedriver /usr/local/bin
+    - rm chromedriver_linux64.zip
+    - cd WebApp && yarn test
+  dependencies:
+    - build_WebApp
 
 deploy_to_neomkt-test.now.sh:
   stage: deploy
   script:
+    - cd WebApp
+    - npm install -g now
     - npm run deploy
     - npm run alias
     - npm run now-rm
+  dependencies: []

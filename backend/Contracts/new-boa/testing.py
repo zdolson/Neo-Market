@@ -72,8 +72,8 @@ Purpose: for each register call, append the name to master list
 def createpost(args):
     a = Get(GetContext(), args[1])
     if not a:
-    print("Cant createpost - user is not registered")
-	return 0
+        print("Cant createpost - user is not registered")
+        return 0
     else:
         addr = Get(GetContext(), args[1])
         bList = Get(GetContext(), addr)
@@ -151,13 +151,39 @@ def isregister(args):
         return 1
 
 """
-@Function: fillMaster
+@Function: editPost
 @Contributor: Colin, dliang
 @Param: {string} operation 
         {list} args
 @Return: boolean
 Purpose: Runs the smart contract and acts accordingly to the user and their respective args
 """
+def editPost(args):
+    length = 5
+    i = 0
+    userPosts = Get(GetContext(), args[1])
+    itemList = Get(GetContext(), userPosts)
+    if not userPosts:
+        print("not a valid user, cant edit post")
+        return 0
+    else:
+        dpostInfo = deserialize_bytearray(itemList)
+        print(dpostInfo[2])
+        while(i < length):
+            if(args[i] != 'N/A'):
+                dpostInfo[i] = args[i]
+            else:
+                print("Not changing array value")
+            i += 1
+        finalPosts = serialize_array(dpostInfo)
+        print("here is dpostInfo")
+        print(dpostInfo)
+        print("here is finalPosts:")
+        print(finalPosts)
+        Put(GetContext(), userPosts, finalPosts)
+    return 1
+
+
 def Main(operation, args):
     if operation == "register":
         print("register op - here")
@@ -174,6 +200,9 @@ def Main(operation, args):
     elif operation == "deletepost":
         print("deleting a post")
         deletepost(args)
+    elif operation == "editpost":
+        print("editing a post")
+        editPost(args)
     else:
         print("what op?")
         return False
