@@ -72,7 +72,7 @@ Purpose: for each register call, append the name to master list
 def createpost(args):
     a = Get(GetContext(), args[1])
     if not a:
-	print("Cant createpost - user is not registered")
+    print("Cant createpost - user is not registered")
 	return 0
     else:
         addr = Get(GetContext(), args[1])
@@ -94,7 +94,7 @@ def createpost(args):
         return 1
 
 """
-@Function: select
+@Function: deletepost
 @Contributor: <whoever gets to it> 
 @Param: {list} args
         1. {string} args[0] 
