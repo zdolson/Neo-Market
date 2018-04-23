@@ -28,7 +28,7 @@
     "deploy": "now -e NODE_ENV=test --token $NOW_TOKEN",
     "alias": "now alias --token=$NOW_TOKEN",
     "now-rm": "now rm neomkt-test --safe --yes --token=$NOW_TOKEN",
-    "test": "NODE_ENV=test jest",
+    "test": "NODE_ENV=test jest --coverage",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
