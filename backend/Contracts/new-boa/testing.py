@@ -114,6 +114,7 @@ def deletepost(args):
         stuff.remove(args[1]) 
         bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
+    print("done with setting the post to 0")
 
 """
 @Function: select
