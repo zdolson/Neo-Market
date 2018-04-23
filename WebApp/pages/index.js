@@ -23,7 +23,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-// Need authentication to allow access to database. 
+// Need authentication to allow access to database.
 firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
@@ -54,7 +54,7 @@ export class Index extends Component {
 
   componentDidMount () {
     console.log('index.js page loaded')
-    this.setState({ loading: false })
+    if(this.state.loading) this.setState({ loading: false })
   }
 
   render () {
