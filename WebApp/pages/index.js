@@ -6,6 +6,7 @@ import { render } from 'react-dom'
 import { HashRouter } from 'react-router-dom'
 
 import App from '../components/app/app.js'
+import LoginRegister from '../components/loginRegister/loginRegister.js'
 
 // Firebase config
 import * as firebase from 'firebase'
@@ -23,7 +24,7 @@ if (!firebase.apps.length) {
     firebase.initializeApp(config);
 }
 
-// Need authentication to allow access to database. 
+// Need authentication to allow access to database.
 firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
   // Handle Errors here.
   var errorCode = error.code;
@@ -48,13 +49,32 @@ export class Index extends Component {
       loading: true,
       error: '',
       cart: ['yolo', 'swag'],
-      data: {}
+      data: {},
+      inApp: false
     }
+    this.navToApp = this.navToApp.bind(this);
+  }
+
+  navToApp = () => {
+    this.setState( {inApp: true} );
   }
 
   componentDidMount () {
-    console.log('index.js page loaded')
-    this.setState({ loading: false })
+    console.log('index.js page loaded');
+    if(this.state.loading) this.setState({ loading: false });
+    /*
+      *** Attention Nick ***
+        this is probably what we are going to want to use
+        for routing once we have firebase auth hooked up
+      *** Attention Nick ***
+      firebase.auth().onAuthStateChanged(function(user) {
+        if (user) {
+          // User is signed in.
+        } else {
+          // User is signed out.
+        }
+      });
+    */
   }
 
   render () {
@@ -75,15 +95,20 @@ export class Index extends Component {
       )
     }
 
-
-    return (
-      <HashRouter>
-        <div>
-          <App />
-          <Stylesheet sheet={sheet} />
-        </div>
-      </HashRouter>
-    )
+    if(this.state.inApp) {
+      return (
+        <HashRouter>
+          <div>
+            <App />
+            <Stylesheet sheet={sheet} />
+          </div>
+        </HashRouter>
+      );
+    } else {
+      return (
+        <LoginRegister navToApp={this.navToApp}/>
+      )
+    }
   }
 }
 
