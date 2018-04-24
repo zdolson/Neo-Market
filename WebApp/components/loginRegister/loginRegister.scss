@@ -2,3 +2,137 @@
 @import '../reset';
 @import '../mixins';
 @import '../animations';
+
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Styling for loginRegister page
+
+**/
+
+.wholeContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100vh;
+}
+
+.leftSide {
+	display: flex;
+	flex: 6;
+	background-color: $grey30;
+	flex-direction: column;
+}
+
+.rightSide {
+	dispaly: flex;
+	flex: 4;
+	background-color: $japaneseIndigoDarkBlue;
+	flex-direction: column;
+	justify-content: center;
+	z-index: 2;
+}
+
+.logo {
+  margin: 10px 0px 0px 10px;
+}
+
+.informationContainer {
+	display: flex;
+	flex-direction: column;
+	margin: 15% 10% 0% 10%;
+	height: 80vh;
+}
+
+.welcomeText{
+	display: flex;
+	margin: 2% 8% 5% 8%;
+	font-size: 40px;
+	font-weight: lighter;
+}
+
+.informationText {
+	display: flex;
+	margin: 0% 8% 2% 8%;
+	font-size: 20px;
+	line-height: 31px;
+	font-weight: lighter;
+}
+
+.registerButton {
+	display: flex;
+	height: 60px;
+	width: 225px;
+	background: $brightGreen;
+	border-radius: 10px;
+}
+
+.registerButtonText {
+	text-align: center;
+	margin: auto;
+	font-size: 28px;
+	font-weight: lighter;
+}
+
+.buttonContainer {
+	display: flex;
+	margin: 5% 8% 2% 8%;
+}
+
+.formContainer {
+	display: flex;
+	flex-direction: column;
+	background-color: $loginPageGreen;
+	height: 435px;
+	width: 400px;
+	border-radius: 4px;
+	margin: 35% 10% 0% 10%;
+}
+
+.captionBox {
+	text-align: center;
+	margin: 15% 15% 0% 15%;
+	font-size: 32px;
+	line-height: 31px;
+	font-weight: lighter;
+}
+
+.loginName {
+	text-align: center;
+	margin: 10% 10% 5% 5%;
+}
+
+.loginNameInput {
+	font-size: 28px;
+	width: 75%;
+	margin: center;
+	border-bottom: solid #eeeeee 1px;
+	font-weight: lighter;
+}
+
+.inputPasswordField {
+	text-align: center;
+	margin: 10% 10% 5% 5%;
+}
+
+.passwordInput {
+	font-size: 28px;
+	width: 75%;
+	margin: center;
+	border-bottom: solid #eeeeee 1px;
+	font-weight: lighter;
+}
+
+.loginButton {
+	margin-left: 65%;
+}
+
+.loginImage {
+	z-index: 1;
+	height: 100vh;
+}
+
