@@ -106,7 +106,10 @@ export class Index extends Component {
       );
     } else {
       return (
-        <LoginRegister navToApp={this.navToApp}/>
+        <div>
+          <LoginRegister navToApp={this.navToApp}/>
+          <Stylesheet sheet={sheet} />
+        </div>
       )
     }
   }
