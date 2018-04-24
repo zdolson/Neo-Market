@@ -25,11 +25,11 @@ describe("Index component", () => {
     expect(actual).toEqual(expected)
   });
 
-  it("renders a HashRouter child", () => {
+  it("renders a HashRouter or Register child", () => {
     let wrapper = shallow(<Index/>);
 
     let expected = 1;
-    let actual = wrapper.find("HashRouter").length;
+    let actual = wrapper.find("HashRouter").length + wrapper.find("LoginRegister").length;
 
     expect(expected).toEqual(actual);
   });
