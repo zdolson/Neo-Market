@@ -1,0 +1,155 @@
+@import '../../vars';
+@import '../../reset';
+@import '../../mixins';
+@import '../../animations';
+
+/**
+
+@ Nicholas
+
+@ 03/04/2018
+
+Purpose: Styling for the register page
+
+**/
+
+.registerPageContainer{
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	height: 100vh;
+	background-color: $greyRegisterBackground;
+}
+
+.leftSideRegisterPage{
+	display: flex;
+	flex: 5;
+	flex-direction: column;
+}
+
+.rightSideRegisterPage{
+	dispaly: flex;
+	flex: 5;
+	flex-direction: column;
+}
+
+.registerFormContainer{
+	display: flex;
+	flex-direction: column;
+	height: 50%;
+	width: 80%;
+	margin: 25% 10% 0% 25%;
+}
+
+.fullNameContainer{
+	text-align: right;
+	margin: 0% 10% 5% 5%;
+}
+
+.fullNameInput{
+	font-size: 24px;
+	color: $inputFieldDefault;
+	width: 75%;
+	margin: center;
+	border-bottom: solid white 1px;
+	font-weight: lighter;
+}
+
+.emailNameContainer{
+	text-align: right;
+	margin: 0% 10% 5% 5%;
+}
+
+.emailNameInput{
+	font-size: 24px;
+	color: $inputFieldDefault;
+	width: 75%;
+	margin: center;
+	border-bottom: solid white 1px;
+	font-weight: lighter;
+}
+
+.passwordNameContainer{
+	text-align: right;
+	margin: 0% 10% 5% 5%;
+}
+
+.passwordNameInput{
+	font-size: 24px;
+	color: $inputFieldDefault;
+	width: 75%;
+	margin: center;
+	border-bottom: solid white 1px;
+	font-weight: lighter;
+}
+
+.verifyPasswordNameContainer{
+	text-align: right;
+	margin: 0% 10% 5% 5%;
+}
+
+.verifyPasswordNameInput{
+	font-size: 24px;
+	color: $inputFieldDefault;
+	width: 75%;
+	margin: center;
+	border-bottom: solid white 1px;
+	font-weight: lighter;
+}
+
+.importWalletContainer{
+	text-align: right;
+	margin: 0% 10% 5% 5%;
+}
+
+.walletInput{
+	font-size: 24px;
+	color: $inputFieldDefault;
+	width: 75%;
+	margin: center;
+	border-bottom: solid white 1px;
+	font-weight: lighter;
+}
+
+.registerButtonContainer {
+	display: flex;
+	margin: 2% 8% 2% 65%;
+}
+
+.registerPageButton{
+	display: flex;
+	width: 175px;
+	height: 50px;
+	background-color: $registerButtonOrange;
+	border-radius: 4px;
+}
+
+.registerButtonText{
+	text-align: center;
+	margin: auto;
+	font-size: 24px;
+	font-weight: lighter;
+}
+
+.importProfilePictureContainer{
+	display: flex;
+	flex-direction: column;
+	width: 370px;
+	height: 400px;
+	background-color: $profileSquareGreen;
+	border-radius: 4px;
+	margin: 25% 0% 0% 8%;
+}
+
+.profilePictureCaption{
+	display: flex;
+	font-size: 24px;
+	margin: 10% 20% 5% 27%;
+}
+
+.importPhotoIconContainer{
+	margin: 0% 10% 0% 40%;
+}
+
+
+
