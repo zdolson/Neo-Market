@@ -30,6 +30,7 @@ export class CheckOutPage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.helperReferenceFunctionForZach = this.helperReferenceFunctionForZach.bind(this)
   }
 
   openModal() {
@@ -52,11 +53,34 @@ export class CheckOutPage extends Component {
     this.setState({password: event.target.value});
   }
 
+  // Zach this is a little refernce for how to interact with  the cartItems
+  helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID){
+    console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
+    if (cartItems.length != 0) {
+      console.log(cartItems)
+      console.log(cartItems.length)
+
+      // This function returns information about the cartItem when passed in the cartitem id.
+      console.log(returnCheckOutDataByID(cartItems[0]))
+      
+      var currCartItem = returnCheckOutDataByID(cartItems[0])
+      console.log(currCartItem['id'])
+      console.log(currCartItem['owner'])
+      console.log(currCartItem['title'])
+      console.log(currCartItem['description'])
+      console.log(currCartItem['price'])
+      console.log(currCartItem['amount'])
+    }
+    console.log('>>>>>>>>> BOTTOM HELPER FUNCTION >>>>>>>>>>>>')
+  }
+
+
   render () {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
     var tryAgain = this.props.tryAgain
+    var cartItems = this.props.cartItems
 
     const { openModal } = this.state;
 
@@ -74,6 +98,8 @@ export class CheckOutPage extends Component {
             <CheckOutTableItems tryAgain={tryAgain} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
+
+        {this.helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">
