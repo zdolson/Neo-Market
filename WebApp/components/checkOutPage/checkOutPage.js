@@ -54,7 +54,7 @@ export class CheckOutPage extends Component {
   }
 
   // Zach this is a little refernce for how to interact with  the cartItems
-  helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID){
+  helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID){
     console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
     if (cartItems.length != 0) {
       console.log(cartItems)
@@ -62,7 +62,7 @@ export class CheckOutPage extends Component {
 
       // This function returns information about the cartItem when passed in the cartitem id.
       console.log(returnCheckOutDataByID(cartItems[0]))
-      
+
       var currCartItem = returnCheckOutDataByID(cartItems[0])
       console.log(currCartItem['id'])
       console.log(currCartItem['owner'])
@@ -70,6 +70,16 @@ export class CheckOutPage extends Component {
       console.log(currCartItem['description'])
       console.log(currCartItem['price'])
       console.log(currCartItem['amount'])
+
+      console.log(users)
+      var userOne = users[0]
+      console.log(userOne)
+      console.log(userOne['wif'])
+      console.log(userOne['email'])
+      console.log(userOne['fistName'])
+      console.log(userOne['lastName'])
+      console.log(userOne['password'])
+      console.log(userOne['userName'])
     }
     console.log('>>>>>>>>> BOTTOM HELPER FUNCTION >>>>>>>>>>>>')
   }
@@ -81,6 +91,7 @@ export class CheckOutPage extends Component {
     var sumTotalCartItems = this.props.sumTotalCartItems
     var tryAgain = this.props.tryAgain
     var cartItems = this.props.cartItems
+    var users = this.props.users
 
     const { openModal } = this.state;
 
@@ -99,7 +110,7 @@ export class CheckOutPage extends Component {
           )
         })}
 
-        {this.helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID)}
+        {this.helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">
