@@ -11,6 +11,7 @@ import PurchasesPage from '../purchasesPage/purchasesPage.js';
 import PeoplePage from '../peoplePage/peoplePage.js';
 import CheckOutPage from '../checkOutPage/checkOutPage.js';
 import MoreInfoListingPage from '../moreInfoListingPage/moreInfoListingPage.js';
+import MyProfilePage from '../myProfilePage/myProfilePage.js';
 
 // Import for react-router package.
 import { Switch, Route, hashHistory } from 'react-router-dom'
@@ -40,6 +41,7 @@ class RoutingComponent extends Component {
           <Route exact path="/" render={ () => <ListingsPage tryAgain={tryAgain} state={state}/> } />
           <Route path="/Listings" render={ () => <ListingsPage state={state} tryAgain={tryAgain}/> } />
           <Route path="/Post"  render={ () => <MakePost addItem={addItem} removeItem={removeItem}/> } />
+          <Route path="/Profile" render={ () => <MyProfilePage/> } />
           <Route path="/Forums" component={ForumsPage} />
           <Route path="/Wallet" component={WalletPage} />
           <Route path="/Trash" component={TrashPage} />

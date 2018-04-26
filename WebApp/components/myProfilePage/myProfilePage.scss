@@ -1,0 +1,23 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+/*
+  @Author: Alec
+  @Date: 4/25/17
+*/
+
+.main-container {
+  position: absolute;
+  left: 175px;
+  right: 175px;
+  top: 50px;
+}
+
+.tabs-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 5% 20% 0% 20%;
+}
