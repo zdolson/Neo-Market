@@ -17,6 +17,7 @@
     "raw-loader": "^0.5.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",
+    "react-responsive-modal": "^2.1.0",
     "react-router-dom": "^4.2.2",
     "sass-loader": "^7.0.1",
     "svg-react-loader": "^0.4.5"
@@ -28,17 +29,20 @@
     "deploy": "now -e NODE_ENV=test --token $NOW_TOKEN",
     "alias": "now alias --token=$NOW_TOKEN",
     "now-rm": "now rm neomkt-test --safe --yes --token=$NOW_TOKEN",
-    "test": "NODE_ENV=test jest --coverage",
+    "test": "NODE_ENV=test jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
     "now": "^9.3.3",
     "pre-commit": "^1.2.2",
+    "regenerator-runtime": "^0.11.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "pre-commit": [
