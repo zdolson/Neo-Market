@@ -34,12 +34,15 @@
     "test:coverage": "jest --coverage"
   },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-jest": "^22.4.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.4.3",
     "now": "^9.3.3",
     "pre-commit": "^1.2.2",
+    "regenerator-runtime": "^0.11.1",
     "selenium-webdriver": "^4.0.0-alpha.1"
   },
   "pre-commit": [
