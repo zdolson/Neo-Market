@@ -38,13 +38,25 @@ class MyProfilePage extends Component {
   }
 
   render () {
-    let Tab = this.state.tabs[this.state.tabSelected];
+
+    const Tab = this.state.tabs[this.state.tabSelected];
+    const styles = {
+      selectedStyle = {
+        background: 'none'
+      },
+      unselectedStyle = {}
+    };
+    let listingsStyle = purchasesStyle = walletStyle = unselectedStyle;
+    if(this.state.tabSelected == 0) { listingsStyle = selectedStyle; }
+    if(this.state.tabSelected == 1) { purchasesStyle = selectedStyle; }
+    if(this.state.tabSelected == 2) { walletStyle = selectedStyle; }
+
     return (
       <div className="main-container">
         <div className="tabs-container">
-          <div onClick={this.handleListings}>one</div>
-          <div onClick={this.handlePurchases}>two</div>
-          <div onClick={this.handleWallet}>three</div>
+          <div className ="tab" onClick={this.handleListings}>one</div>
+          <div className ="tab" onClick={this.handlePurchases}>two</div>
+          <div className ="tab" onClick={this.handleWallet}>three</div>
         </div>
         <Tab />
         <Stylesheet sheet={sheet}/>
