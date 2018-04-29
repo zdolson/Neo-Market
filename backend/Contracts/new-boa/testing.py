@@ -107,14 +107,15 @@ differently from what I expected.
 def deletepost(args):
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
-    stuff = deserialize_bytearray(bList)
-    if len(stuff) < args[1]:
-        Notify("Out of bound selection to delete") 
-    else: 
-        stuff.remove(args[1]) 
+    if not addr:
+        print("cant delete")
+        return 0
+    else:
+        stuff = deserialize_bytearray(bList)
+        stuff = None
         bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
-    print("done with setting the post to 0")
+        return 1
 
 """
 @Function: select
