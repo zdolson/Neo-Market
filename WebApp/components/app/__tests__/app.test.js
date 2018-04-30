@@ -6,6 +6,11 @@ import * as firebase from "firebase"
 
 describe('App Component', () => {
 
+  firebase.auth().signInWithEmailAndPassword('allfelt@ucsc.edu', 'twinkie2')
+  .catch( (err) => {
+    console.error(err);
+  });
+
   it('renders one child', () => {
     const wrapper = shallow(<App/>);
 
