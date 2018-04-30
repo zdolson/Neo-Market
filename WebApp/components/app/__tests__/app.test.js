@@ -3,10 +3,13 @@ import {shallow} from 'enzyme'
 import App from '../app.js'
 import {HashRouter} from 'react-router-dom'
 import * as firebase from "firebase"
+import {loginUser, initializeApp} from '../../../fireBaseFunctions.js'
 
 describe('App Component', () => {
 
-  firebase.auth().signInWithEmailAndPassword('allfelt@ucsc.edu', 'twinkie2')
+  initializeApp();
+  loginUser('allfelt@ucsc.edu', 'allfelt');
+
   .catch( (err) => {
     console.error(err);
   });

@@ -12,7 +12,7 @@ class Register extends Component {
   }
 
   registerHandler = () => {
-    console.log("registerHandler()");
+    // console.log("registerHandler()");
     this.props.navToApp();
   }
 
@@ -27,23 +27,23 @@ class Register extends Component {
         <div className="registerPageContainer">
           <div className="leftSideRegisterPage">
             <div className="registerFormContainer">
-              <div className="fullNameContainer"> 
+              <div className="fullNameContainer">
                 <input className="fullNameInput" type ="text" placeholder="Your Full Name"/>
               </div>
 
-              <div className="emailNameContainer"> 
+              <div className="emailNameContainer">
                 <input className="emailNameInput" type ="text" placeholder="Your email"/>
               </div>
 
-              <div className="passwordNameContainer"> 
+              <div className="passwordNameContainer">
                 <input className="passwordNameInput" type ="password" placeholder="Your password"/>
               </div>
 
-              <div className="verifyPasswordNameContainer"> 
+              <div className="verifyPasswordNameContainer">
                 <input className="verifyPasswordNameInput" type ="password" placeholder="Verify password"/>
               </div>
 
-              <div className="importWalletContainer"> 
+              <div className="importWalletContainer">
                 <input className="walletInput" type ="password" placeholder="Import WIF"/>
               </div>
 
