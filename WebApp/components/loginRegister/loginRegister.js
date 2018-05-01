@@ -17,12 +17,12 @@ class LoginRegister extends Component {
     }
 
     registerHandler = () => {
-      console.log("registerHandler()");
+      // console.log("registerHandler()");
       this.setState( {register: true} );
     }
 
     loginHandler = () => {
-      console.log("loginHandler()");
+      // console.log("loginHandler()");
       this.props.navToApp();
     }
 
@@ -42,10 +42,10 @@ class LoginRegister extends Component {
                   Welcome!
                 </div>
                 <div className="informationText">
-                  HelloWorld! This defines the default size of an element before the remaining space is distributed. 
-                  It can be a length (e.g. 20%, 5rem, etc.) or a keyword. The auto keyword means "look at my width or 
-                  height property" (which was temporarily done by the main-size keyword until deprecated). The content 
-                  keyword means "size it based on the item's content" - this keyword isn't well supported yet, so it's 
+                  HelloWorld! This defines the default size of an element before the remaining space is distributed.
+                  It can be a length (e.g. 20%, 5rem, etc.) or a keyword. The auto keyword means "look at my width or
+                  height property" (which was temporarily done by the main-size keyword until deprecated). The content
+                  keyword means "size it based on the item's content" - this keyword isn't well supported yet, so it's
                   hard to test and harder to know what its brethren max-content, min-content, and fit-content do.
                 </div>
                 <div className="buttonContainer">
@@ -63,11 +63,11 @@ class LoginRegister extends Component {
                 <div className="captionBox">
                   Or Log into your account
                 </div>
-                <div className="loginName"> 
+                <div className="loginName">
                   <input className="loginNameInput" type ="text" placeholder="Login Name"/>
                 </div>
 
-                <div className="inputPasswordField"> 
+                <div className="inputPasswordField">
                   <input className="passwordInput" type ="password" placeholder="Password"/>
                 </div>
 
