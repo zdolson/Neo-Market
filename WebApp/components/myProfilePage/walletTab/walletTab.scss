@@ -7,3 +7,21 @@
   @Author: Alec
   @Date: 4/25/17
 */
+
+.walletTab {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.walletTop {
+  width: 20%;
+  height: auto;
+}
+
+.walletBottom {
+  width: 60%;
+  height: auto;
+}

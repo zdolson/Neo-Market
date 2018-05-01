@@ -10,8 +10,16 @@ class WalletTab extends Component {
 
   render () {
     return (
-      <div>
-        walletTab
+      <div className="walletTab">
+
+        <div className="walletTop">
+          walletTop
+        </div>
+
+        <div className="walletBottom">
+          walletBottom
+        </div>
+
         <Stylesheet sheet={sheet} />
       </div>
     )
