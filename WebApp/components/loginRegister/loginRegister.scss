@@ -18,7 +18,7 @@ Purpose: Styling for loginRegister page
   display: flex;
   flex-direction: row;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .leftSide {
@@ -61,6 +61,7 @@ Purpose: Styling for loginRegister page
 	font-size: 20px;
 	line-height: 31px;
 	font-weight: lighter;
+	overflow: auto;
 }
 
 .registerButton {

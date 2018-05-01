@@ -2,6 +2,21 @@ import React from 'react'
 
 import * as firebase from 'firebase'
 
+export function initializeApp() {
+	const config = {
+	  apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
+	  authDomain: "neo-market-8a303.firebaseapp.com",
+	  databaseURL: "https://neo-market-8a303.firebaseio.com",
+	  projectId: "neo-market-8a303",
+	  storageBucket: "neo-market-8a303.appspot.com",
+	  messagingSenderId: "1035941360979"
+	};
+
+	if (!firebase.apps.length) {
+	    firebase.initializeApp(config);
+	}
+}
+
 export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
 	if(tryAgain && !imgLoad){
     var fireBaseDatabaseRef = firebase.database().ref('/ListingImages/');
@@ -145,10 +160,10 @@ export function registerUserToDatabase(wif, firstName, lastName, password, email
 }
 
 export function loginUser(email, password) {
-  firebase.auth().signInWithEmailAndPassword(email, password).then(
+  firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
 
-  ).catch(function(error) {
+  }).catch(function(error) {
     // Handle Errors here.
     console.log('An error has occured while logging in the user via Firebase: ')
     console.log(error.code)

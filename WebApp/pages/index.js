@@ -9,28 +9,13 @@ import App from '../components/app/app.js'
 import LoginRegister from '../components/loginRegister/loginRegister.js'
 
 // Firebase config
+import {initializeApp, loginUser} from '../components/fireBaseFunctions.js'
 import * as firebase from 'firebase'
 
-var config = {
-  apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
-  authDomain: "neo-market-8a303.firebaseapp.com",
-  databaseURL: "https://neo-market-8a303.firebaseio.com",
-  projectId: "neo-market-8a303",
-  storageBucket: "neo-market-8a303.appspot.com",
-  messagingSenderId: "1035941360979"
-};
-
-if (!firebase.apps.length) {
-    firebase.initializeApp(config);
-}
+initializeApp();
 
 // Need authentication to allow access to database.
-firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
-  // Handle Errors here.
-  var errorCode = error.code;
-  var errorMessage = error.message;
-  // ...
-});
+loginUser('nccheung@ucsc.edu', 'nccheung');
 
 /**
 
