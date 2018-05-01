@@ -31,7 +31,8 @@ Purpose: Styling for loginRegister page
 .rightSide {
 	dispaly: flex;
 	flex: 4;
-	background-color: $japaneseIndigoDarkBlue;
+	// background-color: $japaneseIndigoDarkBlue;
+  background-color: #0E1C27;
 	flex-direction: column;
 	justify-content: center;
 	z-index: 2;
@@ -136,4 +137,3 @@ Purpose: Styling for loginRegister page
 	z-index: 1;
 	height: 100vh;
 }
-
