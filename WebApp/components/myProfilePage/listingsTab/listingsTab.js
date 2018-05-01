@@ -2,7 +2,9 @@ import {Component} from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './listingsTab.scss'
 
-import ListingsPage from '../../listingsPage/listingsPage.js'
+import Listing from '../../listingsPage/listing/listing.js'
+
+import { Link } from "react-router-dom";
 
 class ListingsTab extends Component {
   constructor(props) {
@@ -12,12 +14,20 @@ class ListingsTab extends Component {
 
   render () {
 
-    let state = this.props.state;
-    let tryAgain = this.props.tryAgain;
+    var items = this.props.state.items;
+    var cartItems = this.props.state.cartItems;
+    var tryAgain = this.props.tryAgain;
 
     return (
-      <div>
-        <ListingsPage state={state} tryAgain={tryAgain}/>
+      <div className='listings'>
+
+        {items.map( (item, key) => {
+          var link = '/MoreInfoItem/'+item.id;
+          return (
+            <Link to={link} key={key} className="navLink">  <Listing item={item} tryAgain={tryAgain}/> </Link>
+          )
+        })}
+
         <Stylesheet sheet={sheet} />
       </div>
     )
