@@ -100,7 +100,7 @@ export function pullUsersFromDatabase(that){
       if(typeof arrayUserList !== 'undefined') {
         that.setState({ users: arrayUserList})
       }
-      
+
     })
   }).catch(err => {
     console.error(err)
@@ -129,6 +129,8 @@ export function registerUserToDatabase(wif, firstName, lastName, password, email
     var userNameList = Object.keys(snapshot.val())
     if(!isUserRegisterd(userName, userNameList)){
       firebase.database().ref('/Users/' + userName).set(newUser);
+	  console.log(newUser)
+	  console.log(that.state.users)
       that.setState({users: that.state.users.concat(newUser)})
 
       //Add users to firebase database auth
@@ -163,4 +165,3 @@ export function logoutUser(email, password){
     console.log(error.message)
   });
 }
-

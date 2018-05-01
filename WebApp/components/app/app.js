@@ -174,6 +174,7 @@ export class App extends Component {
         break
       } else {
         var currNum = currCartItemData['price']
+        currNum = currNum.replace(/[^\x20-\x7E]/g, ''); // Needed to strip extra hidden ASCII values
         if (typeof currCartItemData['price'] !== 'number') {
           currNum = parseInt(currNum)
         }

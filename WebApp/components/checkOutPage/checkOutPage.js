@@ -8,6 +8,7 @@ import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
 import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
 import cF from '../../../backend/contractFunctions'
+import { registerUserToDatabase } from '../fireBaseFunctions'
 
 /**
 
@@ -54,22 +55,50 @@ export class CheckOutPage extends Component {
   }
 
   // Zach this is a little refernce for how to interact with  the cartItems
-  helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID){
+  helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
     console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
-    if (cartItems.length != 0) {
-      console.log(cartItems)
-      console.log(cartItems.length)
-
-      // This function returns information about the cartItem when passed in the cartitem id.
-      console.log(returnCheckOutDataByID(cartItems[0]))
-      
-      var currCartItem = returnCheckOutDataByID(cartItems[0])
-      console.log(currCartItem['id'])
-      console.log(currCartItem['owner'])
-      console.log(currCartItem['title'])
-      console.log(currCartItem['description'])
-      console.log(currCartItem['price'])
-      console.log(currCartItem['amount'])
+    // console.log(users)
+    // registerUserToDatabase('KySLWEJDrGh7HmnZNVP3QzvkFBdDHX3dX7qh7tamxrpTcM1GNrkh', 'tom', 'foo', 'tomfoo', 'tomfoo@footom.com', 'tom', that);
+    // if (cartItems.length != 0) {
+    //   console.log(cartItems)
+    //   console.log(cartItems.length)
+    //
+    //   // This function returns information about the cartItem when passed in the cartitem id.
+    //   for (let i = 0; i < cartItems.length; i++){
+    //       console.log(returnCheckOutDataByID(cartItems[i]))
+    //
+    //       var currCartItem = returnCheckOutDataByID(cartItems[i])
+    //       console.log(currCartItem['id'])
+    //       console.log(currCartItem['owner'])
+    //       console.log(currCartItem['title'])
+    //       console.log(currCartItem['description'])
+    //       console.log(currCartItem['price'])
+    //       console.log(currCartItem['amount'])
+    //   }
+    // }
+    var buyerName = 'zdolson';
+    if (cartItems.length == 0) {
+        // disable purchase button
+        console.log('need to disable button here');
+    } else if (cartItems.length == 1) {
+        var currCartItem = returnCheckOutDataByID(cartItems[0])
+        var listingOwner = currCartItem['owner'];
+        var listingCost = currCartItem['price'];
+        listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
+        listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
+        console.log(listingOwner);
+        console.log(listingCost);
+        cF.purchase('zdolson', 'zdolson', listingCost);
+    } else {
+        var ownersArray = [];
+        var costArray = [];
+        for (let i = 0; i < cartItems.length; i++){
+            var currCartItem = returnCheckOutDataByID(cartItems[i]);
+            ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
+            costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
+        }
+        console.log(ownersArray);
+        cF.multipurchase(ownersArray, buyerName, costArray);
     }
     console.log('>>>>>>>>> BOTTOM HELPER FUNCTION >>>>>>>>>>>>')
   }
@@ -81,6 +110,7 @@ export class CheckOutPage extends Component {
     var sumTotalCartItems = this.props.sumTotalCartItems
     var tryAgain = this.props.tryAgain
     var cartItems = this.props.cartItems
+    var users = this.props.users
 
     const { openModal } = this.state;
 
@@ -99,7 +129,7 @@ export class CheckOutPage extends Component {
           )
         })}
 
-        {this.helperReferenceFunctionForZach(cartItems, returnCheckOutDataByID)}
+        {this.helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, this)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">

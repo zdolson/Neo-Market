@@ -24,20 +24,117 @@ var debug = false;
 
 module.exports = {
 
+    /*
+     * @Function: multipurchase
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownersArray
+     * @Param: {string} buyerName
+     * @Param: {string} costArray
+     * @Return:
+     * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
+     */
+    multipurchase: (ownersArray, buyerName, costArray) => {
+        return new Promise((resolve,reject) => {
+            var firebaseConfig = {
+              apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
+              authDomain: "neo-market-8a303.firebaseapp.com",
+              databaseURL: "https://neo-market-8a303.firebaseio.com",
+              projectId: "neo-market-8a303",
+              storageBucket: "neo-market-8a303.appspot.com",
+              messagingSenderId: "1035941360979"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            // Need authentication to allow access to database.
+            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+            });
+
+            // Gets buyer info from firebase
+            firebase.database().ref('/Users/'+buyerName).once('value').then(snapshot => {
+                var bWif = snapshot.child('wif').val();
+                console.log(bWif);
+                var buyerAccount = Neon.create.account(bWif);
+                var balanceConfig = {
+                    net: config.RESTEndpoint,
+                    address: buyerAccount.address
+                };
+                // neon.api.getBalanceFrom(balanceConfig, neon.api.neoscan).then(balance => {
+                node.getBalance(buyerAccount.address).then(balance => {
+                    console.log(balance);
+                    node.getRPCEndpoint().then(rpcEndpoint => {
+                        console.log(rpcEndpoint);
+                        var client = Neon.create.rpcClient(rpcEndpoint);
+                        for (let i = 0; i < ownersArray.length; i++){
+                            var currOwnerName = ownersArray[0]; //<-- hardcoded for now
+                            console.log(currOwnerName);
+                            var tx = Neon.create.tx({type:128});
+                            // Retrieve owner information
+                            firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
+                            // firebase.database().ref('/Users/zdolson').once('value').then((snapshot) => {)
+                                var oWif = snapshot.child('wif').val();
+                                console.log(oWif);
+                                var ownerAccount = Neon.create.account(oWif);
+
+                                console.log(config.RESTEndpoint);
+                                console.log(buyerAccount.address);
+                                console.log(buyerAccount.privateKey);
+
+                                tx.addOutput('NEO',1,ownerAccount.address)
+                                .calculate(balance)
+                                .sign(buyerAccount.privateKey);
+                                console.log(tx);
+                                console.log(tx.hash);
+                                balance.applyTx(tx);
+                                client.sendRawTransaction(tx).then(res => {
+                                    console.log(res);
+                                    // resolve(res);
+                                })
+                             }) //end owner data pull
+                         } //end for loop
+                         balance.confirm(); // should end with this??
+                         resolve(1);
+                    }).catch(err => {
+                        if (debug){
+                            console.error('multipurchase(): err: ', err);
+                        }
+                        reject(err);
+                    })
+                 }).catch(err => {
+                     if (debug){
+                         console.error('multipurchase(): err: ', err);
+                     }
+                     reject(err);
+                 })
+             }) //end buyer data pull
+         }) //end promise
+     }, //end function
+
+                //
+                // Neon.sendAsset(sendConfig).then(sendConfig => {
+                //     console.log(sendConfig.response)
+                //     resolve(sendConfig);
+                // }).catch(sendConfig => {
+                //     console.log(sendConfig)
+                //     reject(sendConfig);
+                // })
 
     /*
      * @Function: purchase
      * @Contributor: Zachary Olson
      * @Param: {string} ownerName
      * @Param: {string} buyerName
+     * @Param: {string} cost
      * @Return:
      * Purpose: Transfers assets from buyer to owner.
      */
-    purchase: (ownerName, buyerName) => {
+    purchase: (ownerName, buyerName, cost) => {
         return new Promise((resolve,reject) => {
-
-            //Need to get both WIFs from Firebase using ownerName and buyerName
-            // Temporarily store retrieved WIF in variables for account creation
             var firebaseConfig = {
               apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
               authDomain: "neo-market-8a303.firebaseapp.com",
@@ -70,7 +167,7 @@ module.exports = {
                     var ownerAccount = Neon.create.account(oWif);
                     var buyerAccount = Neon.create.account(bWif);
                     // console.log(ownerAccount.address);
-                    const intents = neon.api.makeIntent({NEO:1}, ownerAccount.address)
+                    const intents = neon.api.makeIntent({NEO:cost}, ownerAccount.address)
 
                     console.log(config.RESTEndpoint);
                     console.log(buyerAccount.address);
@@ -233,8 +330,9 @@ module.exports = {
     /*
      * @Function: getAllPostsFromStorage
      * @Contributor: Zachary Olson
+     * @Param: instance that
      * @Return: {string array} allPosts
-     * Purpose: Returns a string array of all postings stored on the SC.
+     * Purpose: Returns and sets the items state in the instance provided with an array of listings from the SC.
      */
     getAllPostsFromStorage: (that) => {
         return new Promise((resolve,reject) => {
