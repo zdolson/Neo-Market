@@ -6,6 +6,10 @@ import LoginButton from '../assets/LoginButton.svg'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './loginRegister.scss'
 
+import * as firebase from 'firebase'
+
+import { loginUser } from '../fireBaseFunctions.js'
+
 class LoginRegister extends Component {
     constructor(props) {
       super(props);
@@ -22,8 +26,11 @@ class LoginRegister extends Component {
     }
 
     loginHandler = () => {
-      // console.log("loginHandler()");
-      this.props.navToApp();
+      loginUser(this.loginName.value, this.password.value).then((user) => {
+        if (user) {
+          this.props.navToApp();
+        }
+      })
     }
 
     render () {
@@ -64,11 +71,11 @@ class LoginRegister extends Component {
                   Or Log into your account
                 </div>
                 <div className="loginName">
-                  <input className="loginNameInput" type ="text" placeholder="Login Name"/>
+                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Login Name"/>
                 </div>
 
                 <div className="inputPasswordField">
-                  <input className="passwordInput" type ="password" placeholder="Password"/>
+                  <input className="passwordInput" type ="password" ref={(ref) => { this.password = ref; }} placeholder="Password"/>
                 </div>
 
                 <div className="loginButton" onClick={this.loginHandler}>

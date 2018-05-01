@@ -158,9 +158,9 @@ export function registerUserToDatabase(wif, firstName, lastName, password, email
 }
 
 export function loginUser(email, password) {
-  firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
-
+    return user
   }).catch(function(error) {
     // Handle Errors here.
     console.log('An error has occured while logging in the user via Firebase: ')
