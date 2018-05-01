@@ -55,7 +55,6 @@ export class CheckOutPage extends Component {
   }
 
   // Zach this is a little refernce for how to interact with  the cartItems
-<<<<<<< HEAD
   helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
     console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
     // console.log(users)
@@ -100,34 +99,6 @@ export class CheckOutPage extends Component {
         }
         console.log(ownersArray);
         cF.multipurchase(ownersArray, buyerName, costArray);
-=======
-  helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID){
-    console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
-    if (cartItems.length != 0) {
-      console.log(cartItems)
-      console.log(cartItems.length)
-
-      // This function returns information about the cartItem when passed in the cartitem id.
-      console.log(returnCheckOutDataByID(cartItems[0]))
-
-      var currCartItem = returnCheckOutDataByID(cartItems[0])
-      console.log(currCartItem['id'])
-      console.log(currCartItem['owner'])
-      console.log(currCartItem['title'])
-      console.log(currCartItem['description'])
-      console.log(currCartItem['price'])
-      console.log(currCartItem['amount'])
-
-      console.log(users)
-      var userOne = users[0]
-      console.log(userOne)
-      console.log(userOne['wif'])
-      console.log(userOne['email'])
-      console.log(userOne['fistName'])
-      console.log(userOne['lastName'])
-      console.log(userOne['password'])
-      console.log(userOne['userName'])
->>>>>>> 26d0c75655b7fc9ebfac49bc5b74a32f9671eb9a
     }
     console.log('>>>>>>>>> BOTTOM HELPER FUNCTION >>>>>>>>>>>>')
   }
