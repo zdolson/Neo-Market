@@ -27,6 +27,7 @@ class LoginRegister extends Component {
 
     loginHandler = () => {
       loginUser(this.loginName.value, this.password.value).then((user) => {
+        // if a user is return from the firebase login function, then the user was auth correctly.
         if (user) {
           this.props.navToApp();
         }
