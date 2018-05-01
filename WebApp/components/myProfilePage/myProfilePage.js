@@ -39,7 +39,11 @@ class MyProfilePage extends Component {
 
   render () {
 
+    let state = this.props.state;
+    let tryAgain = this.props.tryAgain;
+
     const Tab = this.state.tabs[this.state.tabSelected];
+
     const styles = {
       selectedStyle: {
         background: 'none',
@@ -59,7 +63,7 @@ class MyProfilePage extends Component {
           <div style={purchasesStyle} className ="tab" onClick={this.handlePurchases}>two</div>
           <div style={walletStyle} className ="tab" onClick={this.handleWallet}>three</div>
         </div>
-        <Tab />
+        { this.state.tabSelected == 0 ? <Tab state={state} tryAgain={tryAgain}/> : <Tab/> }
         <Stylesheet sheet={sheet}/>
       </div>
     )

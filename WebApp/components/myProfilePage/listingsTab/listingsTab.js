@@ -2,6 +2,8 @@ import {Component} from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './listingsTab.scss'
 
+import ListingsPage from '../../listingsPage/listingsPage.js'
+
 class ListingsTab extends Component {
   constructor(props) {
     super(props);
@@ -9,9 +11,13 @@ class ListingsTab extends Component {
   }
 
   render () {
+
+    let state = this.props.state;
+    let tryAgain = this.props.tryAgain;
+
     return (
       <div>
-        listingsTab
+        <ListingsPage state={state} tryAgain={tryAgain}/>
         <Stylesheet sheet={sheet} />
       </div>
     )
