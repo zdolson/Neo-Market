@@ -129,11 +129,7 @@ export class CheckOutPage extends Component {
           )
         })}
 
-<<<<<<< HEAD
         {this.helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, this)}
-=======
-        {this.helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID)}
->>>>>>> 26d0c75655b7fc9ebfac49bc5b74a32f9671eb9a
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">
