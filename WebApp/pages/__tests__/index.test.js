@@ -1,8 +1,13 @@
-import React from 'react'
-import {shallow} from 'enzyme'
+// import React from 'react'
+const React = require('react')
+// import {shallow} from 'enzyme'
+const {shallow} = require('enzyme')
 import Index from '../index.js'
-import {HashRouter} from 'react-router-dom'
-import * as firebase from "firebase"
+// const Index = require('../index.js')
+// import {HashRouter} from 'react-router-dom'
+const {HashRouter} = require('react-router-dom')
+// import * as firebase from "firebase"
+const firebase = require('firebase')
 
 /*
 

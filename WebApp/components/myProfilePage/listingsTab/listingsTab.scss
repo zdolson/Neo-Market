@@ -1,0 +1,19 @@
+@import '../../vars';
+@import '../../reset';
+@import '../../mixins';
+@import '../../animations';
+
+.listings {
+  height: auto;
+  width: 100%;
+  justify-content: space-around;
+  padding-top: 20px;
+  position: absolute;
+  display: flex;
+  flex-flow: row wrap;
+  z-index: 0;
+}
+
+.navLink {
+  margin: 20px 20px 20px 20px;
+}

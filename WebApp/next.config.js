@@ -19,6 +19,10 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'babel-loader!svg-react-loader'
+      },
+      {
+        test: /\.(jpg|png)$/,
+        loader: 'babel-loader!file-loader'
       }
     )
     return config
