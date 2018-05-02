@@ -47,8 +47,29 @@ Purpose: Provides styling to the TopBar component
   padding-left: 5%;
   align-items: center;
   border-radius: 25px;
-  height: 50%;
+  height: 60%;
   width: 100%;
   background: $grey70;
   color: $grey50;
+}
+
+.logOutContainer {
+  width: 20%;
+  height:70%;
+  display: flex;
+  margin-right: 2%;
+  align-items: center;
+}
+
+.logOutButton {
+
+  display: flex;
+  padding-left: 10%;
+  margin-left: 150px;
+  align-items: center;
+  border-radius: 5px;
+  height: 100%;
+  width: 30%;
+  background: #E2AC09;
+  color: $white;
 }
