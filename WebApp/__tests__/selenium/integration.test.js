@@ -1,4 +1,4 @@
-let webdriver = require('selenium-webdriver');
+const webdriver = require('selenium-webdriver')
 
 test('Simple Google Test', () => {
 
