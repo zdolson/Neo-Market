@@ -103,7 +103,7 @@ def deletepost(args):
         return 0
     else:
         stuff = deserialize_bytearray(bList)
-        stuff = None
+        stuff[args[1]] = 'None' # double check on this variable 
         bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
         return 1
