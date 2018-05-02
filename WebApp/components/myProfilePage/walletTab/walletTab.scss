@@ -13,11 +13,14 @@
   height: auto;
   display: flex;
   flex-direction: column;
+  font-size: 25px;
+  font-weight: 200;
+  color: $inputFieldDefault;
 }
 
 .photoImportName {
-  width: 210px;
-  height: 185px;
+  width: 220px;
+  height: auto;
   margin: 10% 0%;
   display: flex;
   flex-direction: row;
@@ -31,21 +34,26 @@
 
 .photo {
   width: 150px;
-  height: 150px;
+  height: auto;
+  padding: 5px;
   border-radius: 5px;
   background: $japaneseIndigoDarkBlue;
 }
 
-.name {
+.userName {
   width: 150px;
   height: 25px;
-  margin-top: 10px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .importIcon {
   width: 50px;
   height: 50px;
-  margin: 0px 0px 35px 10px;
+  margin: 0px 0px 30px 10px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .topBottomContainer {
@@ -58,5 +66,35 @@
 
 .walletForm {
   width: 500px;
-  background: $fuchsia;
+  background: $japaneseIndigoDarkBlue;
+  border-radius: 5px;
+
+}
+
+.name, .email, .address, .wifForm {
+  margin: 20px 0px 0px 20px;
+}
+
+.wifForm {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.wifInput {
+  line-height: 35px;
+}
+
+.wifButton {
+  color: black;
+  font-weight: 400;
+  padding: 10px;
+  margin-left: 10px;
+  border-radius: 5px;
+  background: $registerButtonOrange;
+  &:hover {
+    cursor: pointer;
+  }
 }

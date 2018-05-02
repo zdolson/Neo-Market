@@ -36,5 +36,6 @@
   transition: background 0.3s ease-in;
   &:hover {
     background: $tigersEyeOrange;
+    cursor: pointer;
   }
 }
