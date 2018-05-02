@@ -31,7 +31,7 @@ Purpose: This will register the user and their address to the smart contract
 def register(args):
     if args[0] == '1':
         Log("please no - this is for master list")
-        return False
+        return 0
     else:
         isMasterThere = Get(GetContext(), '1')
         if not isMasterThere:
@@ -55,6 +55,7 @@ def register(args):
         Put(GetContext(), b, bstuff)
         print("donnnnne")
         fillMaster(args[0]) # only want the names
+    return 1
 
 """
 @Function: createpost
@@ -135,6 +136,7 @@ def select(args):
     print("printing the value of the list now")
     print(stuff[args[1]])
     print("done with select")
+    return 1
 
 """
 @Function: isregister
@@ -207,5 +209,5 @@ def Main(operation, args):
         editPost(args)
     else:
         print("what op?")
-        return False
-    return True
+        return 0
+    return 1
