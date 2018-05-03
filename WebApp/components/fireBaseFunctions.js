@@ -169,9 +169,9 @@ export function loginUser(email, password) {
   });
 }
 
-export function logoutUser(email, password){
+export function logoutUser(){
   firebase.auth().signOut().then(function() {
-    console.log('User: ' + email + ' was logged out successfullly')
+    console.log('User was logged out successfullly')
   }).catch(function(error) {
     console.log('An error has occured while logging out the user via Firebase: ')
     console.log(error.code)

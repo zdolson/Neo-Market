@@ -6,6 +6,8 @@ import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
 // import cF from '../../../backend/contractFunctions'
 
+import { logoutUser } from '../fireBaseFunctions.js'
+
 /**
 
 @ Alec
@@ -19,16 +21,13 @@ Purpose: TopBar component; Provides template for top nav bar
 export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {
-        LogoutClicked: false
-    }
+    this.state = {}
     this.isRegister = this.isRegister.bind(this);
     this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
   LogoutHandler = () => {
-    console.log("LogoutHandler()");
-    this.setState( {LogoutClicked: true} );
+    logoutUser()
   }
 
   isRegister = () => {
