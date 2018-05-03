@@ -51,7 +51,7 @@ export class MakePostForm extends Component {
     var id = this.makeId();
 
     // Hard coded user since we dont have have users fully setup yet.
-    var hard_coded_owner = 'Foo Bar'
+    var hard_coded_owner = 'homie'; //<-- same thing as hard coded buyer, will update once Nick has function fleshed out.
     // postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
 
     // createPost works on pushing a posting to the SC.

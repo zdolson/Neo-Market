@@ -5,6 +5,9 @@ import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
 import cF from '../../../backend/contractFunctions'
+import node from '../../../backend/configFiles/blockchain'
+// const neon = require('@cityofzion/neon-js')
+// const Neon = neon.default
 
 /**
 
@@ -22,19 +25,33 @@ export class TopBar extends Component {
     this.state = {
 
     }
-    this.isRegister = this.isRegister.bind(this);
+    this.topbarTestingButton = this.topbarTestingButton.bind(this);
   }
 
 
-  isRegister = () => {
-      cF.purchase('dlang','zdolson');
+  topbarTestingButton = () => {
+      // cF.purchase('dlang','zdolson');
+      // cF.register('tom','11');
+      // cF.createPost('123', 'tom', 'diary', 'tom riddle\'s diary', '3', '1');
+      // cF.createPost('321','tom','wand','the elder wand foo','10','1');
+      // cF.register('homie','42');
+      // cF.createPost('456','homie','water bottle','its a water bottle','2','1');
+      // node.getBalance('AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y').then(balance => {
+      //     console.log(balance);
+      // });
+      // node.getRPCEndpoint().then(rpcEndpoint => {
+      //     var client = Neon.create.rpcClient(rpcEndpoint);
+      //     client.getRawTransaction("6f0a48873919d61b853f6d6d587538e8b4f2c12f26e517ecd00cf603b910e254",1).then(tx => {
+      //         console.log(tx);
+      //     })
+      // })
   }
 
   render () {
     return (
       <div className="topnav">
         <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
-        <div className="zachBtn" onClick={this.isRegister}>
+        <div className="zachBtn" onClick={this.topbarTestingButton}>
           Property of Zach
         </div>
         <div className="search">

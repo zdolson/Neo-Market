@@ -54,41 +54,19 @@ export class CheckOutPage extends Component {
     this.setState({password: event.target.value});
   }
 
-  // Zach this is a little refernce for how to interact with  the cartItems
+  // Will need to hook this up to modal upon confirmation of password in modal.
+  // Gonna push this working part and then I'll break it with modal.
   helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
-    console.log('>>>>>>>>> TOP HELPER FUNCTION >>>>>>>>>>>>')
-    // console.log(users)
-    // registerUserToDatabase('KySLWEJDrGh7HmnZNVP3QzvkFBdDHX3dX7qh7tamxrpTcM1GNrkh', 'tom', 'foo', 'tomfoo', 'tomfoo@footom.com', 'tom', that);
-    // if (cartItems.length != 0) {
-    //   console.log(cartItems)
-    //   console.log(cartItems.length)
-    //
-    //   // This function returns information about the cartItem when passed in the cartitem id.
-    //   for (let i = 0; i < cartItems.length; i++){
-    //       console.log(returnCheckOutDataByID(cartItems[i]))
-    //
-    //       var currCartItem = returnCheckOutDataByID(cartItems[i])
-    //       console.log(currCartItem['id'])
-    //       console.log(currCartItem['owner'])
-    //       console.log(currCartItem['title'])
-    //       console.log(currCartItem['description'])
-    //       console.log(currCartItem['price'])
-    //       console.log(currCartItem['amount'])
-    //   }
-    // }
-    var buyerName = 'zdolson';
+    var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
     if (cartItems.length == 0) {
-        // disable purchase button
-        console.log('need to disable button here');
+        // disable purchase button functionality here.
     } else if (cartItems.length == 1) {
         var currCartItem = returnCheckOutDataByID(cartItems[0])
         var listingOwner = currCartItem['owner'];
         var listingCost = currCartItem['price'];
         listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
         listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-        console.log(listingOwner);
-        console.log(listingCost);
-        cF.purchase('zdolson', 'zdolson', listingCost);
+        cF.purchase(listingOwner, 'zdolson', listingCost);
     } else {
         var ownersArray = [];
         var costArray = [];
@@ -97,10 +75,8 @@ export class CheckOutPage extends Component {
             ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
             costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
         }
-        console.log(ownersArray);
         cF.multipurchase(ownersArray, buyerName, costArray);
     }
-    console.log('>>>>>>>>> BOTTOM HELPER FUNCTION >>>>>>>>>>>>')
   }
 
 

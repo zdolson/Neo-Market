@@ -117,7 +117,7 @@ If the output from testing the functions is satisfactory, rebuild the Smart Cont
 and proceed.
 7. Deploy Smart Contract
 ```neo-cli
-import testing.avm 0710 01 True False
+import contract testing.avm 0710 01 True False
 ```
 Breakdown of ```import``` command's arguments:
  * 1st Argument: ```testing.avm``` is the compiled result from ```build testing.py```.
