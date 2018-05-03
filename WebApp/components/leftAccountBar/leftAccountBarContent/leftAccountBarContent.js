@@ -4,6 +4,8 @@ import sheet from './leftAccountBarContent.scss'
 
 import DownArrowIcon from '../../assets/DownArrowIcon.svg'
 
+import { NavLink } from "react-router-dom";
+
 /**
 
 @ Alec
@@ -29,7 +31,9 @@ export class LeftAccountBarContent extends Component {
   render () {
     return (
       <div className="leftAccountNavContent">
-        <div className="profileText">My Profile</div>
+        <NavLink to='/Profile' className="profileText">
+          My Profile
+        </NavLink>
         <DownArrowIcon className="downArrowIcon"/>
         <Stylesheet sheet={sheet} />
       </div>
