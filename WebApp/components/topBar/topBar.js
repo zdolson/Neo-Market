@@ -20,15 +20,15 @@ export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-        logOutClicked: false
+        LogoutClicked: false
     }
     this.isRegister = this.isRegister.bind(this);
-    this.logOutHandler = this.logOutHandler.bind(this);
+    this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
-  logOutHandler = () => {
-    console.log("logOutHandler()");
-    this.setState( {logOutClicked: true} );
+  LogoutHandler = () => {
+    console.log("LogoutHandler()");
+    this.setState( {LogoutClicked: true} );
   }
 
   isRegister = () => {
@@ -47,8 +47,8 @@ export class TopBar extends Component {
             search...
           </div>
         </div>
-        <div className="logOutContainer" onClick={this.logOutHandler}>
-          <div className="logOutButton">Log Out</div>
+        <div className="LogoutContainer" onClick={this.LogoutHandler}>
+          <div className="LogoutButton">Log Out</div>
         </div>
         <Stylesheet sheet={sheet} />
       </div>
