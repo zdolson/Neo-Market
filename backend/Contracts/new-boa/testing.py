@@ -31,30 +31,23 @@ Purpose: This will register the user and their address to the smart contract
 def register(args):
     if args[0] == '1':
         Log("please no - this is for master list")
-        return False
+        return 0
     else:
         isMasterThere = Get(GetContext(), '1')
         if not isMasterThere:
             # create master here
             masterList = serialize_array([])
             Put(GetContext(), '1', masterList)
-    print("in register")
-    print("after creation of list")
-    #b = list(length=2)
-    a = args[0] # no need to do this tbh
-    b = args[1]
-    print("allocating a and b")
-    isUserThere = Get(GetContext(), a)
-    isAddrThere = Get(GetContext(), a)
+    isUserThere = Get(GetContext(), args[0])
+    isAddrThere = Get(GetContext(), args[1])
     if isAddrThere or isUserThere:
-        Notify("Already registered here")
+        Log("Already registered here")
     else: 
         bstuff = serialize_array([])
-        print("done serializing array here")
-        Put(GetContext(), a, b)
-        Put(GetContext(), b, bstuff)
-        print("donnnnne")
+        Put(GetContext(), args[0], args[1])
+        Put(GetContext(), args[1], bstuff)
         fillMaster(args[0]) # only want the names
+    return 1
 
 """
 @Function: createpost
@@ -72,7 +65,7 @@ Purpose: for each register call, append the name to master list
 def createpost(args):
     a = Get(GetContext(), args[1])
     if not a:
-        print("Cant createpost - user is not registered")
+        Log("Cant createpost - user is not registered")
         return 0
     else:
         addr = Get(GetContext(), args[1])
@@ -86,11 +79,9 @@ def createpost(args):
             stuff.append(',')
             n += 1
         stuff.append(';')
-        Log('new length of stuff:')
         Log(len(stuff)) # this may break it here
         bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
-        Log("printing post down there in the format")
         return 1
 
 """
@@ -108,11 +99,11 @@ def deletepost(args):
     addr = Get(GetContext(), args[0])
     bList = Get(GetContext(), addr)
     if not addr:
-        print("cant delete")
+        Log("cant delete")
         return 0
     else:
         stuff = deserialize_bytearray(bList)
-        stuff = None
+        stuff[args[1]] = 'None' # double check on this variable 
         bList = serialize_array(stuff)
         Put(GetContext(), addr, bList)
         return 1
@@ -132,9 +123,8 @@ def select(args):
     bList = Get(GetContext(), addr)
     # i got the byte array now - time to deserialize
     stuff = deserialize_bytearray(bList)
-    print("printing the value of the list now")
     print(stuff[args[1]])
-    print("done with select")
+    return 1
 
 """
 @Function: isregister
@@ -146,10 +136,10 @@ Purpose: checks if username is registered or not
 def isregister(args):
     a = Get(GetContext(), args[0])
     if not a:
-        print("the user is not registered")
+        Log("the user is not registered")
         return 0
     else:
-        print("the user is registered")
+        Log("the user is registered")
         return 1
 
 """
@@ -166,7 +156,7 @@ def editPost(args):
     userPosts = Get(GetContext(), args[1])
     itemList = Get(GetContext(), userPosts)
     if not userPosts:
-        print("not a valid user, cant edit post")
+        Log("not a valid user, cant edit post")
         return 0
     else:
         dpostInfo = deserialize_bytearray(itemList)
@@ -207,5 +197,5 @@ def Main(operation, args):
         editPost(args)
     else:
         print("what op?")
-        return False
-    return True
+        return 0
+    return 1

@@ -47,8 +47,30 @@ Purpose: Provides styling to the TopBar component
   padding-left: 5%;
   align-items: center;
   border-radius: 25px;
-  height: 50%;
+  height: 60%;
   width: 100%;
   background: $grey70;
   color: $grey50;
+}
+
+.LogoutContainer {
+  width: 20%;
+  height:70%;
+  display: flex;
+  flex-direction: row;
+  margin-right: 2%;
+  align-items: center;
+}
+
+.LogoutButton {
+  display: flex;
+  padding-left: 10%;
+  margin-left: 150px;
+  align-items: center;
+  border-radius: 5px;
+  height: 100%;
+  width: 30%;
+  // might as well keep the same orange as the register page
+  background: $registerButtonOrange;
+  color: $white;
 }

@@ -68,14 +68,17 @@ docker exec -it neo-privnet /bin/bash
 
 2. Curl our script start.sh, enable and run.
 ```bash
-curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/start.sh -o start.sh
-&& chmod 777 start.sh
-&& ./start.sh
+curl --request GET --header "PRIVATE-TOKEN: UsQx-_vq6wNnx4CVAoi_" "https://gitlab.com/zdolson/Neo-Market/raw/backend_fixing_and_updating_files_cleaning_up/backend/Contracts/new-boa/neo_docker_setup.py" -o neo_docker_setup.py
+&& chmod u+x neo_docker_setup.sh
+&& ./neo_docker_setup.sh
 ```
 This will update any modules inside of the PrivateNet, download a wallet with 100M NEO and ~160k GAS, as well as
 download the current version of Smart Contract testing.py from our repo.
 
-3. Enter prompt.py with either of the three available commands above.
+3. Enter prompt.py with either of the three available commands above. (since they change the location a few times now)
+```
+  a=find -name 'prompt.py' ; python3 $a  
+```
 
 4. Open the wallet for use of assets.
 ```neo-cli
@@ -117,7 +120,11 @@ If the output from testing the functions is satisfactory, rebuild the Smart Cont
 and proceed.
 7. Deploy Smart Contract
 ```neo-cli
+<<<<<<< HEAD
 import contract testing.avm 0710 01 True False
+=======
+import testing.avm 0705 02 True False
+>>>>>>> origin/master
 ```
 Breakdown of ```import``` command's arguments:
  * 1st Argument: ```testing.avm``` is the compiled result from ```build testing.py```.
