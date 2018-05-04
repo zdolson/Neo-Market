@@ -10,6 +10,8 @@ import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalVa
 import cF from '../../../backend/contractFunctions'
 import { registerUserToDatabase } from '../fireBaseFunctions'
 
+import * as firebase from 'firebase'
+
 /**
 
 @ Nicholas
@@ -57,6 +59,9 @@ export class CheckOutPage extends Component {
   // Will need to hook this up to modal upon confirmation of password in modal.
   // Gonna push this working part and then I'll break it with modal.
   helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
+    // console.log(firebase.auth().currentUser.displayName);
+    // console.log(firebase.auth().currentUser.email);
+    // console.log(firebase.auth().currentUser.uid);
     var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
     if (cartItems.length == 0) {
         // disable purchase button functionality here.
