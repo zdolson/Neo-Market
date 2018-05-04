@@ -59,9 +59,9 @@ class MyProfilePage extends Component {
     return (
       <div className="main-container">
         <div className="tabs-container">
-          <div style={listingsStyle} className ="tab" onClick={this.handleListings}>Active Postings</div>
-          <div style={purchasesStyle} className ="tab" onClick={this.handlePurchases}>My Purchases</div>
-          <div style={walletStyle} className ="tab" onClick={this.handleWallet}>Wallet Info</div>
+          <div style={listingsStyle} className ="tab" onClick={this.handleListings}>Postings</div>
+          <div style={purchasesStyle} className ="tab" onClick={this.handlePurchases}>Purchases</div>
+          <div style={walletStyle} className ="tab" onClick={this.handleWallet}>Wallet</div>
         </div>
         { this.state.tabSelected == 0 ? <Tab state={state} tryAgain={tryAgain}/> : <Tab/> }
         <Stylesheet sheet={sheet}/>
