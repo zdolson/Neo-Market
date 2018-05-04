@@ -27,6 +27,10 @@ class Register extends Component {
         <div className="registerPageContainer">
           <div className="leftSideRegisterPage">
             <div className="registerFormContainer">
+              <div className="userNameContainer">
+                <input className="userNameInput" type="text" placeholder="Your User Name"/>
+              </div>
+
               <div className="fullNameContainer">
                 <input className="fullNameInput" type ="text" placeholder="Your Full Name"/>
               </div>

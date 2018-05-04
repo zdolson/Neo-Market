@@ -42,12 +42,12 @@ Purpose: Styling for the register page
 	overflow: auto;
 }
 
-.fullNameContainer{
+.fullNameContainer, .userNameContainer{
 	text-align: right;
 	margin: 0% 10% 5% 5%;
 }
 
-.fullNameInput{
+.fullNameInput, .userNameInput{
 	font-size: 24px;
 	color: $inputFieldDefault;
 	width: 75%;
@@ -152,6 +152,3 @@ Purpose: Styling for the register page
 .importPhotoIconContainer{
 	margin: 0% 10% 0% 40%;
 }
-
-
-
