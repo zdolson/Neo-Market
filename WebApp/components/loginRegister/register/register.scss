@@ -13,6 +13,20 @@ Purpose: Styling for the register page
 
 **/
 
+.file-input-wrapper {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+
 .registerPageContainer{
 	display: flex;
 	flex-direction: row;
