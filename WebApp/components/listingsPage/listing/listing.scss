@@ -20,12 +20,12 @@ Purpose: Spacing and style for a single listing in the grid
   height: auto;
   // min-height: 350px;
   // max-height: 350px;
-  background: $grey65;
+  background: $greyRegisterBackground;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   border: 2px solid transparent;
   &:hover {
-    border: 2px solid $brightGreen;
+    border: 2px solid $loginPageGreen;
   }
 }
