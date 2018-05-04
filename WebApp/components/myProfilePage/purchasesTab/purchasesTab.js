@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './purchasesTab.scss'
-import PurchasedItems from './purchasedItems/purchasedItems.js'
+import PurchasedItem from './purchasedItem/purchasedItem.js'
 
 /**
 
@@ -22,17 +22,17 @@ export class PurchasesTab extends Component {
   }
 
   render () {
+    let items = this.props.state.items;
     const { data } = this.props
     console.debug('Data is ', data)
     return (
       <div className="purchasesPageContainer">
 
-        <div className="header">
-          <div> My Purchases </div>
-          <div className="underline"></div>
-        </div>
-
-        <PurchasedItems />
+        {items.map( (item, key) => {
+          return (
+            <PurchasedItem item={item}/>
+          );
+        })}
 
         <Stylesheet sheet={sheet} />
       </div>
