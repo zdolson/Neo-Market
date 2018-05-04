@@ -21,40 +21,31 @@ class Register extends Component {
   }
 
   registerHandler = () => {
-    // console.log("registerHandler()");
     if(this.state.imageRef.files.length > 0) {
       console.log(this.state.imageRef.files[0]);
     }
-
-    // this.props.navToApp();
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.imageRef.files[0], this.state.password, this.state.verifyPassword, this.state.wif)
   }
 
   /* text input handlers */
   updateUserName = (e) => {
     this.setState({ userName: e.target.value });
-    console.log('blah');
   }
   updateFullName = (e) => {
     this.setState({ fullName: e.target.value });
-    console.log('blah');
   }
   updateEmail = (e) => {
     this.setState({ email: e.target.value });
-    console.log('blah');
   }
   updatePassword = (e) => {
     this.setState({ password: e.target.value });
-    console.log('blah');
   }
   updateVerifyPassword = (e) => {
     this.setState({ verifyPassword: e.target.value });
-    console.log('blah');
   }
   updateWif = (e) => {
     this.setState({ wif: e.target.value });
-    console.log('blah');
   }
-  /* ||||||||||||||||||| */
 
   render () {
     return (
