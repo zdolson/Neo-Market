@@ -1,24 +1,50 @@
 import { Component } from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './register.scss'
+
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
+import {registerUserToDatabase} from '../../fireBaseFunctions.js'
 
 class Register extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userName: '',
+      fullName: '',
+      email: '',
+      password: '',
+      verifyPassword: '',
+      wif: '',
+      imageRef: ''
+    };
     this.registerHandler = this.registerHandler.bind(this);
-    this.importProfilePicture = this.importProfilePicture.bind(this);
   }
 
   registerHandler = () => {
-    // console.log("registerHandler()");
-    this.props.navToApp();
+    if(this.state.imageRef.files.length > 0) {
+      console.log(this.state.imageRef.files[0]);
+    }
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.imageRef.files[0], this.state.password, this.state.verifyPassword, this.state.wif)
   }
 
-  importProfilePicture = () => {
-    console.log("Going to import image")
-
+  /* text input handlers */
+  updateUserName = (e) => {
+    this.setState({ userName: e.target.value });
+  }
+  updateFullName = (e) => {
+    this.setState({ fullName: e.target.value });
+  }
+  updateEmail = (e) => {
+    this.setState({ email: e.target.value });
+  }
+  updatePassword = (e) => {
+    this.setState({ password: e.target.value });
+  }
+  updateVerifyPassword = (e) => {
+    this.setState({ verifyPassword: e.target.value });
+  }
+  updateWif = (e) => {
+    this.setState({ wif: e.target.value });
   }
 
   render () {
@@ -27,24 +53,29 @@ class Register extends Component {
         <div className="registerPageContainer">
           <div className="leftSideRegisterPage">
             <div className="registerFormContainer">
+
+              <div className="userNameContainer">
+                <input className="userNameInput" value={this.state.userName} onChange={ (e) => this.updateUserName(e) } type="text" placeholder="Your User Name"/>
+              </div>
+
               <div className="fullNameContainer">
-                <input className="fullNameInput" type ="text" placeholder="Your Full Name"/>
+                <input className="fullNameInput" value={this.state.fullName} onChange={ (e) => this.updateFullName(e) } type="text" placeholder="Your Full Name"/>
               </div>
 
               <div className="emailNameContainer">
-                <input className="emailNameInput" type ="text" placeholder="Your email"/>
+                <input className="emailNameInput" value={this.state.email} onChange={ (e) => this.updateEmail(e) } type="text" placeholder="Your email"/>
               </div>
 
               <div className="passwordNameContainer">
-                <input className="passwordNameInput" type ="password" placeholder="Your password"/>
+                <input className="passwordNameInput" value={this.state.password} onChange={ (e) => this.updatePassword(e) } type="password" placeholder="Your password"/>
               </div>
 
               <div className="verifyPasswordNameContainer">
-                <input className="verifyPasswordNameInput" type ="password" placeholder="Verify password"/>
+                <input className="verifyPasswordNameInput" value={this.state.verifyPassword} onChange={ (e) => this.updateVerifyPassword(e) } type="password" placeholder="Verify password"/>
               </div>
 
               <div className="importWalletContainer">
-                <input className="walletInput" type ="password" placeholder="Import WIF"/>
+                <input className="walletInput" value={this.state.wif} onChange={ (e) => this.updateWif(e) } type="password" placeholder="Import WIF"/>
               </div>
 
               <div className="registerButtonContainer">
@@ -54,6 +85,7 @@ class Register extends Component {
                   </div>
                 </div>
               </div>
+
             </div>
           </div>
 
@@ -64,7 +96,10 @@ class Register extends Component {
               </div>
 
               <div className="importPhotoIconContainer" onClick={this.importProfilePicture}>
-                <ImportPhotoIcon/>
+                <div className="file-input-wrapper">
+                  <ImportPhotoIcon/>
+                  <input type="file" name="file" ref={(ref) => { this.state.imageRef = ref; }} />
+                </div>
               </div>
 
             </div>
