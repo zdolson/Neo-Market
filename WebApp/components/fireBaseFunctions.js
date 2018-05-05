@@ -138,8 +138,11 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
     console.log('Passwords dont match')
   } else {
     firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-      console.log(user.uid)
-      console.log('HelloWorld')
+      if (typeof photoId == 'undefined') {
+        console.log('photoIsUndefined')
+        photoId = 'defaultPhoto.png'
+      }
+
       firebase.database().ref('/Users/').once('value').then(() => {
         var newUser = {
           fullName: fullName,
