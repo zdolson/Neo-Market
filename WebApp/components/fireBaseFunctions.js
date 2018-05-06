@@ -143,7 +143,6 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 	          		console.log('photoIsUndefined')
 	          		photoId = 'defaultPhoto.png'
 	        	}
-
 	        firebase.database().ref('/Users/').once('value').then(() => {
 	          	var newUser = {
 	            	fullName: fullName,
@@ -156,8 +155,6 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 	            	wif: wif
 	          	}
 	          	firebase.database().ref('/Users/' + user.uid).set(newUser);
-	  			console.log(user.uid);
-	  			console.log(typeof(user.uid));
 	  			resolve(user.uid);
 
 	        }).catch(function(error) {

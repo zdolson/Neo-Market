@@ -56,8 +56,6 @@ export class CheckOutPage extends Component {
     this.setState({password: event.target.value});
   }
 
-  // Will need to hook this up to modal upon confirmation of password in modal.
-  // Gonna push this working part and then I'll break it with modal.
   purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
     var buyerName;
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
@@ -66,9 +64,6 @@ export class CheckOutPage extends Component {
         console.log(buyerName);
       }
     );
-    // console.log(firebase.auth().currentUser.email);
-    // console.log(firebase.auth().currentUser.uid);
-    // var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
     if (cartItems.length == 0) {
         // disable purchase button functionality here.
     } else if (cartItems.length == 1) {
