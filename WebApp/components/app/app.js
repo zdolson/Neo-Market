@@ -49,12 +49,14 @@ export class App extends Component {
 
       users: [
         {
-          wif: 'defaultWif',
+          fullName: 'defaultfullName',
+          userName: 'defualtUserName',
           email: 'defaultEmail',
-          firstName: 'defaultFirstName',
-          lastName: 'defaultLastName',
-          password: 'defaultPassword',
-          userName: 'defaultUserName'
+          myListings: 'defaultMyListings',
+          myPurchases: 'defaultMyPurchases',
+          photoId: 'defaultPhotoId',
+          password: 'defualtPassword',
+          wif: 'defaultWif'
         }
       ],
       cartItems: [],

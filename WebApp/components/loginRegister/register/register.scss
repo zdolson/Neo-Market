@@ -13,6 +13,20 @@ Purpose: Styling for the register page
 
 **/
 
+.file-input-wrapper {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.file-input-wrapper > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+
 .registerPageContainer{
 	display: flex;
 	flex-direction: row;
@@ -42,12 +56,12 @@ Purpose: Styling for the register page
 	overflow: auto;
 }
 
-.fullNameContainer{
+.fullNameContainer, .userNameContainer{
 	text-align: right;
 	margin: 0% 10% 5% 5%;
 }
 
-.fullNameInput{
+.fullNameInput, .userNameInput{
 	font-size: 24px;
 	color: $inputFieldDefault;
 	width: 75%;
@@ -152,6 +166,3 @@ Purpose: Styling for the register page
 .importPhotoIconContainer{
 	margin: 0% 10% 0% 40%;
 }
-
-
-

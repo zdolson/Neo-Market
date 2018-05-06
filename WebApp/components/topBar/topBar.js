@@ -9,6 +9,8 @@ import node from '../../../backend/configFiles/blockchain'
 // const neon = require('@cityofzion/neon-js')
 // const Neon = neon.default
 
+import { logoutUser } from '../fireBaseFunctions.js'
+
 /**
 
 @ Alec
@@ -22,16 +24,13 @@ Purpose: TopBar component; Provides template for top nav bar
 export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {
-        LogoutClicked: false
-    }
+    this.state = {}
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
     this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
   LogoutHandler = () => {
-    console.log("LogoutHandler()");
-    this.setState( {LogoutClicked: true} );
+    logoutUser()
   }
 
   topbarTestingButton = () => {
