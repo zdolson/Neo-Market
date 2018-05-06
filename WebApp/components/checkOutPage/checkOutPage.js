@@ -10,6 +10,8 @@ import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalVa
 import cF from '../../../backend/contractFunctions'
 import { registerUserToDatabase } from '../fireBaseFunctions'
 
+import * as firebase from 'firebase'
+
 /**
 
 @ Nicholas
@@ -57,7 +59,16 @@ export class CheckOutPage extends Component {
   // Will need to hook this up to modal upon confirmation of password in modal.
   // Gonna push this working part and then I'll break it with modal.
   helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
-    var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
+    var buyerName;
+    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
+      .then( (snapshot) => {
+        buyerName = snapshot.val().userName;
+        console.log(buyerName);
+      }
+    );
+    // console.log(firebase.auth().currentUser.email);
+    // console.log(firebase.auth().currentUser.uid);
+    // var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
     if (cartItems.length == 0) {
         // disable purchase button functionality here.
     } else if (cartItems.length == 1) {
@@ -66,7 +77,7 @@ export class CheckOutPage extends Component {
         var listingCost = currCartItem['price'];
         listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
         listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-        cF.purchase(listingOwner, 'zdolson', listingCost);
+        cF.purchase(listingOwner, buyerName, listingCost);
     } else {
         var ownersArray = [];
         var costArray = [];
