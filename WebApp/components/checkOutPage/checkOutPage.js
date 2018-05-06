@@ -33,7 +33,7 @@ export class CheckOutPage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.helperReferenceFunctionForZach = this.helperReferenceFunctionForZach.bind(this)
+    this.purchaseLogic = this.purchaseLogic.bind(this)
   }
 
   openModal() {
@@ -58,7 +58,7 @@ export class CheckOutPage extends Component {
 
   // Will need to hook this up to modal upon confirmation of password in modal.
   // Gonna push this working part and then I'll break it with modal.
-  helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
+  purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
     var buyerName;
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
       .then( (snapshot) => {
@@ -116,7 +116,7 @@ export class CheckOutPage extends Component {
           )
         })}
 
-        {this.helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, this)}
+        {this.purchaseLogic(cartItems, users, returnCheckOutDataByID, this)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">
