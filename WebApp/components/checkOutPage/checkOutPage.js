@@ -59,10 +59,16 @@ export class CheckOutPage extends Component {
   // Will need to hook this up to modal upon confirmation of password in modal.
   // Gonna push this working part and then I'll break it with modal.
   helperReferenceFunctionForZach(cartItems, users, returnCheckOutDataByID, that){
-    // console.log(firebase.auth().currentUser.displayName);
+    var buyerName;
+    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
+      .then( (snapshot) => {
+        buyerName = snapshot.val().userName;
+        console.log(buyerName);
+      }
+    );
     // console.log(firebase.auth().currentUser.email);
     // console.log(firebase.auth().currentUser.uid);
-    var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
+    // var buyerName = 'zdolson'; //<-- currently hard coded until Nick develops a way to retrieve currently signed in username.
     if (cartItems.length == 0) {
         // disable purchase button functionality here.
     } else if (cartItems.length == 1) {
