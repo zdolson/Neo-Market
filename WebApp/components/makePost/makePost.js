@@ -18,7 +18,6 @@ import promosPage from '../promosPage/promosPage.js';
 import purchasesPage from '../purchasesPage/purchasesPage.js';
 import peoplePage from '../peoplePage/peoplePage.js';
 
-import MakePostForm from './makePostForm/makePostForm.js'
 import MakePostFormNew from './makePostForm/makePostFormNew.js'
 
 export class MakePost extends Component {
