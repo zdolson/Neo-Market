@@ -14,7 +14,8 @@ import * as firebase from 'firebase'
 
 initializeApp();
 
-// Need authentication to allow access to database.
+// If you want have login capabilities, then comment this line out. 
+// This is to let dev's develop without having to constantly loging.
 loginUser('nccheung@ucsc.edu', 'nccheung');
 
 /**
@@ -33,7 +34,7 @@ export class Index extends Component {
     this.state = {
       loading: true,
       error: '',
-      cart: ['yolo', 'swag'],
+      cart: [],
       data: {},
       inApp: false
     }
@@ -47,19 +48,14 @@ export class Index extends Component {
   componentDidMount () {
     console.log('index.js page loaded');
     if(this.state.loading) this.setState({ loading: false });
-    /*
-      *** Attention Nick ***
-        this is probably what we are going to want to use
-        for routing once we have firebase auth hooked up
-      *** Attention Nick ***
-      firebase.auth().onAuthStateChanged(function(user) {
-        if (user) {
-          // User is signed in.
-        } else {
-          // User is signed out.
-        }
-      });
-    */
+    
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.setState({inApp: true});
+      } else {
+        this.setState({inApp: false});
+      }
+    });
   }
 
   render () {

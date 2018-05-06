@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Stylesheet } from '../../../../stylesheet.js'
+import { Stylesheet } from '../../../stylesheet.js'
 import sheet from './purchasedItem.scss'
 
 
@@ -22,20 +22,18 @@ class PurchasedItem extends Component {
   }
 
   render () {
+    let item = this.props.item;
     return (
-      <div className='purchasedItemBox'>
+      <div className='item-container'>
 
-        <div className='itemTopHalf'>
-          <div className="title">Title</div>
-          <div className="description">Buy my particle accelator! Mint-condition.</div>
+        <div className="item-top">
         </div>
 
-        <div className='itemBottomHalf'>
-          <div className="seller">Seller: Bill Nye, The Science Guy</div>
+        <div className="item-price">
+           { item.price } NEO
         </div>
 
-        <div className='itemPrice'>
-          <div className="price">100 NEO</div>
+        <div className="item-bottom">
         </div>
 
         <Stylesheet sheet={sheet} />
