@@ -7,7 +7,7 @@ import Modal from 'react-responsive-modal'
 import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
 import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
-import cF from '../../../backend/contractFunctions'
+import cF from '../../neonFunctions/contractFunctions'
 import { registerUserToDatabase } from '../fireBaseFunctions'
 
 import * as firebase from 'firebase'

@@ -4,8 +4,8 @@ import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
-import cF from '../../../backend/contractFunctions'
-import node from '../../../backend/configFiles/blockchain'
+import cF from '../../neonFunctions/contractFunctions'
+import node from '../../neonFunctions/blockchain'
 // const neon = require('@cityofzion/neon-js')
 // const Neon = neon.default
 
@@ -53,6 +53,7 @@ export class TopBar extends Component {
       // cF.getContractState().then(state => {
       //     console.log(state);
       // })
+      console.log(cF.sha256('fack') === cF.sha256('fack'));
   }
 
   render () {

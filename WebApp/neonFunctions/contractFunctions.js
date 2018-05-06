@@ -2,10 +2,11 @@
 const firebase = require('firebase')
 const neon = require('@cityofzion/neon-js')
 const Neon = neon.default
-const config = require('./configFiles/config')
-const node = require('./configFiles/blockchain')
+const config = require('./config')
+const node = require('./blockchain')
 const axios = require("axios")
 const account = Neon.create.account(config.wif)
+const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
 var debug = false;
@@ -23,6 +24,19 @@ var debug = false;
 
 
 module.exports = {
+
+    /*
+     * @Function: sha256
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownersArray
+     * @Param: {string} buyerName
+     * @Param: {string} costArray
+     * @Return: {promise} sendConfig
+     * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
+     */
+    sha256: (input) => {
+        return SHA256(input).toString();
+    },
 
     /*
      * @Function: multipurchase

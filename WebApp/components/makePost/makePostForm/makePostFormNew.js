@@ -17,7 +17,7 @@ import forumsPage from '../../forumsPage/forumsPage.js';
 import promosPage from '../../promosPage/promosPage.js';
 import purchasesPage from '../../purchasesPage/purchasesPage.js';
 import peoplePage from '../../peoplePage/peoplePage.js';
-import cF from '../../../../backend/contractFunctions'
+import cF from '../../../neonFunctions/contractFunctions'
 
 import { Route } from 'react-router-dom'
 
