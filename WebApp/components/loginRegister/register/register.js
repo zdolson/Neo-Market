@@ -20,11 +20,25 @@ class Register extends Component {
     this.registerHandler = this.registerHandler.bind(this);
   }
 
+  makeId() {
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 10; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
+  }
+
   registerHandler = () => {
     if(this.state.imageRef.files.length > 0) {
       console.log(this.state.imageRef.files[0]);
     }
-    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.imageRef.files[0], this.state.password, this.state.verifyPassword, this.state.wif)
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.imageRef.files[0], this.state.password, this.state.verifyPassword, this.state.wif).then(uid => {
+        // console.log(uid);
+        cF.register(uid, makeId());
+    })
+
   }
 
   /* text input handlers */

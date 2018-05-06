@@ -8,7 +8,7 @@ const axios = require("axios")
 const account = Neon.create.account(config.wif)
 
 const masterList = '1';
-var debug = true;
+var debug = false;
 
 
 /**
