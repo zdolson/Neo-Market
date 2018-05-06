@@ -73,7 +73,7 @@ class LoginRegister extends Component {
                   Or Log into your account
                 </div>
                 <div className="loginName">
-                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Login Name"/>
+                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Email"/>
                 </div>
 
                 <div className="inputPasswordField">
