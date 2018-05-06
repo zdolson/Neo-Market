@@ -18,9 +18,7 @@ Purpose: Spacing and style for a single listing in the grid
   max-width: 350px;
   flex: 1;
   height: auto;
-  // min-height: 350px;
-  // max-height: 350px;
-  background: $greyRegisterBackground;
+  background: $jadeGreen;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
@@ -29,3 +27,6 @@ Purpose: Spacing and style for a single listing in the grid
     border: 2px solid $loginPageGreen;
   }
 }
+
+
+//background: #587077;

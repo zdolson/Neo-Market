@@ -23,7 +23,8 @@ Purpose: Provides styling to the TopBar component
   align-items: center;
   top: 0;
   left: 0;
-  background: #05161C;
+  background: $greyRegisterBackground;
+  box-shadow: 0px 9px 18px $blackShadow;
 }
 
 .logo {
@@ -49,6 +50,6 @@ Purpose: Provides styling to the TopBar component
   border-radius: 25px;
   height: 60%;
   width: 100%;
-  background: $grey70;
-  color: $grey50;
+  background: #536477;
+  color: $offWhite;
 }
