@@ -8,7 +8,7 @@ const axios = require("axios")
 const account = Neon.create.account(config.wif)
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -146,7 +146,8 @@ module.exports = {
               var errorMessage = error.message;
             });
 
-
+            // ownerName = 'XdwT8CqBZ0Q4JOLrlhk6MKHdOvF2';
+            // buyerName = 'DewA2n3NBHb6MpLvKEgsmrqYp2y1';
             firebase.database().ref('/Users/'+ownerName).once('value').then((snapshot) => {
                 var oWif = snapshot.child('wif').val();
                 firebase.database().ref('/Users/'+buyerName).once('value').then((snapshot) => {
