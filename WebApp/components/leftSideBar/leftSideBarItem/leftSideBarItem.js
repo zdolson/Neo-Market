@@ -54,6 +54,10 @@ export class LeftSideBarItem extends Component {
       <div className="navItem">
         <IconName className="itemIcon"/>
         <NavLink to={title}> {this.props.title} </NavLink>
+
+        <div className="LogoutButton" onClick={this.LogoutHandler}>
+          Log Out
+        </div>
         <Stylesheet sheet={item} />
       </div>
     )
