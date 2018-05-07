@@ -25,7 +25,7 @@ export class LeftSideBar extends Component {
     this.state = {
 
     }
-        this.LogoutHandler = this.LogoutHandler.bind(this);
+    this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
   LogoutHandler = () => {
