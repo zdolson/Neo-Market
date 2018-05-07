@@ -103,12 +103,14 @@ export function pullUsersFromDatabase(that){
   firebase.database().ref('/Users/').once('value').then((snapshot) => {
     snapshot.forEach((childSnapshot) => {
       currUser = {
-        wif: childSnapshot.child('wif').val(),
+        fullName: childSnapshot.child('fullName').val(),
+        userName: childSnapshot.child('userName').val(),
         email: childSnapshot.child('email').val(),
-        firstName: childSnapshot.child('firstName').val(),
-        lastName: childSnapshot.child('lastName').val(),
+        myListings: childSnapshot.child('myListings').val(),
+        myPurchases: childSnapshot.child('myPurchases').val(),
+        photoId: childSnapshot.child('photoId').val(),
         password: childSnapshot.child('password').val(),
-        userName: childSnapshot.child('userName').val()
+        wif: childSnapshot.child('wif').val(),
       }
       arrayUserList.push(currUser)
 
@@ -131,36 +133,49 @@ function isUserRegisterd(userName, userList) {
   return false
 }
 
-export function registerUserToDatabase(wif, firstName, lastName, password, email, userName, that) {
-  firebase.database().ref('/Users/').once('value').then((snapshot) => {
-    var newUser = {
-      wif: wif,
-      firstName: firstName,
-      lastName: lastName,
-      password: password,
-      email: email,
-      userName: userName
-    }
-    var userNameList = Object.keys(snapshot.val())
-    if(!isUserRegisterd(userName, userNameList)){
-      firebase.database().ref('/Users/' + userName).set(newUser);
-      that.setState({users: that.state.users.concat(newUser)})
+export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif) {
+  if (password != verifyPassword) {
+    console.log('Passwords dont match')
+  } else {
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+      if (typeof photoId == 'undefined') {
+        console.log('photoIsUndefined')
+        photoId = 'defaultPhoto.png'
+      }
 
-      //Add users to firebase database auth
-      firebase.auth().createUserWithEmailAndPassword(email, password).then(console.log('Created user successfully')).catch(function(error) {
-        // Handle Errors here.
-        console.log('An error has occured while creating the user via Firebase: ')
-        console.log(error.code)
-        console.log(error.message)
-      });
-    }
-  })
+      firebase.database().ref('/Users/').once('value').then(() => {
+        var newUser = {
+          fullName: fullName,
+          userName: userName,
+          email: email,
+          myListings: '',
+          myPurchases: '',
+          photoId: photoId,
+          password: password,
+          wif: wif
+        }
+        firebase.database().ref('/Users/' + user.uid).set(newUser);
+
+      }).catch(function(error) {
+      // Handle Errors here.
+      console.log('An error has occured while creating the user via Firebase: ')
+      console.log(error.code)
+      console.log(error.message)
+    });    
+
+    }).catch(function(error) {
+      // Handle Errors here.
+      console.log('An error has occured while registering the user via Firebase: ')
+      console.log(error.code)
+      console.log(error.message)
+    });
+  }
 }
 
 export function loginUser(email, password) {
-  firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
+  return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
-
+    return user
   }).catch(function(error) {
     // Handle Errors here.
     console.log('An error has occured while logging in the user via Firebase: ')
@@ -169,12 +184,13 @@ export function loginUser(email, password) {
   });
 }
 
-export function logoutUser(email, password){
+export function logoutUser(){
   firebase.auth().signOut().then(function() {
-    console.log('User: ' + email + ' was logged out successfullly')
+    console.log('User was logged out successfullly')
   }).catch(function(error) {
     console.log('An error has occured while logging out the user via Firebase: ')
     console.log(error.code)
     console.log(error.message)
   });
 }
+
