@@ -5,6 +5,7 @@ import sheet from './moreInfoListingPage.scss'
 // import MoreInfoListingFields from '../moreInfoListingFields/moreInfoListingFields.js'
 import MoreInfoListingTop from './moreInfoListingTop/moreInfoListingTop.js'
 import MoreInfoListingBottom from './moreInfoListingBottom/moreInfoListingBottom.js'
+import MoreInfoListingEditing from './moreInfoListingEditing/moreInfoListingEditing.js'
 
 /**
 
@@ -21,9 +22,14 @@ TODO: props logic so parent ListingContent can dynamically assign text
 class MoreInfoListingPage extends Component {
   constructor(props, context) {
     super(props, context)
-    this.State = {
-
+    this.state = {
+      is_editing: false
     }
+    this.toggle_edit = this.toggle_edit.bind(this);
+  }
+
+  toggle_edit = () => {
+    this.setState( {is_editing: !this.state.is_editing} );
   }
 
   render () {
@@ -32,10 +38,20 @@ class MoreInfoListingPage extends Component {
     let removeItem = this.props.removeItem;
     let tryAgain = this.props.tryAgain;
 
+    const page = this.state.is_editing ? (
+      <div>
+        <MoreInfoListingEditing toggle_edit={this.toggle_edit} item={item} tryAgain={tryAgain} addCartItem={addCartItem} removeItem={removeItem}/>
+      </div>
+    ) : (
+      <div>
+        <MoreInfoListingTop toggle_edit={this.toggle_edit}/>
+        <MoreInfoListingBottom item={item} tryAgain={tryAgain} addCartItem={addCartItem} removeItem={removeItem}/>
+      </div>
+    );
+
     return (
       <div className='moreInfoListingPage'>
-        <MoreInfoListingTop />
-        <MoreInfoListingBottom item={item} tryAgain={tryAgain} addCartItem={addCartItem} removeItem={removeItem}/>
+        {page}
         <Stylesheet sheet={sheet} />
       </div>
     )
