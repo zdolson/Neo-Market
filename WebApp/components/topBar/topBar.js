@@ -6,8 +6,6 @@ import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
 // import cF from '../../../backend/contractFunctions'
 
-import { logoutUser } from '../fireBaseFunctions.js'
-
 /**
 
 @ Alec
@@ -23,12 +21,8 @@ export class TopBar extends Component {
     super(props, context)
     this.state = {}
     this.isRegister = this.isRegister.bind(this);
-    this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
-  LogoutHandler = () => {
-    logoutUser()
-  }
 
   isRegister = () => {
   }

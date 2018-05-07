@@ -28,9 +28,7 @@ import { NavLink } from "react-router-dom";
 export class LeftSideBarItem extends Component {
   constructor(props, context) {
     super(props, context)
-    this.State = {
-
-    }
+    this.State = {}
   }
 
   // Icon map for dynamic svg use
@@ -51,13 +49,11 @@ export class LeftSideBarItem extends Component {
     var title = "/" + this.props.title
 
     return (
+      <div className="topContainer">
       <div className="navItem">
         <IconName className="itemIcon"/>
         <NavLink to={title}> {this.props.title} </NavLink>
-
-        <div className="LogoutButton" onClick={this.LogoutHandler}>
-          Log Out
-        </div>
+      </div>
         <Stylesheet sheet={item} />
       </div>
     )

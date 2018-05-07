@@ -5,6 +5,7 @@ import { sideBarTitles } from '../data.js'
 
 import SideBarItem from './leftSideBarItem/leftSideBarItem'
 
+import { logoutUser } from '../fireBaseFunctions.js'
 /**
 
 @ Alec
@@ -24,6 +25,11 @@ export class LeftSideBar extends Component {
     this.state = {
 
     }
+        this.LogoutHandler = this.LogoutHandler.bind(this);
+  }
+
+  LogoutHandler = () => {
+    logoutUser()
   }
 
   render () {
@@ -35,7 +41,15 @@ export class LeftSideBar extends Component {
               <SideBarItem key={name} title={name} />
             )
           })}
-        </div>
+          </div>
+          <div className="sideNavLogout">
+            <div className="LogoutButton" onClick={this.LogoutHandler}>
+              <div className="LogoutButtonText">
+                Log Out
+              </div>
+            </div>
+          </div>
+
         <Stylesheet sheet={sheet}/>
       </div>
     )
