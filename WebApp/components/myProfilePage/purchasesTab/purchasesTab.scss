@@ -3,7 +3,22 @@
 @import '../../mixins';
 @import '../../animations';
 
-/*
-  @Author: Alec
-  @Date: 4/25/17
-*/
+/**
+
+@ Victoria
+
+@ 04/30/2018
+
+Purpose: Styling for the myPurchasesTab component
+
+**/
+.purchasesPageContainer {
+	// width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  font-size: 25px;
+  font-weight: 200;
+	// background: $fuchsia;
+	padding: 2% 5% 2% 5%;
+}

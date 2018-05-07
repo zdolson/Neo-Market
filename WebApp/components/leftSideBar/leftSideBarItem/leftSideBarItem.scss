@@ -43,11 +43,11 @@ a {
   font: $base-font-family;
   text-decoration: none;
   justify-self: start;
-  color: #BDBDBD;
+  color: $grey20;
 }
 
 a:hover {
-    color: #4285F4;
+    color: $highlightBlue;
     text-decoration: none;
 }
 

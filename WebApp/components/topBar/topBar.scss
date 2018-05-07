@@ -23,7 +23,8 @@ Purpose: Provides styling to the TopBar component
   align-items: center;
   top: 0;
   left: 0;
-  background: $grey75;
+  background: $greyRegisterBackground;
+  box-shadow: 0px 9px 18px $blackShadow;
 }
 
 .logo {
@@ -49,28 +50,6 @@ Purpose: Provides styling to the TopBar component
   border-radius: 25px;
   height: 60%;
   width: 100%;
-  background: $grey70;
-  color: $grey50;
-}
-
-.LogoutContainer {
-  width: 20%;
-  height:70%;
-  display: flex;
-  flex-direction: row;
-  margin-right: 2%;
-  align-items: center;
-}
-
-.LogoutButton {
-  display: flex;
-  padding-left: 10%;
-  margin-left: 150px;
-  align-items: center;
-  border-radius: 5px;
-  height: 100%;
-  width: 30%;
-  // might as well keep the same orange as the register page
-  background: $registerButtonOrange;
-  color: $white;
+  background: #536477;
+  color: $offWhite;
 }
