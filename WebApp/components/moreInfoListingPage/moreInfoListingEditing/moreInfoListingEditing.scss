@@ -59,7 +59,18 @@
 }
 
 .upload {
-  margin-right: 5px;
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.upload > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
 }
 
 .image {

@@ -11,18 +11,25 @@ class MoreInfoListingEditing extends Component {
     super(props, context)
     this.state = {
       imgUrl: '',
+      imgRef: null,
       imgLoad: false,
       description: this.props.item.description,
       title: this.props.item.title,
       price: this.props.item.price
     }
     this.submitHandler = this.submitHandler.bind(this);
+    this.readFile = this.readFile.bind(this);
   }
 
-  componentWillMount() {
-    console.log('componentWillMount()');
+  componentDidMount() {
     var that = this
     pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that);
+  }
+
+  readFile = (event) => {
+    console.log('importPhoto()');
+    console.dir("value: "+event.target.files[0].type);
+    // this.setState({ imgRef: event.target.files.item(0) });
   }
 
   descChange = (e) => {
@@ -50,6 +57,11 @@ class MoreInfoListingEditing extends Component {
       <img src={this.state.imgUrl} alt='loading...' width="350"/> :
       <div className="imgLoading"> <div>loading...</div> </div>
     );
+    img = (
+      this.state.imgRef != null ?
+        <img src={this.state.imgRef} alt='loading...' width="350"/> :
+        <img src={this.state.imgUrl} alt='loading...' width="350"/>
+    );
 
     return (
       <div className="moreInfoListingEditing">
@@ -68,6 +80,7 @@ class MoreInfoListingEditing extends Component {
             <div className="editImage">
               <div className="upload">
                 <ImportPhotoIcon/>
+                <input type="file" name="file" onChange={(event)=> { this.readFile(event) }} onClick={(event)=> { event.target.value = null }} />
               </div>
               <div className="image">
                 {img}
