@@ -11,6 +11,7 @@ class MoreInfoListingEditing extends Component {
     super(props, context)
     this.state = {
       imgUrl: '',
+      file: null,
       imgRef: null,
       imgLoad: false,
       description: this.props.item.description,
@@ -27,9 +28,17 @@ class MoreInfoListingEditing extends Component {
   }
 
   readFile = (event) => {
-    console.log('importPhoto()');
-    console.dir("value: "+event.target.files[0].type);
-    // this.setState({ imgRef: event.target.files.item(0) });
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imgRef: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
   }
 
   descChange = (e) => {
@@ -54,13 +63,13 @@ class MoreInfoListingEditing extends Component {
     let { toggle_edit, item, tryAgain, addCartItem, removeItem } = this.props;
     let img = (
       this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' width="350"/> :
-      <div className="imgLoading"> <div>loading...</div> </div>
+        <img src={this.state.imgUrl} alt='loading...' width="350"/> :
+        <div className="imgLoading"> <div>loading...</div> </div>
     );
     img = (
       this.state.imgRef != null ?
         <img src={this.state.imgRef} alt='loading...' width="350"/> :
-        <img src={this.state.imgUrl} alt='loading...' width="350"/>
+        img
     );
 
     return (

@@ -15,16 +15,30 @@ class Register extends Component {
       password: '',
       verifyPassword: '',
       wif: '',
-      imageRef: ''
+      imgRef: null,
+      file: null
     };
     this.registerHandler = this.registerHandler.bind(this);
+    this.readFile = this.readFile.bind(this);
   }
 
   registerHandler = () => {
     if(this.state.imageRef.files.length > 0) {
       console.log(this.state.imageRef.files[0]);
     }
-    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.imageRef.files[0], this.state.password, this.state.verifyPassword, this.state.wif)
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif)
+  }
+
+  readFile = (e) => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imgRef: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
   }
 
   /* text input handlers */
@@ -48,6 +62,11 @@ class Register extends Component {
   }
 
   render () {
+
+    let img = this.state.imgRef != null ?
+      <img src={this.state.imgRef} width="250"/> :
+      <div className="imgDefault"> <div>upload image</div> </div>
+
     return (
       <div>
         <div className="registerPageContainer">
@@ -98,10 +117,13 @@ class Register extends Component {
               <div className="importPhotoIconContainer">
                 <div className="file-input-wrapper">
                   <ImportPhotoIcon/>
-                  <input type="file" name="file" ref={(ref) => { this.state.imageRef = ref; }} />
+                  <input type="file" name="file" onChange={(e) => {this.readFile(e)}} onClick={(event)=> { event.target.value = null }} />
                 </div>
               </div>
 
+              <div className="photoContainer">
+                {img}
+              </div>
             </div>
           </div>
 
