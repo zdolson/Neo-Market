@@ -42,14 +42,13 @@ export class LeftSideBar extends Component {
             )
           })}
           </div>
-          <div className="sideNavLogout">
-            <div className="LogoutButton" onClick={this.LogoutHandler}>
-              <div className="LogoutButtonText">
-                Log Out
+            <div className="sideNavLogout">
+              <div className="LogoutButton" onClick={this.LogoutHandler}>
+                <div className="LogoutButtonText">
+                  Log Out
+                </div>
               </div>
             </div>
-          </div>
-
         <Stylesheet sheet={sheet}/>
       </div>
     )
