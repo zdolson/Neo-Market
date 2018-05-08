@@ -95,7 +95,7 @@ class Register extends Component {
                 Profile Picture
               </div>
 
-              <div className="importPhotoIconContainer" onClick={this.importProfilePicture}>
+              <div className="importPhotoIconContainer">
                 <div className="file-input-wrapper">
                   <ImportPhotoIcon/>
                   <input type="file" name="file" ref={(ref) => { this.state.imageRef = ref; }} />
