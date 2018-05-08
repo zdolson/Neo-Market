@@ -4,6 +4,7 @@ import sheet from './leftSideBar.scss'
 import { sideBarTitles } from '../data.js'
 
 import SideBarItem from './leftSideBarItem/leftSideBarItem'
+import {logoutUser} from '../fireBaseFunctions.js'
 
 /**
 
@@ -24,6 +25,11 @@ export class LeftSideBar extends Component {
     this.state = {
 
     }
+    this.logoutHandler = this.logoutHandler.bind(this);
+  }
+
+  logoutHandler = () => {
+    logoutUser();
   }
 
   render () {
@@ -35,6 +41,9 @@ export class LeftSideBar extends Component {
               <SideBarItem key={name} title={name} />
             )
           })}
+        </div>
+        <div className="logoutBtn" onClick={this.logoutHandler}>
+          Logout
         </div>
         <Stylesheet sheet={sheet}/>
       </div>
