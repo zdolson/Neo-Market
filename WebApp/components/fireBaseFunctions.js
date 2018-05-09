@@ -96,6 +96,15 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   });
 }
 
+export function editPostingToDatabase(id, description, title, price) {
+  // Adds new posting to database storage -> 'Listings'
+  firebase.database().ref('/Listings/' + id).update({
+    title: title,
+    description: description,
+    price: price,
+  });
+}
+
 export function pullUsersFromDatabase(that){
   var arrayUserList = []
   var currUser = {}

@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../stylesheet.js'
 import sheet from './moreInfoListingEditing.scss'
 
-import {pullingDatabaseImage} from '../../fireBaseFunctions.js'
+import {pullingDatabaseImage, editPostingToDatabase} from '../../fireBaseFunctions.js'
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
+
+import { Route } from 'react-router-dom'
 
 
 class MoreInfoListingEditing extends Component {
@@ -56,6 +58,7 @@ class MoreInfoListingEditing extends Component {
   submitHandler = () => {
     console.log('submitHandler()');
     console.log( {description: this.state.description, title: this.state.title, price: this.state.price} );
+    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price);
   }
 
   render() {
@@ -80,7 +83,12 @@ class MoreInfoListingEditing extends Component {
             Cancel
           </div>
           <div className="submitEditing" onClick={this.submitHandler}>
-            Submit
+            <Route render={({ history}) => (
+                <button type='button' onClick={() => { history.push('/') }}>
+                  Submit
+                </button>
+              )}
+            />
           </div>
         </div>
 
