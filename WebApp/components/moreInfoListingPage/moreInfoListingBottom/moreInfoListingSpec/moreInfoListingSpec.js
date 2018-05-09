@@ -30,7 +30,6 @@ class MoreInfoListingSpec extends Component {
     let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
-    console.log(this.props);
     return (
       <div className='moreInfoListingSpec'>
 

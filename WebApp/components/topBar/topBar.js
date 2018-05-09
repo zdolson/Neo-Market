@@ -46,9 +46,6 @@ export class TopBar extends Component {
             search...
           </div>
         </div>
-        <div className="LogoutContainer" onClick={this.LogoutHandler}>
-          <div className="LogoutButton">Log Out</div>
-        </div>
         <Stylesheet sheet={sheet} />
       </div>
     )
