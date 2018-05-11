@@ -73,6 +73,8 @@ export class App extends Component {
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
     this.tryAgain = this.tryAgain.bind(this);
+    this.updateFilter = this.updateFilter.bind(this);
+    this.updateSearch = this.updateSearch.bind(this);
   }
 
   componentWillMount () {
@@ -188,6 +190,20 @@ export class App extends Component {
     this.setState({ tryAgain: true });
   }
 
+  updateFilter = (filter_string) => {
+    console.log('updateFilter()');
+    if(filter_string !== this.state.filter_string) {
+      this.setState( {filter_string: filter_string} );
+    }
+  }
+
+  updateSearch = (search_string) => {
+    console.log('updateSearch()');
+    if(search_string !== this.state.search_string) {
+      this.setState( {search_string: search_string} );
+    }
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -209,7 +225,7 @@ export class App extends Component {
     return (
       <main>
         <div>
-          <TopBar />
+          <TopBar updateFilter={this.updateFilter} updateSearch={this.updateSearch}/>
           <LeftSideBar />
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />

@@ -24,7 +24,8 @@ export class TopBar extends Component {
     super(props, context)
     this.state = {
       menu_is_open: false,
-      filter_selected: 0
+      filter_selected: 0,
+      search_string: null
     }
     this.isRegister = this.isRegister.bind(this);
     this.LogoutHandler = this.LogoutHandler.bind(this);
@@ -59,19 +60,19 @@ export class TopBar extends Component {
   }
 
   titleSelect = (event) => {
-    console.log('filterSelect()');
+    this.props.updateFilter('title');
     event.preventDefault();
     this.setState( {filter_selected: 0} );
   }
 
   descSelect = (event) => {
-    console.log('filterSelect()');
+    this.props.updateFilter('description');
     event.preventDefault();
     this.setState( {filter_selected: 1} );
   }
 
   priceSelect = (event) => {
-    console.log('filterSelect()');
+    this.props.updateFilter('price');
     event.preventDefault();
     this.setState( {filter_selected: 2} );
   }
@@ -92,10 +93,9 @@ export class TopBar extends Component {
         <div className="topnav">
           <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
           <div className="search">
-            <SearchIcon className="searchicon" />
-            <div className="searchbubble">
-              search...
-            </div>
+            <SearchIcon className="searchicon" onClick={this.props.updateSearch(this.state.search_string)}/>
+            <input tpye="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={(str) => { this.setState({search_string: str}); }}>
+            </input>
             <div className="filter" onClick={this.openFilter}>
               <FilterIcon/>
             </div>
