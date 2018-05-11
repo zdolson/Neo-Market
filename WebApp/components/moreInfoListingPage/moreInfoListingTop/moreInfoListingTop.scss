@@ -16,7 +16,8 @@ Purpose: Spacing for the top of the moreInfoListingPage
 .moreInfoListingTop {
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: 55px;
   margin-bottom: 10%;
@@ -24,4 +25,19 @@ Purpose: Spacing for the top of the moreInfoListingPage
 
 .navLinkBackBtn {
   margin-left: 15px;
+}
+
+.editBtn {
+  height: 40px;
+  width: 40px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: $brightGreen;
+  border-radius: 5px;
+  margin-right: 15px;
+  &:hover {
+    cursor: pointer;
+  }
 }

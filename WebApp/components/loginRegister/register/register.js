@@ -17,9 +17,11 @@ class Register extends Component {
       password: '',
       verifyPassword: '',
       wif: '',
-      imageRef: ''
+      imgRef: null,
+      file: null
     };
     this.registerHandler = this.registerHandler.bind(this);
+    this.readFile = this.readFile.bind(this);
   }
 
   registerHandler = () => {
@@ -32,11 +34,22 @@ class Register extends Component {
         var possible = "0123456789";
 
         for (var i = 0; i < 6; i++)
-          text += possible.charAt(Math.floor(Math.random() * possible.length));
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         cF.register(uid, text);
     })
+  }
 
+  readFile = (e) => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imgRef: reader.result
+      });
+    }
+    reader.readAsDataURL(file)
   }
 
   /* text input handlers */
@@ -60,6 +73,11 @@ class Register extends Component {
   }
 
   render () {
+
+    let img = this.state.imgRef != null ?
+      <img src={this.state.imgRef} width="250"/> :
+      <div className="imgDefault"> <div>upload image</div> </div>
+
     return (
       <div>
         <div className="registerPageContainer">
@@ -107,13 +125,16 @@ class Register extends Component {
                 Profile Picture
               </div>
 
-              <div className="importPhotoIconContainer" onClick={this.importProfilePicture}>
+              <div className="importPhotoIconContainer">
                 <div className="file-input-wrapper">
                   <ImportPhotoIcon/>
-                  <input type="file" name="file" ref={(ref) => { this.state.imageRef = ref; }} />
+                  <input type="file" name="file" onChange={(e) => {this.readFile(e)}} onClick={(event)=> { event.target.value = null }} />
                 </div>
               </div>
 
+              <div className="photoContainer">
+                {img}
+              </div>
             </div>
           </div>
 

@@ -53,24 +53,25 @@ export class TopBar extends Component {
       // cF.getContractState().then(state => {
       //     console.log(state);
       // })
-      console.log(cF.sha256('fack') === cF.sha256('fack'));
+      console.log(cF.sha256('test') === cF.sha256('test'));
+
+      // <div className="zachBtn" onClick={this.topbarTestingButton}>
+      //   Property of Zach
+      // </div>
   }
 
   render () {
     return (
       <div className="topnav">
         <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
-        <div className="zachBtn" onClick={this.topbarTestingButton}>
-          Property of Zach
-        </div>
         <div className="search">
+          <div className="filter">
+            filter
+          </div>
           <SearchIcon className="searchicon" />
           <div className="searchbubble">
             search...
           </div>
-        </div>
-        <div className="LogoutContainer" onClick={this.LogoutHandler}>
-          <div className="LogoutButton">Log Out</div>
         </div>
         <Stylesheet sheet={sheet} />
       </div>

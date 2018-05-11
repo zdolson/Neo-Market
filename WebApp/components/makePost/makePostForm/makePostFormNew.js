@@ -2,27 +2,8 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './makePostFormNew.scss'
 
-import RightSideBar from '../../rightSideBar/rightSideBar.js'
-import LeftSideBar from '../../leftSideBar/leftSideBar.js'
-import LeftAccountBar from '../../leftAccountBar/leftAccountBar.js'
-import RightAccountBar from '../../rightAccountBar/rightAccountBar.js'
-import TopBar from '../../topBar/topBar.js'
-import FilterDropdown from '../../filterDropdown/filterDropdown.js'
-
-// Imports for the page components
-import listingsPage from '../../listingsPage/listingsPage.js'
-import walletPage from '../../walletPage/walletPage.js';
-import trashPage from '../../trashPage/trashPage.js';
-import forumsPage from '../../forumsPage/forumsPage.js';
-import promosPage from '../../promosPage/promosPage.js';
-import purchasesPage from '../../purchasesPage/purchasesPage.js';
-import peoplePage from '../../peoplePage/peoplePage.js';
-import cF from '../../../neonFunctions/contractFunctions'
-
 import { Route } from 'react-router-dom'
-
 import * as firebase from 'firebase'
-
 import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
 
 export class MakePostForm extends Component {
@@ -50,12 +31,16 @@ export class MakePostForm extends Component {
     var file = this.uploadInput.files[0];
     var id = this.makeId();
 
-    // Hard coded user since we dont have have users fully setup yet.
-    var hard_coded_owner = 'homie'; //<-- same thing as hard coded buyer, will update once Nick has function fleshed out.
-    // postNewPostingToDatabase(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value, file)
+    var currentUser;
+    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
+      .then( (snapshot) => {
+        currentUser = snapshot.val().userName;
+        console.log(currentUser);
+      }
+    );
 
-    // createPost works on pushing a posting to the SC.
-    cF.createPost(id, hard_coded_owner, this.title.value, this.description.value, this.price.value, this.amount.value)
+    postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
+    cF.createPost(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value)
 
     // /// Dev Version ///
     // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
