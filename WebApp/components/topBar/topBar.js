@@ -7,6 +7,7 @@ import SearchIcon from '../assets/SearchIcon.svg'
 // import cF from '../../../backend/contractFunctions'
 
 import { logoutUser } from '../fireBaseFunctions.js'
+import FilterIcon from '../assets/FilterIcon.svg'
 
 /**
 
@@ -21,9 +22,17 @@ Purpose: TopBar component; Provides template for top nav bar
 export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {}
+    this.state = {
+      menu_is_open: false,
+      filter_selected: 0
+    }
     this.isRegister = this.isRegister.bind(this);
     this.LogoutHandler = this.LogoutHandler.bind(this);
+    this.openFilter = this.openFilter.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+    this.titleSelect = this.titleSelect.bind(this);
+    this.descSelect = this.descSelect.bind(this);
+    this.priceSelect = this.priceSelect.bind(this);
   }
 
   LogoutHandler = () => {
@@ -33,19 +42,80 @@ export class TopBar extends Component {
   isRegister = () => {
   }
 
+  openFilter = (event) => {
+    console.log('openFilter()');
+    event.preventDefault();
+    this.setState({menu_is_open: true}, () => {
+      document.addEventListener('click', this.closeFilter);
+    });
+  }
+
+  closeFilter = (event) => {
+    console.log('closeFilter()');
+    if(!this.menu_ref.contains(event.target))
+      this.setState({menu_is_open: false}, () => {
+        document.removeEventListener('click', this.closeFilter);
+      })
+  }
+
+  titleSelect = (event) => {
+    console.log('filterSelect()');
+    event.preventDefault();
+    this.setState( {filter_selected: 0} );
+  }
+
+  descSelect = (event) => {
+    console.log('filterSelect()');
+    event.preventDefault();
+    this.setState( {filter_selected: 1} );
+  }
+
+  priceSelect = (event) => {
+    console.log('filterSelect()');
+    event.preventDefault();
+    this.setState( {filter_selected: 2} );
+  }
+
   render () {
+
+    let styles = {
+      selected: {
+        background: '#D3D3D3'
+      },
+      un_selected: {}
+    }
+    let filter_styles = [styles.un_selected, styles.un_selected, styles.un_selected];
+    filter_styles[this.state.filter_selected] = styles.selected;
+
     return (
-      <div className="topnav">
-        <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
-        <div className="zachBtn" onClick={this.isRegister}>
-          Property of Zach
-        </div>
-        <div className="search">
-          <SearchIcon className="searchicon" />
-          <div className="searchbubble">
-            search...
+      <div className="main-container">
+        <div className="topnav">
+          <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
+          <div className="search">
+            <SearchIcon className="searchicon" />
+            <div className="searchbubble">
+              search...
+            </div>
+            <div className="filter" onClick={this.openFilter}>
+              <FilterIcon/>
+            </div>
           </div>
         </div>
+
+        { this.state.menu_is_open
+          ? (
+            <div>
+              <div className="filter-flow"></div>
+              <div className="filter-menu" ref={(ref) => { this.menu_ref = ref; }}>
+                <div style={filter_styles[0]} className="filter-title" onClick={this.titleSelect}>TITLE</div>
+                <div style={filter_styles[1]} className="filter-description" onClick={this.descSelect}>DESCRIPTION</div>
+                <div style={filter_styles[2]} className="filter-price" onClick={this.priceSelect}>PRICE</div>
+              </div>
+            </div>
+          ):(
+            null
+          )
+        }
         <Stylesheet sheet={sheet} />
       </div>
     )
