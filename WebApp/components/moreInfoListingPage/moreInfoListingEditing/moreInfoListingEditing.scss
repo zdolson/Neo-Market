@@ -1,0 +1,122 @@
+@import '../../vars';
+@import '../../reset';
+@import '../../mixins';
+@import '../../animations';
+
+.moreInfoListingEditing {
+  display: flex;
+  flex-direction: column;
+  color: white;
+}
+
+.moreInfoListingEditingTop {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 55px;
+  margin-bottom: 5%;
+}
+
+.cancelEditing, .submitEditing {
+  height: 40px;
+  width: 80px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background: $brightGreen;
+  border-radius: 5px;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.cancelEditing { margin-left: 15px; }
+.submitEditing { margin-right: 15px; }
+
+.moreInfoListingEditingBottom {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.bottomLeft {
+  height: auto;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editImage {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  margin-bottom: 5px;
+}
+
+.upload {
+    margin-right: 5px;
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    position: relative;
+}
+.upload > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+}
+
+.image {
+  padding: 5px;
+  border-radius: 5px;
+  background: $greyRegisterBackground;
+}
+
+.imgLoading {
+  height: 350px;
+  width: 300px;
+}
+
+.editDescription, .inputTitle, .inputPrice {
+  color: white;
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  border-radius: 5px;
+  background: $greyRegisterBackground;
+}
+
+.price, .title {
+  font-size: 30px;
+  margin-bottom: 3%;
+}
+
+.descInput {
+  color: white;
+  width: 100%;
+}
+
+.bottomRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: auto;
+  width: 350px;
+  margin-left: 5%;
+  margin-top: 5%;
+}
+
+.editTitle {
+  margin-bottom: 10%;
+}
+
+.editPrice {
+  margin-bottom: 30%;
+}
