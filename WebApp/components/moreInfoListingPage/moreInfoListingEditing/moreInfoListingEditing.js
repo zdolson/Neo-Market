@@ -18,7 +18,7 @@ class MoreInfoListingEditing extends Component {
       imgLoad: false,
       description: this.props.item.description,
       title: this.props.item.title,
-      price: this.props.item.price,
+      price: this.props.item.price
     }
     this.submitHandler = this.submitHandler.bind(this);
     this.readFile = this.readFile.bind(this);

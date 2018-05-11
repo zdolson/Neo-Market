@@ -61,8 +61,7 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      tryAgain: false,
-      hasEdit: false,
+      tryAgain: false
     }
 
     // Function List
