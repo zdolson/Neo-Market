@@ -30,7 +30,7 @@ class MoreInfoListingBottom extends Component {
 
     return (
       <div className='moreInfoListingBottom'>
-      <MoreInfoListingItem item={item} tryAgain={tryAgain}/>
+        <MoreInfoListingItem item={item} tryAgain={tryAgain}/>
         <MoreInfoListingSpec item={item} addCartItem={addCartItem} removeItem={removeItem}/>
         <Stylesheet sheet={sheet} />
       </div>

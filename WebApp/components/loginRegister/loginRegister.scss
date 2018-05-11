@@ -31,7 +31,8 @@ Purpose: Styling for loginRegister page
 .rightSide {
 	dispaly: flex;
 	flex: 4;
-	background-color: $japaneseIndigoDarkBlue;
+	// background-color: $japaneseIndigoDarkBlue;
+  background-color: #0E1C27;
 	flex-direction: column;
 	justify-content: center;
 	z-index: 2;
@@ -68,8 +69,8 @@ Purpose: Styling for loginRegister page
 	display: flex;
 	height: 60px;
 	width: 225px;
-	background: $brightGreen;
-	border-radius: 10px;
+	background: $loginPageGreen;
+	border-radius: 5px;
 }
 
 .registerButtonText {
@@ -111,7 +112,7 @@ Purpose: Styling for loginRegister page
 	font-size: 28px;
 	width: 75%;
 	margin: center;
-	border-bottom: solid #eeeeee 1px;
+	border-bottom: solid #eeeeee 2px;
 	font-weight: lighter;
 }
 
@@ -124,7 +125,7 @@ Purpose: Styling for loginRegister page
 	font-size: 28px;
 	width: 75%;
 	margin: center;
-	border-bottom: solid #eeeeee 1px;
+	border-bottom: solid #eeeeee 2px;
 	font-weight: lighter;
 }
 
@@ -136,4 +137,3 @@ Purpose: Styling for loginRegister page
 	z-index: 1;
 	height: 100vh;
 }
-
