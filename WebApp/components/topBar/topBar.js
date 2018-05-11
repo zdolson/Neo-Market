@@ -37,10 +37,10 @@ export class TopBar extends Component {
     return (
       <div className="topnav">
         <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
-        <div className="zachBtn" onClick={this.isRegister}>
-          Property of Zach
-        </div>
         <div className="search">
+          <div className="filter">
+            filter
+          </div>
           <SearchIcon className="searchicon" />
           <div className="searchbubble">
             search...
