@@ -23,15 +23,18 @@ class Register extends Component {
   }
 
   registerHandler = () => {
-    if(this.state.imageRef.files.length > 0) {
-      console.log(this.state.imageRef.files[0]);
-    }
+    // console.log(this.state.imgRef);
+    // console.log(this.state.file);
+    // if(this.state.imgRef != null && this.state.imgRef.files.length > 0) {
+    //   console.log(this.state.imgRef.files[0]);
+    // }
     registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif)
   }
 
   readFile = (e) => {
     let reader = new FileReader();
     let file = e.target.files[0];
+    console.log('readFile');
     reader.onloadend = () => {
       this.setState({
         file: file,
