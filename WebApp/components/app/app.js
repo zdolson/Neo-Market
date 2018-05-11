@@ -192,10 +192,21 @@ export class App extends Component {
   }
 
   hasEdit(id, description, title, price) {
-    // pullDataFromDatabase(this)
-    var listing_item = returnCheckOutDataByID(id);
-    console.log(listing_item)
-
+    // This function is called when an update has been made to a listing.
+    // Empty out the items list and then do another database pull
+    this.setState({
+      items: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
+      ]
+    })
+    pullDataFromDatabase(this)
   }
 
   render () {

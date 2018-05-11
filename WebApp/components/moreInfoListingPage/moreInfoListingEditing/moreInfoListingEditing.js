@@ -56,13 +56,10 @@ class MoreInfoListingEditing extends Component {
   }
 
   submitHandler = () => {
-    console.log('submitHandler()');
-    console.log(this.props.hasEdit);
     var that = this
-    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that)
-    // .then(function() {
-    //   that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
-    // })
+    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that).then(function() {
+      that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
+    })
   }
 
   render() {
