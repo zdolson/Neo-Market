@@ -18,7 +18,7 @@ class MoreInfoListingEditing extends Component {
       imgLoad: false,
       description: this.props.item.description,
       title: this.props.item.title,
-      price: this.props.item.price
+      price: this.props.item.price,
     }
     this.submitHandler = this.submitHandler.bind(this);
     this.readFile = this.readFile.bind(this);
@@ -57,8 +57,12 @@ class MoreInfoListingEditing extends Component {
 
   submitHandler = () => {
     console.log('submitHandler()');
-    console.log( {description: this.state.description, title: this.state.title, price: this.state.price} );
-    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price);
+    console.log(this.props.hasEdit);
+    var that = this
+    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that)
+    // .then(function() {
+    //   that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
+    // })
   }
 
   render() {

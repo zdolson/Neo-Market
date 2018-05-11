@@ -96,13 +96,91 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   });
 }
 
-export function editPostingToDatabase(id, description, title, price) {
-  // Adds new posting to database storage -> 'Listings'
-  firebase.database().ref('/Listings/' + id).update({
-    title: title,
-    description: description,
-    price: price,
+export function editPostingToDatabase(id, description, title, price, imageFile, that) {
+  var image_database_ref = firebase.database().ref('/ListingImages/' + id);
+  // var image_storage_ref = firebase.storage().ref().child(imageFile['name']);
+
+  image_database_ref.once("value").then(function(snapshot) {
+    console.log(snapshot.val());
+    var stored_image_name = snapshot.val();
+    var update_image_name = stored_image_name;
+    console.log(imageFile)
+    // If imageFile is not null, meaning that a file was imoprted
+    if (imageFile != null) {
+      console.log('Theres a file in here')
+      // If the imageNames do NOT match
+      if (imageFile.name != stored_image_name ) {
+        console.log('There is a new image being uploaded')
+
+        update_image_name =  imageFile.name
+        // Uploading your new image to firebase
+        firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function() {
+          console.log('Updated blob file');
+        }).then(function() {
+          // Removing old image and adding the new reference in
+          image_database_ref.remove().then(function() {
+            image_database_ref.set(imageFile.name);
+          });
+        }).catch(function(error) {
+          // Handle Errors here.
+          console.log('An error has occured while Updating your image in storage in firebase')
+          console.log(error.code)
+          console.log(error.message)
+        });
+      }
+    } else {
+      console.log('There is no file in here')
+    }
+
+    // Adds new posting to database storage -> 'Listings'
+    firebase.database().ref('/Listings/' + id).update({
+      title: title,
+      description: description,
+      price: price,
+      imageName: update_image_name
+    }).catch(function(error) {
+        // Handle Errors here.
+        console.log('An error has occured while Updating the listing in firebae')
+        console.log(error.code)
+        console.log(error.message)
+    });
+
+
+
+    // that.setState({
+    //   title: title,
+    //   description: description,
+    //   price: price,
+    //   imageName: imageFile.name
+    // })
+
+  }).catch(function(error) {
+    // Handle Errors here.
+    console.log('An error has occured while editting a post in firebase')
+    console.log(error.code)
+    console.log(error.message)
   });
+  // var ref = firebase.storage().ref().child(imageFile['name']);
+  // ref.put(imageFile).then(function(snapshot) {
+  //   console.log('Uploaded a blob or file!');
+
+  //   // Adds new posting ID to databse storage -> 'ListingImages'
+  //   firebase.database().ref('/ListingImages/' + id).update(imageFile['name']);
+
+  //   // Adds new posting to database storage -> 'Listings'
+  //   firebase.database().ref('/Listings/' + id).update({
+  //     title: title,
+  //     description: description,
+  //     price: price,
+  //   });
+  // });
+
+  // // Adds new posting to database storage -> 'Listings'
+  // firebase.database().ref('/Listings/' + id).update({
+  //   title: title,
+  //   description: description,
+  //   price: price,
+  // });
 }
 
 export function pullUsersFromDatabase(that){

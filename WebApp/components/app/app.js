@@ -61,7 +61,8 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      tryAgain: false
+      tryAgain: false,
+      hasEdit: false,
     }
 
     // Function List
@@ -74,6 +75,7 @@ export class App extends Component {
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
     this.tryAgain = this.tryAgain.bind(this);
+    this.hasEdit = this.hasEdit.bind(this);
   }
 
   componentWillMount () {
@@ -189,6 +191,13 @@ export class App extends Component {
     this.setState({ tryAgain: true });
   }
 
+  hasEdit(id, description, title, price) {
+    // pullDataFromDatabase(this)
+    var listing_item = returnCheckOutDataByID(id);
+    console.log(listing_item)
+
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -216,7 +225,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+          <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
         </div>
       </main>
     )

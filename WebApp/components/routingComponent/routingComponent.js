@@ -35,6 +35,8 @@ class RoutingComponent extends Component {
     var addItem = this.props.addItem;
     var removeItem = this.props.removeItem;
     var tryAgain = this.props.tryAgain;
+    var hasEdit = this.props.hasEdit;
+
     return (
       <main>
         <Switch>
@@ -52,7 +54,7 @@ class RoutingComponent extends Component {
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (
-              <Route path={path} key={key} render={ () => <MoreInfoListingPage tryAgain={tryAgain} item={items[key]} addCartItem={addCartItem} removeItem={removeItem} /> } />
+              <Route path={path} key={key} render={ () => <MoreInfoListingPage tryAgain={tryAgain} item={items[key]} addCartItem={addCartItem} removeItem={removeItem} hasEdit={hasEdit}/> } />
             )
           })}
       	</Switch>
