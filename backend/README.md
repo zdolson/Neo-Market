@@ -75,9 +75,9 @@ curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contrac
 This will update any modules inside of the PrivateNet, download a wallet with 100M NEO and ~160k GAS, as well as
 download the current version of Smart Contract testing.py from our repo.
 
-3. Enter prompt.py with either of the three available commands above. (since they change the location a few times now)
+3. Enter prompt.py 
 ```
-  a=find -name 'prompt.py' ; python3 $a  
+  neopy
 ```
 
 4. Open the wallet for use of assets.
