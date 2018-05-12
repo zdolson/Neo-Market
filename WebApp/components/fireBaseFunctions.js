@@ -172,6 +172,17 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
   }
 }
 
+export function deletePosting(id, that) {
+  return firebase.database().ref('/Listings/' + id).remove().then(function() {
+    firebase.database().ref('/ListingImages/' + id).remove()
+  }).catch(function(error) {
+    // Handle Errors here.
+    console.log('An error has occured while removing a listing: ')
+    console.log(error.code)
+    console.log(error.message)
+  })
+}
+
 export function loginUser(email, password) {
   return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
