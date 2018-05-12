@@ -97,25 +97,25 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
 }
 
 export function editPostingToDatabase(id, description, title, price, imageFile, that) {
-  var image_database_ref = firebase.database().ref('/ListingImages/' + id);
+  var imageDatabaseRef = firebase.database().ref('/ListingImages/' + id);
 
-  return image_database_ref.once("value").then(function(snapshot) {
-    var stored_image_name = snapshot.val();
-    var update_image_name = stored_image_name;
+  return imageDatabaseRef.once("value").then(function(snapshot) {
+    var storageImageName = snapshot.val();
+    var updateImageName = storageImageName;
 
     // If imageFile is not null, meaning that a file was imoprted
     if (imageFile != null) {
 
       // Once we know that there is an image file imported we can check the name of the file
-      if (imageFile.name != stored_image_name ) {
-        update_image_name =  imageFile.name
+      if (imageFile.name != storageImageName ) {
+        updateImageName =  imageFile.name
 
         // Uploading your new image to firebase
         firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function() {
         }).then(function() {
           // Removing old image and adding the new reference in
-          image_database_ref.remove().then(function() {
-            image_database_ref.set(imageFile.name);
+          imageDatabaseRef.remove().then(function() {
+            imageDatabaseRef.set(imageFile.name);
           });
         }).catch(function(error) {
           // Handle Errors here.
@@ -131,7 +131,7 @@ export function editPostingToDatabase(id, description, title, price, imageFile, 
       title: title,
       description: description,
       price: price,
-      imageName: update_image_name
+      imageName: updateImageName
     }).catch(function(error) {
         // Handle Errors here.
         console.log('An error has occured while updating the listing in firebae')
