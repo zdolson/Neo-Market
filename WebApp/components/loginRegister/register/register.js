@@ -4,6 +4,8 @@ import sheet from './register.scss'
 
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import {registerUserToDatabase} from '../../fireBaseFunctions.js'
+import cF from '../../../neonFunctions/contractFunctions'
+// import sha256
 
 class Register extends Component {
   constructor(props) {
@@ -28,7 +30,16 @@ class Register extends Component {
     // if(this.state.imgRef != null && this.state.imgRef.files.length > 0) {
     //   console.log(this.state.imgRef.files[0]);
     // }
-    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif)
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif).then(uid => {
+        // console.log(uid);
+        var text = "";
+        var possible = "0123456789";
+
+        for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+        cF.register(uid, text);
+    })
   }
 
   readFile = (e) => {

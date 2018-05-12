@@ -134,42 +134,46 @@ function isUserRegisterd(userName, userList) {
 }
 
 export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif) {
-  if (password != verifyPassword) {
-    console.log('Passwords dont match')
-  } else {
-    firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-      if (typeof photoId == 'undefined') {
-        console.log('photoIsUndefined')
-        photoId = 'defaultPhoto.png'
-      }
+	return new Promise((resolve,reject) => {
+		if (password != verifyPassword) {
+	      	console.log('Passwords dont match')
+	    } else {
+	      	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+	        	if (typeof photoId == 'undefined') {
+	          		console.log('photoIsUndefined')
+	          		photoId = 'defaultPhoto.png'
+	        	}
+	        firebase.database().ref('/Users/').once('value').then(() => {
+	          	var newUser = {
+	            	fullName: fullName,
+	            	userName: userName,
+	            	email: email,
+	            	myListings: '',
+	            	myPurchases: '',
+	            	photoId: photoId,
+	            	password: password,
+	            	wif: wif
+	          	}
+	          	firebase.database().ref('/Users/' + user.uid).set(newUser);
+	  			resolve(user.uid);
 
-      firebase.database().ref('/Users/').once('value').then(() => {
-        var newUser = {
-          fullName: fullName,
-          userName: userName,
-          email: email,
-          myListings: '',
-          myPurchases: '',
-          photoId: photoId,
-          password: password,
-          wif: wif
-        }
-        firebase.database().ref('/Users/' + user.uid).set(newUser);
+	        }).catch(function(error) {
+	        // Handle Errors here.
+	        	console.log('An error has occured while creating the user via Firebase: ')
+	        	console.log(error.code)
+	        	console.log(error.message)
+				reject(error);
+	      });
 
-      }).catch(function(error) {
-      // Handle Errors here.
-      console.log('An error has occured while creating the user via Firebase: ')
-      console.log(error.code)
-      console.log(error.message)
-    });    
-
-    }).catch(function(error) {
-      // Handle Errors here.
-      console.log('An error has occured while registering the user via Firebase: ')
-      console.log(error.code)
-      console.log(error.message)
-    });
-  }
+	      }).catch(function(error) {
+	        // Handle Errors here.
+        		console.log('An error has occured while registering the user via Firebase: ')
+	        	console.log(error.code)
+	        	console.log(error.message)
+				reject(error);
+	      });
+	    }
+	})
 }
 
 export function loginUser(email, password) {
@@ -193,4 +197,3 @@ export function logoutUser(){
     console.log(error.message)
   });
 }
-

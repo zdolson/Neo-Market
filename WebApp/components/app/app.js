@@ -14,7 +14,7 @@ import RoutingComponent from '../routingComponent/routingComponent.js'
 // Import for react-router package.
 import { HashRouter as Router, Route, NavLink, Switch} from 'react-router-dom'
 
-// const cF = require('../../../backend/contractFunctions')
+import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
@@ -82,8 +82,9 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-    pullDataFromDatabase(this)
+    // pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
+    cF.getAllPostsFromStorage(this);
   }
 
   componentDidMount() {
@@ -174,6 +175,7 @@ export class App extends Component {
         break
       } else {
         var currNum = currCartItemData['price']
+        currNum = currNum.replace(/[^\x20-\x7E]/g, ''); // Needed to strip extra hidden ASCII values
         if (typeof currCartItemData['price'] !== 'number') {
           currNum = parseInt(currNum)
         }
