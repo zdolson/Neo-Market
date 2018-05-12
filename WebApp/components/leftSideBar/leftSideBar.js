@@ -21,10 +21,10 @@ export class LeftSideBar extends Component {
     this.state = {
 
     }
-    this.LogoutHandler = this.LogoutHandler.bind(this);
+    this.logoutHandler = this.logoutHandler.bind(this);
   }
 
-  LogoutHandler = () => {
+  logoutHandler = () => {
     logoutUser();
   }
 
@@ -38,7 +38,7 @@ export class LeftSideBar extends Component {
             )
           })}
         </div>
-        <div className="logoutBtn" onClick={this.LogoutHandler}>
+        <div className="logoutBtn" onClick={this.logoutHandler}>
           Logout
         </div>
         <Stylesheet sheet={sheet}/>
