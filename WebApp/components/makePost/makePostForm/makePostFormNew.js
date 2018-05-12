@@ -5,6 +5,7 @@ import sheet from './makePostFormNew.scss'
 import { Route } from 'react-router-dom'
 import * as firebase from 'firebase'
 import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
+import cF from '../../../neonFunctions/contractFunctions'
 
 export class MakePostForm extends Component {
   constructor (props, context) {
@@ -32,15 +33,24 @@ export class MakePostForm extends Component {
     var id = this.makeId();
 
     var currentUser;
+    var title = this.title.value;
+    var description = this.description.value;
+    var price = this.price.value;
+    var amount = this.amount.value;
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
       .then( (snapshot) => {
         currentUser = snapshot.val().userName;
         console.log(currentUser);
+        console.log(title)
+        console.log(description)
+        console.log(price)
+        console.log(amount)
+        cF.createPost(id, currentUser, title, description, price, amount)
       }
     );
 
-    postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
-    cF.createPost(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value)
+    // postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
+
 
     // /// Dev Version ///
     // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
