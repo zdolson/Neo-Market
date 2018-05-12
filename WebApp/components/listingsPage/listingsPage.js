@@ -35,28 +35,25 @@ export class ListingsPage extends Component {
 
   }
 
-  componentDidMount = () => {
 
-  }
 
   render () {
-    var tryAgain = this.props.tryAgain;
     let {filter_string, search_string, items} = this.props.state;
-    console.log(filter_string);
-    console.log(search_string);
-    console.log(items);
+    let {search, resetSearch} = this.props;
     if(filter_string === 'title') {
       items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1);
     } else if(filter_string === 'description') {
       items = items.filter((item) => search_string === '' || item.description.indexOf(search_string) !== -1);
-    } 
+    }
     return (
       <div className='listings'>
 
         {items.map( (item, key) => {
+          let last = false
+          if(key == items.length-1) last=true;
           var link = '/MoreInfoItem/'+item.id;
           return (
-            <Link to={link} key={key} className="navLink">  <Listing item={item} tryAgain={tryAgain}/> </Link>
+            <Link to={link} key={key} className="navLink">  <Listing item={item} search_string={search_string} resetSearch={resetSearch} last={last} search={search}/> </Link>
           )
         })}
 

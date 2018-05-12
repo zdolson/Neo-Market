@@ -26,7 +26,7 @@ export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
         if(id == keys[i]){
           var ref = firebase.storage().ref(snapshot.child(id).val());
           ref.getDownloadURL().then(url => {
-            that.setState({ imgUrl: url, imgLoad: true });
+            that.setState({ imgUrl: url, imgLoad: true, tryAgain: false });
           }).catch(err => {
             console.error(err)
             that.setState({tryAgain: true})
@@ -47,14 +47,12 @@ function isInItemList(id, listOfItems) {
 }
 
 export function pullDataFromDatabase(that) {
-	console.log('pullDataFromDatabase');
   var arrayItemList = []
   var currItem = {}
 
   var fireBaseDatabaseRef = firebase.database().ref('/Listings/');
   fireBaseDatabaseRef.on('value', function(snapshot) {
     snapshot.forEach((childSnapshot) => {
-			console.log(childSnapshot);
       if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
         currItem = {
           id: childSnapshot.child('id').val(),
@@ -71,7 +69,6 @@ export function pullDataFromDatabase(that) {
 
     // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
-			console.log('setState');
       that.setState({ items: arrayItemList})
     }
   })
@@ -117,11 +114,11 @@ export function pullUsersFromDatabase(that){
       }
       arrayUserList.push(currUser)
 
-      if(typeof arrayUserList !== 'undefined') {
-        that.setState({ users: arrayUserList})
-      }
+    });
 
-    })
+		if(typeof arrayUserList !== 'undefined') {
+			that.setState({ users: arrayUserList})
+		}
   }).catch(err => {
     console.error(err)
   });

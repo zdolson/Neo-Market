@@ -46,7 +46,6 @@ export class TopBar extends Component {
   }
 
   openFilter = (event) => {
-    console.log('openFilter()');
     event.preventDefault();
     this.setState({menu_is_open: true}, () => {
       document.addEventListener('click', this.closeFilter);
@@ -54,7 +53,6 @@ export class TopBar extends Component {
   }
 
   closeFilter = (event) => {
-    console.log('closeFilter()');
     if(!this.menu_ref.contains(event.target))
       this.setState({menu_is_open: false}, () => {
         document.removeEventListener('click', this.closeFilter);
@@ -80,12 +78,10 @@ export class TopBar extends Component {
   }
 
   searchHandler = (event) => {
-    console.log('searchHandler()');
     this.props.updateSearch(this.state.search_string);
   }
 
   searchChange = (event) => {
-    console.log('searchChange()');
     this.setState( {search_string: event.target.value} );
   }
 

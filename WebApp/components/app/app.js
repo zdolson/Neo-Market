@@ -60,9 +60,9 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      tryAgain: false,
       filter_string: 'title',
-      search_string: ''
+      search_string: '',
+      search: false
     }
 
     // Function List
@@ -74,9 +74,9 @@ export class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
-    this.tryAgain = this.tryAgain.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
+    this.resetSearch = this.resetSearch.bind(this);
   }
 
   componentWillMount () {
@@ -91,7 +91,6 @@ export class App extends Component {
   }
 
   componentDidMount() {
-    console.log('app.js component loaded successfully.');
     pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
   }
@@ -136,7 +135,7 @@ export class App extends Component {
       this.state.cartItems.splice(index, 1)
       this.setState({ cartItems: this.state.cartItems})
     }else{
-      console.log("item doesn't exist in cart")
+      console.error("item doesn't exist in cart")
     }
   }
 
@@ -189,23 +188,20 @@ export class App extends Component {
     return currTotal
   }
 
-  tryAgain() {
-    this.setState({ tryAgain: false });
-    this.setState({ tryAgain: true });
-  }
-
   updateFilter = (filter_string) => {
-    console.log('updateFilter()');
     if(filter_string !== this.state.filter_string) {
-      this.setState( {filter_string: filter_string} );
+      this.setState( {filter_string: filter_string, search: true} );
     }
   }
 
   updateSearch = (search_string) => {
-    console.log('updateSearch()');
     if(search_string !== this.state.search_string) {
-      this.setState( {search_string: search_string} );
+      this.setState( {search_string: search_string, search: true} );
     }
+  }
+
+  resetSearch = () => {
+    this.setState( {search: false} );
   }
 
   render () {
@@ -234,7 +230,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent state={this.state} tryAgain={this.tryAgain} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
         </div>
       </main>
     )
