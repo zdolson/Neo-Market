@@ -30,13 +30,26 @@ export class ListingsPage extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
+      items: []
     }
+
+  }
+
+  componentDidMount = () => {
+
   }
 
   render () {
-    var items = this.props.state.items;
-    var cartItems = this.props.state.cartItems;
     var tryAgain = this.props.tryAgain;
+    let {filter_string, search_string, items} = this.props.state;
+    console.log(filter_string);
+    console.log(search_string);
+    console.log(items);
+    if(filter_string === 'title') {
+      items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1);
+    } else if(filter_string === 'description') {
+      items = items.filter((item) => search_string === '' || item.description.indexOf(search_string) !== -1);
+    } 
     return (
       <div className='listings'>
 

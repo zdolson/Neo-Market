@@ -86,12 +86,14 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-    pullDataFromDatabase(this)
-    pullUsersFromDatabase(this)
+    // pullDataFromDatabase(this)
+    // pullUsersFromDatabase(this)
   }
 
   componentDidMount() {
     console.log('app.js component loaded successfully.');
+    pullDataFromDatabase(this)
+    pullUsersFromDatabase(this)
   }
 
   addCartItem(id) {

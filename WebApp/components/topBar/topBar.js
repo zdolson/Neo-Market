@@ -120,7 +120,6 @@ export class TopBar extends Component {
               <div className="filter-menu" ref={(ref) => { this.menu_ref = ref; }}>
                 <div style={filter_styles[0]} className="filter-title" onClick={this.titleSelect}>TITLE</div>
                 <div style={filter_styles[1]} className="filter-description" onClick={this.descSelect}>DESCRIPTION</div>
-                <div style={filter_styles[2]} className="filter-price" onClick={this.priceSelect}>PRICE</div>
               </div>
             </div>
           ):(

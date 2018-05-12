@@ -47,12 +47,14 @@ function isInItemList(id, listOfItems) {
 }
 
 export function pullDataFromDatabase(that) {
+	console.log('pullDataFromDatabase');
   var arrayItemList = []
   var currItem = {}
 
   var fireBaseDatabaseRef = firebase.database().ref('/Listings/');
   fireBaseDatabaseRef.on('value', function(snapshot) {
     snapshot.forEach((childSnapshot) => {
+			console.log(childSnapshot);
       if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
         currItem = {
           id: childSnapshot.child('id').val(),
@@ -69,6 +71,7 @@ export function pullDataFromDatabase(that) {
 
     // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
+			console.log('setState');
       that.setState({ items: arrayItemList})
     }
   })
@@ -161,7 +164,7 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
       console.log('An error has occured while creating the user via Firebase: ')
       console.log(error.code)
       console.log(error.message)
-    });    
+    });
 
     }).catch(function(error) {
       // Handle Errors here.
@@ -193,4 +196,3 @@ export function logoutUser(){
     console.log(error.message)
   });
 }
-
