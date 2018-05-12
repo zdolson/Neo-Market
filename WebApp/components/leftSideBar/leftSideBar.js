@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './leftSideBar.scss'
@@ -5,16 +6,12 @@ import { sideBarTitles } from '../data.js'
 
 import SideBarItem from './leftSideBarItem/leftSideBarItem'
 import {logoutUser} from '../fireBaseFunctions.js'
+
 /**
 
-@ Alec
+@ Victoria
 
-@ 2/20/18
-
-Purpose: SideBar component; Provides template for left sidebar.
-
-TODO: Allow for a prop passed in from a parent to determine the positioning (left or right)
-        currently this is only a left sidebar.
+@ 04/20/18
 
 **/
 
@@ -40,14 +37,10 @@ export class LeftSideBar extends Component {
               <SideBarItem key={name} title={name} />
             )
           })}
-          </div>
-            <div className="sideNavLogout">
-              <div className="LogoutButton" onClick={this.LogoutHandler}>
-                <div className="LogoutButtonText">
-                  Log Out
-                </div>
-              </div>
-            </div>
+        </div>
+        <div className="logoutBtn" onClick={this.LogoutHandler}>
+          Logout
+        </div>
         <Stylesheet sheet={sheet}/>
       </div>
     )

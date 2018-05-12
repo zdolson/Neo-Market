@@ -5,9 +5,9 @@
 
 /**
 
-@ Alec
+@ Victoria
 
-@ 2/20/18
+@ 04/20/18
 
 Purpose: Provides styling and spacing to LeftSideBar
 
@@ -16,10 +16,10 @@ Purpose: Provides styling and spacing to LeftSideBar
 .sidenav {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   align-items: center;
-  width: 175px;
+  justify-content: space-between;
   position: fixed;
+  width: 175px;
   z-index: 1;
   top: 100px;
   bottom: 0;
@@ -36,28 +36,16 @@ Purpose: Provides styling and spacing to LeftSideBar
   display: grid;
 }
 
-.sideNavLogout {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  margin-top: 120%;
-}
-
-.LogoutButton {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+.logoutBtn {
   width: 80%;
-  height: 5%;
+  height: 30px;
+  margin-bottom: 10%;
+  line-height: 30px;
+  font-size: 20px;
+  border-radius: 3px;
+  text-align: center;
   background: $registerButtonOrange;
-  color: $white;
-  border-radius: 5px;
-}
-
-.LogoutButtonText {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  &:hover {
+    cursor: pointer;
+  }
 }
