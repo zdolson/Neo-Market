@@ -25,7 +25,7 @@ export class TopBar extends Component {
     this.state = {
       menu_is_open: false,
       filter_selected: 0,
-      search_string: null
+      search_string: ''
     }
     this.isRegister = this.isRegister.bind(this);
     this.LogoutHandler = this.LogoutHandler.bind(this);
@@ -34,6 +34,8 @@ export class TopBar extends Component {
     this.titleSelect = this.titleSelect.bind(this);
     this.descSelect = this.descSelect.bind(this);
     this.priceSelect = this.priceSelect.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
+    this.searchChange = this.searchChange.bind(this);
   }
 
   LogoutHandler = () => {
@@ -77,6 +79,16 @@ export class TopBar extends Component {
     this.setState( {filter_selected: 2} );
   }
 
+  searchHandler = (event) => {
+    console.log('searchHandler()');
+    this.props.updateSearch(this.state.search_string);
+  }
+
+  searchChange = (event) => {
+    console.log('searchChange()');
+    this.setState( {search_string: event.target.value} );
+  }
+
   render () {
 
     let styles = {
@@ -93,9 +105,8 @@ export class TopBar extends Component {
         <div className="topnav">
           <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
           <div className="search">
-            <SearchIcon className="searchicon" onClick={this.props.updateSearch(this.state.search_string)}/>
-            <input tpye="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={(str) => { this.setState({search_string: str}); }}>
-            </input>
+            <SearchIcon className="searchicon" onClick={this.searchHandler}/>
+            <input type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange}></input>
             <div className="filter" onClick={this.openFilter}>
               <FilterIcon/>
             </div>

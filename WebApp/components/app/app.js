@@ -60,7 +60,9 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      tryAgain: false
+      tryAgain: false,
+      filter_string: 'title',
+      search_string: ''
     }
 
     // Function List
