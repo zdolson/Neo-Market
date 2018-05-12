@@ -9,7 +9,6 @@ import LeftSideBar from '../leftSideBar/leftSideBar.js'
 import LeftAccountBar from '../leftAccountBar/leftAccountBar.js'
 import RightAccountBar from '../rightAccountBar/rightAccountBar.js'
 import TopBar from '../topBar/topBar.js'
-import FilterDropdown from '../filterDropdown/filterDropdown.js'
 import RoutingComponent from '../routingComponent/routingComponent.js'
 
 // Import for react-router package.
@@ -210,7 +209,6 @@ export class App extends Component {
     return (
       <main>
         <div>
-          <FilterDropdown />
           <TopBar />
           <LeftSideBar />
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
