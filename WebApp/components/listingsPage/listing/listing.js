@@ -4,7 +4,6 @@ import sheet from './listing.scss'
 
 
 import ListingContent from './listingContent/listingContent.js'
-import ListingPic from './listingPic/listingPic.js'
 import { pullingDatabaseImage } from '../../fireBaseFunctions.js'
 
 /**
