@@ -68,7 +68,7 @@ docker exec -it neo-privnet /bin/bash
 
 2. Curl our script start.sh, enable and run.
 ```bash
-curl --request GET --header "PRIVATE-TOKEN: UsQx-_vq6wNnx4CVAoi_" "https://gitlab.com/zdolson/Neo-Market/raw/backend_fixing_and_updating_files_cleaning_up/backend/Contracts/new-boa/neo_docker_setup.py" -o neo_docker_setup.py
+curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/neo_docker_setup.sh -o neo_docker_setup.py
 && chmod u+x neo_docker_setup.sh
 && ./neo_docker_setup.sh
 ```
@@ -120,7 +120,7 @@ If the output from testing the functions is satisfactory, rebuild the Smart Cont
 and proceed.
 7. Deploy Smart Contract
 ```neo-cli
-import testing.avm 0705 02 True False
+import testing.avm 0710 02 True False
 ```
 Breakdown of ```import``` command's arguments:
  * 1st Argument: ```testing.avm``` is the compiled result from ```build testing.py```.
