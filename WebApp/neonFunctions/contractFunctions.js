@@ -1,9 +1,12 @@
+// import * as firebase from 'firebase'
+const firebase = require('firebase')
 const neon = require('@cityofzion/neon-js')
 const Neon = neon.default
-const config = require('./configFiles/config')
-const node = require('./configFiles/blockchain')
+const config = require('./config')
+const node = require('./blockchain')
 const axios = require("axios")
 const account = Neon.create.account(config.wif)
+const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
 var debug = false;
@@ -21,6 +24,172 @@ var debug = false;
 
 
 module.exports = {
+
+    /*
+     * @Function: sha256
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownersArray
+     * @Param: {string} buyerName
+     * @Param: {string} costArray
+     * @Return: {promise} sendConfig
+     * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
+     */
+    sha256: (input) => {
+        return SHA256(input).toString();
+    },
+
+    /*
+     * @Function: multipurchase
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownersArray
+     * @Param: {string} buyerName
+     * @Param: {string} costArray
+     * @Return: {promise} sendConfig
+     * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
+     */
+    multipurchase: (ownersArray, buyerName, costArray) => {
+        return new Promise((resolve,reject) => {
+
+            // could be cool to export this to another file, much like I have config.js holding
+            // certain variables used everywhere in interactions.
+            var firebaseConfig = {
+              apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
+              authDomain: "neo-market-8a303.firebaseapp.com",
+              databaseURL: "https://neo-market-8a303.firebaseio.com",
+              projectId: "neo-market-8a303",
+              storageBucket: "neo-market-8a303.appspot.com",
+              messagingSenderId: "1035941360979"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            // Need authentication to allow access to database.
+            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+            });
+
+            // Gets buyer info from firebase
+            firebase.database().ref('/Users/'+buyerName).once('value').then(snapshot => {
+                var bWif = snapshot.child('wif').val();
+                var buyerAccount = Neon.create.account(bWif);
+                var balanceConfig = {
+                    net: config.RESTEndpoint,
+                    address: buyerAccount.address
+                };
+                node.getBalance(buyerAccount.address).then(balance => {
+                    node.getRPCEndpoint().then(rpcEndpoint => {
+                        var client = Neon.create.rpcClient(rpcEndpoint);
+                        var multipleIntents = [];
+                        for (let i = 0; i < ownersArray.length; i++){
+                            var currOwnerName = ownersArray[i];
+                            firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
+                                var oWif = snapshot.child('wif').val();
+                                var ownerAccount = Neon.create.account(oWif);
+                                var currCost = costArray[i];
+                                multipleIntents = multipleIntents.concat(neon.api.makeIntent({NEO:currCost}, ownerAccount.address));
+                                if (i == ownersArray.length - 1){
+                                    const sendConfig = {
+                                      net: config.RESTEndpoint,
+                                      address: buyerAccount.address,  // This is the address which the assets come from.
+                                      privateKey: buyerAccount.privateKey,
+                                      intents: multipleIntents
+                                    };
+
+                                    Neon.sendAsset(sendConfig).then(sendConfig => {
+                                        if (debug) {
+                                            console.log(sendConfig.response);
+                                        }
+                                        resolve(sendConfig);
+                                    }).catch(sendConfig => {
+                                        if (debug) {
+                                            console.log(sendConfig);
+                                        }
+                                        reject(sendConfig);
+                                    })
+                                }
+                             })
+                         }
+                    }).catch(err => {
+                        if (debug){
+                            console.error('multipurchase(): err: ', err);
+                        }
+                        reject(err);
+                    })
+                 }).catch(err => {
+                     if (debug){
+                         console.error('multipurchase(): err: ', err);
+                     }
+                     reject(err);
+                 })
+             })
+         })
+     },
+
+    /*
+     * @Function: purchase
+     * @Contributor: Zachary Olson
+     * @Param: {string} ownerName
+     * @Param: {string} buyerName
+     * @Param: {string} cost
+     * @Return: {promise} sendConfig
+     * Purpose: Transfers assets from buyer to owner.
+     */
+    purchase: (ownerName, buyerName, cost) => {
+        return new Promise((resolve,reject) => {
+            var firebaseConfig = {
+              apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
+              authDomain: "neo-market-8a303.firebaseapp.com",
+              databaseURL: "https://neo-market-8a303.firebaseio.com",
+              projectId: "neo-market-8a303",
+              storageBucket: "neo-market-8a303.appspot.com",
+              messagingSenderId: "1035941360979"
+            };
+
+            if (!firebase.apps.length) {
+                firebase.initializeApp(firebaseConfig);
+            }
+
+            // Need authentication to allow access to database.
+            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
+              // Handle Errors here.
+              var errorCode = error.code;
+              var errorMessage = error.message;
+            });
+
+            // ownerName = 'XdwT8CqBZ0Q4JOLrlhk6MKHdOvF2';
+            // buyerName = 'DewA2n3NBHb6MpLvKEgsmrqYp2y1';
+            firebase.database().ref('/Users/'+ownerName).once('value').then((snapshot) => {
+                var oWif = snapshot.child('wif').val();
+                firebase.database().ref('/Users/'+buyerName).once('value').then((snapshot) => {
+                    var bWif = snapshot.child('wif').val();
+                    var ownerAccount = Neon.create.account(oWif);
+                    var buyerAccount = Neon.create.account(bWif);
+                    const intent = neon.api.makeIntent({NEO:cost}, ownerAccount.address)
+                    const sendConfig = {
+                      net: config.RESTEndpoint,
+                      address: buyerAccount.address,  // This is the address which the assets come from.
+                      privateKey: buyerAccount.privateKey,
+                      intents: intent
+                   };
+                    Neon.sendAsset(sendConfig).then(sendConfig => {
+                        if (debug){
+                            console.log(sendConfig.response);
+                        }
+                        resolve(sendConfig);
+                    }).catch(sendConfig => {
+                        if (debug){
+                            console.log(sendConfig);
+                        }
+                        reject(sendConfig);
+                    })
+                });
+            });
+        })
+    },
 
     /*
      * @Function: getBlockCount
@@ -155,20 +324,46 @@ module.exports = {
     /*
      * @Function: getAllPostsFromStorage
      * @Contributor: Zachary Olson
+     * @Param: instance that
      * @Return: {string array} allPosts
-     * Purpose: Returns a string array of all postings stored on the SC.
+     * Purpose: Returns and sets the items state in the instance provided with an array of listings from the SC.
      */
-    getAllPostsFromStorage: () => {
+    getAllPostsFromStorage: (that) => {
         return new Promise((resolve,reject) => {
             var allPosts = [];
+            var currItem = {};
             module.exports.getAllUsersFromStorage().then(userList => {
-                for (var i = 0; i < userList.length-1; i++) {
+                for (var i = 0; i < userList.length - 1; i++) {
                     module.exports.getUserPostsFromStorage(userList[i]).then((posts) => {
-                        allPosts.push(posts);
+                        if (debug) {
+                            console.log('getAllPostsFromStorage(): posts: ', posts);
+                            console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                        }
+                        if (posts.length > 1){
+                            for (var j = 0; j < posts.length - 1; j++){
+                                let cutPosts = posts[j].split(',');
+                                if (debug) {
+                                    console.log('getAllPostsFromStorage(): cutPosts: ', cutPosts);
+                                }
+                                currItem = {
+                                  id: cutPosts[0],
+                                  owner: cutPosts[1],
+                                  title: cutPosts[2],
+                                  description: cutPosts[3],
+                                  price: cutPosts[4],
+                                  amount: cutPosts[5],
+                                }
+                                if (debug) {
+                                    console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                                }
+                                allPosts.push(currItem);
+                            }
+                        }
                         if(i == userList.length - 1) {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
+                            that.setState({ items: allPosts});
                             resolve(allPosts);
                         }
                     }).catch(err => {
