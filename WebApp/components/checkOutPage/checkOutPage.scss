@@ -73,14 +73,14 @@ Purpose: CSS file for styling checkOut page
 
 .checkOutTotalValue {
 	font-weight: 200;
-	color: $brightGreen;
+	color: $loginPageGreen;
 	// margin-left: 5%;
 }
 
 .checkOutTotalLine {
 	min-height: 1px;
 	min-width: 100%;
-	background: $brightGreen;
+	background: $loginPageGreen;
 }
 
 .cartHeaderLine {
@@ -101,7 +101,7 @@ Purpose: CSS file for styling checkOut page
 	}
 	flex-direction: column;
 	justify-content: center;
-	background: $brightGreen;
+	background: $loginPageGreen;
 }
 
 .purchaseBtnText {
