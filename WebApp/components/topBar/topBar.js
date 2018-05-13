@@ -31,7 +31,6 @@ export class TopBar extends Component {
       search_string: ''
     }
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
-    this.LogoutHandler = this.LogoutHandler.bind(this);
     this.openFilter = this.openFilter.bind(this);
     this.closeFilter = this.closeFilter.bind(this);
     this.titleSelect = this.titleSelect.bind(this);
@@ -41,9 +40,6 @@ export class TopBar extends Component {
     this.searchChange = this.searchChange.bind(this);
   }
 
-  LogoutHandler = () => {
-    logoutUser()
-  }
 
   topbarTestingButton = () => {
       // cF.purchase('dlang','zdolson');
