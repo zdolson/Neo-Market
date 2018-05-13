@@ -14,7 +14,7 @@ import * as firebase from 'firebase'
 
 initializeApp();
 
-// If you want have login capabilities, then comment this line out. 
+// If you want have login capabilities, then comment this line out.
 // This is to let dev's develop without having to constantly loging.
 loginUser('nccheung@ucsc.edu', 'nccheung');
 
@@ -48,7 +48,7 @@ export class Index extends Component {
   componentDidMount () {
     console.log('index.js page loaded');
     if(this.state.loading) this.setState({ loading: false });
-    
+
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         this.setState({inApp: true});

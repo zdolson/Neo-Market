@@ -23,8 +23,8 @@ describe('App Component', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('renders 7 component predecessors', () => {
-    let expected = 7;
+  it('renders 6 component predecessors', () => {
+    let expected = 6;
     let actual = wrapper.childAt(0).children().length;
 
     expect(actual).toEqual(expected);

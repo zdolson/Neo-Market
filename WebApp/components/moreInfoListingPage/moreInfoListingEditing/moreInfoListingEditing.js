@@ -96,12 +96,12 @@ class MoreInfoListingEditing extends Component {
         <div className="moreInfoListingEditingBottom">
           <div className="bottomLeft">
             <div className="editImage">
+              <div className="image">
+                {img}
+              </div>
               <div className="upload">
                 <ImportPhotoIcon/>
                 <input type="file" name="file" onChange={(event)=> { this.readFile(event) }} onClick={(event)=> { event.target.value = null }} />
-              </div>
-              <div className="image">
-                {img}
               </div>
             </div>
             <div className="editDescription">

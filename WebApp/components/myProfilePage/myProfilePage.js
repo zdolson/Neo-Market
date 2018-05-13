@@ -47,9 +47,10 @@ class MyProfilePage extends Component {
     const styles = {
       selectedStyle: {
         background: 'none',
-        border: 'none'
+        border: 'none',
       },
-      unselectedStyle: {}
+      unselectedStyle: {
+      }
     };
     let listingsStyle = styles.unselectedStyle; let purchasesStyle = styles.unselectedStyle; let walletStyle = styles.unselectedStyle;
     if(this.state.tabSelected == 0) { listingsStyle = styles.selectedStyle; }
