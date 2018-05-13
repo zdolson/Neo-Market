@@ -25,17 +25,12 @@ Purpose: TopBar component; Provides template for top nav bar
 export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
-<<<<<<< HEAD
     this.state = {
       menu_is_open: false,
       filter_selected: 0,
       search_string: ''
     }
-    this.isRegister = this.isRegister.bind(this);
-=======
-    this.state = {}
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
->>>>>>> master
     this.LogoutHandler = this.LogoutHandler.bind(this);
     this.openFilter = this.openFilter.bind(this);
     this.closeFilter = this.closeFilter.bind(this);
