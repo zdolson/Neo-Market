@@ -29,12 +29,11 @@ class CheckOutTableItem extends Component {
   render () {
     var currCheckOutItem = this.props.currCheckOutItem
     var removeCartItem = this.props.removeCartItem
-    var tryAgain = this.props.tryAgain
 
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
-          <CheckOutPagePicture id={currCheckOutItem.id} tryAgain={tryAgain}/>
+          <CheckOutPagePicture id={currCheckOutItem.id} />
           <div className="itemSeperator"></div>
           <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
           <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>

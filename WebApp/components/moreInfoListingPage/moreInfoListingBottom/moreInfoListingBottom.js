@@ -26,11 +26,10 @@ class MoreInfoListingBottom extends Component {
     let item = this.props.item;
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
-    let tryAgain = this.props.tryAgain;
 
     return (
       <div className='moreInfoListingBottom'>
-        <MoreInfoListingItem item={item} tryAgain={tryAgain}/>
+        <MoreInfoListingItem item={item} />
         <MoreInfoListingSpec item={item} addCartItem={addCartItem} removeItem={removeItem}/>
         <Stylesheet sheet={sheet} />
       </div>

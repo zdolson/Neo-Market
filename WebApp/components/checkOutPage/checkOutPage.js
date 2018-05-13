@@ -90,7 +90,6 @@ export class CheckOutPage extends Component {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
-    var tryAgain = this.props.tryAgain
     var cartItems = this.props.cartItems
     var users = this.props.users
 
@@ -107,7 +106,7 @@ export class CheckOutPage extends Component {
         {this.props.cartItems.map( (id, key) => {
           var currCheckOutItem = returnCheckOutDataByID(id)
           return (
-            <CheckOutTableItems tryAgain={tryAgain} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+            <CheckOutTableItems currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
 
