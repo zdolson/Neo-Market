@@ -82,9 +82,9 @@ export class App extends Component {
       console.log(listings);
       this.setState({ items: listings });
     */
-    // pullDataFromDatabase(this)
+    pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
-    cF.getAllPostsFromStorage(this);
+    // cF.getAllPostsFromStorage(this);
   }
 
   componentDidMount() {
