@@ -9,8 +9,6 @@ import node from '../../neonFunctions/blockchain'
 // const neon = require('@cityofzion/neon-js')
 // const Neon = neon.default
 
-import { logoutUser } from '../fireBaseFunctions.js'
-
 /**
 
 @ Alec
@@ -26,12 +24,8 @@ export class TopBar extends Component {
     super(props, context)
     this.state = {}
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
-    this.LogoutHandler = this.LogoutHandler.bind(this);
   }
 
-  LogoutHandler = () => {
-    logoutUser()
-  }
 
   topbarTestingButton = () => {
       // cF.purchase('dlang','zdolson');
