@@ -7,6 +7,10 @@ import Modal from 'react-responsive-modal'
 import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
 import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
+import cF from '../../neonFunctions/contractFunctions'
+import { registerUserToDatabase } from '../fireBaseFunctions'
+
+import * as firebase from 'firebase'
 
 /**
 
@@ -29,6 +33,7 @@ export class CheckOutPage extends Component {
     this.closeModal = this.closeModal.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.purchaseLogic = this.purchaseLogic.bind(this)
   }
 
   openModal() {
@@ -51,11 +56,42 @@ export class CheckOutPage extends Component {
     this.setState({password: event.target.value});
   }
 
+  purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
+    var buyerName;
+    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
+      .then( (snapshot) => {
+        buyerName = snapshot.val().userName;
+        console.log(buyerName);
+      }
+    );
+    if (cartItems.length == 0) {
+        // disable purchase button functionality here.
+    } else if (cartItems.length == 1) {
+        var currCartItem = returnCheckOutDataByID(cartItems[0])
+        var listingOwner = currCartItem['owner'];
+        var listingCost = currCartItem['price'];
+        listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
+        listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
+        cF.purchase(listingOwner, buyerName, listingCost);
+    } else {
+        var ownersArray = [];
+        var costArray = [];
+        for (let i = 0; i < cartItems.length; i++){
+            var currCartItem = returnCheckOutDataByID(cartItems[i]);
+            ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
+            costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
+        }
+        cF.multipurchase(ownersArray, buyerName, costArray);
+    }
+  }
+
+
   render () {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
-    var tryAgain = this.props.tryAgain
+    var cartItems = this.props.cartItems
+    var users = this.props.users
 
     const { openModal } = this.state;
 
@@ -70,9 +106,11 @@ export class CheckOutPage extends Component {
         {this.props.cartItems.map( (id, key) => {
           var currCheckOutItem = returnCheckOutDataByID(id)
           return (
-            <CheckOutTableItems tryAgain={tryAgain} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+            <CheckOutTableItems currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
+
+        {this.purchaseLogic(cartItems, users, returnCheckOutDataByID, this)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">

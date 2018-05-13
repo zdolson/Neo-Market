@@ -18,5 +18,5 @@ curl https://s3.amazonaws.com/neo-experiments/neo-privnet.wallet -o w1.wallet
 
 # testing if the files grabbed are wrong please sign in and what not if I curl it without an access token 
 # if I see one instance of the word "html" it messed up or I messed up
-curl --request GET --header "PRIVATE-TOKEN: UsQx-_vq6wNnx4CVAoi_" "https://gitlab.com/zdolson/Neo-Market/raw/backend_fixing_and_updating_files_cleaning_up/backend/Contracts/new-boa/serialize.py" -o serialize.py
-curl --request GET --header "PRIVATE-TOKEN: UsQx-_vq6wNnx4CVAoi_" "https://gitlab.com/zdolson/Neo-Market/raw/backend_fixing_and_updating_files_cleaning_up/backend/Contracts/new-boa/testing.py" -o testing.py
+curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/serialize.py -o serialize.py
+curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contracts/new-boa/testing.py -o testing.py
