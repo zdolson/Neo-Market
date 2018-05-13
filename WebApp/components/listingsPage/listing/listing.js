@@ -45,7 +45,7 @@ export class Listing extends Component {
   render () {
     var {item, search_string, resetSearch, search, last} = this.props;
     let tryAgain, imgLoad;
-    if(search) { tryAgain=true; imgLoad=false; console.log('rerender'); } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
+    if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
     pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
     // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
     var img = (
