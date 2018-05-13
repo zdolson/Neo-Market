@@ -83,21 +83,21 @@ export class TopBar extends Component {
   }
 
   titleSelect = (event) => {
-    this.props.updateFilter('title');
     event.preventDefault();
+    this.props.updateFilter('title');
     this.setState( {filter_selected: 0} );
   }
 
   descSelect = (event) => {
-    this.props.updateFilter('description');
     event.preventDefault();
     this.setState( {filter_selected: 1} );
+    this.props.updateFilter('description');
   }
 
   priceSelect = (event) => {
-    this.props.updateFilter('price');
     event.preventDefault();
     this.setState( {filter_selected: 2} );
+    this.props.updateFilter('price');
   }
 
   searchHandler = (event) => {

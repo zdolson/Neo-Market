@@ -53,7 +53,10 @@ export class ListingsPage extends Component {
           if(key == items.length-1) last=true;
           var link = '/MoreInfoItem/'+item.id;
           return (
-            <Link to={link} key={key} className="navLink">  <Listing item={item} search_string={search_string} resetSearch={resetSearch} last={last} search={search}/> </Link>
+            <div key={key}>
+              <div></div>
+              <Link to={link} key={key} className="navLink">  <Listing item={item} search_string={search_string} resetSearch={resetSearch} last={last} search={search}/> </Link>
+            </div>
           )
         })}
 

@@ -30,19 +30,30 @@ export class Listing extends Component {
 
   componentDidMount = () => {
     // console.log('listing mounted');
+    // var {item, search_string, resetSearch, search, last} = this.props;
+    // let tryAgain, imgLoad;
+    // if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
+    // pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
+    // if(last && search) resetSearch();
+  }
+
+  componentDidUpdate = () => {
+    let {last, search, resetSearch} = this.props;
+    if(last && search) resetSearch();
   }
 
   render () {
     var {item, search_string, resetSearch, search, last} = this.props;
     let tryAgain, imgLoad;
-    if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
+    if(search) { tryAgain=true; imgLoad=false; console.log('rerender'); } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
     pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
+    // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
     var img = (
       this.state.imgLoad ?
       <img src={this.state.imgUrl} alt='loading...' width="350"/> :
       <div className="imgLoading"> <div>loading...</div> </div>
     );
-    if(last && search) resetSearch();
+
     return (
       <div className='listing'>
         <div className='listingPic'>

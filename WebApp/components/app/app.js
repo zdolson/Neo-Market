@@ -203,6 +203,7 @@ export class App extends Component {
   }
 
   resetSearch = () => {
+    console.log("RESETSEARCH()");
     this.setState( {search: false} );
   }
 
