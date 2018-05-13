@@ -9,6 +9,7 @@ import sheet from './loginRegister.scss'
 import * as firebase from 'firebase'
 
 import { loginUser } from '../fireBaseFunctions.js'
+import cF from '../../neonFunctions/contractFunctions'
 
 class LoginRegister extends Component {
     constructor(props) {
@@ -26,7 +27,7 @@ class LoginRegister extends Component {
     }
 
     loginHandler = () => {
-      loginUser(this.loginName.value, this.password.value).then((user) => {
+      loginUser(this.loginName.value, cF.sha256(this.password.value)).then((user) => {
         // if a user is return from the firebase login function, then the user was auth correctly.
         if (user) {
           this.props.navToApp();
@@ -72,7 +73,7 @@ class LoginRegister extends Component {
                   Or Log into your account
                 </div>
                 <div className="loginName">
-                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Login Name"/>
+                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Email"/>
                 </div>
 
                 <div className="inputPasswordField">
