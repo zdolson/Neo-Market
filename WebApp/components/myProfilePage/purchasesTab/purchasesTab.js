@@ -30,7 +30,7 @@ export class PurchasesTab extends Component {
 
         {items.map( (item, key) => {
           return (
-            <PurchasedItem item={item}/>
+            <PurchasedItem key={key} item={item}/>
           );
         })}
 

@@ -46,6 +46,24 @@ function isInItemList(id, listOfItems) {
   return false
 }
 
+export function pullMyPurchasesFromDatabase() {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.child('myPurchases').val());
+		});
+	});
+}
+
+export function pullMyListingsFromDatabase() {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.child('myListings').val());
+		});
+	});
+}
+
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
   var currItem = {}
@@ -124,7 +142,7 @@ export function editPostingToDatabase(id, description, title, price, imageFile, 
           console.log(error.message)
         });
       }
-    } 
+    }
 
     // Adds new posting to database storage -> 'Listings'
     firebase.database().ref('/Listings/' + id).update({
