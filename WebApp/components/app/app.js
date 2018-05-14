@@ -137,7 +137,7 @@ export class App extends Component {
       this.state.cartItems.splice(index, 1)
       this.setState({ cartItems: this.state.cartItems})
     }else{
-      console.error("item doesn't exist in cart")
+      console.log("The item was not in the cart to be removed")
     }
   }
 
