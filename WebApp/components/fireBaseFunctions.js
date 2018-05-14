@@ -26,7 +26,7 @@ export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
         if(id == keys[i]){
           var ref = firebase.storage().ref(snapshot.child(id).val());
           ref.getDownloadURL().then(url => {
-            that.setState({ imgUrl: url, imgLoad: true });
+            that.setState({ imgUrl: url, imgLoad: true, tryAgain: false });
           }).catch(err => {
             console.error(err)
             that.setState({tryAgain: true})
@@ -114,11 +114,11 @@ export function pullUsersFromDatabase(that){
       }
       arrayUserList.push(currUser)
 
-      if(typeof arrayUserList !== 'undefined') {
-        that.setState({ users: arrayUserList})
-      }
+    });
 
-    })
+		if(typeof arrayUserList !== 'undefined') {
+			that.setState({ users: arrayUserList})
+		}
   }).catch(err => {
     console.error(err)
   });
