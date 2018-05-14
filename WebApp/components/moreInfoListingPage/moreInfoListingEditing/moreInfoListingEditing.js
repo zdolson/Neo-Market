@@ -16,6 +16,7 @@ class MoreInfoListingEditing extends Component {
       file: null,
       imgRef: null,
       imgLoad: false,
+      tryAgain: true,
       description: this.props.item.description,
       title: this.props.item.title,
       price: this.props.item.price
@@ -26,7 +27,7 @@ class MoreInfoListingEditing extends Component {
 
   componentDidMount() {
     var that = this
-    pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that);
+    pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
   }
 
   readFile = (event) => {

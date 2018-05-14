@@ -25,11 +25,10 @@
       //Pass in values here to populate rest.
       var currCheckOutItem = this.props.currCheckOutItem
       var removeCartItem = this.props.removeCartItem
-      var tryAgain = this.props.tryAgain
 
       return (
         <div className='checkoutItems'>
-          <CheckOutTableItem tryAgain={tryAgain} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+          <CheckOutTableItem currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
         </div>
       )
     }
