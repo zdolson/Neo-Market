@@ -36,10 +36,11 @@ class MoreInfoListingPage extends Component {
     let item = this.props.item;
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
+    let hasEdit = this.props.hasEdit;
 
     const page = this.state.is_editing ? (
       <div>
-        <MoreInfoListingEditing toggle_edit={this.toggle_edit} item={item} addCartItem={addCartItem} removeItem={removeItem}/>
+        <MoreInfoListingEditing toggle_edit={this.toggle_edit} item={item} addCartItem={addCartItem} removeItem={removeItem} hasEdit={hasEdit}/>
       </div>
     ) : (
       <div>
