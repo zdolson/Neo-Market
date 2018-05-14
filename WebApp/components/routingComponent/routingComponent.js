@@ -36,6 +36,7 @@ class RoutingComponent extends Component {
     var sumTotalCartItems = this.props.sumTotalCartItems;
     var addItem = this.props.addItem;
     var removeItem = this.props.removeItem;
+    var hasEdit = this.props.hasEdit;
     var users = state.users;
 
     return (
@@ -55,7 +56,7 @@ class RoutingComponent extends Component {
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (
-              <Route path={path} key={key} render={ () => <MoreInfoListingPage item={items[key]} addCartItem={addCartItem} removeItem={removeItem} /> } />
+              <Route path={path} key={key} render={ () => <MoreInfoListingPage item={items[key]} addCartItem={addCartItem} removeItem={removeItem} hasEdit={hasEdit}/> } />
             )
           })}
       	</Switch>
