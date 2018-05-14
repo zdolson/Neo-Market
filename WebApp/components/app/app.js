@@ -74,6 +74,7 @@ export class App extends Component {
     this.removeItem = this.removeItem.bind(this);
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
+    this.hasEdit = this.hasEdit.bind(this);
     this.updateFilter = this.updateFilter.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
@@ -206,6 +207,24 @@ export class App extends Component {
     this.setState( {search: false} );
   }
 
+  hasEdit(id, description, title, price) {
+    // This function is called when an update has been made to a listing.
+    // Empty out the items list and then do another database pull
+    this.setState({
+      items: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
+      ]
+    })
+    pullDataFromDatabase(this)
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -232,7 +251,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem}/>
+          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
         </div>
       </main>
     )
