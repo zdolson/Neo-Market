@@ -21,13 +21,14 @@ class MoreInfoListingImg extends Component {
     super(props, context)
     this.state = {
       imgUrl: '',
-      imgLoad: false
+      imgLoad: false,
+      tryAgain: true
     }
   }
 
   componentWillMount() {
-    var that = this
-    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that)
+    var that = this;
+    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
   }
 
   render () {
