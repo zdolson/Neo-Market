@@ -231,6 +231,8 @@ export class App extends Component {
   updateNeoPrice() {
     cF.getNeoUsPrice().then(result => {
       this.setState({neoPrice: result});
+    }).catch(err => {
+      console.error(err);
     });
   }
 
