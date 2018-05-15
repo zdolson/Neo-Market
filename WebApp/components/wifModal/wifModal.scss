@@ -1,0 +1,36 @@
+@import '../vars';
+@import '../reset';
+@import '../mixins';
+@import '../animations';
+
+.modalText {
+	color: black;
+	margin: 12% 0% 0% 0%;
+}
+
+.text {
+	margin-top: 20px;
+}
+
+.passwordLabel {
+	// text-align: center;
+	margin-bottom: 2%;
+}
+
+.passwordInput {
+	background: $offWhite;
+	border-radius: 3px;
+	padding: 3px;
+}
+
+.submitButton {
+	padding: 5px;
+	margin-top: 5%;
+	text-align: center;
+	&:hover {
+		cursor: pointer;
+	}
+	width: 50%;
+	background: $brightGreen;
+	border-radius: 5px;
+}
