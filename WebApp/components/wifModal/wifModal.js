@@ -10,7 +10,8 @@ class WifModal extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      password: ''
+      password: '',
+      loading: false
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,17 +22,18 @@ class WifModal extends Component {
     this.setState({password: event.target.value});
   }
 
-
-
   handleSubmit(e) {
     console.log('handleSubmit()');
     e.preventDefault();
+    this.setState({loading: true});
     firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
       console.log(val);
-      this.props.closeModal();
+      this.setState({loading: false});
       alert('purchase completed.');
+      this.props.closeModal();
     }).catch(err => {
       console.error(err);
+      this.setState({loading: false});
       alert(err.message);
     });
   }
@@ -40,15 +42,19 @@ class WifModal extends Component {
     let {closeModal, modal_is_open} = this.props;
     return (
       <Modal open={modal_is_open} onClose={closeModal} little>
-        <div className="modalText">
-          <h1>Confirm password!</h1>
-          <form onSubmit={this.handleSubmit}>
-            <label>
-              <div className="passwordInput"> <input type="text" value={this.state.password} onChange={this.handleChange} /> </div>
-            </label>
-            <div className="submitButton"> <input type="submit" value="Submit" /> </div>
-          </form>
-        </div>
+        {this.state.loading ? (
+            <div className="loading">loading...</div>
+          ) : (
+            <div className="modalText">
+              <h1>Confirm password!</h1>
+              <form onSubmit={this.handleSubmit}>
+                <label>
+                  <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} /> </div>
+                </label>
+                <div className="submitButton"> <input type="submit" value="Submit" /> </div>
+              </form>
+            </div>
+          )}
         <Stylesheet sheet={sheet}/>
       </Modal>
     );
