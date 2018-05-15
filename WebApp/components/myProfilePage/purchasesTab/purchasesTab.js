@@ -13,7 +13,7 @@ Purpose: Component page for logic/render for the purchases page.
 
 **/
 
-export class PurchasesTab extends Component {
+class PurchasesTab extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
@@ -23,8 +23,6 @@ export class PurchasesTab extends Component {
 
   render () {
     let items = this.props.state.items;
-    const { data } = this.props
-    console.debug('Data is ', data)
     return (
       <div className="purchasesPageContainer">
 

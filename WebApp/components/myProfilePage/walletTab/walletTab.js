@@ -4,11 +4,26 @@ import sheet from './walletTab.scss'
 
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import ProfilePhoto from '../../assets/DSC_0046.jpg'
+import {pullUserData} from '../../fireBaseFunctions.js'
 
 class WalletTab extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      userName: 'user name',
+      email: 'email',
+      fullName: 'full name',
+      wif: 'wif'
+    };
+  }
+
+  componentDidMount = () => {
+    pullUserData().then((userData) => {
+      let {userName, email, fullName, wif} = userData;
+      this.setState( {userName:userName, email:email, fullName:fullName, wif:wif} );
+    }).catch((err) => {
+      console.error(err);
+    });
   }
 
   render () {
@@ -22,7 +37,7 @@ class WalletTab extends Component {
                 <img src={ProfilePhoto} width="150" />
               </div>
               <div className="userName">
-                name
+                {this.state.userName}
               </div>
             </div>
             <div className="importIcon">
@@ -34,17 +49,17 @@ class WalletTab extends Component {
         <div className="topBottomContainer">
           <div className="walletForm">
             <div className="name">
-              name
+              {this.state.fullName}
             </div>
             <div className="email">
-              email
+              {this.state.email}
             </div>
             <div className="address">
               address
             </div>
             <div className="wifForm">
               <div className="wifInput">
-                wifInput
+                {this.state.wif}
               </div>
               <div className="wifButton">
                 change

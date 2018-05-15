@@ -51,17 +51,14 @@ class MyProfilePage extends Component {
   }
 
   handleListings = () => {
-    console.log('handleListings()');
     this.setState( {tabSelected: 0} );
   }
 
   handlePurchases = () => {
-    console.log('handlePurchases()');
     this.setState( {tabSelected: 1} );
   }
 
   handleWallet = () => {
-    console.log('handleWallet()');
     this.setState( {tabSelected: 2} );
   }
 

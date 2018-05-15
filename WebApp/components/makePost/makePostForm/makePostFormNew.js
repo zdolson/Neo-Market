@@ -32,25 +32,24 @@ export class MakePostForm extends Component {
     var file = this.uploadInput.files[0];
     var id = this.makeId();
 
-    var currentUser;
+    var currentUser = firebase.auth().currentUser.uid;
     var title = this.title.value;
     var description = this.description.value;
     var price = this.price.value;
     var amount = this.amount.value;
-    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
-      .then( (snapshot) => {
-        currentUser = snapshot.val().userName;
-        console.log(currentUser);
-        console.log(title)
-        console.log(description)
-        console.log(price)
-        console.log(amount)
-        cF.createPost(id, currentUser, title, description, price, amount)
-      }
-    );
+    // firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
+    //   .then( (snapshot) => {
+    //     currentUser = snapshot.val().userName;
+    //     console.log(currentUser);
+    //     console.log(title)
+    //     console.log(description)
+    //     console.log(price)
+    //     console.log(amount)
+    //     cF.createPost(id, currentUser, title, description, price, amount)
+    //   }
+    // );
 
-    // postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
-
+    postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
 
     // /// Dev Version ///
     // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );

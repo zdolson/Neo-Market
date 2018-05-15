@@ -192,6 +192,17 @@ export function pullUsersFromDatabase(that){
   });
 }
 
+export function pullUserData(that) {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.val());
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+}
+
 function isUserRegisterd(userName, userList) {
   for(var i = 0; i<userList.length; i++) {
     if(userName == userList[i]){
