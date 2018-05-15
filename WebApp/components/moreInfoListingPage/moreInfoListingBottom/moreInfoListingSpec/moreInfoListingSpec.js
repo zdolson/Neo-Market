@@ -30,7 +30,7 @@ class MoreInfoListingSpec extends Component {
     let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
-    let currPrice = this.props.neoPrice;
+    let currPrice = Math.round(this.props.neoPrice * 100) / 100
     return (
       <div className='moreInfoListingSpec'>
         <div className="titleAndPrice">

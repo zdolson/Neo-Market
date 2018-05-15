@@ -229,11 +229,9 @@ export class App extends Component {
   }
 
   updateNeoPrice() {
-      cF.getNeoUsPrice().then(result => {
-          console.log(result);
-          this.setState({neoPrice: result});
-          console.log(this.state.neoPrice);
-      });
+    cF.getNeoUsPrice().then(result => {
+      this.setState({neoPrice: result});
+    });
   }
 
   render () {
@@ -262,7 +260,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
+          <RoutingComponent neoPrice={this.state.neoPrice} resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
         </div>
       </main>
     )
