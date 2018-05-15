@@ -25,6 +25,19 @@ var debug = false;
 
 module.exports = {
 
+    getNeoUsPrice: () => {
+        return new Promise ((resolve,reject) => {
+            Neon.get.price('NEO').then(price => {
+                console.log(price);
+                console.log(typeof(price));
+                resolve(price.toString());
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
+        })
+    },
+
     /*
      * @Function: sha256
      * @Contributor: Zachary Olson

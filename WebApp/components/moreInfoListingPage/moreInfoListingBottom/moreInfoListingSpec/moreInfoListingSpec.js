@@ -4,9 +4,8 @@ import sheet from './moreInfoListingSpec.scss'
 
 import ItemSpecsLine from '../../../assets/ItemSpecsLine.svg'
 import Star from '../../../assets/Star.svg'
-import { Route } from 'react-router-dom'
-
-import { deletePosting } from '../../../fireBaseFunctions.js'
+import { NavLink } from 'react-router-dom'
+import cF from '../../../../neonFunctions/contractFunctions'
 
 /**
 
@@ -21,20 +20,9 @@ Purpose: Specifications of the item, as well as passing in props to dynamically 
 class MoreInfoListingSpec extends Component {
   constructor(props, context) {
     super(props, context)
-    this.State = {
-
+    this.state = {
     }
-    this.removeItemHandler = this.removeItemHandler.bind(this);
   }
-
-  removeItemHandler = () => {
-    // removeItem(itemID)
-    var that = this;
-    deletePosting(this.props.item['id'], that).then(function() {
-      that.props.removeItem(that.props.item['id'])
-    });
-  }
-
 
   render () {
     let item = this.props.item;
@@ -42,17 +30,16 @@ class MoreInfoListingSpec extends Component {
     let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
-
+    let currPrice = this.props.neoPrice;
     return (
       <div className='moreInfoListingSpec'>
-
         <div className="titleAndPrice">
           <div className="title">
             {item['title']}
           </div>
           <div className="prices">
             <div className="neoPrice">{item['price']} NEO</div>
-            <div className="usPrice">US price: ?</div>
+            <div className="usPrice">US price: {currPrice}</div>
           </div>
         </div>
 
@@ -79,14 +66,11 @@ class MoreInfoListingSpec extends Component {
             </div>
           </div>
             <div className="removeBtn">
-              <div className="itemBtnText" onClick={this.removeItemHandler}>
-                <Route render={({ history}) => (
-                    <button className='removeButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
-                      Remove Item
-                    </button>
-                  )}
-                />
-              </div>
+                <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
+                  <NavLink to="/">
+                    Remove Item
+                  </NavLink>
+                </div>
             </div>
         </div>
 

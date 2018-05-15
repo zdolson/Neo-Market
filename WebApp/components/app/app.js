@@ -62,7 +62,8 @@ export class App extends Component {
       loadItemsAgain:false,
       filter_string: 'title',
       search_string: '',
-      search: false
+      search: false,
+      neoPrice: 0
     }
 
     // Function List
@@ -78,6 +79,7 @@ export class App extends Component {
     this.updateFilter = this.updateFilter.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
+    this.updateNeoPrice = this.updateNeoPrice.bind(this);
   }
 
   componentWillMount () {
@@ -95,6 +97,7 @@ export class App extends Component {
   componentDidMount() {
     pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
+    this.updateNeoPrice();
   }
 
   addCartItem(id) {
@@ -223,6 +226,14 @@ export class App extends Component {
       ]
     })
     pullDataFromDatabase(this)
+  }
+
+  updateNeoPrice() {
+      cF.getNeoUsPrice().then(result => {
+          console.log(result);
+          this.setState({neoPrice: result});
+          console.log(this.state.neoPrice);
+      });
   }
 
   render () {
