@@ -504,5 +504,72 @@ module.exports = {
                 //can do other things if failed, like scream at user.
             }
         })
+    },
+
+
+    /*
+     * @Function: createPost
+     * @Contributor: Zachary Olson
+     * @Param: {string} id
+     * @Param: {string} owner
+     * @Param: {string} title
+     * @Param: {string} desc
+     * @Param: {string} price
+     * @Param: {string} amount
+     * @Return: Nothing
+     * Purpose: Creates a Post on the smart contract.
+     *          Calls invokeContract() with createpost function to smart contract.
+     */
+    editPost: (id, owner, title, desc, price, amount) => {
+        node.invokeContract('editpost', [id,owner,title,desc,price,amount], account, (res) => {
+            if (debug){
+                console.log('editpost(): res: ');
+                console.dir(res);
+            }
+            if (res.result === true) {
+                if (debug){
+                    console.log('editpost(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
+            } else {
+                if (debug){
+                    console.log('editpost(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
+            }
+        })
+    },
+
+    /*
+     * @Function: createPost
+     * @Contributor: Zachary Olson
+     * @Param: {string} id
+     * @Param: {string} owner
+     * @Param: {string} title
+     * @Param: {string} desc
+     * @Param: {string} price
+     * @Param: {string} amount
+     * @Return: Nothing
+     * Purpose: Creates a Post on the smart contract.
+     *          Calls invokeContract() with createpost function to smart contract.
+     */
+    deletepost: (id, owner) => {
+        node.invokeContract('deletepost', [id,owner], account, (res) => {
+            if (debug){
+                console.log('deletepost(): res: ');
+                console.dir(res);
+            }
+            if (res.result === true) {
+                if (debug){
+                    console.log('deletepost(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
+            } else {
+                if (debug){
+                    console.log('deletepost(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
+            }
+        })
     }
 }
