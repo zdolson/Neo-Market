@@ -28,11 +28,9 @@ module.exports = {
     /*
      * @Function: sha256
      * @Contributor: Zachary Olson
-     * @Param: {string} ownersArray
-     * @Param: {string} buyerName
-     * @Param: {string} costArray
-     * @Return: {promise} sendConfig
-     * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
+     * @Param: {string} input
+     * @Return: {string} hashed input
+     * Purpose: Takes input and hashes with SHA256.
      */
     sha256: (input) => {
         return SHA256(input).toString();

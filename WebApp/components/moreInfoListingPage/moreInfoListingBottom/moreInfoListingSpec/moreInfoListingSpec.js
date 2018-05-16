@@ -4,7 +4,9 @@ import sheet from './moreInfoListingSpec.scss'
 
 import ItemSpecsLine from '../../../assets/ItemSpecsLine.svg'
 import Star from '../../../assets/Star.svg'
-import { NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+
+import { deletePosting } from '../../../fireBaseFunctions.js'
 
 /**
 
@@ -22,7 +24,17 @@ class MoreInfoListingSpec extends Component {
     this.State = {
 
     }
+    this.removeItemHandler = this.removeItemHandler.bind(this);
   }
+
+  removeItemHandler = () => {
+    // removeItem(itemID)
+    var that = this;
+    deletePosting(this.props.item['id'], that).then(function() {
+      that.props.removeItem(that.props.item['id'])
+    });
+  }
+
 
   render () {
     let item = this.props.item;
@@ -30,6 +42,7 @@ class MoreInfoListingSpec extends Component {
     let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
+
     return (
       <div className='moreInfoListingSpec'>
 
@@ -66,11 +79,14 @@ class MoreInfoListingSpec extends Component {
             </div>
           </div>
             <div className="removeBtn">
-                <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
-                  <NavLink to="/">
-                    Remove Item
-                  </NavLink>
-                </div>
+              <div className="itemBtnText" onClick={this.removeItemHandler}>
+                <Route render={({ history}) => (
+                    <button className='removeButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
+                      Remove Item
+                    </button>
+                  )}
+                />
+              </div>
             </div>
         </div>
 

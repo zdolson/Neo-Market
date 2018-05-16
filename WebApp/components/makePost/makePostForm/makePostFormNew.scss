@@ -5,9 +5,9 @@
 
 /**
 
-@ Victoria
+@ Nicholas
 
-@ 03/04/2018
+@ 03/13/2018
 
 Purpose: Styling for the makePostForm component
 
@@ -17,117 +17,133 @@ Purpose: Styling for the makePostForm component
   height: auto;
   min-width: 100%;
   display: flex;
+  flex-direction: row;
+}
+
+.leftSideForm {
+  display: flex;
+  flex: 5;
   flex-direction: column;
 }
 
-.makePostFormHeader {
-  margin: 5% 0%;
-  text-align: center;
-  width: 100%;
-  font-size: 50px;
-  line-height: 50px;
-  height: auto;
+.rightSideForm {
+  dispaly: flex;
+  flex: 5;
+  flex-direction: column;
 }
 
-.makePostFormFields {
+.inputFormContainer{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 80%;
+  margin: 25% 10% 0% 15%;
+  overflow: auto;
+}
+
+.titleNameContainer {
+  text-align: right;
+  margin: 8% 10% 5% 5%;
+}
+
+.titleNameInput {
+  font-size: 18px;
+  color: $inputFieldDefault;
   width: 100%;
-  height: auto;
+  margin: center;
+  border-bottom: solid white 1px;
+  font-weight: lighter;
+}
+
+.priceContainer {
+  text-align: right;
+  margin: 8% 10% 5% 5%;
+}
+
+.priceInput {
+  font-size: 18px;
+  color: $inputFieldDefault;
+  width: 100%;
+  margin: center;
+  border-bottom: solid white 1px;
+  font-weight: lighter;
+}
+
+.amountContainer {
+  text-align: right;
+  margin: 8% 10% 5% 5%;
+}
+
+.amountInput {
+  font-size: 18px;
+  color: $inputFieldDefault;
+  width: 100%;
+  margin: center;
+  border-bottom: solid white 1px;
+  font-weight: lighter;
+}
+
+.descriptionContainer {
+  margin: 8% 10% 5% 5%;
+  background: $greyRegisterBackground;
+}
+
+.descriptionInput {
+  color:$inputFieldDefault;
+  width: 100%;
+}
+
+.editImageContainer {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 35% 0% 0% 0%;
 }
 
-.makePostFormTitle {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: auto;
-  text-align: center;
-  margin-bottom: 2%;
-  padding: 5px 0px;
-}
-
-.makePostFormDesc {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: auto;
-  text-align: center;
-  margin-bottom: 2%;
-  padding: 5px 0px;
-}
-
-.makePostFormImg {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: auto;
-  text-align: center;
-  margin-bottom: 2%;
-  padding: 5px 0px;
-}
-
-.makePostFormPrice {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: auto;
-  text-align: center;
-  margin-bottom: 2%;
-  padding: 5px 0px;
-}
-
-.makePostFormAmount {
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: auto;
-  text-align: center;
-  margin-bottom: 2%;
-  padding: 5px 0px;
-}
-
-.makePostFormBtn {
-  color: $brightGreen;
-  width: 100px;
-  height: auto;
-  text-align: center;
-  margin: 4% 0%;
-}
-
-.bubbleTitle {
-  font-size: 30px;
-  line-height: 30px;
-  font-weight: 300;
-  margin-bottom: 2%;
-}
-
-.inputWrapper {
-  padding: 5px;
-  text-align: center;
-  // background: $grey20;
-  border-radius: 5px;
+.editImage {
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-bottom: 5px;
 }
 
-.navLinkSubmitBtn {
-  margin-left: 0px;
+.upload {
+  margin-left: 25px;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+}
+.upload > input[type="file"] {
+    font-size: 200px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
 }
 
-input[type=submit] {
-  color: $lightBlue;
-  &:hover {
-    cursor: pointer;
-  }
+.makePostButtonContainer {
+  display: flex;
+  margin: 2% 8% 2% 65%;
+  overflow: auto;
 }
 
-input[type=text] {
-  width: 100%;
-  background: $grey60;
-  padding: 5px;
-  border-radius: 10px;
+.makePostButton {
+  display: flex;
+  width: 250px;
+  height: 50px;
+  background-color: $registerButtonOrange;
+  border-radius: 4px;
 }
 
-input[type=file] {
-  border: 2px dotted $blackShadow;
+.makePostButtonText {
+  text-align: center;
+  margin: auto;
+  font-size: 24px;
+  font-weight: lighter;
 }
+
+
+
