@@ -1,30 +1,34 @@
 import {Component} from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './walletTab.scss'
+import * as firebase from 'firebase'
 
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import ProfilePhoto from '../../assets/DSC_0046.jpg'
-import {pullUserData} from '../../fireBaseFunctions.js'
+import WifModal from '../../wifModal/wifModal.js'
+
+
 
 class WalletTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      userName: 'user name',
-      email: 'email',
-      fullName: 'full name',
-      wif: 'wif'
+      modal_is_open: false
     };
+    this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  componentDidMount = () => {
-    pullUserData().then((userData) => {
-      let {userName, email, fullName, wif} = userData;
-      this.setState( {userName:userName, email:email, fullName:fullName, wif:wif} );
-    }).catch((err) => {
-      console.error(err);
-    });
+  openModal = () => {
+    this.setState({modal_is_open: true});
   }
+
+  closeModal = () => {
+    this.setState({modal_is_open: false});
+  }
+
+
 
   render () {
     return (
@@ -61,12 +65,14 @@ class WalletTab extends Component {
               <div className="wifInput">
                 {this.state.wif}
               </div>
-              <div className="wifButton">
+              <div className="wifButton" onClick={this.openModal}>
                 change
               </div>
             </div>
           </div>
         </div>
+
+        <WifModal modal_is_open={this.state.modal_is_open} closeModal={this.closeModal} handleSubmit={this.handleSubmit}/>
 
         <Stylesheet sheet={sheet} />
       </div>
