@@ -1,3 +1,4 @@
+
 import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './leftSideBar.scss'
@@ -8,14 +9,9 @@ import {logoutUser} from '../fireBaseFunctions.js'
 
 /**
 
-@ Alec
+@ Victoria
 
-@ 2/20/18
-
-Purpose: SideBar component; Provides template for left sidebar.
-
-TODO: Allow for a prop passed in from a parent to determine the positioning (left or right)
-        currently this is only a left sidebar.
+@ 04/20/18
 
 **/
 

@@ -26,12 +26,12 @@
 .tab {
   color: $loginPageGreen;
   text-align: center;
-  line-height: 100px;
+  line-height: 53px;
   font-size: 30px;
   width: 100%;
-  height: 100px;
+  height: 50px;
   background: $greyRegisterBackground;
-  $backgroundColorTransition: color 0.2s ease-in, background 0.2s ease-in;
+  $backgroundColorTransition: color 0.125s ease-in, background 0.125s ease-in;
   @include transition($rules: $backgroundColorTransition);
   &:hover {
     color: white;

@@ -75,9 +75,9 @@ curl https://raw.githubusercontent.com/zdolson/Neo-Market/master/backend/Contrac
 This will update any modules inside of the PrivateNet, download a wallet with 100M NEO and ~160k GAS, as well as
 download the current version of Smart Contract testing.py from our repo.
 
-3. Enter prompt.py with either of the three available commands above. (since they change the location a few times now)
+3. Enter prompt.py
 ```
-  a=find -name 'prompt.py' ; python3 $a  
+  neopy
 ```
 
 4. Open the wallet for use of assets.
@@ -99,7 +99,7 @@ build testing.py
 ```
 Optionally you can test certain functions here with the same build command.
 ```neo-cli
-build testing.py test 0710 01 True False register ['waldo','15']
+build testing.py test 0710 02 True False register ['15','waldo']
 ```
 Here is a breakdown of the ```build``` command's arguments above:
  * 1st Argument: ```testing.py``` is the Python Smart Contract that we are using.
@@ -108,8 +108,8 @@ Here is a breakdown of the ```build``` command's arguments above:
    Smart Contract. This will vary among Smart Contracts, however the standard practice is to only accept
    a String ```07``` and an Array ```10```  which usually houses the other variables). The first argument
    is generally reserved for the Smart Contract's operation.
- * 4th Argument: this is the return type, there is only ever one return value. In this case, we return ```01```
-   which indicates that our Smart Contract functions all return a Boolean.
+ * 4th Argument: this is the return type, there is only ever one return value. In this case, we return ```02```
+   which indicates that our Smart Contract functions all return an Integer.
  * 5th Argument: Accepts a Boolean, indicates whether the Smart Contract is using Storage or not.
  * 6th Argument: Accepts a Boolean, indicates whether the Smart Contract is using Dynamic Invoke or not.
  * 7th Argument: ```register``` is one of testing.py's functions, the one that we are testing.
@@ -120,7 +120,7 @@ If the output from testing the functions is satisfactory, rebuild the Smart Cont
 and proceed.
 7. Deploy Smart Contract
 ```neo-cli
-import testing.avm 0710 02 True False
+import contract testing.avm 0710 02 True False
 ```
 Breakdown of ```import``` command's arguments:
  * 1st Argument: ```testing.avm``` is the compiled result from ```build testing.py```.
@@ -160,6 +160,12 @@ and record the value.
    ```bash
    docker rmi $(docker images)
    ```
+3. If you run into any issues involving Chains inside of the prompt.py, you will need to remove the existing privatenet folders.
+   ```bash
+   cd /root/.neopython/Chains
+   rm -rf privnet privnet_notif
+   ```
+ * Reload prompt.py.
 
 ## Contributors:
  * Colin Dunn

@@ -10,6 +10,7 @@ import node from '../../neonFunctions/blockchain'
 // const Neon = neon.default
 
 import { logoutUser } from '../fireBaseFunctions.js'
+import FilterIcon from '../assets/FilterIcon.svg'
 
 /**
 
@@ -24,14 +25,21 @@ Purpose: TopBar component; Provides template for top nav bar
 export class TopBar extends Component {
   constructor (props, context) {
     super(props, context)
-    this.state = {}
+    this.state = {
+      menu_is_open: false,
+      filter_selected: 0,
+      search_string: ''
+    }
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
-    this.LogoutHandler = this.LogoutHandler.bind(this);
+    this.openFilter = this.openFilter.bind(this);
+    this.closeFilter = this.closeFilter.bind(this);
+    this.titleSelect = this.titleSelect.bind(this);
+    this.descSelect = this.descSelect.bind(this);
+    this.priceSelect = this.priceSelect.bind(this);
+    this.searchHandler = this.searchHandler.bind(this);
+    this.searchChange = this.searchChange.bind(this);
   }
 
-  LogoutHandler = () => {
-    logoutUser()
-  }
 
   topbarTestingButton = () => {
       // cF.purchase('dlang','zdolson');
@@ -60,19 +68,83 @@ export class TopBar extends Component {
       // </div>
   }
 
+  openFilter = (event) => {
+    event.preventDefault();
+    this.setState({menu_is_open: true}, () => {
+      document.addEventListener('click', this.closeFilter);
+    });
+  }
+
+  closeFilter = (event) => {
+    if(!this.menu_ref.contains(event.target))
+      this.setState({menu_is_open: false}, () => {
+        document.removeEventListener('click', this.closeFilter);
+      })
+  }
+
+  titleSelect = (event) => {
+    event.preventDefault();
+    this.props.updateFilter('title');
+    this.setState( {filter_selected: 0} );
+  }
+
+  descSelect = (event) => {
+    event.preventDefault();
+    this.setState( {filter_selected: 1} );
+    this.props.updateFilter('description');
+  }
+
+  priceSelect = (event) => {
+    event.preventDefault();
+    this.setState( {filter_selected: 2} );
+    this.props.updateFilter('price');
+  }
+
+  searchHandler = (event) => {
+    this.props.updateSearch(this.state.search_string);
+  }
+
+  searchChange = (event) => {
+    this.setState( {search_string: event.target.value} );
+  }
+
   render () {
+
+    let styles = {
+      selected: {
+        background: '#D3D3D3'
+      },
+      un_selected: {}
+    }
+    let filter_styles = [styles.un_selected, styles.un_selected, styles.un_selected];
+    filter_styles[this.state.filter_selected] = styles.selected;
+
     return (
-      <div className="topnav">
-        <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
-        <div className="search">
-          <div className="filter">
-            filter
-          </div>
-          <SearchIcon className="searchicon" />
-          <div className="searchbubble">
-            search...
+      <div className="main-container">
+        <div className="topnav">
+          <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
+          <div className="search">
+            <SearchIcon className="searchicon" onClick={this.searchHandler}/>
+            <input type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange}></input>
+            <div className="filter" onClick={this.openFilter}>
+              <FilterIcon/>
+            </div>
           </div>
         </div>
+
+        { this.state.menu_is_open
+          ? (
+            <div>
+              <div className="filter-flow"></div>
+              <div className="filter-menu" ref={(ref) => { this.menu_ref = ref; }}>
+                <div style={filter_styles[0]} className="filter-title" onClick={this.titleSelect}>TITLE</div>
+                <div style={filter_styles[1]} className="filter-description" onClick={this.descSelect}>DESCRIPTION</div>
+              </div>
+            </div>
+          ):(
+            null
+          )
+        }
         <Stylesheet sheet={sheet} />
       </div>
     )
