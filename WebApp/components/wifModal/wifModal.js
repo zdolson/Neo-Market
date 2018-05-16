@@ -29,8 +29,8 @@ class WifModal extends Component {
     firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
       console.log(val);
       this.setState({loading: false});
-      alert('purchase completed.');
       this.props.closeModal();
+      alert('purchase completed.');
     }).catch(err => {
       console.error(err);
       this.setState({loading: false});
