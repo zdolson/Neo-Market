@@ -13,7 +13,10 @@ class WalletTab extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal_is_open: false
+      modal_is_open: false,
+      user_name: '',
+      full_name: '',
+      wif: ''
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -28,7 +31,14 @@ class WalletTab extends Component {
     this.setState({modal_is_open: false});
   }
 
-
+  componentWillMount = () => {
+    firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
+      let {fullName, userName, wif} = snapshot.val();
+      this.setState( {full_name: fullName, user_name: userName, wif: wif} );
+    }).catch(err => {
+      console.error(err);
+    });
+  }
 
   render () {
     return (
@@ -41,7 +51,7 @@ class WalletTab extends Component {
                 <img src={ProfilePhoto} width="150" />
               </div>
               <div className="userName">
-                {this.state.userName}
+                {this.state.user_name}
               </div>
             </div>
             <div className="importIcon">
@@ -53,13 +63,13 @@ class WalletTab extends Component {
         <div className="topBottomContainer">
           <div className="walletForm">
             <div className="name">
-              {this.state.fullName}
+              {this.state.full_name}
             </div>
             <div className="email">
-              {this.state.email}
+              {firebase.auth().currentUser.email}
             </div>
             <div className="address">
-              address
+              ADDRESS GOES HERE
             </div>
             <div className="wifForm">
               <div className="wifInput">
