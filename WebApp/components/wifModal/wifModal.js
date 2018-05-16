@@ -43,18 +43,18 @@ class WifModal extends Component {
     return (
       <Modal open={modal_is_open} onClose={closeModal} little>
         {this.state.loading ? (
-            <div className="loading">loading...</div>
-          ) : (
-            <div className="modalText">
-              <h1>Confirm password!</h1>
-              <form onSubmit={this.handleSubmit}>
-                <label>
-                  <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} /> </div>
-                </label>
-                <div className="submitButton"> <input type="submit" value="Submit" /> </div>
-              </form>
-            </div>
-          )}
+          <div className="loading">loading...</div>
+        ) : (
+          <div className="modalText">
+            <h1>Confirm password!</h1>
+            <form className="wif-form" onSubmit={this.handleSubmit}>
+              <label>
+                <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="password..."/> </div>
+              </label>
+              <input className="submitButton" type="submit" value="Submit" />
+            </form>
+          </div>
+        )}
         <Stylesheet sheet={sheet}/>
       </Modal>
     );
