@@ -6,13 +6,18 @@ import { Route } from 'react-router-dom'
 import * as firebase from 'firebase'
 import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
 import cF from '../../../neonFunctions/contractFunctions'
+import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 
 export class MakePostForm extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      img: '',
-      imgUpload: false
+      imgUrl: '',
+      imgRef: null,
+      imgLoad: false,
+      file: null,
+      // img: '',
+      // imgUpload: false,
     }
     this.makeId = this.makeId.bind(this);
     this.makePost = this.makePost.bind(this);
@@ -29,9 +34,8 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
-    var file = this.uploadInput.files[0];
+    var file = this.state.file;
     var id = this.makeId();
-
     var currentUser;
     var title = this.title.value;
     var description = this.description.value;
@@ -40,17 +44,13 @@ export class MakePostForm extends Component {
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
       .then( (snapshot) => {
         currentUser = snapshot.val().userName;
-        console.log(currentUser);
-        console.log(title)
-        console.log(description)
-        console.log(price)
-        console.log(amount)
-        cF.createPost(id, currentUser, title, description, price, amount)
+
+        // For backend integrations -> uncomment this line and then uncomment the firebase function.
+        // cF.createPost(id, currentUser, title, description, price, amount)
       }
-    );
-
-    // postNewPostingToDatabase(id, currentUser, this.title.value, this.description.value, this.price.value, this.amount.value, file)
-
+    ).then(function() {
+      postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
+    });
 
     // /// Dev Version ///
     // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
@@ -60,67 +60,82 @@ export class MakePostForm extends Component {
     // */
   }
 
+  readFile = (event) => {
+    let reader = new FileReader();
+    let file = event.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        file: file,
+        imgRef: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   render () {
+
+    let img = (
+      this.state.imgLoad ?
+        <img src={this.state.imgUrl} alt='loading...' width="350"/> :
+        <div className="imgLoading"> <div>No image has been uploaded</div> </div>
+    );
+    img = (
+      this.state.imgRef != null ?
+        <img src={this.state.imgRef} alt='loading...' width="350"/> :
+        img
+    );
+
     return (
-
       <div className="makePostFormWrapper">
+        <div className="leftSideForm">
+          <div className="inputFormContainer">
+            <div className="titleNameContainer">
+              <input className="titleNameInput" ref={(ref) => { this.title = ref; }} type="text" placeholder="Title"/>
+            </div>
 
-        <div className="makePostFormHeader">
-          Make a post
+            <div className="priceContainer">
+              <input className="priceInput" ref={(ref) => { this.price = ref; }} type="text" placeholder="Price"/>
+            </div>
+
+            <div className="amountContainer">
+              <input className="amountInput" ref={(ref) => { this.amount = ref; }} type="text" placeholder="Amount"/>
+            </div>
+
+            <div className="descriptionContainer">
+              <textarea rows="10" className="descriptionInput" type="text" ref={(ref) => { this.description = ref; }} placeholder="Description..." />
+            </div>
+
+            <div className="makePostButtonContainer">
+              <div className="makePostButton" onClick={this.makePost}>
+                <div className="makePostButtonText">
+                  <Route render={({ history}) => (
+                    <button type='button' onClick={() => { history.push('/') }}>
+                      Post
+                    </button>
+                  )}/>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <form className="makePostFormFields" onSubmit={this.makePost}>
-
-          <div className="makePostFormTitle form-group">
-            <div className="bubbleTitle">
-              title
-            </div>
-            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.title = ref; }} type="text" placeholder="..."/> </div>
-          </div>
-
-          <div className="makePostFormDesc form-group">
-            <div className="bubbleTitle">
-              description
-            </div>
-            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.description = ref; }} type="text" placeholder="..."/> </div>
-          </div>
-
-          <div className="makePostFormImg form-group">
-            <div className="bubbleTitle">
-              image upload
-            </div>
-            <div className="inputWrapper"> <input className="form-image" ref={(ref) => { this.uploadInput = ref; }} type="file" /> </div>
-          </div>
-
-          <div className="makePostFormPrice form-group">
-            <div className="bubbleTitle">
-              price (NEO)
-            </div>
-            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.price = ref; }} type="text" placeholder="..."/> </div>
-          </div>
-
-          <div className="makePostFormAmount form-group">
-            <div className="bubbleTitle">
-              amount
-            </div>
-            <div className="inputWrapper"> <input className="form-control" ref={(ref) => { this.amount = ref; }} type="text" placeholder="..."/> </div>
-          </div>
-
-          <div className="makePostFormBtn form-group">
-              <div className="inputWrapper">
-                  <div className="submitBtn" onClick={this.makePost}>
-                      <Route render={({ history}) => (
-                          <button type='button' onClick={() => { history.push('/') }}>
-                            Submit
-                          </button>
-                        )}/>
-                  </div>
+        <div className="rightSideForm">
+          <div className="editImageContainer">
+            <div className="editImage">
+              <div className="image">
+                {img}
               </div>
+              <div className="upload">
+                <ImportPhotoIcon/>
+                <input type="file" name="file" onChange={(event)=> { this.readFile(event) }} onClick={(event)=> { event.target.value = null }} />
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
         <Stylesheet sheet={sheet}/>
       </div>
-
     )
   }
 

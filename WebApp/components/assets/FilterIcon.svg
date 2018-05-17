@@ -1,0 +1,11 @@
+<svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="29.4891" height="1.33092" rx="0.665459" transform="translate(0.245239)" fill="#57BF01"/>
+<rect width="16.5696" height="1.32081" rx="0.660405" transform="translate(17.4471 14.2075) scale(0.992288 1.00765) rotate(-45)" fill="#57BF01"/>
+<rect width="16.5696" height="1.32081" rx="0.660405" transform="translate(0.926758 2.40698) scale(0.992288 1.00765) rotate(45)" fill="#57BF01"/>
+<path d="M0 0.655312C0 0.293393 0.293393 0 0.655312 0H15.3655V1.31062H0.655313C0.293394 1.31062 0 1.01723 0 0.655312V0.655312Z" transform="translate(17.6765 29.7793) rotate(-90)" fill="#57BF01"/>
+<path d="M0 0.655312C0 0.293393 0.293393 0 0.655312 0H12.1713V1.31062H0.655312C0.293393 1.31062 0 1.01723 0 0.655312V0.655312Z" transform="translate(11.0579 26.6849) rotate(-90)" fill="#57BF01"/>
+<rect width="7.99481" height="1.33092" rx="0.665459" transform="translate(10.9989 13.5554)" fill="#57BF01"/>
+<rect width="8.57474" height="1.32745" rx="0.663725" transform="matrix(0.907529 0.419989 -0.409437 0.912338 11.4052 25.1876)" fill="#57BF01"/>
+<rect width="3.92621" height="1.31063" rx="0.655313" transform="translate(28.4236 3.92627) rotate(-90)" fill="#57BF01"/>
+<rect width="3.92621" height="1.31062" rx="0.655312" transform="translate(0.245239 3.92627) rotate(-90)" fill="#57BF01"/>
+</svg>

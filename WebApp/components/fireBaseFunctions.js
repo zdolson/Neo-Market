@@ -26,7 +26,7 @@ export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
         if(id == keys[i]){
           var ref = firebase.storage().ref(snapshot.child(id).val());
           ref.getDownloadURL().then(url => {
-            that.setState({ imgUrl: url, imgLoad: true });
+            that.setState({ imgUrl: url, imgLoad: true, tryAgain: false });
           }).catch(err => {
             console.error(err)
             that.setState({tryAgain: true})
@@ -96,6 +96,56 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   });
 }
 
+export function editPostingToDatabase(id, description, title, price, imageFile, that) {
+  var imageDatabaseRef = firebase.database().ref('/ListingImages/' + id);
+
+  return imageDatabaseRef.once("value").then(function(snapshot) {
+    var storageImageName = snapshot.val();
+    var updateImageName = storageImageName;
+
+    // If imageFile is not null, meaning that a file was imoprted
+    if (imageFile != null) {
+
+      // Once we know that there is an image file imported we can check the name of the file
+      if (imageFile.name != storageImageName ) {
+        updateImageName =  imageFile.name
+
+        // Uploading your new image to firebase
+        firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function() {
+        }).then(function() {
+          // Removing old image and adding the new reference in
+          imageDatabaseRef.remove().then(function() {
+            imageDatabaseRef.set(imageFile.name);
+          });
+        }).catch(function(error) {
+          // Handle Errors here.
+          console.log('An error has occured while Updating your image in firebase storage')
+          console.log(error.code)
+          console.log(error.message)
+        });
+      }
+    } 
+
+    // Adds new posting to database storage -> 'Listings'
+    firebase.database().ref('/Listings/' + id).update({
+      title: title,
+      description: description,
+      price: price,
+      imageName: updateImageName
+    }).catch(function(error) {
+        // Handle Errors here.
+        console.log('An error has occured while updating the listing in firebae')
+        console.log(error.code)
+        console.log(error.message)
+    });
+  }).catch(function(error) {
+    // Handle Errors here.
+    console.log('An error has occured while editting a post in firebase')
+    console.log(error.code)
+    console.log(error.message)
+  });
+}
+
 export function pullUsersFromDatabase(that){
   var arrayUserList = []
   var currUser = {}
@@ -114,11 +164,11 @@ export function pullUsersFromDatabase(that){
       }
       arrayUserList.push(currUser)
 
-      if(typeof arrayUserList !== 'undefined') {
-        that.setState({ users: arrayUserList})
-      }
+    });
 
-    })
+		if(typeof arrayUserList !== 'undefined') {
+			that.setState({ users: arrayUserList})
+		}
   }).catch(err => {
     console.error(err)
   });
@@ -174,6 +224,17 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 	      });
 	    }
 	})
+}
+
+export function deletePosting(id, that) {
+  return firebase.database().ref('/Listings/' + id).remove().then(function() {
+    firebase.database().ref('/ListingImages/' + id).remove()
+  }).catch(function(error) {
+    // Handle Errors here.
+    console.log('An error has occured while removing a listing: ')
+    console.log(error.code)
+    console.log(error.message)
+  })
 }
 
 export function loginUser(email, password) {

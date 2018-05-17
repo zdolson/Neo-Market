@@ -2,8 +2,10 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../stylesheet.js'
 import sheet from './moreInfoListingEditing.scss'
 
-import {pullingDatabaseImage} from '../../fireBaseFunctions.js'
+import {pullingDatabaseImage, editPostingToDatabase} from '../../fireBaseFunctions.js'
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
+
+import { Route } from 'react-router-dom'
 
 
 class MoreInfoListingEditing extends Component {
@@ -14,6 +16,7 @@ class MoreInfoListingEditing extends Component {
       file: null,
       imgRef: null,
       imgLoad: false,
+      tryAgain: true,
       description: this.props.item.description,
       title: this.props.item.title,
       price: this.props.item.price
@@ -24,7 +27,7 @@ class MoreInfoListingEditing extends Component {
 
   componentDidMount() {
     var that = this
-    pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.props.tryAgain, that);
+    pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
   }
 
   readFile = (event) => {
@@ -54,8 +57,10 @@ class MoreInfoListingEditing extends Component {
   }
 
   submitHandler = () => {
-    console.log('submitHandler()');
-    console.log( {description: this.state.description, title: this.state.title, price: this.state.price} );
+    var that = this
+    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that).then(function() {
+      that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
+    })
   }
 
   render() {
@@ -80,7 +85,12 @@ class MoreInfoListingEditing extends Component {
             Cancel
           </div>
           <div className="submitEditing" onClick={this.submitHandler}>
-            Submit
+            <Route render={({ history}) => (
+                <button type='button' onClick={() => { history.push('/') }}>
+                  Submit
+                </button>
+              )}
+            />
           </div>
         </div>
 

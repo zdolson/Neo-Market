@@ -110,33 +110,6 @@ Purpose: CSS file for styling checkOut page
 	width: auto;
 }
 
-.modalText {
-	color: black;
-	margin: 12% 0% 0% 0%;
-}
-
-.submitButton {
-	padding: 5px;
-	margin-top: 5%;
-	text-align: center;
-	&:hover {
-		cursor: pointer;
-	}
-	width: 50%;
-	background: $brightGreen;
-	border-radius: 5px;
-}
-
-.passwordLabel {
-	// text-align: center;
-	margin-bottom: 2%;
-}
-
-.passwordInput {
-	background: $offWhite;
-	border-radius: 3px;
-}
-
 // body {
 // 	background-color: #4F4F4F;
 // }
