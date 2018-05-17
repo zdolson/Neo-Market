@@ -18,7 +18,9 @@ class Register extends Component {
       verifyPassword: '',
       wif: '',
       imgRef: null,
-      file: null
+      file: null,
+      registerError: false,
+      registerErrorMessage: 'Please input your registration information'
     };
     this.registerHandler = this.registerHandler.bind(this);
     this.readFile = this.readFile.bind(this);
@@ -30,7 +32,7 @@ class Register extends Component {
     // if(this.state.imgRef != null && this.state.imgRef.files.length > 0) {
     //   console.log(this.state.imgRef.files[0]);
     // }
-    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif).then(uid => {
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif, this).then(uid => {
         // console.log(uid);
         var text = "";
         var possible = "0123456789";
@@ -81,6 +83,16 @@ class Register extends Component {
       <img src={this.state.imgRef} width="250"/> :
       <div className="imgDefault"> <div>upload image</div> </div>
 
+    const registerMessage = this.state.registerError ? (
+      <div className="errorMessage">
+        {this.state.registerErrorMessage}
+      </div>
+    ) : (
+      <div className="registerMessage">
+        Please input your registration information
+      </div>
+    )
+
     return (
       <div>
         <div className="registerPageContainer">
@@ -118,6 +130,8 @@ class Register extends Component {
                   </div>
                 </div>
               </div>
+
+              {registerMessage}
 
             </div>
           </div>

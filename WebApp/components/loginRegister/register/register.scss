@@ -178,3 +178,16 @@ Purpose: Styling for the register page
 .importPhotoIconContainer{
   margin: 5% 0%;
 }
+
+.errorMessage {
+	color: $red;
+	margin: 10% 0% 0% 25%;
+	text-overflow: ellipsis;
+  	max-width: 400px;
+}
+
+.registerMessage {
+	color: $white;
+	margin: 10% 0% 0% 25%;
+}
+
