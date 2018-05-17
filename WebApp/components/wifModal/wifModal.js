@@ -26,16 +26,21 @@ class WifModal extends Component {
     console.log('handleSubmit()');
     e.preventDefault();
     this.setState({loading: true});
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
-      console.log(val);
-      this.setState({loading: false});
-      this.props.closeModal();
-      alert('purchase completed.');
+    // firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
+    //   console.log(val);
+    //   this.setState({loading: false});
+    //   this.props.closeModal();
+    //   alert('purchase completed.');
+    // }).catch(err => {
+    //   console.error(err);
+    //   this.setState({loading: false});
+    //   alert(err.message);
+    // });
+    firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
+      console.log(snapshot.val());
     }).catch(err => {
       console.error(err);
-      this.setState({loading: false});
-      alert(err.message);
-    });
+    })
   }
 
   render () {

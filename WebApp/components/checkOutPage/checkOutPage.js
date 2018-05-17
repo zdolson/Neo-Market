@@ -51,7 +51,6 @@ export class CheckOutPage extends Component {
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
       .then( (snapshot) => {
         buyerName = snapshot.val().userName;
-        console.log(buyerName);
       }
     );
     if (cartItems.length == 0) {
