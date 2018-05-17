@@ -6,4 +6,4 @@ import React from 'react'
 @ Purpose: File for all constant data to stored and exported
 **/
 
-export const sideBarTitles = ['Wallet', 'Listings', 'Posts']
+export const sideBarTitles = ['Wallet', 'Post', 'Trash', 'Forums', 'Listings', 'Promos', 'Purchases', 'People']

@@ -1,11 +1,17 @@
+
+
 import React, { Component } from 'react'
 import {Stylesheet, Svg} from '../../stylesheet.js'
 import item from './leftSideBarItem.scss'
 
-
+import ForumsIcon from '../../assets/ForumsIcon.svg'
 import ListingsIcon from '../../assets/ListingsIcon.svg'
 import MyPostsIcon from '../../assets/MyPostsIcon.svg'
+import PeopleIcon from '../../assets/PeopleIcon.svg'
+import PurchasesIcon from '../../assets/PurchasesIcon.svg'
+import TrashIcon from '../../assets/TrashIcon.svg'
 import WalletIcon from '../../assets/WalletIcon.svg'
+import PromosIcon from '../../assets/PromosIcon.svg'
 
 // Import for react-router package.
 import { NavLink } from "react-router-dom";
@@ -29,9 +35,14 @@ export class LeftSideBarItem extends Component {
 
   // Icon map for dynamic svg use
   components = {
-    Wallet: WalletIcon,
+    Forums: ForumsIcon,
     Listings: ListingsIcon,
-    Posts: MyPostsIcon,
+    Post: MyPostsIcon,
+    People: PeopleIcon,
+    Purchases: PurchasesIcon,
+    Trash: TrashIcon,
+    Wallet: WalletIcon,
+    Promos: PromosIcon
   };
 
   render () {
