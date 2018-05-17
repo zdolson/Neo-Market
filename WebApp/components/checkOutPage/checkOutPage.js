@@ -10,7 +10,7 @@ import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalVa
 import cF from '../../neonFunctions/contractFunctions'
 import { registerUserToDatabase } from '../fireBaseFunctions'
 
-// import * as firebase from 'firebase'
+import * as firebase from 'firebase'
 
 /**
 

@@ -31,8 +31,7 @@ Purpose: Styling for loginRegister page
 .rightSide {
 	dispaly: flex;
 	flex: 4;
-	// background-color: $japaneseIndigoDarkBlue;
-  background-color: #0E1C27;
+  	background-color: #0E1C27;
 	flex-direction: column;
 	justify-content: center;
 	z-index: 2;
@@ -136,4 +135,17 @@ Purpose: Styling for loginRegister page
 .loginImage {
 	z-index: 1;
 	height: 100vh;
+}
+
+.errorMessage {
+	color: $red;
+	margin: 5% 0% 0% 10%;
+	text-overflow: ellipsis;
+  	max-width: 400px;
+  	text-align: center;
+}
+
+.loginMessage {
+	color: $white;
+	margin: 5% 0% 0% 10%;
 }

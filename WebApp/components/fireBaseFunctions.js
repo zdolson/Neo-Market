@@ -237,7 +237,7 @@ export function deletePosting(id, that) {
   })
 }
 
-export function loginUser(email, password) {
+export function loginUser(email, password, that) {
   return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
     return user
@@ -246,6 +246,10 @@ export function loginUser(email, password) {
     console.log('An error has occured while logging in the user via Firebase: ')
     console.log(error.code)
     console.log(error.message)
+    that.setState({
+      loginErrorMessage: error.message,
+      loginError: true
+    })
   });
 }
 
