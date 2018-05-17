@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './wifModal.scss'
 
+import cF from '../../neonFunctions/contractFunctions'
 import Modal from 'react-responsive-modal'
 
 import * as firebase from 'firebase'
@@ -37,8 +38,18 @@ class WifModal extends Component {
     //   alert(err.message);
     // });
     firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
-      console.log(snapshot.val());
+      this.setState({loading: false});
+      let {password} = snapshot.val();
+      let entry = cF.sha256(this.state.password);
+      console.log('encryptedPassword:'+password+' entry:'+this.state.password+' encryptedEntry:'+entry);
+      if(password === entry) {
+        this.props.closeModal();
+        alert('success!');
+      }else{
+        alert('incorrect password');
+      }
     }).catch(err => {
+      this.setState({loading: false});
       console.error(err);
     })
   }
