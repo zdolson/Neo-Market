@@ -36,7 +36,8 @@ export class Index extends Component {
       error: '',
       cart: [],
       data: {},
-      inApp: false
+      inApp: false,
+      useFirebaseBackend: true
     }
     this.navToApp = this.navToApp.bind(this);
   }
@@ -80,7 +81,7 @@ export class Index extends Component {
       return (
         <HashRouter>
           <div>
-            <App />
+            <App useFirebaseBackend={this.state.useFirebaseBackend}/>
             <Stylesheet sheet={sheet} />
           </div>
         </HashRouter>

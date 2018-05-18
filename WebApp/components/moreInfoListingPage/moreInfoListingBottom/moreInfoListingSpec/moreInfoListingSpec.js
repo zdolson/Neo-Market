@@ -4,8 +4,10 @@ import sheet from './moreInfoListingSpec.scss'
 
 import ItemSpecsLine from '../../../assets/ItemSpecsLine.svg'
 import Star from '../../../assets/Star.svg'
-import { NavLink } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+
 import cF from '../../../../neonFunctions/contractFunctions'
+import { deletePosting } from '../../../fireBaseFunctions.js'
 
 /**
 
@@ -21,6 +23,20 @@ class MoreInfoListingSpec extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
+
+    }
+    this.removeItemHandler = this.removeItemHandler.bind(this);
+  }
+
+  removeItemHandler = () => {
+    var that = this;
+    if (this.props.useFirebaseBackend) {
+      console.log('using firebase deletePost logic')
+      deletePosting(this.props.item['id'], that).then(function() {
+        that.props.removeItem(that.props.item['id'])
+      });
+    } else {
+      console.log('backend deletePosting logic goes here')
     }
   }
 
@@ -31,6 +47,7 @@ class MoreInfoListingSpec extends Component {
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
+
     return (
       <div className='moreInfoListingSpec'>
         <div className="titleAndPrice">
@@ -65,15 +82,16 @@ class MoreInfoListingSpec extends Component {
               Add to Cart
             </div>
           </div>
-            <div className="removeBtn">
-                <div className="itemBtnText" onClick={() => {removeItem(itemID)}}>
-                  <NavLink to="/">
+          <div className="removeBtn">
+            <div className="itemBtnText" onClick={this.removeItemHandler}>
+              <Route render={({ history}) => (
+                  <button className='removeButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
                     Remove Item
-                  </NavLink>
-                </div>
+                  </button>
+              )}/>
             </div>
+          </div>
         </div>
-
         <Stylesheet sheet={sheet} />
       </div>
     )
