@@ -102,8 +102,8 @@ class LoginRegister extends Component {
                 <div className="loginButton" onClick={this.loginHandler}>
                   <LoginButton/>
                 </div>
+                {loginMessage}
               </div>
-              {loginMessage}
             </div>
           </div>
         </main>

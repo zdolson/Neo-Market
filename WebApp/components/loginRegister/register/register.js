@@ -165,7 +165,9 @@ class Register extends Component {
                 </div>
               </div>
 
-              {registerMessage}
+              <div className="registerMessageContainer">
+                {registerMessage}
+              </div>
 
             </div>
           </div>

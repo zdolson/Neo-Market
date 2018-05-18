@@ -88,7 +88,7 @@ Purpose: Styling for loginRegister page
 	display: flex;
 	flex-direction: column;
 	background-color: $loginPageGreen;
-	height: 435px;
+	height: 465px;
 	width: 400px;
 	border-radius: 4px;
 }
@@ -138,7 +138,7 @@ Purpose: Styling for loginRegister page
 
 .errorMessage {
 	color: $red;
-	margin: 5% 0% 0% 10%;
+	margin: 5% 0% 5% 0%;
 	text-overflow: ellipsis;
   	max-width: 400px;
   	text-align: center;
@@ -146,5 +146,7 @@ Purpose: Styling for loginRegister page
 
 .loginMessage {
 	color: $white;
-	margin: 5% 0% 0% 19%;
+	margin: 5% 0% 5% 0%;
+	text-align: center;
+
 }
