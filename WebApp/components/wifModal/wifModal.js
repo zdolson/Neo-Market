@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './wifModal.scss'
 
+import cF from '../../neonFunctions/contractFunctions'
 import Modal from 'react-responsive-modal'
 
 import * as firebase from 'firebase'
@@ -26,16 +27,31 @@ class WifModal extends Component {
     console.log('handleSubmit()');
     e.preventDefault();
     this.setState({loading: true});
-    firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
-      console.log(val);
+    // firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
+    //   console.log(val);
+    //   this.setState({loading: false});
+    //   this.props.closeModal();
+    //   alert('purchase completed.');
+    // }).catch(err => {
+    //   console.error(err);
+    //   this.setState({loading: false});
+    //   alert(err.message);
+    // });
+    firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
       this.setState({loading: false});
-      alert('purchase completed.');
-      this.props.closeModal();
+      let {password} = snapshot.val();
+      let entry = cF.sha256(this.state.password);
+      console.log('encryptedPassword:'+password+' entry:'+this.state.password+' encryptedEntry:'+entry);
+      if(password === entry) {
+        this.props.closeModal();
+        alert('success!');
+      }else{
+        alert('incorrect password');
+      }
     }).catch(err => {
-      console.error(err);
       this.setState({loading: false});
-      alert(err.message);
-    });
+      console.error(err);
+    })
   }
 
   render () {
@@ -43,18 +59,18 @@ class WifModal extends Component {
     return (
       <Modal open={modal_is_open} onClose={closeModal} little>
         {this.state.loading ? (
-            <div className="loading">loading...</div>
-          ) : (
-            <div className="modalText">
-              <h1>Confirm password!</h1>
-              <form onSubmit={this.handleSubmit}>
-                <label>
-                  <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} /> </div>
-                </label>
-                <div className="submitButton"> <input type="submit" value="Submit" /> </div>
-              </form>
-            </div>
-          )}
+          <div className="loading">loading...</div>
+        ) : (
+          <div className="modalText">
+            <h1>Confirm password!</h1>
+            <form className="wif-form" onSubmit={this.handleSubmit}>
+              <label>
+                <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="password..."/> </div>
+              </label>
+              <input className="submitButton" type="submit" value="Submit" />
+            </form>
+          </div>
+        )}
         <Stylesheet sheet={sheet}/>
       </Modal>
     );
