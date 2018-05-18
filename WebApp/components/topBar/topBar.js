@@ -11,6 +11,7 @@ import node from '../../neonFunctions/blockchain'
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // const neon = require('@cityofzion/neon-js')
 // const Neon = neon.default
 
@@ -32,7 +33,7 @@ export class TopBar extends Component {
     super(props, context)
     this.state = {
       menu_is_open: false,
-      filter_selected: 0,
+      price_selected: 0,
       search_string: ''
     }
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
@@ -81,22 +82,34 @@ export class TopBar extends Component {
 
   openFilter = (event) => {
     event.preventDefault();
-    this.setState({menu_is_open: true});
+    this.setState({
+      menu_is_open: true,
+      anchorEl: event.currentTarget,
+    });
   }
 
   closeFilter = (event) => {
     this.setState({menu_is_open: false});
   }
 
-  highToLowHandler = (e) => {
+  lowToHighHandler = (e) => {
     console.log('highToLowHandler');
+    if(this.state.price_selected != 0) {
+      this.props.updateFilter(0);
+      this.setState({price_selected: 0});
+    }
   }
 
-  lowToHighHandler = (e) => {
+  highToLowHandler = (e) => {
     console.log('lowToHighHandler');
+    if(this.state.price_selected != 1) {
+      this.props.updateFilter(1);
+      this.setState({price_selected: 1});
+    }
   }
 
   searchHandler = (event) => {
+    event.preventDefault();
     this.props.updateSearch(this.state.search_string);
   }
 
@@ -125,20 +138,20 @@ export class TopBar extends Component {
             <input ref="searchInput" type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange} onKeyPress={this.handleKeyPress}></input>
             <div className="filter" onClick={this.openFilter}>
               <FilterIcon/>
-              <Popover
-                open={this.state.menu_is_open}
-                anchorEl={this.state.anchorEl}
-                anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-                targetOrigin={{horizontal: 'left', vertical: 'top'}}
-                onRequestClose={this.handleRequestClose}
-              >
-                <Menu>
-                  <MenuItem primaryText="Refresh" />
-                  <MenuItem primaryText="Help &amp; feedback" />
-                  <MenuItem primaryText="Settings" />
-                  <MenuItem primaryText="Sign out" />
-                </Menu>
-              </Popover>
+              <MuiThemeProvider>
+                <Popover
+                  open={this.state.menu_is_open}
+                  anchorEl={this.state.anchorEl}
+                  anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                  targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                  onRequestClose={this.closeFilter}
+                >
+                  <Menu>
+                    <MenuItem primaryText="Price: Low to High" insetChildren={true} checked={this.state.price_selected == 0} onClick={this.lowToHighHandler}/>
+                    <MenuItem primaryText="Price: High to Low" insetChildren={true} checked={this.state.price_selected == 1} onClick={this.highToLowHandler}/>
+                  </Menu>
+                </Popover>
+              </MuiThemeProvider>
             </div>
           </div>
         </div>
