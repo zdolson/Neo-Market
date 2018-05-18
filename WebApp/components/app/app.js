@@ -62,7 +62,8 @@ export class App extends Component {
       loadItemsAgain:false,
       filter_string: 'title',
       search_string: '',
-      search: false
+      search: false,
+      neoPrice: 0
     }
 
     // Function List
@@ -78,6 +79,7 @@ export class App extends Component {
     this.updateFilter = this.updateFilter.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
+    this.updateNeoPrice = this.updateNeoPrice.bind(this);
   }
 
   componentWillMount () {
@@ -95,6 +97,7 @@ export class App extends Component {
   componentDidMount() {
     pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
+    this.updateNeoPrice();
   }
 
   addCartItem(id) {
@@ -225,6 +228,14 @@ export class App extends Component {
     pullDataFromDatabase(this)
   }
 
+  updateNeoPrice() {
+    cF.getNeoUsPrice().then(result => {
+      this.setState({neoPrice: result});
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -251,7 +262,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
+          <RoutingComponent neoPrice={this.state.neoPrice} resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
         </div>
       </main>
     )
