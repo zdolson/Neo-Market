@@ -89,11 +89,11 @@ export class App extends Component {
     */
     // pullDataFromDatabase(this)
     // pullUsersFromDatabase(this)
-    // cF.getAllPostsFromStorage(this);
+    cF.getAllPostsFromStorage(this);
   }
 
   componentDidMount() {
-    pullDataFromDatabase(this)
+    // pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
   }
 
