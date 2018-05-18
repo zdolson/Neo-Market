@@ -63,7 +63,7 @@ export class App extends Component {
       filter_string: 'title',
       search_string: '',
       search: false,
-      neoPrice: 0,
+      neoPrice: 0
     }
 
     // Function List
