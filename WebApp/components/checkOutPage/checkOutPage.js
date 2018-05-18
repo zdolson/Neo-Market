@@ -10,7 +10,7 @@ import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalVa
 import cF from '../../neonFunctions/contractFunctions'
 import { registerUserToDatabase } from '../fireBaseFunctions'
 
-// import * as firebase from 'firebase'
+import * as firebase from 'firebase'
 
 /**
 
@@ -49,7 +49,6 @@ export class CheckOutPage extends Component {
     firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
       .then( (snapshot) => {
         buyerName = snapshot.val().userName;
-        console.log(buyerName);
       }
     );
     if (cartItems.length == 0) {

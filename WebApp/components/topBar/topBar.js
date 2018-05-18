@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { NavLink } from "react-router-dom";
+import ReactDOM from 'react-dom'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
@@ -38,6 +39,7 @@ export class TopBar extends Component {
     this.priceSelect = this.priceSelect.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.searchChange = this.searchChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
 
@@ -66,6 +68,12 @@ export class TopBar extends Component {
       // <div className="zachBtn" onClick={this.topbarTestingButton}>
       //   Property of Zach
       // </div>
+  }
+
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      this.searchHandler(e);
+    }
   }
 
   openFilter = (event) => {
@@ -125,7 +133,7 @@ export class TopBar extends Component {
           <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
           <div className="search">
             <SearchIcon className="searchicon" onClick={this.searchHandler}/>
-            <input type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange}></input>
+            <input ref="searchInput" type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange} onKeyPress={this.handleKeyPress}></input>
             <div className="filter" onClick={this.openFilter}>
               <FilterIcon/>
             </div>
