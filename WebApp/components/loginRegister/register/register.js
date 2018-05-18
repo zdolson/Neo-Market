@@ -84,12 +84,12 @@ class Register extends Component {
       <div className="imgDefault"> <div>upload image</div> </div>
 
     const registerMessage = this.state.registerError ? (
-      <div className="errorMessage">
+      <div className="registerErrorMessage">
         {this.state.registerErrorMessage}
       </div>
     ) : (
       <div className="registerMessage">
-        Please input your registration information
+        {this.state.registerErrorMessage}
       </div>
     )
 

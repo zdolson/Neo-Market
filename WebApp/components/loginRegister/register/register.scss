@@ -179,11 +179,9 @@ Purpose: Styling for the register page
   margin: 5% 0%;
 }
 
-.errorMessage {
+.registerErrorMessage {
 	color: $red;
 	margin: 10% 0% 0% 25%;
-	text-overflow: ellipsis;
-  	max-width: 400px;
 }
 
 .registerMessage {
