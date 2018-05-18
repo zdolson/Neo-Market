@@ -16,7 +16,7 @@ class LoginRegister extends Component {
       super(props);
       this.state = {
         register: false,
-        loginErrorMessage: '',
+        loginErrorMessage: 'Please input your account information',
         loginError: false
       };
       this.registerHandler = this.registerHandler.bind(this);
@@ -44,7 +44,7 @@ class LoginRegister extends Component {
         </div>
       ) : (
         <div className="loginMessage">
-         Please input your account information
+          {this.state.loginErrorMessage}
         </div>
       )
 
