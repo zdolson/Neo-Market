@@ -16,7 +16,7 @@ initializeApp();
 
 // If you want have login capabilities, then comment this line out.
 // This is to let dev's develop without having to constantly loging.
-loginUser('nccheung@ucsc.edu', 'nccheung');
+// loginUser('nccheung@ucsc.edu', 'nccheung');
 
 /**
 

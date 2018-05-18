@@ -16,22 +16,41 @@ Purpose: Spacing and style for the purchased item
 
 .item-container {
   height: 150px;
-  width: 100%;
+  // width: 100%;
   display: flex;
   flex-direction: column;
   color: white;
   font-size: 20px;
-  margin-top: 5%;
+  margin-top: 40px;
   align-items: flex-end;
 }
 
 .item-top {
-  z-index: -1;
+  // z-index: -1;
   background: $grey50;
   flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   width: 100%;
   margin-bottom: -15px;
   border-radius: 5px 5px 0px 0px;
+}
+
+.item-image {
+  height: 50px;
+  padding: 5px;
+  margin-left: 10px;
+  margin-right: 10px;
+  width: auto;
+  background: $grey65;
+  border-radius: 5px;
+}
+
+.imgLoading {
+  height: 50px;
+  width: 50px;
+  background: $grey50;
 }
 
 .item-price {
@@ -42,14 +61,25 @@ Purpose: Spacing and style for the purchased item
   margin-right: 3%;
   border-radius: 10px;
   text-align: center;
+  z-index: 1;
 }
 
 .item-bottom {
-  z-index: -1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  // z-index: -1;
   background: $grey65;
   flex: 1;
   width: 100%;
   margin-top: -15px;
   border-radius: 0px 0px 5px 5px;
   box-shadow: 0px 3px 18px $blackShadow;
+  overflow-x: hidden;
+}
+
+.item-description {
+  margin-left: 10px;
+
+  // z-index: 3;
 }

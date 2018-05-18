@@ -5,6 +5,7 @@ import sheet from './myProfilePage.scss'
 import ListingsTab from './listingsTab/listingsTab.js'
 import PurchasesTab from './purchasesTab/purchasesTab.js'
 import WalletTab from './walletTab/walletTab.js'
+import {pullMyPurchasesFromDatabase, pullMyListingsFromDatabase} from '../fireBaseFunctions.js'
 
 class MyProfilePage extends Component {
   constructor(props) {
@@ -15,31 +16,69 @@ class MyProfilePage extends Component {
         ListingsTab,
         PurchasesTab,
         WalletTab
+      ],
+      listings: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
+      ],
+      purchases: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
       ]
     };
     this.handleListing = this.handleListings.bind(this);
     this.handlePurchases = this.handlePurchases.bind(this);
     this.handleWallet = this.handleWallet.bind(this);
+    this.getListings = this.getListings.bind(this);
+    this.getPurchases = this.getPurchases.bind(this);
+  }
+
+  componentDidMount = () => {
+    this.getListings();
+    this.getPurchases();
   }
 
   handleListings = () => {
-    console.log('handleListings()');
     this.setState( {tabSelected: 0} );
   }
 
   handlePurchases = () => {
-    console.log('handlePurchases()');
     this.setState( {tabSelected: 1} );
   }
 
   handleWallet = () => {
-    console.log('handleWallet()');
     this.setState( {tabSelected: 2} );
+  }
+
+  getListings = () => {
+    pullMyListingsFromDatabase().then((val) => {
+      this.setState( {listings: val} );
+    });
+  }
+
+  getPurchases = () => {
+    pullMyPurchasesFromDatabase().then((val) => {
+      this.setState( {purchases: val} );
+    });
   }
 
   render () {
 
     let state = this.props.state;
+    state.listings = this.state.listings;
+    state.purchases = this.state.purchases;
     let tryAgain = this.props.tryAgain;
 
     const Tab = this.state.tabs[this.state.tabSelected];
