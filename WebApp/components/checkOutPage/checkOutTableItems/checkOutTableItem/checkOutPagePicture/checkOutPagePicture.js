@@ -2,9 +2,6 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../../stylesheet.js'
 import sheet from './checkOutPagePicture.scss'
 
-import Galaxy from '../../../../assets/galaxy.svg'
-import Grumpy from '../../../../assets/grumpy.svg'
-
 import { pullingDatabaseImage } from '../../../../fireBaseFunctions.js'
 
 import * as firebase from 'firebase'

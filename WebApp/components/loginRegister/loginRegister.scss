@@ -29,11 +29,11 @@ Purpose: Styling for loginRegister page
 }
 
 .rightSide {
-	dispaly: flex;
-	flex: 4;
-  	background-color: #0E1C27;
+	display: flex;
+	flex: 3;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	z-index: 2;
 }
 
@@ -91,7 +91,6 @@ Purpose: Styling for loginRegister page
 	height: 435px;
 	width: 400px;
 	border-radius: 4px;
-	margin: 35% 10% 0% 10%;
 }
 
 .captionBox {

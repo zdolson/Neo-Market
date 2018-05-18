@@ -5,6 +5,7 @@ import LogoIcon from '../assets/Logo.svg'
 import LoginButton from '../assets/LoginButton.svg'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './loginRegister.scss'
+import BlockchainBackground from '../assets/blockchain.png'
 
 import * as firebase from 'firebase'
 
@@ -48,6 +49,12 @@ class LoginRegister extends Component {
         </div>
       )
 
+      let style = {
+        rightSide: {
+          backgroundImage: `url(${BlockchainBackground})`
+        }
+      }
+
       const page = this.state.register ? (
         <Register navToApp={this.props.navToApp}/>
       ) : (
@@ -79,7 +86,7 @@ class LoginRegister extends Component {
               </div>
             </div>
 
-            <div className="rightSide">
+            <div style={style.rightSide} className="rightSide">
               <div className="formContainer">
                 <div className="captionBox">
                   Or Log into your account

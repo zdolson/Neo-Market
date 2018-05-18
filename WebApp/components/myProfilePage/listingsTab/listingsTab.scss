@@ -4,13 +4,13 @@
 @import '../../animations';
 
 .listings {
-  height: auto;
   width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row wrap;
   justify-content: space-around;
   padding-top: 20px;
   position: absolute;
-  display: flex;
-  flex-flow: row wrap;
   z-index: 0;
 }
 

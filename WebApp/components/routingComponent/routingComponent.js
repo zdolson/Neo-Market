@@ -38,7 +38,7 @@ class RoutingComponent extends Component {
     var removeItem = this.props.removeItem;
     var hasEdit = this.props.hasEdit;
     var users = state.users;
-
+    var neoPrice = this.props.neoPrice;
     return (
       <main>
         <Switch>
@@ -56,7 +56,7 @@ class RoutingComponent extends Component {
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (
-              <Route path={path} key={key} render={ () => <MoreInfoListingPage item={items[key]} addCartItem={addCartItem} removeItem={removeItem} hasEdit={hasEdit}/> } />
+              <Route path={path} key={key} render={ () => <MoreInfoListingPage neoPrice={neoPrice} item={items[key]} addCartItem={addCartItem} removeItem={removeItem} hasEdit={hasEdit}/> } />
             )
           })}
       	</Switch>

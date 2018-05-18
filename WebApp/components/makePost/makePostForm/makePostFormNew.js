@@ -46,10 +46,10 @@ export class MakePostForm extends Component {
         currentUser = snapshot.val().userName;
 
         // For backend integrations -> uncomment this line and then uncomment the firebase function.
-        // cF.createPost(id, currentUser, title, description, price, amount)
+        cF.createPost(id, currentUser, title, description, price, amount)
       }
     ).then(function() {
-      postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
+      // postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
     });
 
     // /// Dev Version ///
