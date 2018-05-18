@@ -37,6 +37,7 @@ class MoreInfoListingPage extends Component {
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let hasEdit = this.props.hasEdit;
+    let neoPrice = this.props.neoPrice;
 
     const page = this.state.is_editing ? (
       <div>
@@ -45,7 +46,7 @@ class MoreInfoListingPage extends Component {
     ) : (
       <div>
         <MoreInfoListingTop toggle_edit={this.toggle_edit}/>
-        <MoreInfoListingBottom item={item} addCartItem={addCartItem} removeItem={removeItem}/>
+        <MoreInfoListingBottom neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem}/>
       </div>
     );
 

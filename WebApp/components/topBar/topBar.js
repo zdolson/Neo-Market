@@ -1,11 +1,17 @@
 import React, { Component } from 'react'
 import { NavLink } from "react-router-dom";
+import ReactDOM from 'react-dom'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './topBar.scss'
 import LogoIcon from '../assets/Logo.svg'
 import SearchIcon from '../assets/SearchIcon.svg'
 import cF from '../../neonFunctions/contractFunctions'
 import node from '../../neonFunctions/blockchain'
+
+import Popover from 'material-ui/Popover';
+import Menu from 'material-ui/Menu';
+import MenuItem from 'material-ui/MenuItem';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 // const neon = require('@cityofzion/neon-js')
 // const Neon = neon.default
 
@@ -27,17 +33,17 @@ export class TopBar extends Component {
     super(props, context)
     this.state = {
       menu_is_open: false,
-      filter_selected: 0,
+      price_selected: 0,
       search_string: ''
     }
     this.topbarTestingButton = this.topbarTestingButton.bind(this);
     this.openFilter = this.openFilter.bind(this);
     this.closeFilter = this.closeFilter.bind(this);
-    this.titleSelect = this.titleSelect.bind(this);
-    this.descSelect = this.descSelect.bind(this);
-    this.priceSelect = this.priceSelect.bind(this);
+    this.lowToHighHandler = this.lowToHighHandler.bind(this);
+    this.highToLowHandler = this.highToLowHandler.bind(this);
     this.searchHandler = this.searchHandler.bind(this);
     this.searchChange = this.searchChange.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
 
@@ -68,39 +74,42 @@ export class TopBar extends Component {
       // </div>
   }
 
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      this.searchHandler(e);
+    }
+  }
+
   openFilter = (event) => {
     event.preventDefault();
-    this.setState({menu_is_open: true}, () => {
-      document.addEventListener('click', this.closeFilter);
+    this.setState({
+      menu_is_open: true,
+      anchorEl: event.currentTarget,
     });
   }
 
   closeFilter = (event) => {
-    if(!this.menu_ref.contains(event.target))
-      this.setState({menu_is_open: false}, () => {
-        document.removeEventListener('click', this.closeFilter);
-      })
+    this.setState({menu_is_open: false});
   }
 
-  titleSelect = (event) => {
-    event.preventDefault();
-    this.props.updateFilter('title');
-    this.setState( {filter_selected: 0} );
+  lowToHighHandler = (e) => {
+    console.log('highToLowHandler');
+    if(this.state.price_selected != 0) {
+      this.props.updateFilter(0);
+      this.setState({price_selected: 0});
+    }
   }
 
-  descSelect = (event) => {
-    event.preventDefault();
-    this.setState( {filter_selected: 1} );
-    this.props.updateFilter('description');
-  }
-
-  priceSelect = (event) => {
-    event.preventDefault();
-    this.setState( {filter_selected: 2} );
-    this.props.updateFilter('price');
+  highToLowHandler = (e) => {
+    console.log('lowToHighHandler');
+    if(this.state.price_selected != 1) {
+      this.props.updateFilter(1);
+      this.setState({price_selected: 1});
+    }
   }
 
   searchHandler = (event) => {
+    event.preventDefault();
     this.props.updateSearch(this.state.search_string);
   }
 
@@ -121,30 +130,32 @@ export class TopBar extends Component {
 
     return (
       <div className="main-container">
+
         <div className="topnav">
           <NavLink to="/" className="logo"> <LogoIcon /> </NavLink>
           <div className="search">
             <SearchIcon className="searchicon" onClick={this.searchHandler}/>
-            <input type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange}></input>
+            <input ref="searchInput" type="text" placeholder="search..." className="searchbubble" value={this.state.search_string} onChange={this.searchChange} onKeyPress={this.handleKeyPress}></input>
             <div className="filter" onClick={this.openFilter}>
               <FilterIcon/>
+              <MuiThemeProvider>
+                <Popover
+                  open={this.state.menu_is_open}
+                  anchorEl={this.state.anchorEl}
+                  anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
+                  targetOrigin={{horizontal: 'left', vertical: 'top'}}
+                  onRequestClose={this.closeFilter}
+                >
+                  <Menu>
+                    <MenuItem primaryText="Price: Low to High" insetChildren={true} checked={this.state.price_selected == 0} onClick={this.lowToHighHandler}/>
+                    <MenuItem primaryText="Price: High to Low" insetChildren={true} checked={this.state.price_selected == 1} onClick={this.highToLowHandler}/>
+                  </Menu>
+                </Popover>
+              </MuiThemeProvider>
             </div>
           </div>
         </div>
 
-        { this.state.menu_is_open
-          ? (
-            <div>
-              <div className="filter-flow"></div>
-              <div className="filter-menu" ref={(ref) => { this.menu_ref = ref; }}>
-                <div style={filter_styles[0]} className="filter-title" onClick={this.titleSelect}>TITLE</div>
-                <div style={filter_styles[1]} className="filter-description" onClick={this.descSelect}>DESCRIPTION</div>
-              </div>
-            </div>
-          ):(
-            null
-          )
-        }
         <Stylesheet sheet={sheet} />
       </div>
     )
