@@ -199,10 +199,9 @@ Purpose: Styling for the register page
 .registerMessageContainer {
 	display: flex;
 	background-color: $grey20;
-	height: 10%;
+	height: auto;
+  padding: 5px;
 	width: 90%;
 	border-radius: 8px;
 	margin: 0% 0% 0% 5%;
 }
-
-

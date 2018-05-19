@@ -231,7 +231,7 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
         	wif: wif
       	}
       	firebase.database().ref('/Users/' + user.uid).set(newUser);
-			resolve(user.uid);
+				resolve(user.uid);
       }).catch(function(error) {
         // Handle Errors here.
       	console.log('An error has occured while creating the user via Firebase: ')
@@ -240,8 +240,8 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
         that.setState({
           registerError: true,
           registerErrorMessage: error.message
-        })
-		  reject(error);
+        });
+		  	reject(error);
       });
 
     }).catch(function(error) {
