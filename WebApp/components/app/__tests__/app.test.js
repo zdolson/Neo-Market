@@ -37,8 +37,8 @@ describe('App Component', () => {
     expect(actual).toEqual(expected);
   });
 
-  it('passes RoutingComponent 11 props', () => {
-    let expected = 11;
+  it('passes RoutingComponent 12 props', () => {
+    let expected = 12;
     let actual = Object.keys(wrapper.find(RoutingComponent).props()).length;
 
     expect(actual).toEqual(expected);

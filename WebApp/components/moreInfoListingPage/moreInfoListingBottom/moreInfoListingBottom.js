@@ -27,11 +27,12 @@ class MoreInfoListingBottom extends Component {
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let neoPrice = this.props.neoPrice;
+    let useFirebaseBackend = this.props.useFirebaseBackend;
 
     return (
       <div className='moreInfoListingBottom'>
         <MoreInfoListingItem item={item} />
-        <MoreInfoListingSpec neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem}/>
+        <MoreInfoListingSpec neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend}/>
         <Stylesheet sheet={sheet} />
       </div>
     )
