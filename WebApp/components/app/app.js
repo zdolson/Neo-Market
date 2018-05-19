@@ -60,7 +60,7 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      filter_string: 'title',
+      filter_price: 'title',
       search_string: '',
       search: false,
       neoPrice: 0
@@ -180,9 +180,9 @@ export class App extends Component {
     return currTotal
   }
 
-  updateFilter = (filter_string) => {
-    if(filter_string !== this.state.filter_string) {
-      this.setState( {filter_string: filter_string, search: true} );
+  updateFilter = (filter_price) => {
+    if(filter_price !== this.state.filter_price) {
+      this.setState( {filter_price: filter_price, search: true} );
     }
   }
 
