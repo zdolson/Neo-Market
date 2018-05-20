@@ -39,6 +39,7 @@ class MoreInfoListingPage extends Component {
     let hasEdit = this.props.hasEdit;
     let neoPrice = this.props.neoPrice;
     let useFirebaseBackend = this.props.useFirebaseBackend;
+    let removeMyListing = this.props.removeMyListing;
 
     const page = this.state.is_editing ? (
       <div>
@@ -47,7 +48,7 @@ class MoreInfoListingPage extends Component {
     ) : (
       <div>
         <MoreInfoListingTop toggle_edit={this.toggle_edit}/>
-        <MoreInfoListingBottom neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend}/>
+        <MoreInfoListingBottom neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend} removeMyListing={removeMyListing}/>
       </div>
     );
 

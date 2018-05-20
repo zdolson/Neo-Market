@@ -48,10 +48,9 @@ export class MakePostForm extends Component {
         currentUser = snapshot.val().userName;
         if (useFirebaseBackend) {
           console.log('Using makePost firebase')
-          postNewPostingToDatabase(id, currentUser, title, description, price, amount, file, that)
-          // .then(function() {
-          //   that.props.addMyListing(id)
-          // })
+          postNewPostingToDatabase(id, currentUser, title, description, price, amount, file, that).then(function() {
+            that.props.addMyListing(id)
+          })
         } else { 
           console.log('Using makePost backend')
           cF.createPost(id, currentUser, title, description, price, amount)

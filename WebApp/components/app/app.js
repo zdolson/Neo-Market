@@ -64,8 +64,8 @@ export class App extends Component {
       search_string: '',
       search: false,
       neoPrice: 0,
-      // myListings: [],
-      // myPurchases: []
+      myListings: [],
+      myPurchases: []
     }
 
     // Function List
@@ -82,7 +82,8 @@ export class App extends Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
     this.updateNeoPrice = this.updateNeoPrice.bind(this);
-    // this.addMyListing = this.addMyListing.bind(this);
+    this.addMyListing = this.addMyListing.bind(this);
+    this.removeMyListing = this.removeMyListing.bind(this);
   }
 
   componentWillMount () {
@@ -98,7 +99,7 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       pullUsersFromDatabase(this)
-      // getMyListings(this)
+      getMyListings(this)
     }
     this.updateNeoPrice();
   }
@@ -134,11 +135,20 @@ export class App extends Component {
     }
   }
 
-  // addMyListing(id) {
-  //   console.log('Adding new myListing element')
-  //   console.log(id)
-  //   this.setState({ myListings: this.state.myListings.concat(id) })
-  // }
+  addMyListing(id) {
+    this.setState({ myListings: this.state.myListings.concat(id) })
+  }
+
+  removeMyListing(id) {
+    var index = this.state.myListings.indexOf(id)
+    if(index != -1){
+      this.state.myListings.splice(index, 1)
+      this.setState({ myListings: this.state.myListings})
+    }else{
+      console.log("Could not find a myListing item to delete.")
+    }
+
+  }
 
   isIDInItemList(id) {
     var itemList = this.state.items
@@ -153,7 +163,6 @@ export class App extends Component {
 
   returnCheckOutDataByID(id){
     var dict = this.state.items
-    console.log(id)
     if (this.isIDInItemList(id) == true){
       for (let key in dict) {
         if (dict[key]['id'] == id) {
@@ -278,6 +287,7 @@ export class App extends Component {
             hasEdit={this.hasEdit} 
             useFirebaseBackend={this.props.useFirebaseBackend}
             addMyListing = {this.addMyListing}
+            removeMyListing = {this.removeMyListing}
           />
         </div>
       </main>

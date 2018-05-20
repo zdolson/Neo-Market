@@ -16,26 +16,21 @@ class ListingsTab extends Component {
     var items = this.props.state.items;
     var cartItems = this.props.state.cartItems;
     var tryAgain = this.props.tryAgain;
-    var listings = this.props.state.listings;
+    var myListings = this.props.state.myListings;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
+    
+    // Taking the myListings param passed in from app, goes through 
+    // the list and gets the item information corresponding to listingID.
     var listingsList = []
-
-    for(var i = 0; i < listings.length; i++) {
-      // console.log(listings)
-      var currListing = returnCheckOutDataByID(listings[i])
-      // console.log(currListing)
+    for(var i = 0; i < myListings.length; i++) {
+      var currListing = returnCheckOutDataByID(myListings[i])
       listingsList.push(currListing)
     }
-    // console.log(listingsList)
-    // console.log(items)
+
     return (
       <div className='listings'>
-        {items.map( (item, key) => {
+        {listingsList.map( (item, key) => {
           var link = '/MoreInfoItem/'+item.id;
-          // console.log(link)
-          // console.log(item.id)
-          // console.log(item)
-          // console.log(key)
           return (
             <Link to={link} key={key} className="navLink">  <Listing item={item} tryAgain={tryAgain}/> </Link>
           )

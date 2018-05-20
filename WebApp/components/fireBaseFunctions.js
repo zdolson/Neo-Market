@@ -55,20 +55,6 @@ export function pullMyPurchasesFromDatabase() {
 	});
 }
 
-export function pullMyListingsFromDatabase() {
-	return new Promise((resolve,reject) => { 
-    var currUserID = firebase.auth().currentUser.uid
-    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
-      resolve(snapshot.child('myListings').val());
-    }).catch(function(error) {
-      console.log('An error occured while pulling myListings from firebase');
-      console.log(error.code);
-      console.log(error.message);
-      reject(error);
-    })
-  })
-}
-
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
   var currItem = {}
@@ -128,16 +114,18 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
         reject(error);
       });
 
+      // Adds new listing to myListing field
       var currUserID = firebase.auth().currentUser.uid
       firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
         if (snapshot.child('myListings').val() == '') {
           var myListingsList = id
-          console.log(myListingsList)
         } else {
+
+          // Taking the database field as a string and then splitting it to get an array to more easily parse through.
+          // We do this because firebase doesnt support arrays in their database.
           var myListingsList = snapshot.child('myListings').val().split(',')
           myListingsList.push(id)
           myListingsList = myListingsList.toString();
-          console.log(myListingsList)
         }
         firebase.database().ref('/Users/' + currUserID).update({
           'myListings': myListingsList
@@ -308,13 +296,51 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 }
 
 export function deletePosting(id, that) {
-  return firebase.database().ref('/Listings/' + id).remove().then(function() {
-    firebase.database().ref('/ListingImages/' + id).remove()
-  }).catch(function(error) {
-    // Handle Errors here.
-    console.log('An error has occured while removing a listing: ')
-    console.log(error.code)
-    console.log(error.message)
+  return new Promise((resolve,reject) => {
+    // Removing post from listing database 
+    firebase.database().ref('/Listings/' + id).remove().then(function() {
+
+      // Removing reference image 
+      firebase.database().ref('/ListingImages/' + id).remove()
+
+      // Removing listing ID from myListings user field
+      var currUserID = firebase.auth().currentUser.uid
+      firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+
+        // Make into array to more easily parse through
+        var myListingsList = snapshot.child('myListings').val().split(','); 
+        if(myListingsList.length == 1) {
+          // If delelting last myListing, then set database value back to blank value('')
+          myListingsList = ''
+        } else {
+          var index = myListingsList.indexOf(id)
+          if(index != -1){
+            myListingsList.splice(index, 1)
+            myListingsList = myListingsList.toString()
+          }
+        }
+        firebase.database().ref('/Users/' + currUserID).update({
+          'myListings': myListingsList
+        }).catch(function(error) {
+          console.log('An error occured while updating the myListings field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
+        resolve(snapshot.child('myListings').val())
+      }).catch(function(error) {
+        console.log('An error occured while adding remvoing the myListings');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+
+    }).catch(function(error) {
+      // Handle Errors here.
+      console.log('An error has occured while removing a listing: ')
+      console.log(error.code)
+      console.log(error.message)
+    })
   })
 }
 

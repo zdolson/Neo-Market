@@ -53,7 +53,7 @@ export class Listing extends Component {
       <img src={this.state.imgUrl} alt='loading...' width="350"/> :
       <div className="imgLoading"> <div>loading...</div> </div>
     );
-    console.log(item)
+
     return (
       <div className='listing'>
         <div className='listingPic'>
