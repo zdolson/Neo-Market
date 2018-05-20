@@ -65,7 +65,6 @@ export class App extends Component {
       search: false,
       neoPrice: 0,
       myListings: [],
-      myPurchases: []
     }
 
     // Function List
