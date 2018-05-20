@@ -72,7 +72,7 @@ export class MakePostForm extends Component {
     reader.readAsDataURL(file)
   }
 
-  render () {    
+  render () {
     let img = (
       this.state.imgLoad ?
         <img src={this.state.imgUrl} alt='loading...' width="350"/> :
