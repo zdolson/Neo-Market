@@ -35,6 +35,7 @@ class MoreInfoListingSpec extends Component {
       console.log('using firebase deletePost logic')
       deletePosting(this.props.item['id'], that).then(function() {
         that.props.removeItem(that.props.item['id'])
+        that.props.removeMyListing(that.props.item['id'])
       });
     } else {
       console.log('backend deletePosting logic goes here')
