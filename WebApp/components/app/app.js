@@ -18,7 +18,7 @@ import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, pullUsersFromDatabase } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase, getMyListings } from '../fireBaseFunctions.js'
 
 /**
 
@@ -63,7 +63,8 @@ export class App extends Component {
       filter_price: 'title',
       search_string: '',
       search: false,
-      neoPrice: 0
+      neoPrice: 0,
+      myListings: [],
     }
 
     // Function List
@@ -80,6 +81,8 @@ export class App extends Component {
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
     this.updateNeoPrice = this.updateNeoPrice.bind(this);
+    this.addMyListing = this.addMyListing.bind(this);
+    this.removeMyListing = this.removeMyListing.bind(this);
   }
 
   componentWillMount () {
@@ -95,6 +98,7 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       pullUsersFromDatabase(this)
+      getMyListings(this)
     }
     this.updateNeoPrice();
   }
@@ -128,6 +132,21 @@ export class App extends Component {
     }else{
       console.log("The item was not in the cart to be removed")
     }
+  }
+
+  addMyListing(id) {
+    this.setState({ myListings: this.state.myListings.concat(id) })
+  }
+
+  removeMyListing(id) {
+    var index = this.state.myListings.indexOf(id)
+    if(index != -1){
+      this.state.myListings.splice(index, 1)
+      this.setState({ myListings: this.state.myListings})
+    }else{
+      console.log("Could not find a myListing item to delete.")
+    }
+
   }
 
   isIDInItemList(id) {
@@ -245,10 +264,30 @@ export class App extends Component {
         <div>
           <TopBar updateFilter={this.updateFilter} updateSearch={this.updateSearch}/>
           <LeftSideBar />
-          <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
+          <RightSideBar 
+            cartItems={this.state.cartItems} 
+            returnCheckOutDataByID={this.returnCheckOutDataByID} 
+            addCartItem={this.addCartItem} 
+            removeCartItem={this.removeCartItem} 
+            sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent neoPrice={this.state.neoPrice} resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit} useFirebaseBackend={this.props.useFirebaseBackend}/>
+          <RoutingComponent 
+            neoPrice={this.state.neoPrice} 
+            resetSearch={this.resetSearch} 
+            search={this.state.search} 
+            state={this.state} 
+            addCartItem={this.addCartItem} 
+            returnCheckOutDataByID={this.returnCheckOutDataByID} 
+            removeCartItem={this.removeCartItem} 
+            sumTotalCartItems={this.sumTotalCartItems} 
+            addItem={this.addItem} 
+            removeItem={this.removeItem} 
+            hasEdit={this.hasEdit} 
+            useFirebaseBackend={this.props.useFirebaseBackend}
+            addMyListing = {this.addMyListing}
+            removeMyListing = {this.removeMyListing}
+          />
         </div>
       </main>
     )
