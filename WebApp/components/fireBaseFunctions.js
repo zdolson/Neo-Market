@@ -56,12 +56,17 @@ export function pullMyPurchasesFromDatabase() {
 }
 
 export function pullMyListingsFromDatabase() {
-	return new Promise((resolve, reject) => {
-		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
-		ref.on('value', (snapshot) => {
-			resolve(snapshot.child('myListings').val());
-		});
-	});
+	return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      resolve(snapshot.child('myListings').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling myListings from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
 }
 
 export function pullDataFromDatabase(that) {
@@ -92,26 +97,70 @@ export function pullDataFromDatabase(that) {
   })
 }
 
-export function postNewPostingToDatabase(id, owner, title, description, price, amount, imageFile) {
-  // Adds new photo to firebase storage
-  var ref = firebase.storage().ref().child(imageFile['name']);
-  ref.put(imageFile).then(function(snapshot) {
-    console.log('Uploaded a blob or file!');
+export function postNewPostingToDatabase(id, owner, title, description, price, amount, imageFile, that) {
+  return new Promise((resolve, reject) => {
+    firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
 
-    // Adds new posting ID to databse storage -> 'ListingImages'
-    firebase.database().ref('/ListingImages/' + id).set(imageFile['name']);
+      // Adds new posting ID to databse storage -> 'ListingImages'
+      firebase.database().ref('/ListingImages/' + id).set(
+        imageFile['name']
+      ).catch(function(error) {
+        console.log('An error occured while adding the image name to the imageListing path in firebase');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      });
 
-    // Adds new posting to database storage -> 'Listings'
-    firebase.database().ref('/Listings/' + id).set({
-      id: id,
-      owner: owner,
-      title: title,
-      description: description,
-      price: price,
-      amount: amount,
-      imageName: imageFile['name']
+      // Adds new posting to database storage -> 'Listings'
+      firebase.database().ref('/Listings/' + id).set({
+        id: id,
+        owner: owner,
+        title: title,
+        description: description,
+        price: price,
+        amount: amount,
+        imageName: imageFile['name']
+      }).catch(function(error) {
+        console.log('An error occured while saving the posting to listings in firebase');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      });
+
+      var currUserID = firebase.auth().currentUser.uid
+      firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+        if (snapshot.child('myListings').val() == '') {
+          var myListingsList = id
+          console.log(myListingsList)
+        } else {
+          var myListingsList = snapshot.child('myListings').val().split(',')
+          myListingsList.push(id)
+          myListingsList = myListingsList.toString();
+          console.log(myListingsList)
+        }
+        firebase.database().ref('/Users/' + currUserID).update({
+          'myListings': myListingsList
+        }).catch(function(error) {
+          console.log('An error occured while updating the myListings field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
+      }).catch(function(error) {
+        console.log('An error occured while adding to myListingField');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(id);
+    }).catch(function(error) {
+      console.log('An error occured while posting image to storage');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
     });
-  });
+  })
 }
 
 export function editPostingToDatabase(id, description, title, price, imageFile, that) {
@@ -266,6 +315,25 @@ export function deletePosting(id, that) {
     console.log('An error has occured while removing a listing: ')
     console.log(error.code)
     console.log(error.message)
+  })
+}
+
+export function getMyListings(that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myListings').val() == '') {
+        that.setState({myListings: []})
+      } else {
+        that.setState({myListings: (snapshot.child('myListings').val()).split(',')})
+      }
+      resolve(snapshot.child('myListings').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling myListings from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
   })
 }
 

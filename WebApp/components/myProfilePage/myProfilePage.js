@@ -64,6 +64,12 @@ class MyProfilePage extends Component {
 
   getListings = () => {
     pullMyListingsFromDatabase().then((val) => {
+      // Make the return list into an array
+      if (val != '') {
+        val = val.split(',')
+      }
+      console.log(val)
+      console.log(val.length)
       this.setState( {listings: val} );
     });
   }
@@ -80,6 +86,7 @@ class MyProfilePage extends Component {
     state.listings = this.state.listings;
     state.purchases = this.state.purchases;
     let tryAgain = this.props.tryAgain;
+    let returnCheckOutDataByID = this.props.returnCheckOutDataByID;
 
     const Tab = this.state.tabs[this.state.tabSelected];
 
@@ -103,7 +110,7 @@ class MyProfilePage extends Component {
           <div style={purchasesStyle} className ="tab" onClick={this.handlePurchases}>Purchases</div>
           <div style={walletStyle} className ="tab" onClick={this.handleWallet}>Wallet</div>
         </div>
-        { this.state.tabSelected != 2 ? <Tab state={state} tryAgain={tryAgain}/> : <Tab/> }
+        { this.state.tabSelected != 2 ? <Tab state={state} tryAgain={tryAgain} returnCheckOutDataByID={returnCheckOutDataByID} /> : <Tab/> }
         <Stylesheet sheet={sheet}/>
       </div>
     )

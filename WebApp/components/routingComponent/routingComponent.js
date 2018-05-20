@@ -40,14 +40,15 @@ class RoutingComponent extends Component {
     var users = state.users;
     var neoPrice = this.props.neoPrice;
     var useFirebaseBackend = this.props.useFirebaseBackend;
+    var addMyListing = this.props.addMyListing;
 
     return (
       <main>
         <Switch>
           <Route exact path="/" render={ () => <ListingsPage state={state} resetSearch={resetSearch} search={search} /> } />
           <Route path="/Listings" render={ () => <ListingsPage state={state} resetSearch={resetSearch} search={search} /> } />
-          <Route path="/Post"  render={ () => <MakePost addItem={addItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend}/> } />
-          <Route path="/Profile" render={ () => <MyProfilePage state={state} /> } />
+          <Route path="/Post"  render={ () => <MakePost addItem={addItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend} addMyListing={addMyListing}/> } />
+          <Route path="/Profile" render={ () => <MyProfilePage state={state} resetSearch={resetSearch} search={search} returnCheckOutDataByID={returnCheckOutDataByID}/> } />
           <Route path="/Forums" component={ForumsPage} />
           <Route path="/Wallet" component={WalletPage} />
           <Route path="/Trash" component={TrashPage} />
