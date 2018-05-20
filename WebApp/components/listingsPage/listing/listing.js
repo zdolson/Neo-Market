@@ -50,7 +50,7 @@ export class Listing extends Component {
     // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
     var img = (
       this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' width="350"/> :
+      <img src={this.state.imgUrl} alt='loading...' height="200"/> :
       <div className="imgLoading"> <div>loading...</div> </div>
     );
 
