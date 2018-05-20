@@ -18,7 +18,7 @@ import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, pullUsersFromDatabase } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase } from '../fireBaseFunctions.js'
 
 /**
 
@@ -96,6 +96,7 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       pullUsersFromDatabase(this)
+      getCartItemsFromDatabase(this)
     }
     this.updateNeoPrice();
   }
