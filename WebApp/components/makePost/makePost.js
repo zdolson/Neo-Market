@@ -14,9 +14,11 @@ export class MakePost extends Component {
 
   render () {
     var addItem = this.props.addItem;
+    var useFirebaseBackend = this.props.useFirebaseBackend;
+
     return (
       <div className = "makePost">
-        <MakePostFormNew addItem={addItem}/>
+        <MakePostFormNew addItem={addItem} useFirebaseBackend={useFirebaseBackend}/>
         <Stylesheet sheet={sheet} />
       </div>
 

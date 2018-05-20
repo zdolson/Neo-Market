@@ -35,15 +35,14 @@ export class ListingsPage extends Component {
 
   }
 
-
-
   render () {
-    let {filter_string, search_string, items} = this.props.state;
+    let {filter_price, search_string, items} = this.props.state;
     let {search, resetSearch} = this.props;
-    if(filter_string === 'title') {
-      items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1);
-    } else if(filter_string === 'description') {
-      items = items.filter((item) => search_string === '' || item.description.indexOf(search_string) !== -1);
+    items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1 || item.description.indexOf(search_string) !== -1);
+    if(filter_price == 0) {
+      items = items.sort((a, b) => a.price-b.price);
+    } else if(filter_price == 1) {
+      items = items.sort((a, b) => b.price-a.price);
     }
     return (
       <div className='listings'>

@@ -58,13 +58,17 @@ class MoreInfoListingEditing extends Component {
 
   submitHandler = () => {
     var that = this
-    editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that).then(function() {
-      that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
-    })
+    if (this.props.useFirebaseBackend) {
+      console.log('Using editPost Firebase')
+      editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that).then(function() {
+        that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
+      })
+    } else {
+      console.log('editPost backend logic goes here.')
+    }
   }
 
   render() {
-
     let { toggle_edit, item, tryAgain, addCartItem, removeItem } = this.props;
     let img = (
       this.state.imgLoad ?
