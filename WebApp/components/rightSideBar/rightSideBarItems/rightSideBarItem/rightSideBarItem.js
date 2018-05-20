@@ -4,7 +4,8 @@ import sheet from "./rightSideBarItem.scss"
 
 import ItemX from '../../../assets/ItemX.svg'
 
-
+import * as firebase from 'firebase'
+import {removeCartItemFromDatabase} from '../../../../components/fireBaseFunctions.js'
 /**
 
 @ Alec
@@ -21,6 +22,14 @@ class RightSideBarItem extends Component {
     this.state = {
 
     }
+    this.removeCartItemHandler = this.removeCartItemHandler.bind(this);
+  }
+
+  removeCartItemHandler = () => {
+    var that = this
+    removeCartItemFromDatabase(this.props.currCheckOutItem['id'], that).then(function() {
+      that.props.removeCartItem(that.props.currCheckOutItem['id'])
+    })
   }
 
   render () {
@@ -30,7 +39,7 @@ class RightSideBarItem extends Component {
     return (
       <div className="rightSideBarItem">
 
-        <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>
+        <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX/> </div>
 
         <div className="rightSideBarItemTitle">
           {currCheckOutItem['title']}

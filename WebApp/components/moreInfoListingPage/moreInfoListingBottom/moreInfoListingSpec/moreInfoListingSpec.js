@@ -7,7 +7,7 @@ import Star from '../../../assets/Star.svg'
 import { Route } from 'react-router-dom'
 
 import cF from '../../../../neonFunctions/contractFunctions'
-import { deletePosting } from '../../../fireBaseFunctions.js'
+import { deletePosting, addCartItemToDatabaseField } from '../../../fireBaseFunctions.js'
 
 /**
 
@@ -26,6 +26,7 @@ class MoreInfoListingSpec extends Component {
 
     }
     this.removeItemHandler = this.removeItemHandler.bind(this);
+    this.addItemHandler = this.addItemHandler.bind(this);
   }
 
   removeItemHandler = () => {
@@ -39,6 +40,13 @@ class MoreInfoListingSpec extends Component {
     } else {
       console.log('backend deletePosting logic goes here')
     }
+  }
+
+  addItemHandler = () => {
+    var that = this;
+    addCartItemToDatabaseField(this.props.item['id'], that).then(function() {
+      that.props.addCartItem(that.props.item['id'])
+    });
   }
 
   render () {
@@ -79,8 +87,12 @@ class MoreInfoListingSpec extends Component {
 
         <div className="btnContainer">
           <div className="cartBtn">
-            <div className="itemBtnText" onClick={() => {addCartItem(itemID)}}>
-              Add to Cart
+            <div className="itemBtnText" onClick={this.addItemHandler}>
+              <Route render={({ history}) => (
+                  <button className='addButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
+                    Add to Cart
+                  </button>
+                )}/>
             </div>
           </div>
           <div className="removeBtn">

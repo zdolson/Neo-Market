@@ -18,7 +18,7 @@ import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, pullUsersFromDatabase, getMyListings } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase, getMyListings } from '../fireBaseFunctions.js'
 
 /**
 
@@ -55,7 +55,8 @@ export class App extends Component {
           myPurchases: 'defaultMyPurchases',
           photoId: 'defaultPhotoId',
           password: 'defualtPassword',
-          wif: 'defaultWif'
+          wif: 'defaultWif',
+          myCartItems: 'defaultMyCartItems'
         }
       ],
       cartItems: [],
@@ -98,6 +99,7 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       pullUsersFromDatabase(this)
+      getCartItemsFromDatabase(this)
       getMyListings(this)
     }
     this.updateNeoPrice();
@@ -258,7 +260,6 @@ export class App extends Component {
         </main>
       )
     }
-
     return (
       <main>
         <div>
