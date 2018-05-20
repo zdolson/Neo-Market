@@ -55,7 +55,8 @@ export class App extends Component {
           myPurchases: 'defaultMyPurchases',
           photoId: 'defaultPhotoId',
           password: 'defualtPassword',
-          wif: 'defaultWif'
+          wif: 'defaultWif',
+          myCartItems: 'defaultMyCartItems'
         }
       ],
       cartItems: [],
@@ -239,7 +240,6 @@ export class App extends Component {
         </main>
       )
     }
-
     return (
       <main>
         <div>

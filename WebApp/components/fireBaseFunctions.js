@@ -179,6 +179,7 @@ export function pullUsersFromDatabase(that){
         photoId: childSnapshot.child('photoId').val(),
         password: childSnapshot.child('password').val(),
         wif: childSnapshot.child('wif').val(),
+        myCartItems: childSnapshot.child('myCartItems').val()
       }
       arrayUserList.push(currUser)
 
@@ -228,7 +229,8 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
         	myPurchases: '',
         	photoId: photoId,
         	password: password,
-        	wif: wif
+        	wif: wif,
+          myCartItems: '',
       	}
       	firebase.database().ref('/Users/' + user.uid).set(newUser);
 				resolve(user.uid);
@@ -266,6 +268,30 @@ export function deletePosting(id, that) {
     console.log('An error has occured while removing a listing: ')
     console.log(error.code)
     console.log(error.message)
+  })
+}
+
+export function addCartItemToDatabaseField(id, that) {
+  return new Promise((resolve,reject) => { 
+    console.log('Adding cartItem in firebase')
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      var new_index = snapshot.child('myCartItems').val().length; 
+      firebase.database().ref('/Users/' + currUserID + '/myCartItems/').update({
+        [new_index]: id
+      }).catch(function(error) {
+        console.log('An error occured while adding cartitems');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(snapshot.child('myCartItems').val());
+    }).catch(function(error) {
+      console.log('An error occured while adding cartitems 2');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
   })
 }
 
