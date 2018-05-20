@@ -41,22 +41,16 @@ export class MakePostForm extends Component {
     var description = this.description.value;
     var price = this.price.value;
     var amount = this.amount.value;
-    var useFirebaseBackend = this.props.useFirebaseBackend
+    var useFirebaseBackend = this.props.useFirebaseBackend;
+    var currentUser = firebase.auth().currentUser.uid;
 
-    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
-      .then( (snapshot) => {
-        currentUser = snapshot.val().userName;
-
-        if (useFirebaseBackend) {
-          console.log('Using makePost firebase')
-          postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
-        } else { 
-          console.log('Using makePost backend')
-          cF.createPost(id, currentUser, title, description, price, amount)
-        }
-
-      }
-    )
+    if (useFirebaseBackend) {
+      console.log('Using makePost firebase')
+      postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
+    } else {
+      console.log('Using makePost backend')
+      cF.createPost(id, currentUser, title, description, price, amount)
+    }
   }
 
   readFile = (event) => {
@@ -73,7 +67,7 @@ export class MakePostForm extends Component {
     reader.readAsDataURL(file)
   }
 
-  render () {    
+  render () {
     let img = (
       this.state.imgLoad ?
         <img src={this.state.imgUrl} alt='loading...' width="350"/> :
