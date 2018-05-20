@@ -25,6 +25,19 @@ var debug = false;
 
 module.exports = {
 
+    getNeoUsPrice: () => {
+        return new Promise ((resolve,reject) => {
+            Neon.get.price('NEO').then(price => {
+                console.log(price);
+                console.log(typeof(price));
+                resolve(price.toString());
+            }).catch(err => {
+                console.log(err);
+                reject(err);
+            })
+        })
+    },
+
     /*
      * @Function: sha256
      * @Contributor: Zachary Olson
@@ -79,44 +92,68 @@ module.exports = {
                     address: buyerAccount.address
                 };
                 node.getBalance(buyerAccount.address).then(balance => {
-                    node.getRPCEndpoint().then(rpcEndpoint => {
-                        var client = Neon.create.rpcClient(rpcEndpoint);
-                        var multipleIntents = [];
-                        for (let i = 0; i < ownersArray.length; i++){
-                            var currOwnerName = ownersArray[i];
-                            firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
-                                var oWif = snapshot.child('wif').val();
-                                var ownerAccount = Neon.create.account(oWif);
-                                var currCost = costArray[i];
-                                multipleIntents = multipleIntents.concat(neon.api.makeIntent({NEO:currCost}, ownerAccount.address));
-                                if (i == ownersArray.length - 1){
-                                    const sendConfig = {
-                                      net: config.RESTEndpoint,
-                                      address: buyerAccount.address,  // This is the address which the assets come from.
-                                      privateKey: buyerAccount.privateKey,
-                                      intents: multipleIntents
-                                    };
-
-                                    Neon.sendAsset(sendConfig).then(sendConfig => {
-                                        if (debug) {
-                                            console.log(sendConfig.response);
-                                        }
-                                        resolve(sendConfig);
-                                    }).catch(sendConfig => {
-                                        if (debug) {
-                                            console.log(sendConfig);
-                                        }
-                                        reject(sendConfig);
-                                    })
-                                }
-                             })
-                         }
-                    }).catch(err => {
-                        if (debug){
-                            console.error('multipurchase(): err: ', err);
+                    var multipleIntents = [];
+                    //---- testing code below
+                    console.log('ownersArray before purge: ' + ownersArray);
+                    console.log('current size of ownersArray: ' + ownersArray.length);
+                    // for each user in ownersArray, compare with all other users in ownersArray, strictly moving forward.
+                    var i = 0;
+                    while (i < ownersArray.length && ownersArray[i] !== null){
+                        var currentTotalCost = parseInt(costArray[i]);
+                        var removedFlag = 0;
+                        var j = i + 1;
+                        while (j < ownersArray.length && ownersArray[j] !== null){
+                            if (ownersArray[i] === ownersArray[j]){
+                                console.log('i and j: '+i+', '+j);
+                                // copies.push(j); //add copy to array for later removal
+                                currentTotalCost += parseInt(costArray[j]);
+                                // newCost.push() // update cost for specific user
+                                ownersArray.splice(j, 1);
+                                costArray.splice(j, 1);
+                                // removedFlag = 1;
+                                // don't increment since we removed elements
+                                continue;
+                            } else {
+                                j++;
+                            }
                         }
-                        reject(err);
-                    })
+                        console.log('currentTotalCost: ' + currentTotalCost);
+                        costArray[i] = currentTotalCost;
+                        i++;
+                    }
+
+                    console.log('ownersArray after purge: ' + ownersArray);
+                    console.log('current size of ownersArray: ' + ownersArray.length);
+                    //---- current production code with flaw
+                    for (let i = 0; i < ownersArray.length; i++){
+                        var currOwnerName = ownersArray[i];
+                        firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
+                            var oWif = snapshot.child('wif').val();
+                            var ownerAccount = Neon.create.account(oWif);
+                            var currCost = costArray[i];
+                            multipleIntents = multipleIntents.concat(neon.api.makeIntent({NEO:currCost}, ownerAccount.address));
+                            if (i == ownersArray.length - 1){
+                                const sendConfig = {
+                                  net: config.RESTEndpoint,
+                                  address: buyerAccount.address,  // This is the address which the assets come from.
+                                  privateKey: buyerAccount.privateKey,
+                                  intents: multipleIntents
+                                };
+
+                                Neon.sendAsset(sendConfig).then(sendConfig => {
+                                    if (debug) {
+                                        console.log(sendConfig.response);
+                                    }
+                                    resolve(sendConfig);
+                                }).catch(sendConfig => {
+                                    if (debug) {
+                                        console.log(sendConfig);
+                                    }
+                                    reject(sendConfig);
+                                })
+                            }
+                         })
+                     }
                  }).catch(err => {
                      if (debug){
                          console.error('multipurchase(): err: ', err);

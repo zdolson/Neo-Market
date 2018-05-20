@@ -95,6 +95,7 @@ export class App extends Component {
   componentDidMount() {
     pullDataFromDatabase(this)
     pullUsersFromDatabase(this)
+    cF.getAllPostsFromStorage(this);
   }
 
   addCartItem(id) {
