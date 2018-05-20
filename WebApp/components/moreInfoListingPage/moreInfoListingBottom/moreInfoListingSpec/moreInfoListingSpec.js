@@ -87,7 +87,11 @@ class MoreInfoListingSpec extends Component {
         <div className="btnContainer">
           <div className="cartBtn">
             <div className="itemBtnText" onClick={this.addItemHandler}>
-              Add to Cart
+              <Route render={({ history}) => (
+                  <button className='addButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
+                    Add to Cart
+                  </button>
+                )}/>
             </div>
           </div>
           <div className="removeBtn">
