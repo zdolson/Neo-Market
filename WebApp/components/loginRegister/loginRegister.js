@@ -16,7 +16,9 @@ class LoginRegister extends Component {
     constructor(props) {
       super(props);
       this.state = {
-        register: false
+        register: false,
+        loginErrorMessage: 'Please input your account information',
+        loginError: false
       };
       this.registerHandler = this.registerHandler.bind(this);
       this.loginHandler = this.loginHandler.bind(this);
@@ -28,7 +30,7 @@ class LoginRegister extends Component {
     }
 
     loginHandler = () => {
-      loginUser(this.loginName.value, cF.sha256(this.password.value)).then((user) => {
+      loginUser(this.loginName.value, cF.sha256(this.password.value), this).then((user) => {
         // if a user is return from the firebase login function, then the user was auth correctly.
         if (user) {
           this.props.navToApp();
@@ -37,11 +39,22 @@ class LoginRegister extends Component {
     }
 
     render () {
+      const loginMessage = this.state.loginError ? (
+        <div className="errorMessage">
+          {this.state.loginErrorMessage}
+        </div>
+      ) : (
+        <div className="loginMessage">
+          {this.state.loginErrorMessage}
+        </div>
+      )
+
       let style = {
         rightSide: {
           backgroundImage: `url(${BlockchainBackground})`
         }
       }
+
       const page = this.state.register ? (
         <Register navToApp={this.props.navToApp}/>
       ) : (
@@ -89,11 +102,13 @@ class LoginRegister extends Component {
                 <div className="loginButton" onClick={this.loginHandler}>
                   <LoginButton/>
                 </div>
+                {loginMessage}
               </div>
             </div>
           </div>
         </main>
       )
+
       return (
         <main>
           {page}

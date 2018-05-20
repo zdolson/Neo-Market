@@ -138,6 +138,7 @@ Purpose: Styling for the register page
 	height: 50px;
 	background-color: $registerButtonOrange;
 	border-radius: 4px;
+	margin-bottom: 10%;
 }
 
 .registerButtonText{
@@ -177,4 +178,30 @@ Purpose: Styling for the register page
 
 .importPhotoIconContainer{
   margin: 5% 0%;
+}
+
+.registerErrorMessage {
+	color: $red;
+	text-overflow: ellipsis;
+  	max-width: 550px;
+  	text-align: center;
+  	margin: auto;
+}
+
+.registerMessage {
+	color: $white;
+	text-overflow: ellipsis;
+  	max-width: 550px;
+  	text-align: center;
+  	margin: auto;
+}
+
+.registerMessageContainer {
+	display: flex;
+	background-color: $grey20;
+	height: auto;
+  padding: 5px;
+	width: 90%;
+	border-radius: 8px;
+	margin: 0% 0% 0% 5%;
 }
