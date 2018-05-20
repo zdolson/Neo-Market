@@ -14,8 +14,8 @@ Purpose: Spacing and style for a single listing in the grid
 **/
 
 .listing {
-  min-width: 350px;
-  max-width: 350px;
+  width: auto;
+  height: auto;
   flex: 1;
   height: auto;
   background: $jadeGreen;
@@ -38,7 +38,7 @@ Purpose: Spacing and style for a single listing in the grid
 }
 
 .imgLoading {
-  width: 100%;
+  width: 200%;
   height: 200px;
   display: flex;
   flex-direction: column;
