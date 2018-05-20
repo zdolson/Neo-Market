@@ -41,16 +41,21 @@ export class MakePostForm extends Component {
     var description = this.description.value;
     var price = this.price.value;
     var amount = this.amount.value;
-    var useFirebaseBackend = this.props.useFirebaseBackend;
-    var currentUser = firebase.auth().currentUser.uid;
+    var useFirebaseBackend = this.props.useFirebaseBackend
+    var that = this;
 
-    if (useFirebaseBackend) {
-      console.log('Using makePost firebase')
-      postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
-    } else {
-      console.log('Using makePost backend')
-      cF.createPost(id, currentUser, title, description, price, amount)
-    }
+    firebase.database().ref('Users/' + firebase.auth().currentUser.uid).once('value').then((snapshot) => {
+        currentUser = snapshot.val().userName;
+        if (useFirebaseBackend) {
+          console.log('Using makePost firebase')
+          postNewPostingToDatabase(id, currentUser, title, description, price, amount, file, that).then(function() {
+            that.props.addMyListing(id)
+          })
+        } else { 
+          console.log('Using makePost backend')
+          cF.createPost(id, currentUser, title, description, price, amount)
+        }
+    })
   }
 
   readFile = (event) => {

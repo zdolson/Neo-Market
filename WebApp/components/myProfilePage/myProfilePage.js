@@ -17,16 +17,6 @@ class MyProfilePage extends Component {
         PurchasesTab,
         WalletTab
       ],
-      listings: [
-        {
-          id: 'defaultValue',
-          owner:'...',
-          title: '...',
-          description: '...',
-          price: '0',
-          amount: 0
-        }
-      ],
       purchases: [
         {
           id: 'defaultValue',
@@ -41,12 +31,10 @@ class MyProfilePage extends Component {
     this.handleListing = this.handleListings.bind(this);
     this.handlePurchases = this.handlePurchases.bind(this);
     this.handleWallet = this.handleWallet.bind(this);
-    this.getListings = this.getListings.bind(this);
     this.getPurchases = this.getPurchases.bind(this);
   }
 
   componentDidMount = () => {
-    this.getListings();
     this.getPurchases();
   }
 
@@ -62,11 +50,6 @@ class MyProfilePage extends Component {
     this.setState( {tabSelected: 2} );
   }
 
-  getListings = () => {
-    pullMyListingsFromDatabase().then((val) => {
-      this.setState( {listings: val} );
-    });
-  }
 
   getPurchases = () => {
     pullMyPurchasesFromDatabase().then((val) => {
@@ -75,14 +58,13 @@ class MyProfilePage extends Component {
   }
 
   render () {
-
     let state = this.props.state;
-    state.listings = this.state.listings;
     state.purchases = this.state.purchases;
     let tryAgain = this.props.tryAgain;
+    let returnCheckOutDataByID = this.props.returnCheckOutDataByID;
+    let myListings = this.props.state.myListings;
 
     const Tab = this.state.tabs[this.state.tabSelected];
-
     const styles = {
       selectedStyle: {
         background: 'none',
@@ -103,7 +85,7 @@ class MyProfilePage extends Component {
           <div style={purchasesStyle} className ="tab" onClick={this.handlePurchases}>Purchases</div>
           <div style={walletStyle} className ="tab" onClick={this.handleWallet}>Wallet</div>
         </div>
-        { this.state.tabSelected != 2 ? <Tab state={state} tryAgain={tryAgain}/> : <Tab/> }
+        { this.state.tabSelected != 2 ? <Tab state={state} tryAgain={tryAgain} returnCheckOutDataByID={returnCheckOutDataByID} /> : <Tab/> }
         <Stylesheet sheet={sheet}/>
       </div>
     )
