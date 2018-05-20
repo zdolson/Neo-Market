@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './checkOutPage.scss'
 
-import Modal from 'react-responsive-modal'
+import WifModal from '../wifModal/wifModal.js'
 
 import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
@@ -26,44 +26,26 @@ export class CheckOutPage extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      openModal: false,
-      password: ''
+      modal_is_open: false
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    // this.handleSubmit = this.handleSubmit.bind(this);
     this.purchaseLogic = this.purchaseLogic.bind(this)
   }
 
   openModal() {
     console.log("openModal()");
-    this.setState({openModal: true});
+    this.setState({modal_is_open: true});
   }
 
   closeModal() {
     console.log("closeModal()");
-    this.setState({openModal: false});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-    console.log("handleSubmit(): hey zach");
-  }
-
-  handleChange(event) {
-    console.log("handleChange()");
-    this.setState({password: event.target.value});
+    this.setState({modal_is_open: false});
   }
 
   purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
-    var buyerName;
-    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
-      .then( (snapshot) => {
-        buyerName = snapshot.val().userName;
-        console.log(buyerName);
-      }
-    );
+    var buyerName = firebase.auth().currentUser.uid;
     if (cartItems.length == 0) {
         // disable purchase button functionality here.
     } else if (cartItems.length == 1) {
@@ -93,7 +75,7 @@ export class CheckOutPage extends Component {
     var cartItems = this.props.cartItems
     var users = this.props.users
 
-    const { openModal } = this.state;
+    const { modal_is_open } = this.state;
 
     return (
       <div className="checkOutPage">
@@ -126,21 +108,7 @@ export class CheckOutPage extends Component {
           </div>
         </div>
 
-        <Modal open={openModal} onClose={this.closeModal} little>
-          <div className="modalText">
-            <h1>4 beers</h1>
-            <h2>3 double shots</h2>
-            <h3>2 amfs</h3>
-            <h4><i>sidewalk</i></h4>
-            <form onSubmit={this.handleSubmit}>
-              <label>
-                <div className="passwordLabel"> password: </div>
-                <div className="passwordInput"> <input type="text" value={this.state.password} onChange={this.handleChange} /> </div>
-              </label>
-              <div className="submitButton"> <input type="submit" value="Submit" /> </div>
-            </form>
-          </div>
-        </Modal>
+        <WifModal modal_is_open={modal_is_open} closeModal={this.closeModal} handleSubmit={this.handleSubmit}/>
 
         <Stylesheet sheet={sheet} />
       </div>

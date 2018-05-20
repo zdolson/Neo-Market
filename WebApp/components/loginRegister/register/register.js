@@ -19,28 +19,64 @@ class Register extends Component {
       verifyPassword: '',
       wif: '',
       imgRef: null,
-      file: null
+      file: null,
+      registerError: false,
+      registerErrorMessage: 'Passwords must be at least 6 characters long and have at least one special character and number'
     };
     this.registerHandler = this.registerHandler.bind(this);
     this.readFile = this.readFile.bind(this);
+    this.checkPasswordFields = this.checkPasswordFields.bind(this);
+  }
+
+  checkPasswordFields = () => {
+    // Checking to see if the passwords match
+    if (this.state.password == this.state.verifyPassword) {
+      var specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/
+      var numberCharRegex = /\d/
+      // Checking to see if the password meets the proper requirement
+      if (this.state.password.length >= 6 && specialCharRegex.exec(this.state.password) != null && numberCharRegex.exec(this.state.password) != null) {
+        return true
+      } else {
+        this.setState({
+          registerError: true,
+          registerErrorMessage: 'Your password does not meet the proper requiremnts. Check that your password has at least 6 characters with one special character and one number'
+        })
+      }
+    } else {
+      this.setState({
+        registerError: true,
+        registerErrorMessage: 'Your passwords do not match, please verify that both your passwords are the same.'
+      })
+    }
+    return false
   }
 
   registerHandler = () => {
-    // console.log(this.state.imgRef);
-    // console.log(this.state.file);
-    // if(this.state.imgRef != null && this.state.imgRef.files.length > 0) {
-    //   console.log(this.state.imgRef.files[0]);
-    // }
-    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif).then(uid => {
-        // console.log(uid);
-        var text = "";
-        var possible = "0123456789";
+    var fields_array = [this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif];
+    // Make a field array to use to quickly check for fields that have no inputs
+    if(fields_array.indexOf('') == -1) {
+      if (this.checkPasswordFields()) {
+        this.setState({
+          registerError: false,
+          registerErrorMessage: 'Attempting to Register User...'
+        })
+        registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif, this).then(uid => {
+            // console.log(uid);
+            var text = "";
+            var possible = "0123456789";
 
-        for (var i = 0; i < 6; i++)
-        text += possible.charAt(Math.floor(Math.random() * possible.length));
+            for (var i = 0; i < 6; i++)
+            text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-        cF.register(uid, text);
-    })
+            cF.register(uid, text);
+        })
+      }
+    } else {
+      this.setState({
+        registerError: true,
+        registerErrorMessage: 'Please fill in all fields properly'
+      })
+    }
   }
 
   readFile = (e) => {
@@ -82,6 +118,16 @@ class Register extends Component {
       <img src={this.state.imgRef} width="250"/> :
       <div className="imgDefault"> <div>upload image</div> </div>
 
+    const registerMessage = this.state.registerError ? (
+      <div className="registerErrorMessage">
+        {this.state.registerErrorMessage}
+      </div>
+    ) : (
+      <div className="registerMessage">
+        {this.state.registerErrorMessage}
+      </div>
+    )
+
     return (
       <div>
         <div className="registerPageContainer">
@@ -118,6 +164,10 @@ class Register extends Component {
                     Register
                   </div>
                 </div>
+              </div>
+
+              <div className="registerMessageContainer">
+                {registerMessage}
               </div>
 
             </div>

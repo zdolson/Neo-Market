@@ -28,8 +28,10 @@ module.exports = {
     getNeoUsPrice: () => {
         return new Promise ((resolve,reject) => {
             Neon.get.price('NEO').then(price => {
-                console.log(price);
-                console.log(typeof(price));
+                if (debug) {
+                    console.log(price);
+                    console.log(typeof(price));
+                }
                 resolve(price.toString());
             }).catch(err => {
                 console.log(err);
@@ -75,13 +77,6 @@ module.exports = {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
-
-            // Need authentication to allow access to database.
-            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-            });
 
             // Gets buyer info from firebase
             firebase.database().ref('/Users/'+buyerName).once('value').then(snapshot => {
@@ -187,13 +182,6 @@ module.exports = {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
-
-            // Need authentication to allow access to database.
-            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-            });
 
             // ownerName = 'XdwT8CqBZ0Q4JOLrlhk6MKHdOvF2';
             // buyerName = 'DewA2n3NBHb6MpLvKEgsmrqYp2y1';

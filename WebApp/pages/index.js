@@ -14,9 +14,6 @@ import * as firebase from 'firebase'
 
 initializeApp();
 
-// If you want have login capabilities, then comment this line out.
-// This is to let dev's develop without having to constantly loging.
-loginUser('nccheung@ucsc.edu', 'nccheung');
 
 /**
 
@@ -36,7 +33,8 @@ export class Index extends Component {
       error: '',
       cart: [],
       data: {},
-      inApp: false
+      inApp: false,
+      useFirebaseBackend: true
     }
     this.navToApp = this.navToApp.bind(this);
   }
@@ -80,7 +78,7 @@ export class Index extends Component {
       return (
         <HashRouter>
           <div>
-            <App />
+            <App useFirebaseBackend={this.state.useFirebaseBackend}/>
             <Stylesheet sheet={sheet} />
           </div>
         </HashRouter>

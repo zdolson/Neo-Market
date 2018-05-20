@@ -60,9 +60,10 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      filter_string: 'title',
+      filter_price: 'title',
       search_string: '',
-      search: false
+      search: false,
+      neoPrice: 0
     }
 
     // Function List
@@ -78,24 +79,27 @@ export class App extends Component {
     this.updateFilter = this.updateFilter.bind(this);
     this.updateSearch = this.updateSearch.bind(this);
     this.resetSearch = this.resetSearch.bind(this);
+    this.updateNeoPrice = this.updateNeoPrice.bind(this);
   }
 
   componentWillMount () {
-    /// Production Version ///
-    /*
-      let listings = cF.accessStorage('tom');
-      console.log(listings);
-      this.setState({ items: listings });
-    */
-    // pullDataFromDatabase(this)
-    // pullUsersFromDatabase(this)
-    // cF.getAllPostsFromStorage(this);
+    if (!this.props.useFirebaseBackend) {
+      console.log('Pulling listings from backend')
+      pullUsersFromDatabase(this)
+      cF.getAllPostsFromStorage(this);
+    }
   }
 
   componentDidMount() {
-    pullDataFromDatabase(this)
-    pullUsersFromDatabase(this)
-    cF.getAllPostsFromStorage(this);
+    if (this.props.useFirebaseBackend) {
+      console.log('Pulling listings from firebase')
+      pullDataFromDatabase(this)
+      pullUsersFromDatabase(this)
+  } else {
+      console.log('Pulling listings from SC')
+      cF.getAllPostsFromStorage(this);
+  }
+    this.updateNeoPrice();
   }
 
   addCartItem(id) {
@@ -103,18 +107,11 @@ export class App extends Component {
   }
 
   addItem(id, owner, title, desc, price, amount) {
-    /// Dev Version ///
     let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
     this.setState({ items: this.state.items.concat(newItem) })
-
-    /// Production Version ///
-    /*
-      cF.createPost(id, owner, title, desc, price, amount);
-    */
   }
 
   removeItem(id) {
-
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
     this.removeCartItem(id)
     for (var i = 0; i < this.state.items.length; i++){
@@ -124,12 +121,6 @@ export class App extends Component {
       }
       this.setState({ items: this.state.items});
     }
-
-    /// Production Version ///
-    /*
-      let owner = ???
-      cF.deletePost(owner, index);
-    */
   }
 
   removeCartItem(id){
@@ -192,9 +183,9 @@ export class App extends Component {
     return currTotal
   }
 
-  updateFilter = (filter_string) => {
-    if(filter_string !== this.state.filter_string) {
-      this.setState( {filter_string: filter_string, search: true} );
+  updateFilter = (filter_price) => {
+    if(filter_price !== this.state.filter_price) {
+      this.setState( {filter_price: filter_price, search: true} );
     }
   }
 
@@ -226,6 +217,14 @@ export class App extends Component {
     pullDataFromDatabase(this)
   }
 
+  updateNeoPrice() {
+    cF.getNeoUsPrice().then(result => {
+      this.setState({neoPrice: result});
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
   render () {
     if (this.state.loading) {
       return (
@@ -252,7 +251,7 @@ export class App extends Component {
           <RightSideBar cartItems={this.state.cartItems} returnCheckOutDataByID={this.returnCheckOutDataByID} addCartItem={this.addCartItem} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit}/>
+          <RoutingComponent neoPrice={this.state.neoPrice} resetSearch={this.resetSearch} search={this.state.search} state={this.state} addCartItem={this.addCartItem} returnCheckOutDataByID={this.returnCheckOutDataByID} removeCartItem={this.removeCartItem} sumTotalCartItems={this.sumTotalCartItems} addItem={this.addItem} removeItem={this.removeItem} hasEdit={this.hasEdit} useFirebaseBackend={this.props.useFirebaseBackend}/>
         </div>
       </main>
     )

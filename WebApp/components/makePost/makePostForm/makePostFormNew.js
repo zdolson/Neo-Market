@@ -41,23 +41,16 @@ export class MakePostForm extends Component {
     var description = this.description.value;
     var price = this.price.value;
     var amount = this.amount.value;
-    firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
-      .then( (snapshot) => {
-        currentUser = snapshot.val().userName;
+    var useFirebaseBackend = this.props.useFirebaseBackend;
+    var currentUser = firebase.auth().currentUser.uid;
 
-        // For backend integrations -> uncomment this line and then uncomment the firebase function.
-        cF.createPost(id, currentUser, title, description, price, amount)
-      }
-    ).then(function() {
+    if (useFirebaseBackend) {
+      console.log('Using makePost firebase')
       postNewPostingToDatabase(id, currentUser, title, description, price, amount, file)
-    });
-
-    // /// Dev Version ///
-    // this.props.addItem(id, 'Neo-Market-Core', this.title.value, this.desc.value, this.price.value, this.amount.value );
-    // /// Production Version ///
-    // /*
-    //   cF.createPost('tom',this.title.value,this.description.value,parseInt(this.price.value),1)
-    // */
+    } else {
+      console.log('Using makePost backend')
+      cF.createPost(id, currentUser, title, description, price, amount)
+    }
   }
 
   readFile = (event) => {
@@ -75,7 +68,6 @@ export class MakePostForm extends Component {
   }
 
   render () {
-
     let img = (
       this.state.imgLoad ?
         <img src={this.state.imgUrl} alt='loading...' width="350"/> :

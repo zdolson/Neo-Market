@@ -46,6 +46,24 @@ function isInItemList(id, listOfItems) {
   return false
 }
 
+export function pullMyPurchasesFromDatabase() {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.child('myPurchases').val());
+		});
+	});
+}
+
+export function pullMyListingsFromDatabase() {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.child('myListings').val());
+		});
+	});
+}
+
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
   var currItem = {}
@@ -124,7 +142,7 @@ export function editPostingToDatabase(id, description, title, price, imageFile, 
           console.log(error.message)
         });
       }
-    } 
+    }
 
     // Adds new posting to database storage -> 'Listings'
     firebase.database().ref('/Listings/' + id).update({
@@ -174,6 +192,17 @@ export function pullUsersFromDatabase(that){
   });
 }
 
+export function pullUserData(that) {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.val());
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+}
+
 function isUserRegisterd(userName, userList) {
   for(var i = 0; i<userList.length; i++) {
     if(userName == userList[i]){
@@ -183,46 +212,49 @@ function isUserRegisterd(userName, userList) {
   return false
 }
 
-export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif) {
+export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif, that) {
 	return new Promise((resolve,reject) => {
-		if (password != verifyPassword) {
-	      	console.log('Passwords dont match')
-	    } else {
-	      	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-	        	if (typeof photoId == 'undefined') {
-	          		console.log('photoIsUndefined')
-	          		photoId = 'defaultPhoto.png'
-	        	}
-	        firebase.database().ref('/Users/').once('value').then(() => {
-	          	var newUser = {
-	            	fullName: fullName,
-	            	userName: userName,
-	            	email: email,
-	            	myListings: '',
-	            	myPurchases: '',
-	            	photoId: photoId,
-	            	password: password,
-	            	wif: wif
-	          	}
-	          	firebase.database().ref('/Users/' + user.uid).set(newUser);
-	  			resolve(user.uid);
+  	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+    	if (typeof photoId == 'undefined') {
+      		console.log('photoIsUndefined')
+      		photoId = 'defaultPhoto.png'
+    	}
+      firebase.database().ref('/Users/').once('value').then(() => {
+      	var newUser = {
+        	fullName: fullName,
+        	userName: userName,
+        	email: email,
+        	myListings: '',
+        	myPurchases: '',
+        	photoId: photoId,
+        	password: password,
+        	wif: wif
+      	}
+      	firebase.database().ref('/Users/' + user.uid).set(newUser);
+				resolve(user.uid);
+      }).catch(function(error) {
+        // Handle Errors here.
+      	console.log('An error has occured while creating the user via Firebase: ')
+      	console.log(error.code)
+      	console.log(error.message)
+        that.setState({
+          registerError: true,
+          registerErrorMessage: error.message
+        });
+		  	reject(error);
+      });
 
-	        }).catch(function(error) {
-	        // Handle Errors here.
-	        	console.log('An error has occured while creating the user via Firebase: ')
-	        	console.log(error.code)
-	        	console.log(error.message)
-				reject(error);
-	      });
-
-	      }).catch(function(error) {
-	        // Handle Errors here.
-        		console.log('An error has occured while registering the user via Firebase: ')
-	        	console.log(error.code)
-	        	console.log(error.message)
-				reject(error);
-	      });
-	    }
+    }).catch(function(error) {
+        // Handle Errors here.
+    		console.log('An error has occured while registering the user via Firebase: ')
+      	console.log(error.code)
+      	console.log(error.message)
+        that.setState({
+          registerError: true,
+          registerErrorMessage: error.message
+        })
+		reject(error);
+    });
 	})
 }
 
@@ -237,7 +269,7 @@ export function deletePosting(id, that) {
   })
 }
 
-export function loginUser(email, password) {
+export function loginUser(email, password, that) {
   return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
     return user
@@ -246,6 +278,10 @@ export function loginUser(email, password) {
     console.log('An error has occured while logging in the user via Firebase: ')
     console.log(error.code)
     console.log(error.message)
+    that.setState({
+      loginErrorMessage: error.message,
+      loginError: true
+    })
   });
 }
 

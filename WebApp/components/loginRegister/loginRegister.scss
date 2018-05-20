@@ -29,12 +29,11 @@ Purpose: Styling for loginRegister page
 }
 
 .rightSide {
-	dispaly: flex;
-	flex: 4;
-	// background-color: $japaneseIndigoDarkBlue;
-  background-color: #0E1C27;
+	display: flex;
+	flex: 3;
 	flex-direction: column;
 	justify-content: center;
+	align-items: center;
 	z-index: 2;
 }
 
@@ -89,10 +88,9 @@ Purpose: Styling for loginRegister page
 	display: flex;
 	flex-direction: column;
 	background-color: $loginPageGreen;
-	height: 435px;
+	height: 465px;
 	width: 400px;
 	border-radius: 4px;
-	margin: 35% 10% 0% 10%;
 }
 
 .captionBox {
@@ -136,4 +134,19 @@ Purpose: Styling for loginRegister page
 .loginImage {
 	z-index: 1;
 	height: 100vh;
+}
+
+.errorMessage {
+	color: $red;
+	margin: 5% 0% 5% 0%;
+	text-overflow: ellipsis;
+  	max-width: 400px;
+  	text-align: center;
+}
+
+.loginMessage {
+	color: $white;
+	margin: 5% 0% 5% 0%;
+	text-align: center;
+
 }
