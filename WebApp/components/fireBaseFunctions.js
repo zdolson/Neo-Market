@@ -216,6 +216,7 @@ export function pullUsersFromDatabase(that){
         photoId: childSnapshot.child('photoId').val(),
         password: childSnapshot.child('password').val(),
         wif: childSnapshot.child('wif').val(),
+        myCartItems: childSnapshot.child('myCartItems').val()
       }
       arrayUserList.push(currUser)
 
@@ -265,7 +266,8 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
         	myPurchases: '',
         	photoId: photoId,
         	password: password,
-        	wif: wif
+        	wif: wif,
+          myCartItems: '',
       	}
       	firebase.database().ref('/Users/' + user.uid).set(newUser);
 				resolve(user.uid);
@@ -356,6 +358,86 @@ export function getMyListings(that) {
       resolve(snapshot.child('myListings').val());
     }).catch(function(error) {
       console.log('An error occured while pulling myListings from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function addCartItemToDatabaseField(id, that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myCartItems').val() == '') {
+        var cartItemList = id
+      } else {
+        var cartItemList = snapshot.child('myCartItems').val().split(',')
+        cartItemList.push(id)
+        cartItemList = cartItemList.toString();
+      }
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myCartItems': cartItemList
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(snapshot.child('myCartItems').val())
+    }).catch(function(error) {
+      console.log('An error occured while adding cartitems to firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function removeCartItemFromDatabase(id, that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      var cartItemList = snapshot.child('myCartItems').val().split(','); 
+      if(cartItemList.length == 1) {
+        cartItemList = ''
+      } else {
+        var index = cartItemList.indexOf(id)
+        if(index != -1){
+          cartItemList.splice(index, 1)
+          cartItemList = cartItemList.toString()
+        }
+      }
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myCartItems': cartItemList
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(snapshot.child('myCartItems').val())
+    }).catch(function(error) {
+      console.log('An error occured while adding remvoing the cartItem');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function getCartItemsFromDatabase(that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myCartItems').val() == '') {
+        that.setState({cartItems: []})
+      } else {
+        that.setState({cartItems: (snapshot.child('myCartItems').val()).split(',')})
+      }
+      resolve(snapshot.child('myCartItems').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling cartItems from firebase');
       console.log(error.code);
       console.log(error.message);
       reject(error);

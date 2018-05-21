@@ -6,6 +6,7 @@ import CheckOutPagePicture from './checkOutPagePicture/checkOutPagePicture.js'
 import CheckOutPageItemContent from './checkOutPageItemContent/checkOutPageItemContent.js'
 
 import ItemX from '../../../assets/ItemX.svg'
+import {removeCartItemFromDatabase} from '../../../../components/fireBaseFunctions.js'
 
 /**
 
@@ -24,6 +25,14 @@ class CheckOutTableItem extends Component {
     this.State = {
 
     }
+    this.removeCartItemHandler = this.removeCartItemHandler.bind(this);
+  }
+
+  removeCartItemHandler = () => {
+    var that = this
+    removeCartItemFromDatabase(this.props.currCheckOutItem['id'], that).then(function() {
+      that.props.removeCartItem(that.props.currCheckOutItem['id'])
+    })
   }
 
   render () {
@@ -36,7 +45,7 @@ class CheckOutTableItem extends Component {
           <CheckOutPagePicture id={currCheckOutItem.id} />
           <div className="itemSeperator"></div>
           <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
-          <div className="itemX" onClick={() => {removeCartItem(currCheckOutItem['id'])}}> <ItemX/> </div>
+          <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX/> </div>
           <Stylesheet sheet={sheet} />
         </div>
       </div>
