@@ -59,7 +59,11 @@ export class CheckOutPage extends Component {
         var listingCost = currCartItem['price'];
         listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
         listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-        cF.purchase(listingOwner, buyerName, listingCost);
+        cF.purchase(listingOwner, buyerName, listingCost).then(sendConfig => {
+          console.log(sendConfig)
+        }).catch(err => {
+          console.error(err);
+        });
     } else {
         var ownersArray = [];
         var costArray = [];
