@@ -22,10 +22,10 @@ Purpose: Styling for the purchase button in the checkOutPage
     position: absolute;
     width: 163px;
     height: 50px;
-    background-color: $brightGreen;
+    background-color: $loginPageGreen;
     color: black;
     font-size: 29px;
-    border: 2px solid $brightGreen;
+    border: 2px solid $loginPageGreen;
     border-radius: 4px;
     border: 2px solid transparent;
     &:hover {

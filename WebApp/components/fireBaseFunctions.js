@@ -46,6 +46,15 @@ function isInItemList(id, listOfItems) {
   return false
 }
 
+export function pullMyPurchasesFromDatabase() {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.child('myPurchases').val());
+		});
+	});
+}
+
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
   var currItem = {}
@@ -74,26 +83,72 @@ export function pullDataFromDatabase(that) {
   })
 }
 
-export function postNewPostingToDatabase(id, owner, title, description, price, amount, imageFile) {
-  // Adds new photo to firebase storage
-  var ref = firebase.storage().ref().child(imageFile['name']);
-  ref.put(imageFile).then(function(snapshot) {
-    console.log('Uploaded a blob or file!');
+export function postNewPostingToDatabase(id, owner, title, description, price, amount, imageFile, that) {
+  return new Promise((resolve, reject) => {
+    firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function(snapshot) {
+      console.log('Uploaded a blob or file!');
 
-    // Adds new posting ID to databse storage -> 'ListingImages'
-    firebase.database().ref('/ListingImages/' + id).set(imageFile['name']);
+      // Adds new posting ID to databse storage -> 'ListingImages'
+      firebase.database().ref('/ListingImages/' + id).set(
+        imageFile['name']
+      ).catch(function(error) {
+        console.log('An error occured while adding the image name to the imageListing path in firebase');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      });
 
-    // Adds new posting to database storage -> 'Listings'
-    firebase.database().ref('/Listings/' + id).set({
-      id: id,
-      owner: owner,
-      title: title,
-      description: description,
-      price: price,
-      amount: amount,
-      imageName: imageFile['name']
+      // Adds new posting to database storage -> 'Listings'
+      firebase.database().ref('/Listings/' + id).set({
+        id: id,
+        owner: owner,
+        title: title,
+        description: description,
+        price: price,
+        amount: amount,
+        imageName: imageFile['name']
+      }).catch(function(error) {
+        console.log('An error occured while saving the posting to listings in firebase');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      });
+
+      // Adds new listing to myListing field
+      var currUserID = firebase.auth().currentUser.uid
+      firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+        if (snapshot.child('myListings').val() == '') {
+          var myListingsList = id
+        } else {
+
+          // Taking the database field as a string and then splitting it to get an array to more easily parse through.
+          // We do this because firebase doesnt support arrays in their database.
+          var myListingsList = snapshot.child('myListings').val().split(',')
+          myListingsList.push(id)
+          myListingsList = myListingsList.toString();
+        }
+        firebase.database().ref('/Users/' + currUserID).update({
+          'myListings': myListingsList
+        }).catch(function(error) {
+          console.log('An error occured while updating the myListings field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
+      }).catch(function(error) {
+        console.log('An error occured while adding to myListingField');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(id);
+    }).catch(function(error) {
+      console.log('An error occured while posting image to storage');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
     });
-  });
+  })
 }
 
 export function editPostingToDatabase(id, description, title, price, imageFile, that) {
@@ -124,7 +179,7 @@ export function editPostingToDatabase(id, description, title, price, imageFile, 
           console.log(error.message)
         });
       }
-    } 
+    }
 
     // Adds new posting to database storage -> 'Listings'
     firebase.database().ref('/Listings/' + id).update({
@@ -161,6 +216,7 @@ export function pullUsersFromDatabase(that){
         photoId: childSnapshot.child('photoId').val(),
         password: childSnapshot.child('password').val(),
         wif: childSnapshot.child('wif').val(),
+        myCartItems: childSnapshot.child('myCartItems').val()
       }
       arrayUserList.push(currUser)
 
@@ -174,6 +230,17 @@ export function pullUsersFromDatabase(that){
   });
 }
 
+export function pullUserData(that) {
+	return new Promise((resolve, reject) => {
+		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
+		ref.on('value', (snapshot) => {
+			resolve(snapshot.val());
+		}).catch((err) => {
+			reject(err);
+		});
+	});
+}
+
 function isUserRegisterd(userName, userList) {
   for(var i = 0; i<userList.length; i++) {
     if(userName == userList[i]){
@@ -183,61 +250,202 @@ function isUserRegisterd(userName, userList) {
   return false
 }
 
-export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif) {
+export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif, that) {
 	return new Promise((resolve,reject) => {
-		if (password != verifyPassword) {
-	      	console.log('Passwords dont match')
-	    } else {
-	      	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-	        	if (typeof photoId == 'undefined') {
-	          		console.log('photoIsUndefined')
-	          		photoId = 'defaultPhoto.png'
-	        	}
-	        firebase.database().ref('/Users/').once('value').then(() => {
-	          	var newUser = {
-	            	fullName: fullName,
-	            	userName: userName,
-	            	email: email,
-	            	myListings: '',
-	            	myPurchases: '',
-	            	photoId: photoId,
-	            	password: password,
-	            	wif: wif
-	          	}
-	          	firebase.database().ref('/Users/' + user.uid).set(newUser);
-	  			resolve(user.uid);
+  	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
+    	if (typeof photoId == 'undefined') {
+      		console.log('photoIsUndefined')
+      		photoId = 'defaultPhoto.png'
+    	}
+      firebase.database().ref('/Users/').once('value').then(() => {
+      	var newUser = {
+        	fullName: fullName,
+        	userName: userName,
+        	email: email,
+        	myListings: '',
+        	myPurchases: '',
+        	photoId: photoId,
+        	password: password,
+        	wif: wif,
+          myCartItems: '',
+      	}
+      	firebase.database().ref('/Users/' + user.uid).set(newUser);
+				resolve(user.uid);
+      }).catch(function(error) {
+        // Handle Errors here.
+      	console.log('An error has occured while creating the user via Firebase: ')
+      	console.log(error.code)
+      	console.log(error.message)
+        that.setState({
+          registerError: true,
+          registerErrorMessage: error.message
+        });
+		  	reject(error);
+      });
 
-	        }).catch(function(error) {
-	        // Handle Errors here.
-	        	console.log('An error has occured while creating the user via Firebase: ')
-	        	console.log(error.code)
-	        	console.log(error.message)
-				reject(error);
-	      });
-
-	      }).catch(function(error) {
-	        // Handle Errors here.
-        		console.log('An error has occured while registering the user via Firebase: ')
-	        	console.log(error.code)
-	        	console.log(error.message)
-				reject(error);
-	      });
-	    }
+    }).catch(function(error) {
+        // Handle Errors here.
+    		console.log('An error has occured while registering the user via Firebase: ')
+      	console.log(error.code)
+      	console.log(error.message)
+        that.setState({
+          registerError: true,
+          registerErrorMessage: error.message
+        })
+		reject(error);
+    });
 	})
 }
 
 export function deletePosting(id, that) {
-  return firebase.database().ref('/Listings/' + id).remove().then(function() {
-    firebase.database().ref('/ListingImages/' + id).remove()
-  }).catch(function(error) {
-    // Handle Errors here.
-    console.log('An error has occured while removing a listing: ')
-    console.log(error.code)
-    console.log(error.message)
+  return new Promise((resolve,reject) => {
+    // Removing post from listing database 
+    firebase.database().ref('/Listings/' + id).remove().then(function() {
+
+      // Removing reference image 
+      firebase.database().ref('/ListingImages/' + id).remove()
+
+      // Removing listing ID from myListings user field
+      var currUserID = firebase.auth().currentUser.uid
+      firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+
+        // Make into array to more easily parse through
+        var myListingsList = snapshot.child('myListings').val().split(','); 
+        if(myListingsList.length == 1) {
+          // If delelting last myListing, then set database value back to blank value('')
+          myListingsList = ''
+        } else {
+          var index = myListingsList.indexOf(id)
+          if(index != -1){
+            myListingsList.splice(index, 1)
+            myListingsList = myListingsList.toString()
+          }
+        }
+        firebase.database().ref('/Users/' + currUserID).update({
+          'myListings': myListingsList
+        }).catch(function(error) {
+          console.log('An error occured while updating the myListings field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
+        resolve(snapshot.child('myListings').val())
+      }).catch(function(error) {
+        console.log('An error occured while adding remvoing the myListings');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+
+    }).catch(function(error) {
+      // Handle Errors here.
+      console.log('An error has occured while removing a listing: ')
+      console.log(error.code)
+      console.log(error.message)
+    })
   })
 }
 
-export function loginUser(email, password) {
+export function getMyListings(that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myListings').val() == '') {
+        that.setState({myListings: []})
+      } else {
+        that.setState({myListings: (snapshot.child('myListings').val()).split(',')})
+      }
+      resolve(snapshot.child('myListings').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling myListings from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function addCartItemToDatabaseField(id, that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myCartItems').val() == '') {
+        var cartItemList = id
+      } else {
+        var cartItemList = snapshot.child('myCartItems').val().split(',')
+        cartItemList.push(id)
+        cartItemList = cartItemList.toString();
+      }
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myCartItems': cartItemList
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(snapshot.child('myCartItems').val())
+    }).catch(function(error) {
+      console.log('An error occured while adding cartitems to firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function removeCartItemFromDatabase(id, that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      var cartItemList = snapshot.child('myCartItems').val().split(','); 
+      if(cartItemList.length == 1) {
+        cartItemList = ''
+      } else {
+        var index = cartItemList.indexOf(id)
+        if(index != -1){
+          cartItemList.splice(index, 1)
+          cartItemList = cartItemList.toString()
+        }
+      }
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myCartItems': cartItemList
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+      resolve(snapshot.child('myCartItems').val())
+    }).catch(function(error) {
+      console.log('An error occured while adding remvoing the cartItem');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function getCartItemsFromDatabase(that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myCartItems').val() == '') {
+        that.setState({cartItems: []})
+      } else {
+        that.setState({cartItems: (snapshot.child('myCartItems').val()).split(',')})
+      }
+      resolve(snapshot.child('myCartItems').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling cartItems from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function loginUser(email, password, that) {
   return firebase.auth().signInWithEmailAndPassword(email, password).then((user) => {
     console.log('User: ' + email + ' has been sucessfully logged in')
     return user
@@ -246,6 +454,10 @@ export function loginUser(email, password) {
     console.log('An error has occured while logging in the user via Firebase: ')
     console.log(error.code)
     console.log(error.message)
+    that.setState({
+      loginErrorMessage: error.message,
+      loginError: true
+    })
   });
 }
 
