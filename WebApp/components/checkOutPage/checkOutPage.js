@@ -50,12 +50,7 @@ export class CheckOutPage extends Component {
 
   purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
     if(!this.props.useFirebaseBackend) {
-      var buyerName;
-      firebase.database().ref('Users/'+firebase.auth().currentUser.uid).once('value')
-        .then( (snapshot) => {
-          buyerName = snapshot.val().userName;
-        }
-      );
+      let buyerName = firebase.auth().currentUser.uid;
       if (cartItems.length == 0) {
           // disable purchase button functionality here.
       } else if (cartItems.length == 1) {
