@@ -16,7 +16,10 @@ Purpose: Style and spacing
   margin-top: 15px;
   border-radius: 5px;
   background: $grey65;
+}
 
+.rightSideBarItem:hover {
+  cursor: pointer;
 }
 
 .rightSideBarItemTitle {
@@ -24,6 +27,9 @@ Purpose: Style and spacing
 }
 
 .rightSideBarItemTotal{
+  width: 125px;
+  margin-left: 12.5px;
+  overflow-x: hidden;
 	text-align: center;
 	color: $neoGreen;
 }

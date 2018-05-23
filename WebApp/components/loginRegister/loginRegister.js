@@ -24,6 +24,12 @@ class LoginRegister extends Component {
       this.loginHandler = this.loginHandler.bind(this);
     }
 
+    handleKeyPress = (e) => {
+      if(e.key === 'Enter') {
+        this.loginHandler();
+      }
+    }
+
     registerHandler = () => {
       // console.log("registerHandler()");
       this.setState( {register: true} );
@@ -92,15 +98,15 @@ class LoginRegister extends Component {
                   Or Log into your account
                 </div>
                 <div className="loginName">
-                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Email"/>
+                  <input className="loginNameInput" type ="text" ref={(ref) => { this.loginName = ref; }} placeholder="Email" onKeyPress={this.handleKeyPress}/>
                 </div>
 
                 <div className="inputPasswordField">
-                  <input className="passwordInput" type ="password" ref={(ref) => { this.password = ref; }} placeholder="Password"/>
+                  <input className="passwordInput" type ="password" ref={(ref) => { this.password = ref; }} placeholder="Password" onKeyPress={this.handleKeyPress}/>
                 </div>
 
                 <div className="loginButton" onClick={this.loginHandler}>
-                  <LoginButton/>
+                  <LoginButton className="loginSVG"/>
                 </div>
                 {loginMessage}
               </div>

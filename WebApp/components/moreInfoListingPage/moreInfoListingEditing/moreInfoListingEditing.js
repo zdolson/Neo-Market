@@ -30,6 +30,12 @@ class MoreInfoListingEditing extends Component {
     pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
   }
 
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      this.submitHandler(e);
+    }
+  }
+
   readFile = (event) => {
     let reader = new FileReader();
     let file = event.target.files[0];
@@ -90,7 +96,7 @@ class MoreInfoListingEditing extends Component {
           </div>
           <div className="submitEditing" onClick={this.submitHandler}>
             <Route render={({ history}) => (
-                <button type='button' onClick={() => { history.push('/') }}>
+                <button type='button' className="whiteText" onClick={() => { history.push('/') }}>
                   Submit
                 </button>
               )}
@@ -105,7 +111,7 @@ class MoreInfoListingEditing extends Component {
                 {img}
               </div>
               <div className="upload">
-                <ImportPhotoIcon/>
+                <ImportPhotoIcon />
                 <input type="file" name="file" onChange={(event)=> { this.readFile(event) }} onClick={(event)=> { event.target.value = null }} />
               </div>
             </div>

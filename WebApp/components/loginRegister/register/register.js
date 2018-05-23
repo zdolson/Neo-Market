@@ -27,6 +27,12 @@ class Register extends Component {
     this.checkPasswordFields = this.checkPasswordFields.bind(this);
   }
 
+  handleKeyPress = (e) => {
+    if(e.key === 'Enter') {
+      this.registerHandler();
+    }
+  }
+
   checkPasswordFields = () => {
     // Checking to see if the passwords match
     if (this.state.password == this.state.verifyPassword) {
@@ -134,27 +140,27 @@ class Register extends Component {
             <div className="registerFormContainer">
 
               <div className="userNameContainer">
-                <input className="userNameInput" value={this.state.userName} onChange={ (e) => this.updateUserName(e) } type="text" placeholder="Your User Name"/>
+                <input className="userNameInput" value={this.state.userName} onChange={ (e) => this.updateUserName(e) } type="text" placeholder="Your User Name" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="fullNameContainer">
-                <input className="fullNameInput" value={this.state.fullName} onChange={ (e) => this.updateFullName(e) } type="text" placeholder="Your Full Name"/>
+                <input className="fullNameInput" value={this.state.fullName} onChange={ (e) => this.updateFullName(e) } type="text" placeholder="Your Full Name" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="emailNameContainer">
-                <input className="emailNameInput" value={this.state.email} onChange={ (e) => this.updateEmail(e) } type="text" placeholder="Your email"/>
+                <input className="emailNameInput" value={this.state.email} onChange={ (e) => this.updateEmail(e) } type="text" placeholder="Your email" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="passwordNameContainer">
-                <input className="passwordNameInput" value={this.state.password} onChange={ (e) => this.updatePassword(e) } type="password" placeholder="Your password"/>
+                <input className="passwordNameInput" value={this.state.password} onChange={ (e) => this.updatePassword(e) } type="password" placeholder="Your password" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="verifyPasswordNameContainer">
-                <input className="verifyPasswordNameInput" value={this.state.verifyPassword} onChange={ (e) => this.updateVerifyPassword(e) } type="password" placeholder="Verify password"/>
+                <input className="verifyPasswordNameInput" value={this.state.verifyPassword} onChange={ (e) => this.updateVerifyPassword(e) } type="password" placeholder="Verify password" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="importWalletContainer">
-                <input className="walletInput" value={this.state.wif} onChange={ (e) => this.updateWif(e) } type="password" placeholder="Import WIF"/>
+                <input className="walletInput" value={this.state.wif} onChange={ (e) => this.updateWif(e) } type="password" placeholder="Import WIF" onKeyPress={this.handleKeyPress}/>
               </div>
 
               <div className="registerButtonContainer">

@@ -131,6 +131,10 @@ Purpose: Styling for loginRegister page
 	margin-left: 65%;
 }
 
+.loginSVG:hover, .registerButton:hover{
+  cursor: pointer;
+}
+
 .loginImage {
 	z-index: 1;
 	height: 100vh;
