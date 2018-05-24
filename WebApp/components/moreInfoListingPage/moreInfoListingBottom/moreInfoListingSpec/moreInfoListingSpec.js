@@ -24,10 +24,21 @@ class MoreInfoListingSpec extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-
+      owner: 'loading...'
     }
     this.removeItemHandler = this.removeItemHandler.bind(this);
     this.addItemHandler = this.addItemHandler.bind(this);
+  }
+
+  componentDidMount = () => {
+    console.log(this.props.item.owner);
+    if(this.props.useFirebaseBackend) {
+      this.setState({ owner: this.props.item.owner });
+    } else {
+      firebase.database().ref('/Users/'+this.props.item.owner).once('value').then(snapshot => {
+        this.setState({ owner: snapshot.val().userName });
+      });
+    }
   }
 
   removeItemHandler = () => {
@@ -40,8 +51,6 @@ class MoreInfoListingSpec extends Component {
       });
     } else {
       console.log('backend deletePosting logic goes here')
-      console.log(this.props.item['id']);
-      console.log(firebase.auth().currentUser.uid);
       cF.deletePost(firebase.auth().currentUser.uid, this.props.item['id'])
     }
   }
@@ -56,7 +65,6 @@ class MoreInfoListingSpec extends Component {
   render () {
     let item = this.props.item;
     let itemID = item['id'];
-    let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
@@ -80,7 +88,7 @@ class MoreInfoListingSpec extends Component {
 
         <div className="sellerAndRating">
           <div className="seller">
-            {owner}
+            {this.state.owner}
           </div>
           <div className="rating">
             rating <Star />

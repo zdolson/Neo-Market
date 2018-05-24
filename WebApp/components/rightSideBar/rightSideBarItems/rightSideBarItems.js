@@ -34,7 +34,7 @@ class RightSideBarItems extends Component {
         {this.props.cartItems.map( (id, key) => {
           var currCheckOutItem = returnCheckOutDataByID(id)
           return (
-            <RightSideBarItem currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+            <RightSideBarItem key={key} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
         <Stylesheet sheet={sheet} />

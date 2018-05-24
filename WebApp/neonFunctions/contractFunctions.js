@@ -9,7 +9,7 @@ const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = true;
+var debug = false;
 
 
 /**

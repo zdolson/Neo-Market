@@ -89,17 +89,7 @@ export class App extends Component {
   componentWillMount () {
     if (!this.props.useFirebaseBackend) {
       console.log('Pulling listings from backend')
-      pullUsersFromDatabase(this)
-      cF.getAllPostsFromStorage(this)
-      // cF.getUserPostsFromStorage(firebase.auth().currentUser.uid).then( result => {
-      //     console.log(result);
-      //     result = result.replace(/[^\x20-\x7E]/g, '');
-      //     cF.getAddressFromUser(result).then(post => {
-      //         for(let i = 0; i < post.length; i++){
-      //             console.log('post[i]: ' + post[i]);
-      //         }
-      //     })
-      // })
+      cF.getAllPostsFromStorage(this);
     }
   }
 
@@ -107,7 +97,6 @@ export class App extends Component {
     if (this.props.useFirebaseBackend) {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
-      pullUsersFromDatabase(this)
       getCartItemsFromDatabase(this)
       getMyListings(this)
     }
