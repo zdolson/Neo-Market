@@ -23,10 +23,22 @@ class PurchasesTab extends Component {
 
   render () {
     let items = this.props.state.items;
+    var myPurchases = this.props.state.myPurchases;
+    var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
+    console.log(myPurchases)
+    // Taking the myPurchases param passed in from app, goes through 
+    // the list and gets the item information corresponding to listingID.
+    var purchasesList = []
+    for(var i = 0; i < myPurchases.length; i++) {
+      console.log(myPurchases[i])
+      var currPurchases = returnCheckOutDataByID(myPurchases[i])
+      purchasesList.push(currPurchases)
+    }
+    console.log(purchasesList)
     return (
       <div className="purchasesPageContainer">
 
-        {items.map( (item, key) => {
+        {purchasesList.map( (item, key) => {
           return (
             <PurchasedItem key={key} item={item}/>
           );
