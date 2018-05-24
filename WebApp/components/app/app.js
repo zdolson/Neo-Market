@@ -18,7 +18,7 @@ import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase, getMyListings, getMyPurchasesFromDatabase } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase, getMyListings } from '../fireBaseFunctions.js'
 
 /**
 
@@ -45,6 +45,7 @@ export class App extends Component {
           amount: 0
         }
       ],
+
       users: [
         {
           fullName: 'defaultfullName',
@@ -65,7 +66,6 @@ export class App extends Component {
       search: false,
       neoPrice: 0,
       myListings: [],
-      myPurchases: []
     }
 
     // Function List
@@ -84,10 +84,6 @@ export class App extends Component {
     this.updateNeoPrice = this.updateNeoPrice.bind(this);
     this.addMyListing = this.addMyListing.bind(this);
     this.removeMyListing = this.removeMyListing.bind(this);
-    this.resetCartItemState = this.resetCartItemState.bind(this);
-    this.returnNonPurchasedItems = this.returnNonPurchasedItems.bind(this);
-    this.addToMyPurchases = this.addToMyPurchases.bind(this);
-    this.reRenderAfterMyPurchase = this.reRenderAfterMyPurchase.bind(this);
   }
 
   componentWillMount () {
@@ -102,7 +98,6 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       getCartItemsFromDatabase(this)
-      getMyPurchasesFromDatabase(this)
       getMyListings(this)
     }
     this.updateNeoPrice();
@@ -143,10 +138,6 @@ export class App extends Component {
     this.setState({ myListings: this.state.myListings.concat(id) })
   }
 
-  addToMyPurchases(id) {
-    this.setState({ myPurchases: this.state.myPurchases.concat(id) })
-  }
-
   removeMyListing(id) {
     var index = this.state.myListings.indexOf(id)
     if(index != -1){
@@ -155,35 +146,7 @@ export class App extends Component {
     }else{
       console.log("Could not find a myListing item to delete.")
     }
-  }
 
-  resetCartItemState() {
-    this.setState({ cartItems: [] })
-    console.log(this.state.items)
-    pullDataFromDatabase(this)
-    console.log(this.state.items)
-  }
-
-  removeStateListings(id) {
-    console.log('Going to removeListing')
-
-  }
-
-  reRenderAfterMyPurchase() {
-    console.log('Calling this function')
-    pullDataFromDatabase(this)
-  }
-
-  returnNonPurchasedItems() {
-    var nonPurchItemList = []
-    for(var i=0; i<this.state.items.length;i++) {
-      if(this.state.items[i]['purchased'] == false) {
-        nonPurchItemList.push(this.state.items[i])
-      }
-    }
-    console.log(nonPurchItemList)
-    // this.setState({ nonPurchasedItems: nonPurchItemList })
-    return nonPurchItemList
   }
 
   isIDInItemList(id) {
@@ -198,9 +161,7 @@ export class App extends Component {
   }
 
   returnCheckOutDataByID(id){
-    console.log(id)
     var dict = this.state.items
-    console.log(dict)
     if (this.isIDInItemList(id) == true){
       for (let key in dict) {
         if (dict[key]['id'] == id) {
@@ -297,9 +258,6 @@ export class App extends Component {
         </main>
       )
     }
-
-    console.log(this.state.items)
-
     return (
       <main>
         <div>
@@ -328,10 +286,6 @@ export class App extends Component {
             useFirebaseBackend={this.props.useFirebaseBackend}
             addMyListing = {this.addMyListing}
             removeMyListing = {this.removeMyListing}
-            resetCartItemState = {this.resetCartItemState}
-            returnNonPurchasedItems = {this.returnNonPurchasedItems}
-            addToMyPurchases = {this.addToMyPurchases}
-            reRenderAfterMyPurchase = {this.reRenderAfterMyPurchase}
           />
         </div>
       </main>
