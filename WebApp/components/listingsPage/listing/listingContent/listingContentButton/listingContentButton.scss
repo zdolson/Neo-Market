@@ -18,7 +18,9 @@ Purpose: Spacing and style for the bottom half of a listing
   color: white;
   padding: 5px 0px 5px 0px;
   background: $loginPageGreen;
-  width: 50%;
+  max-width: 100%;
+  position: relative;
+  overflow-x: hidden;
   text-align: center;
   align-self: center;
   border-radius: 15px;

@@ -17,7 +17,9 @@ Purpose: Spacing and style for the bottom half of a listing
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow-x: hidden;
   height: auto;
   border-radius: 0px 0px 5px 5px;
 }
