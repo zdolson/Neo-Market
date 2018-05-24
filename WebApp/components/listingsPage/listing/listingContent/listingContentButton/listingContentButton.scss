@@ -14,14 +14,26 @@ Purpose: Spacing and style for the bottom half of a listing
 **/
 
 .listingContentButton {
-  margin: 3px;
+  margin: 0px 5px 5px 5px;
   color: white;
-  padding: 5px 0px 5px 0px;
+  padding: 5px 8px 5px 8px;
   background: $loginPageGreen;
-  max-width: 100%;
-  position: relative;
+  max-width: 290px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   overflow-x: hidden;
   text-align: center;
   align-self: center;
   border-radius: 15px;
+}
+
+.price {
+  overflow-x: hidden;
+  flex: 10;
+  margin-right: 7px;
+}
+
+.neo {
+  flex: 1;
 }

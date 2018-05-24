@@ -16,7 +16,7 @@ Purpose: Spacing and style for the purchased item
 
 .item-container {
   height: 150px;
-  // width: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   color: white;
@@ -53,15 +53,34 @@ Purpose: Spacing and style for the purchased item
   background: $grey50;
 }
 
+.item-title {
+  overflow-x: hidden;
+}
+
 .item-price {
   background: $loginPageGreen;
   height: 30px;
   line-height: 31px;
   width: 20%;
   margin-right: 3%;
+  padding: 0px 5px;
   border-radius: 10px;
   text-align: center;
   z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.price {
+  margin-right: 7px;
+  overflow-x: hidden;
+  width: auto;
+}
+
+.neo {
+  width: auto;
+  display: inline;
 }
 
 .item-bottom {

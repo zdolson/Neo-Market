@@ -30,6 +30,7 @@ class ListingContent extends Component {
     var price = item.price;
     var title = item.title;
     var description = item.desc;
+    console.log(description);
     return (
       <div className='listingContent'>
         <ListingContentText title={title} description={description}/>

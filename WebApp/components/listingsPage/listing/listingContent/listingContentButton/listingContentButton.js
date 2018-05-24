@@ -26,7 +26,8 @@ class ListingContentButton extends Component {
     var price = this.props.price;
     return (
       <div className='listingContentButton'>
-        {price} NEO
+        <div className="price"> {price} </div>
+        <div className="neo"> NEO </div>
         <Stylesheet sheet={sheet} />
       </div>
     )
