@@ -44,6 +44,7 @@ class WifModal extends Component {
       console.log('encryptedPassword:'+password+' entry:'+this.state.password+' encryptedEntry:'+entry);
       if(password === entry) {
         this.props.closeModal();
+        this.props.verificationSuccess();
         alert('success!');
       }else{
         alert('incorrect password');
