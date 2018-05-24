@@ -8,6 +8,7 @@ import { Route } from 'react-router-dom'
 
 import cF from '../../../../neonFunctions/contractFunctions'
 import { deletePosting, addCartItemToDatabaseField } from '../../../fireBaseFunctions.js'
+import * as firebase from 'firebase'
 
 /**
 
@@ -39,6 +40,9 @@ class MoreInfoListingSpec extends Component {
       });
     } else {
       console.log('backend deletePosting logic goes here')
+      console.log(this.props.item['id']);
+      console.log(firebase.auth().currentUser.uid);
+      cF.deletePost(firebase.auth().currentUser.uid, this.props.item['id'])
     }
   }
 

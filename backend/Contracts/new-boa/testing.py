@@ -5,9 +5,9 @@ from boa.interop.Neo.Runtime import Log, Notify
 
 """
 @Function: fillMaster
-@Contributor: dliang 
+@Contributor: dliang
 @Param: {string} name
-@Return: void 
+@Return: void
 Purpose: for each register call, append the name to master list
 """
 def fillMaster(name):
@@ -20,12 +20,12 @@ def fillMaster(name):
 
 """
 @Function: register
-@Contributor: dliang 
-@Param: {list of strings} args 
+@Contributor: dliang
+@Param: {list of strings} args
         1. {string} name
         2. {string} address <--- nope not using that
 @Return: void by default otherwise return false if conflicts with masterList
-Purpose: This will register the user and their address to the smart contract 
+Purpose: This will register the user and their address to the smart contract
          and add the name to master list
 """
 def register(args):
@@ -38,30 +38,30 @@ def register(args):
             # create master here
             masterList = serialize_array([])
             Put(GetContext(), '1', masterList)
-    
+
     isUserThere = Get(GetContext(), args[0])
-    isAddrThere = Get(GetContext(), args[1]) 
+    isAddrThere = Get(GetContext(), args[1])
     if isUserThere:
         Log("Already registered here")
-    else: 
+    else:
         bstuff = serialize_array([])
         Put(GetContext(), args[0], args[1])
-        Put(GetContext(), args[1], bstuff) 
+        Put(GetContext(), args[1], bstuff)
         fillMaster(args[0]) # only want the names
     return 1
 
 """
 @Function: createpost
 @Contributor: Colin
-@Param: {list} args 
+@Param: {list} args
         1. {string} id
-        2. {string} owner 
+        2. {string} owner
         3. {string} title
-        4. {string} description of item 
-        5. {int} price 
+        4. {string} description of item
+        5. {int} price
         6. {int} amount
-        7. {string} purchased? status 
-@Return: void 
+        7. {string} purchased? status
+@Return: void
 Purpose: for each register call, append the name to master list
 ```createPost: (id, owner, title, desc, price, amount)```
 """
@@ -80,28 +80,32 @@ def createpost(args):
         addr = Get(GetContext(), args[1])
         bList = Get(GetContext(), addr)
         stuff = deserialize_bytearray(bList) # should be getting the array of ids here
-        
-        # adding id to the user then setting post to id
-        print(args[0]) 
-        stuff.append(args[0]) 
-        bList = serialize_array(stuff) # it back 
-        Put(GetContext(), addr, bList) # storing it to the id
-        print("done allocating id to user") 
 
-        # adding post to id here 
-        postInfo = [args[1], args[2], args[3], args[4], args[5]] 
-        finalInfo = serialize_array(postInfo) 
-        Put(GetContext(), args[0], finalInfo) 
-        print("done here") 
+        # adding id to the user then setting post to id
+        print(args[0])
+        if args[0] not in stuff:
+            stuff.append(args[0])
+            stuff.append(',')
+            bList = serialize_array(stuff) # it back
+            Put(GetContext(), addr, bList) # storing it to the id
+            print("done allocating id to user")
+
+        # adding post to id here
+        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5]]]
+
+        finalInfo = serialize_array(postInfo)
+        Put(GetContext(), args[0], finalInfo)
+        print("done here")
         return 1
+
 
 """
 @Function: deletepost
-@Contributor: <whoever gets to it> 
+@Contributor: <whoever gets to it>
 @Param: {list} args
         1. {string} name
-        2. {string} id 
-@Return: void 
+        2. {string} id
+@Return: void
 Purpose: This is used to delete a post
 
 - there's a slight problem in trying to remove an element, seems to evaluate the list
@@ -113,50 +117,50 @@ def deletepost(args):
         Log("cant delete")
         return 0
     else:
-        stuff = Get(GetContext(), addr) # getting the binary form of list 
+        stuff = Get(GetContext(), addr) # getting the binary form of list
         dList = deserialize_bytearray(stuff) # getting the IDs
-        length = len(dList) 
-        print(length) 
+        length = len(dList)
+        print(length)
 
-        # checking if the list is empty 
-        if length == 0 or length < 0: 
-            print("nothing in list") 
-            dList = [] 
-            bList = serialize_array(dList) 
+        # checking if the list is empty
+        if length == 0 or length < 0:
+            print("nothing in list")
+            dList = []
+            bList = serialize_array(dList)
             Put(GetContext(), addr, bList) # id -> post
             print("done setting it up")
-            return 1 
-        
+            return 1
+
         # reallocating the elements to a new list
         tempDList = [] # recreating and allocating the list to this one
-        for entry in range(0, length): 
-            print("allocating") 
+        for entry in range(0, length):
+            print("allocating")
 
-            if dList[entry] == concat("", args[1]): 
-                print("should be here only one time") 
-                print(dList[entry]) 
+            if dList[entry] == concat("", args[1]):
+                print("should be here only one time")
+                print(dList[entry])
 
                 # deleting any remains of args[1] or the selected id
-                Delete(GetContext(), args[1]) 
-            else: 
+                Delete(GetContext(), args[1])
+            else:
                 tempDList.append(dList[entry])
 
         # setting the new list to the address
-        bList = serialize_array(tempDList) 
-        Put(GetContext(), addr, bList) 
-        print("done deleting") 
+        bList = serialize_array(tempDList)
+        Put(GetContext(), addr, bList)
+        print("done deleting")
         return 1
 
 """
 @Function: select
-@Contributor: dliang 
+@Contributor: dliang
 @Param: {list} args
         1. {string} name or id whatever
-@Return: void 
-Purpose: This is mainly used for testing cases but it uses the name and prints the first 
+@Return: void
+Purpose: This is mainly used for testing cases but it uses the name and prints the first
          element or value the address of the name is holding.
 
-         this does not print out the post or does it? 
+         this does not print out the post or does it?
 
          Highly don't recommend this outside of testing purposes
 """
@@ -167,20 +171,20 @@ def select(args):
     stuff = deserialize_bytearray(addr)
     length = len(stuff)
     print("BEGINNING PRINTING OF:")
-    print(args[0]) 
-    print(length) 
-    
-    for i in range(0, length): 
+    print(args[0])
+    print(length)
+
+    for i in range(0, length):
         print("there you go: ")
-        print(stuff[i]) 
-    print("get out of here from select the testing land") 
+        print(stuff[i])
+    print("get out of here from select the testing land")
     return 1
 
 """
 @Function: isregister
 @Contributor: Colin
 @Param: {string} name
-@Return: boolean 
+@Return: boolean
 Purpose: checks if username is registered or not
 """
 def isregister(args):
@@ -195,34 +199,23 @@ def isregister(args):
 """
 @Function: editPost
 @Contributor: Colin, dliang
-@Param: same as createpost 
-        
+@Param: same as createpost
+
 @Return: boolean
 Purpose: Runs the smart contract and acts accordingly to the user and their respective args
 """
-def editPost(args):
+def editpost(args):
     length = 7
-    i = 1 # trying to avoid "ID" from being tagged 
+    i = 1 # trying to avoid "ID" from being tagged
     userPosts = Get(GetContext(), args[0]) # getting the id
     if not userPosts:
         Log("not a valid user, cant edit post")
         return 0
     else:
-        dpostInfo = deserialize_bytearray(userPosts)
         print("editing")
-        temp_info = []
-        while(i < length):
-            if(args[i] != 'n'):
-                #print("changing") 
-                #temp_info.append(args[i])
-                #print("new change: ") 
-                #print(temp_info[i-1]) 
-                dpostInfo[i-1] = args[i]
-            else:
-                print("Not changing array value")
-            i += 1
-        finalPosts = serialize_array(dpostInfo)
-        Put(GetContext(), args[0], finalPosts)
+        Delete(GetContext(), args[0])
+        createpost(args)
+        print("done with editing")
     return 1
 
 
@@ -244,7 +237,7 @@ def Main(operation, args):
         deletepost(args)
     elif operation == "editpost":
         print("editing a post")
-        editPost(args)
+        editpost(args)
     else:
         print("what op?")
         return 0
