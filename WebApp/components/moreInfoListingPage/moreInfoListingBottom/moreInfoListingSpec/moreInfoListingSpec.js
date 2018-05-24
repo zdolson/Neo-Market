@@ -9,6 +9,8 @@ import { Route } from 'react-router-dom'
 import cF from '../../../../neonFunctions/contractFunctions'
 import { deletePosting, addCartItemToDatabaseField } from '../../../fireBaseFunctions.js'
 
+import * as firebase from 'firebase'
+
 /**
 
 @ Alec/Nicholas
@@ -23,10 +25,21 @@ class MoreInfoListingSpec extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-
+      owner: 'loading...'
     }
     this.removeItemHandler = this.removeItemHandler.bind(this);
     this.addItemHandler = this.addItemHandler.bind(this);
+  }
+
+  componentDidMount = () => {
+    console.log(this.props.item.owner);
+    if(this.props.useFirebaseBackend) {
+      this.setState({ owner: this.props.item.owner });
+    } else {
+      firebase.database().ref('/Users/'+this.props.item.owner).once('value').then(snapshot => {
+        this.setState({ owner: snapshot.val().userName });
+      });
+    }
   }
 
   removeItemHandler = () => {
@@ -52,7 +65,6 @@ class MoreInfoListingSpec extends Component {
   render () {
     let item = this.props.item;
     let itemID = item['id'];
-    let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
@@ -76,7 +88,7 @@ class MoreInfoListingSpec extends Component {
 
         <div className="sellerAndRating">
           <div className="seller">
-            {owner}
+            {this.state.owner}
           </div>
           <div className="rating">
             rating <Star />
