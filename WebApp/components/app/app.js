@@ -87,10 +87,6 @@ export class App extends Component {
   }
 
   componentWillMount () {
-    if (!this.props.useFirebaseBackend) {
-      console.log('Pulling listings from backend')
-      cF.getAllPostsFromStorage(this);
-    }
   }
 
   componentDidMount() {
@@ -99,6 +95,9 @@ export class App extends Component {
       pullDataFromDatabase(this)
       getCartItemsFromDatabase(this)
       getMyListings(this)
+    } else {
+          console.log('Pulling listings from SC')
+          cF.getAllPostsFromStorage(this);
     }
     this.updateNeoPrice();
   }
