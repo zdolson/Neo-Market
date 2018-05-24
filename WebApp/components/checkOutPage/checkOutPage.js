@@ -30,8 +30,8 @@ export class CheckOutPage extends Component {
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
     this.purchaseLogic = this.purchaseLogic.bind(this)
+    this.verificationSuccess = this.verificationSuccess.bind(this);
   }
 
   openModal() {
@@ -44,26 +44,32 @@ export class CheckOutPage extends Component {
     this.setState({modal_is_open: false});
   }
 
+  verificationSuccess = () => {
+    console.log('this function fires after the WifModal verification is successful');
+  }
+
   purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
-    var buyerName = firebase.auth().currentUser.uid;
-    if (cartItems.length == 0) {
-        // disable purchase button functionality here.
-    } else if (cartItems.length == 1) {
-        var currCartItem = returnCheckOutDataByID(cartItems[0])
-        var listingOwner = currCartItem['owner'];
-        var listingCost = currCartItem['price'];
-        listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
-        listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-        cF.purchase(listingOwner, buyerName, listingCost);
-    } else {
-        var ownersArray = [];
-        var costArray = [];
-        for (let i = 0; i < cartItems.length; i++){
-            var currCartItem = returnCheckOutDataByID(cartItems[i]);
-            ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
-            costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
-        }
-        cF.multipurchase(ownersArray, buyerName, costArray);
+    if(!this.props.useFirebaseBackend) {
+      let buyerName = firebase.auth().currentUser.uid;
+      if (cartItems.length == 0) {
+          // disable purchase button functionality here.
+      } else if (cartItems.length == 1) {
+          var currCartItem = returnCheckOutDataByID(cartItems[0])
+          var listingOwner = currCartItem['owner'];
+          var listingCost = currCartItem['price'];
+          listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
+          listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
+          cF.purchase(listingOwner, buyerName, listingCost);
+      } else {
+          var ownersArray = [];
+          var costArray = [];
+          for (let i = 0; i < cartItems.length; i++){
+              var currCartItem = returnCheckOutDataByID(cartItems[i]);
+              ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
+              costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
+          }
+          cF.multipurchase(ownersArray, buyerName, costArray);
+      }
     }
   }
 
@@ -88,7 +94,7 @@ export class CheckOutPage extends Component {
         {this.props.cartItems.map( (id, key) => {
           var currCheckOutItem = returnCheckOutDataByID(id)
           return (
-            <CheckOutTableItems currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+            <CheckOutTableItems key={key} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
 
@@ -108,7 +114,7 @@ export class CheckOutPage extends Component {
           </div>
         </div>
 
-        <WifModal modal_is_open={modal_is_open} closeModal={this.closeModal} handleSubmit={this.handleSubmit}/>
+        <WifModal modal_is_open={modal_is_open} closeModal={this.closeModal} verificationSuccess={this.verificationSuccess}/>
 
         <Stylesheet sheet={sheet} />
       </div>

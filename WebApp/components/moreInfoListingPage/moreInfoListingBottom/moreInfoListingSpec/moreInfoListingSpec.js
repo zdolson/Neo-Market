@@ -7,7 +7,9 @@ import Star from '../../../assets/Star.svg'
 import { Route } from 'react-router-dom'
 
 import cF from '../../../../neonFunctions/contractFunctions'
-import { deletePosting } from '../../../fireBaseFunctions.js'
+import { deletePosting, addCartItemToDatabaseField } from '../../../fireBaseFunctions.js'
+
+import * as firebase from 'firebase'
 
 /**
 
@@ -23,9 +25,21 @@ class MoreInfoListingSpec extends Component {
   constructor(props, context) {
     super(props, context)
     this.state = {
-
+      owner: 'loading...'
     }
     this.removeItemHandler = this.removeItemHandler.bind(this);
+    this.addItemHandler = this.addItemHandler.bind(this);
+  }
+
+  componentDidMount = () => {
+    console.log(this.props.item.owner);
+    if(this.props.useFirebaseBackend) {
+      this.setState({ owner: this.props.item.owner });
+    } else {
+      firebase.database().ref('/Users/'+this.props.item.owner).once('value').then(snapshot => {
+        this.setState({ owner: snapshot.val().userName });
+      });
+    }
   }
 
   removeItemHandler = () => {
@@ -41,10 +55,16 @@ class MoreInfoListingSpec extends Component {
     }
   }
 
+  addItemHandler = () => {
+    var that = this;
+    addCartItemToDatabaseField(this.props.item['id'], that).then(function() {
+      that.props.addCartItem(that.props.item['id'])
+    });
+  }
+
   render () {
     let item = this.props.item;
     let itemID = item['id'];
-    let owner = item['owner'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
@@ -68,7 +88,7 @@ class MoreInfoListingSpec extends Component {
 
         <div className="sellerAndRating">
           <div className="seller">
-            {owner}
+            {this.state.owner}
           </div>
           <div className="rating">
             rating <Star />
@@ -79,8 +99,12 @@ class MoreInfoListingSpec extends Component {
 
         <div className="btnContainer">
           <div className="cartBtn">
-            <div className="itemBtnText" onClick={() => {addCartItem(itemID)}}>
-              Add to Cart
+            <div className="itemBtnText" onClick={this.addItemHandler}>
+              <Route render={({ history}) => (
+                  <button className='addButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
+                    Add to Cart
+                  </button>
+                )}/>
             </div>
           </div>
           <div className="removeBtn">
