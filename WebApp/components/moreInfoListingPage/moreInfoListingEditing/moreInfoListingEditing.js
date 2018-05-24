@@ -7,6 +7,9 @@ import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 
 import { Route } from 'react-router-dom'
 
+import cF from '../../../neonFunctions/contractFunctions'
+import * as firebase from 'firebase'
+
 
 class MoreInfoListingEditing extends Component {
   constructor(props, context) {
@@ -65,6 +68,20 @@ class MoreInfoListingEditing extends Component {
       })
     } else {
       console.log('editPost backend logic goes here.')
+      var currentUser = firebase.auth().currentUser.uid;
+      console.log(this.props.item.id)
+      console.log(typeof(this.props.item.id))
+      console.log(currentUser)
+      console.log(typeof(currentUser))
+      console.log(this.state.title)
+      console.log(typeof(this.state.title))
+      console.log(this.state.description)
+      console.log(typeof(this.state.description))
+      console.log(this.state.price)
+      console.log(typeof(this.state.price))
+      console.log(this.props.item.amount)
+      console.log(typeof(this.props.item.amount))
+      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount);
     }
   }
 

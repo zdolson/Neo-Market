@@ -9,7 +9,7 @@ const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -28,8 +28,13 @@ module.exports = {
     getNeoUsPrice: () => {
         return new Promise ((resolve,reject) => {
             Neon.get.price('NEO').then(price => {
+                if (debug) {
+                    console.log(price);
+                    console.log(typeof(price));
+                }
                 resolve(price.toString());
             }).catch(err => {
+                console.log(err);
                 reject(err);
             })
         })
@@ -73,13 +78,6 @@ module.exports = {
                 firebase.initializeApp(firebaseConfig);
             }
 
-            // Need authentication to allow access to database.
-            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-            });
-
             // Gets buyer info from firebase
             firebase.database().ref('/Users/'+buyerName).once('value').then(snapshot => {
                 var bWif = snapshot.child('wif').val();
@@ -89,44 +87,68 @@ module.exports = {
                     address: buyerAccount.address
                 };
                 node.getBalance(buyerAccount.address).then(balance => {
-                    node.getRPCEndpoint().then(rpcEndpoint => {
-                        var client = Neon.create.rpcClient(rpcEndpoint);
-                        var multipleIntents = [];
-                        for (let i = 0; i < ownersArray.length; i++){
-                            var currOwnerName = ownersArray[i];
-                            firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
-                                var oWif = snapshot.child('wif').val();
-                                var ownerAccount = Neon.create.account(oWif);
-                                var currCost = costArray[i];
-                                multipleIntents = multipleIntents.concat(neon.api.makeIntent({NEO:currCost}, ownerAccount.address));
-                                if (i == ownersArray.length - 1){
-                                    const sendConfig = {
-                                      net: config.RESTEndpoint,
-                                      address: buyerAccount.address,  // This is the address which the assets come from.
-                                      privateKey: buyerAccount.privateKey,
-                                      intents: multipleIntents
-                                    };
-
-                                    Neon.sendAsset(sendConfig).then(sendConfig => {
-                                        if (debug) {
-                                            console.log(sendConfig.response);
-                                        }
-                                        resolve(sendConfig);
-                                    }).catch(sendConfig => {
-                                        if (debug) {
-                                            console.log(sendConfig);
-                                        }
-                                        reject(sendConfig);
-                                    })
-                                }
-                             })
-                         }
-                    }).catch(err => {
-                        if (debug){
-                            console.error('multipurchase(): err: ', err);
+                    var multipleIntents = [];
+                    //---- testing code below
+                    console.log('ownersArray before purge: ' + ownersArray);
+                    console.log('current size of ownersArray: ' + ownersArray.length);
+                    // for each user in ownersArray, compare with all other users in ownersArray, strictly moving forward.
+                    var i = 0;
+                    while (i < ownersArray.length && ownersArray[i] !== null){
+                        var currentTotalCost = parseInt(costArray[i]);
+                        var removedFlag = 0;
+                        var j = i + 1;
+                        while (j < ownersArray.length && ownersArray[j] !== null){
+                            if (ownersArray[i] === ownersArray[j]){
+                                console.log('i and j: '+i+', '+j);
+                                // copies.push(j); //add copy to array for later removal
+                                currentTotalCost += parseInt(costArray[j]);
+                                // newCost.push() // update cost for specific user
+                                ownersArray.splice(j, 1);
+                                costArray.splice(j, 1);
+                                // removedFlag = 1;
+                                // don't increment since we removed elements
+                                continue;
+                            } else {
+                                j++;
+                            }
                         }
-                        reject(err);
-                    })
+                        console.log('currentTotalCost: ' + currentTotalCost);
+                        costArray[i] = currentTotalCost;
+                        i++;
+                    }
+
+                    console.log('ownersArray after purge: ' + ownersArray);
+                    console.log('current size of ownersArray: ' + ownersArray.length);
+                    //---- current production code with flaw
+                    for (let i = 0; i < ownersArray.length; i++){
+                        var currOwnerName = ownersArray[i];
+                        firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
+                            var oWif = snapshot.child('wif').val();
+                            var ownerAccount = Neon.create.account(oWif);
+                            var currCost = costArray[i];
+                            multipleIntents = multipleIntents.concat(neon.api.makeIntent({NEO:currCost}, ownerAccount.address));
+                            if (i == ownersArray.length - 1){
+                                const sendConfig = {
+                                  net: config.RESTEndpoint,
+                                  address: buyerAccount.address,  // This is the address which the assets come from.
+                                  privateKey: buyerAccount.privateKey,
+                                  intents: multipleIntents
+                                };
+
+                                Neon.sendAsset(sendConfig).then(sendConfig => {
+                                    if (debug) {
+                                        console.log(sendConfig.response);
+                                    }
+                                    resolve(sendConfig);
+                                }).catch(sendConfig => {
+                                    if (debug) {
+                                        console.log(sendConfig);
+                                    }
+                                    reject(sendConfig);
+                                })
+                            }
+                         })
+                     }
                  }).catch(err => {
                      if (debug){
                          console.error('multipurchase(): err: ', err);
@@ -160,13 +182,6 @@ module.exports = {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
-
-            // Need authentication to allow access to database.
-            firebase.auth().signInWithEmailAndPassword('nccheung@ucsc.edu', 'nccheung').then(console.log('Login successfully')).catch(function(error) {
-              // Handle Errors here.
-              var errorCode = error.code;
-              var errorMessage = error.message;
-            });
 
             // ownerName = 'XdwT8CqBZ0Q4JOLrlhk6MKHdOvF2';
             // buyerName = 'DewA2n3NBHb6MpLvKEgsmrqYp2y1';
@@ -251,6 +266,52 @@ module.exports = {
         })
     },
 
+    // cF.getUserPostsFromStorage(firebase.auth().currentUser.uid).then( result => {
+    //     console.log(result);
+    //     result = result.replace(/[^\x20-\x7E]/g, '');
+    //     cF.getAddressFromUser(result).then(post => {
+    //         for(let i = 0; i < post.length; i++){
+    //             console.log('post[i]: ' + post[i]);
+    //         }
+    //     })
+    // })
+
+    getPostFromStorage: (userPostingAddr) => {
+        // console.log(userPostingAddr);
+        return new Promise((resolve,reject) => {
+            node.getStorage(userPostingAddr).then(userPosting => {
+                userPosting = userPosting.replace(/[^\x20-\x7E]/g, '');
+                // userPosting = userPosting.split(';');
+                if(debug){
+                    console.log('getPostFromStorage(): userPosting: ', userPosting);
+                }
+                resolve(userPostingAddr + ';' + userPosting);
+                // var postingArray = []
+                // for (var i = 0; i < userPosting.length-1; i++){
+                //     node.getStorage(userPosting[i]).then(post => {
+                //         if(debug){
+                //             console.log('getPostFromStorage(): post: ', post);
+                //         }
+                //         postingsArray.push(post);
+                //     }).catch(err => {
+                //         if(debug){
+                //             console.error('getPostFromStorage(): err: ', err);
+                //         }
+                //     })
+                //     if(i == userPostings.length-1){
+                //         resolve(postingsArray);
+                //     }
+                // }
+
+            }).catch(err => {
+                if(debug){
+                    console.error('getPostFromStorage(): err: ', err);
+                }
+                reject(err);
+            })
+        })
+    },
+
     /*
      * @Function: getAddressFromUser
      * @Contributor: Zachary Olson
@@ -258,16 +319,27 @@ module.exports = {
      * @Return: {string} address
      * Purpose: Returns the String, address, under a username on the SC.
      */
-    getAddressFromUser: (name) => {
+    getPostingIDsFromUser: (name) => {
         return new Promise((resolve,reject) => {
-            node.getStorage(name).then(address => {
-                if (debug){
-                    console.log('getAddressFromUser(): address: ', address);
-                }
-                resolve(address);
+            node.getStorage(name).then(postingIDsAddr => {
+                postingIDsAddr = postingIDsAddr.replace(/[^\x20-\x7E]/g, '');
+                node.getStorage(postingIDsAddr).then(postingIDsArray => {
+                    postingIDsArray = postingIDsArray.replace(/[^\x20-\x7E]/g, '');
+                    postingIDsArray = postingIDsArray.split(',');
+                    if (debug){
+                        console.log('getPostingIDsFromUser(): postingIDsArray: ', postingIDsArray);
+                        console.log(typeof(postingIDsArray));
+                    }
+                    resolve(postingIDsArray);
+                }).catch(err => {
+                    if (debug){
+                        console.error('getPostingIDsFromUser(): err: ', err);
+                    }
+                    reject(err);
+                })
             }).catch(err => {
                 if (debug){
-                    console.error('getAddressFromUser(): err: ', err);
+                    console.error('getPostingIDsFromUser(): err: ', err);
                 }
                 reject(err);
             })
@@ -283,24 +355,46 @@ module.exports = {
      */
     getUserPostsFromStorage: (name) => {
         return new Promise((resolve,reject) => {
-            module.exports.getAddressFromUser(name).then(address => {
-                node.getStorage(address).then(res => {
-                    let posts = res.split(';');
-                    if (debug){
-                        console.log('getUserPostsFromStorage(): posts: ', posts);
-                    }
-                    resolve(posts);
-                }).catch(err => {
-                    if (debug){
-                        console.error('getUserPostsFromStorage(): err: ', err);
-                    }
-                    reject(err);
-                })
-            }).catch(err => {
-                if (debug){
-                    console.error('getUserPostsFromStorage(): err: ', err);
+            module.exports.getPostingIDsFromUser(name).then(postingIDs => {
+                var userPosts = [];
+                console.log(postingIDs);
+                for (var i = 0; i < postingIDs.length - 1; i++) {
+                    module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
+                        if (debug) {
+                            console.log('getUserPostsFromStorage(): post: ', post);
+                            // console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                        }
+                        let cutPost = post.split(';');
+                        if (debug) {
+                            console.log('getUserPostsFromStorage(): cutPosts: ', cutPost);
+                        }
+                        var currItem = {
+                          id: cutPost[0],
+                          owner: cutPost[1],
+                          title: cutPost[2],
+                          description: cutPost[3],
+                          price: cutPost[4],
+                          amount: cutPost[5],
+                        }
+                        if (debug) {
+                            console.log('getUserPostsFromStorage(): currItem: ', currItem);
+                        }
+                        userPosts.push(currItem);
+
+                        if(userPosts.length == postingIDs.length-1) {
+                            if (debug){
+                                console.log('getUserPostsFromStorage(): userPosts: ', userPosts);
+                                console.log(userPosts.length);
+                            }
+                            resolve(userPosts);
+                        }
+                    }).catch(err => {
+                        if (debug){
+                            console.error('getUserPostsFromStorage(): err: ', err);
+                        }
+                        reject(err);
+                    })
                 }
-                reject(err);
             })
         })
     },
@@ -342,32 +436,40 @@ module.exports = {
             var currItem = {};
             module.exports.getAllUsersFromStorage().then(userList => {
                 for (var i = 0; i < userList.length - 1; i++) {
-                    module.exports.getUserPostsFromStorage(userList[i]).then((posts) => {
+                    module.exports.getUserPostsFromStorage(userList[i]).then((userPosts) => {
                         if (debug) {
-                            console.log('getAllPostsFromStorage(): posts: ', posts);
-                            console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                            console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
+                            // console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                            // console.log(userPosts.length);
                         }
-                        if (posts.length > 1){
-                            for (var j = 0; j < posts.length - 1; j++){
-                                let cutPosts = posts[j].split(',');
-                                if (debug) {
-                                    console.log('getAllPostsFromStorage(): cutPosts: ', cutPosts);
-                                }
-                                currItem = {
-                                  id: cutPosts[0],
-                                  owner: cutPosts[1],
-                                  title: cutPosts[2],
-                                  description: cutPosts[3],
-                                  price: cutPosts[4],
-                                  amount: cutPosts[5],
-                                }
-                                if (debug) {
-                                    console.log('getAllPostsFromStorage(): currItem: ', currItem);
-                                }
-                                allPosts.push(currItem);
-                            }
-                        }
-                        if(i == userList.length - 1) {
+                        // if (posts.length > 1){
+                        //     for (var j = 0; j < posts.length - 1; j++){
+                        //         let cutPosts = posts[j].split(',');
+                        //         if (debug) {
+                        //             console.log('getAllPostsFromStorage(): cutPosts: ', cutPosts);
+                        //         }
+                        //         currItem = {
+                        //           id: cutPosts[0],
+                        //           owner: cutPosts[1],
+                        //           title: cutPosts[2],
+                        //           description: cutPosts[3],
+                        //           price: cutPosts[4],
+                        //           amount: cutPosts[5],
+                        //         }
+                        //         if (debug) {
+                        //             console.log('getAllPostsFromStorage(): currItem: ', currItem);
+                        //         }
+                        //         allPosts.push(currItem);
+                        //     }
+                        // }
+                        // console.log(userPosts.length);
+                        // for (var j = 0; j < userPosts.length; j++){
+                        //     var item = userPosts[j];
+                        //     console.log(item);
+                        //     allPosts.push(item);
+                        // }
+                        allPosts = allPosts.concat(userPosts);
+                        if(i == userList.length -1) {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
@@ -484,6 +586,46 @@ module.exports = {
         })
     },
 
+    /*
+     * @Function: editPost
+     * @Contributor: Zachary Olson
+     * @Param: {string} id
+     * @Param: {string} owner
+     * @Param: {string} title
+     * @Param: {string} desc
+     * @Param: {string} price
+     * @Param: {string} amount
+     * @Return: Nothing
+     * Purpose: Creates a Post on the smart contract.
+     *          Calls invokeContract() with createpost function to smart contract.
+     */
+    editPost: (id, owner, title, desc, price, amount) => {
+        id = id.replace(/[^\x20-\x7E]/g, '');
+        owner = owner.replace(/[^\x20-\x7E]/g, '');
+        title = title.replace(/[^\x20-\x7E]/g, '');
+        desc = desc.replace(/[^\x20-\x7E]/g, '');
+        // price = price.replace(/[^\x20-\x7E]/g, '');
+        // amount = amount.replace(/[^\x20-\x7E]/g, '');
+        console.log(id+owner+title+desc+price+amount);
+        node.invokeContract('editpost', [id,owner,title,desc,price,amount], account, (res) => {
+            if (debug){
+                console.log('editPost(): res: ');
+                console.dir(res);
+            }
+            if (res.result === true) {
+                if (debug){
+                    console.log('editPost(): Transaction successful.')
+                }
+                //can do other things if successful, like transition pages, etc.
+            } else {
+                if (debug){
+                    console.log('editPost(): Transaction failed.')
+                }
+                //can do other things if failed, like scream at user.
+            }
+        })
+    },
+
     // NOT YET IMPLEMENTED! -in the works 4/9
     /*
      * @Function: deletePost
@@ -508,73 +650,6 @@ module.exports = {
             } else {
                 if (debug){
                     console.log('deletePost(): Transaction failed.')
-                }
-                //can do other things if failed, like scream at user.
-            }
-        })
-    },
-
-
-    /*
-     * @Function: createPost
-     * @Contributor: Zachary Olson
-     * @Param: {string} id
-     * @Param: {string} owner
-     * @Param: {string} title
-     * @Param: {string} desc
-     * @Param: {string} price
-     * @Param: {string} amount
-     * @Return: Nothing
-     * Purpose: Creates a Post on the smart contract.
-     *          Calls invokeContract() with createpost function to smart contract.
-     */
-    editPost: (id, owner, title, desc, price, amount) => {
-        node.invokeContract('editpost', [id,owner,title,desc,price,amount], account, (res) => {
-            if (debug){
-                console.log('editpost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
-                if (debug){
-                    console.log('editpost(): Transaction successful.')
-                }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('editpost(): Transaction failed.')
-                }
-                //can do other things if failed, like scream at user.
-            }
-        })
-    },
-
-    /*
-     * @Function: createPost
-     * @Contributor: Zachary Olson
-     * @Param: {string} id
-     * @Param: {string} owner
-     * @Param: {string} title
-     * @Param: {string} desc
-     * @Param: {string} price
-     * @Param: {string} amount
-     * @Return: Nothing
-     * Purpose: Creates a Post on the smart contract.
-     *          Calls invokeContract() with createpost function to smart contract.
-     */
-    deletepost: (id, owner) => {
-        node.invokeContract('deletepost', [id,owner], account, (res) => {
-            if (debug){
-                console.log('deletepost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
-                if (debug){
-                    console.log('deletepost(): Transaction successful.')
-                }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('deletepost(): Transaction failed.')
                 }
                 //can do other things if failed, like scream at user.
             }
