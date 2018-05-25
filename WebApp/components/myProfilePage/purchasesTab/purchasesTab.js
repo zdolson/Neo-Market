@@ -25,6 +25,7 @@ class PurchasesTab extends Component {
     let items = this.props.state.items;
     var myPurchases = this.props.state.myPurchases;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
+    var nonPurchasedItems = this.props.nonPurchasedItems;
     console.log(myPurchases)
     // Taking the myPurchases param passed in from app, goes through 
     // the list and gets the item information corresponding to listingID.

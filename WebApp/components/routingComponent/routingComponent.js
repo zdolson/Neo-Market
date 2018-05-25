@@ -45,6 +45,7 @@ class RoutingComponent extends Component {
     var resetCartItemState = this.props.resetCartItemState;
     var returnNonPurchasedItems = this.props.returnNonPurchasedItems;
     var addToMyPurchases = this.props.addToMyPurchases;
+    var removeItemFromNonPurchasedList = this.props.removeItemFromNonPurchasedList;
 
     return (
       <main>
@@ -59,7 +60,7 @@ class RoutingComponent extends Component {
           <Route path="/Promos" component={PromosPage} />
           <Route path="/Purchases" component={PurchasesPage} />
           <Route path="/People" component={PeoplePage} />
-          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend} removeItem={removeItem} addToMyPurchases={addToMyPurchases}/> }/>
+          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend} removeItem={removeItem} addToMyPurchases={addToMyPurchases} removeItemFromNonPurchasedList={removeItemFromNonPurchasedList} resetCartItemState={resetCartItemState}/> }/>
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (

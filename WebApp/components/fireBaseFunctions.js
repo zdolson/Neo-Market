@@ -57,68 +57,43 @@ export function pullMyPurchasesFromDatabase() {
 
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
+  var nonPurchasedList = []
   var currItem = {}
 
-  var fireBaseDatabaseRef = firebase.database().ref('/Listings/');
-  fireBaseDatabaseRef.on('value', function(snapshot) {
-    snapshot.forEach((childSnapshot) => {
-      if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
-        currItem = {
-          id: childSnapshot.child('id').val(),
-          owner: childSnapshot.child('owner').val(),
-          title: childSnapshot.child('title').val(),
-          description: childSnapshot.child('description').val(),
-          price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val(),
-          purchased: childSnapshot.child('purchased').val()
-        }
-        // // if (childSnapshot.child('purchased').val() )
-        // console.log(childSnapshot.child('purchased').val())
-        // console.log(typeof childSnapshot.child('purchased').val())
-        // if (childSnapshot.child('purchased').val() == false) {
-        //   arrayItemList.push(currItem)
-        // }
-        arrayItemList.push(currItem)
-      }
-    })
-
-    // First pass will usually be undefined so we have to account for it.
-    if(typeof arrayItemList !== 'undefined') {
-      that.setState({ items: arrayItemList})
-    }
-  })
-}
-
-export function pullNonPurchasedItemsFromDatabase(that) {
-  var arrayItemList = []
-  var currItem = {}
-
-  var fireBaseDatabaseRef = firebase.database().ref('/Listings/');
-  fireBaseDatabaseRef.on('value', function(snapshot) {
-    snapshot.forEach((childSnapshot) => {
-      if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
-        currItem = {
-          id: childSnapshot.child('id').val(),
-          owner: childSnapshot.child('owner').val(),
-          title: childSnapshot.child('title').val(),
-          description: childSnapshot.child('description').val(),
-          price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val(),
-          purchased: childSnapshot.child('purchased').val()
-        }
-        // if (childSnapshot.child('purchased').val() )
-        console.log(childSnapshot.child('purchased').val())
-        console.log(typeof childSnapshot.child('purchased').val())
-        if (childSnapshot.child('purchased').val() == false) {
+  return new Promise((resolve,reject) => { 
+    firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
+      snapshot.forEach((childSnapshot) => {
+        if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
+          currItem = {
+            id: childSnapshot.child('id').val(),
+            owner: childSnapshot.child('owner').val(),
+            title: childSnapshot.child('title').val(),
+            description: childSnapshot.child('description').val(),
+            price: childSnapshot.child('price').val(),
+            amount: childSnapshot.child('amount').val(),
+            purchased: childSnapshot.child('purchased').val()
+          }
+          // if (childSnapshot.child('purchased').val() )
+          console.log(childSnapshot.child('purchased').val())
+          console.log(typeof childSnapshot.child('purchased').val())
+          if (childSnapshot.child('purchased').val() == false) {
+            nonPurchasedList.push(currItem)
+          }
           arrayItemList.push(currItem)
         }
-      }
-    })
-
+      })
+    }).catch(function(error) {
+      console.log('An error occured while saving pulling listing data from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    });
     // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
       that.setState({ items: arrayItemList})
+      that.setState({ nonPurchasedItems: nonPurchasedList})
     }
+    resolve(arrayItemList)
   })
 }
 

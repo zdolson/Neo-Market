@@ -45,6 +45,16 @@ export class App extends Component {
           amount: 0
         }
       ],
+      nonPurchasedItems: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
+      ],
       users: [
         {
           fullName: 'defaultfullName',
@@ -87,6 +97,7 @@ export class App extends Component {
     this.resetCartItemState = this.resetCartItemState.bind(this);
     this.returnNonPurchasedItems = this.returnNonPurchasedItems.bind(this);
     this.addToMyPurchases = this.addToMyPurchases.bind(this);
+    this.removeItemFromNonPurchasedList = this.removeItemFromNonPurchasedList.bind(this);
   }
 
   componentWillMount () {
@@ -167,19 +178,41 @@ export class App extends Component {
 
   removeStateListings(id) {
     console.log('Going to removeListing')
+    var index = this.state.myListings.indexOf(id)
+    if(index != -1){
+      this.state.myListings.splice(index, 1)
+      this.setState({ myListings: this.state.myListings})
+    }
+  }
 
+  removeItemFromNonPurchasedList(id) {
+    console.log('Going to remove Item from nonPurhcasedList')
+    console.log(id)
+    console.log(this.state.nonPurchasedItems)
+    //If the item is also in the cart then it will be removed as well. Else it will just keep going.
+    for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
+      var currItem = this.state.nonPurchasedItems[i]
+      if (currItem['id'] == id) {
+        this.state.nonPurchasedItems.splice(i, 1)
+      }
+      console.log('>>>> GOING TO RETURN! >>>>>')
+      console.log(this.state.nonPurchasedItems)
+      console.log(this.state.cartItems)
+      console.log('>>>>> END >>>>>>')
+      this.setState({ nonPurchasedItems: this.state.nonPurchasedItems});
+    }
   }
 
   returnNonPurchasedItems() {
-    var nonPurchItemList = []
+    var nonPurchItemList = this.state.nonPurchasedItems
     for(var i=0; i<this.state.items.length;i++) {
       if(this.state.items[i]['purchased'] == false) {
         nonPurchItemList.push(this.state.items[i])
       }
     }
     console.log(nonPurchItemList)
-    // this.setState({ nonPurchasedItems: nonPurchItemList })
-    return nonPurchItemList
+    this.setState({ nonPurchasedItems: nonPurchItemList })
+    // return nonPurchItemList
   }
 
   isIDInItemList(id) {
@@ -194,9 +227,9 @@ export class App extends Component {
   }
 
   returnCheckOutDataByID(id){
-    console.log(id)
+    // console.log(id)
     var dict = this.state.items
-    console.log(dict)
+    // console.log(dict)
     if (this.isIDInItemList(id) == true){
       for (let key in dict) {
         if (dict[key]['id'] == id) {
@@ -294,7 +327,8 @@ export class App extends Component {
       )
     }
 
-    console.log(this.state.items)
+    // console.log(this.state.items)
+    // console.log(this.state.nonPurchasedItems)
 
     return (
       <main>
@@ -327,6 +361,7 @@ export class App extends Component {
             resetCartItemState = {this.resetCartItemState}
             returnNonPurchasedItems = {this.returnNonPurchasedItems}
             addToMyPurchases = {this.addToMyPurchases}
+            removeItemFromNonPurchasedList = {this.removeItemFromNonPurchasedList}
           />
         </div>
       </main>
