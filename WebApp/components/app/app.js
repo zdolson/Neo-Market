@@ -86,19 +86,15 @@ export class App extends Component {
     this.removeMyListing = this.removeMyListing.bind(this);
   }
 
-  componentWillMount () {
-    if (!this.props.useFirebaseBackend) {
-      console.log('Pulling listings from backend')
-      cF.getAllPostsFromStorage(this);
-    }
-  }
-
   componentDidMount() {
     if (this.props.useFirebaseBackend) {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       getCartItemsFromDatabase(this)
       getMyListings(this)
+    } else {
+      console.log('Pulling listings from backend')
+      cF.getAllPostsFromStorage(this);
     }
     this.updateNeoPrice();
   }
