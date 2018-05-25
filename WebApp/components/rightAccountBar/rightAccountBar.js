@@ -27,9 +27,10 @@ export class RightAccountBar extends Component {
   }
 
   render () {
+    var cartItems = this.props.cartItems;
     return (
       <div className="rightAccountNav">
-        <RightAccountBarContent />
+        <RightAccountBarContent cartItems={cartItems}/>
         <Stylesheet sheet={sheet} />
       </div>
     )

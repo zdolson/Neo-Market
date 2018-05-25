@@ -181,8 +181,10 @@ export class App extends Component {
 
   sumTotalCartItems(){
     var currTotal = 0;
+
     for (var i = 0; i < this.state.cartItems.length; i++){
       var currCartItem = this.state.cartItems[i]
+      console.log(this.state.cartItems.length);
       var currCartItemData = this.returnCheckOutDataByID(currCartItem)
       if (currCartItemData == null) {
         break
@@ -269,7 +271,7 @@ export class App extends Component {
             removeCartItem={this.removeCartItem}
             sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
-          <RightAccountBar />
+          <RightAccountBar cartItems={this.state.cartItems}/>
           <RoutingComponent
             neoPrice={this.state.neoPrice}
             resetSearch={this.resetSearch}
