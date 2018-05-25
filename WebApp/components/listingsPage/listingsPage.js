@@ -35,7 +35,6 @@ export class ListingsPage extends Component {
   render () {
     let {filter_price, search_string, items, nonPurchasedItems} = this.props.state;
     let {search, resetSearch} = this.props;
-
     items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1 || item.description.indexOf(search_string) !== -1);
     if(filter_price == 0) {
       items = items.sort((a, b) => a.price-b.price);

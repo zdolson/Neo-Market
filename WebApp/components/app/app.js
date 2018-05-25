@@ -172,14 +172,6 @@ export class App extends Component {
     this.setState({ cartItems: [] })
   }
 
-  removeStateListings(id) {
-    var index = this.state.myListings.indexOf(id)
-    if(index != -1){
-      this.state.myListings.splice(index, 1)
-      this.setState({ myListings: this.state.myListings})
-    }
-  }
-
   removeItemFromNonPurchasedList(id) {
     for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
       var currItem = this.state.nonPurchasedItems[i]
@@ -299,7 +291,6 @@ export class App extends Component {
         </main>
       )
     }
-
     return (
       <main>
         <div>
