@@ -26,16 +26,18 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 }
 
 .titleAndPrice {
+  width: 300px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: flex-start;
   height: auto;
   // padding-bottom: 5px;
 }
 
 .title {
   flex: 2;
+  overflow-x: hidden;
   line-height: 35px;
   font-size: 35px;
   height: auto;
@@ -44,17 +46,22 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 .prices {
   display: flex;
   flex: 1;
+  overflow-x: hidden;
   flex-direction: column;
   align-items: flex-end;
 }
 
 .neoPrice {
+  width: 90px;
+  overflow-x: hidden;
   color: $neoGreen;
   font-size: 20px;
   font-weight: 200;
 }
 
 .usPrice {
+  width: 90px;
+  overflow-x: hidden;
   color: $lightBlue;
   font-size: 10px;
   font-weight: 200;
@@ -76,6 +83,8 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 }
 
 .sellerAndRating {
+  width: 300px;
+  overflow-x: hidden;
   margin-top: 10px;
   display: flex;
   flex-direction: row;
@@ -86,11 +95,17 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 }
 
 .seller {
+  // width: 200px;
+  height: 25px;
+  overflow-x: hidden;
   flex: 2;
   color: $lightBlue;
 }
 
 .rating {
+  // width: 100px;
+  height: 25px;
+  overflow-x: hidden;
   flex: 1;
   color: $offWhite;
   text-align: right;
