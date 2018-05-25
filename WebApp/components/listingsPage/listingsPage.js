@@ -2,10 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingsPage.scss'
 import Listing from './listing/listing.js'
-
-// Import for react-router package.
 import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
-
 
 /**
 
@@ -36,7 +33,7 @@ export class ListingsPage extends Component {
   }
 
   render () {
-    let {filter_price, search_string, items} = this.props.state;
+    let {filter_price, search_string, items, nonPurchasedItems} = this.props.state;
     let {search, resetSearch} = this.props;
     items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1 || item.description.indexOf(search_string) !== -1);
     if(filter_price == 0) {
@@ -47,7 +44,7 @@ export class ListingsPage extends Component {
     return (
       <div className='listings'>
 
-        {items.map( (item, key) => {
+        {nonPurchasedItems.map( (item, key) => {
           let last = false
           if(key == items.length-1) last=true;
           var link = '/MoreInfoItem/'+item.id;

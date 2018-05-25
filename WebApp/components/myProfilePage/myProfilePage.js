@@ -16,27 +16,13 @@ class MyProfilePage extends Component {
         ListingsTab,
         PurchasesTab,
         WalletTab
-      ],
-      purchases: [
-        {
-          id: 'defaultValue',
-          owner:'...',
-          title: '...',
-          description: '...',
-          price: '0',
-          amount: 0
-        }
       ]
     };
     this.handleListing = this.handleListings.bind(this);
     this.handlePurchases = this.handlePurchases.bind(this);
     this.handleWallet = this.handleWallet.bind(this);
-    this.getPurchases = this.getPurchases.bind(this);
   }
 
-  componentDidMount = () => {
-    this.getPurchases();
-  }
 
   handleListings = () => {
     this.setState( {tabSelected: 0} );
@@ -50,19 +36,13 @@ class MyProfilePage extends Component {
     this.setState( {tabSelected: 2} );
   }
 
-
-  getPurchases = () => {
-    pullMyPurchasesFromDatabase().then((val) => {
-      this.setState( {purchases: val} );
-    });
-  }
-
   render () {
     let state = this.props.state;
-    state.purchases = this.state.purchases;
     let tryAgain = this.props.tryAgain;
     let returnCheckOutDataByID = this.props.returnCheckOutDataByID;
     let myListings = this.props.state.myListings;
+    let myPurchases = this.props.state.myPurchases;
+    let nonPurchasedItems = this.props.state.nonPurchasedItems;
 
     const Tab = this.state.tabs[this.state.tabSelected];
     const styles = {

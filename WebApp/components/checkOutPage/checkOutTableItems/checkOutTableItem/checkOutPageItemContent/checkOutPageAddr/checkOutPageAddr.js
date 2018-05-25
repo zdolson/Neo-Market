@@ -14,7 +14,6 @@ Purpose: Component to hold the logic for getting addresses
 
 export class CheckOutPageAddr extends Component {
   constructor (props, context) {
-    console.log('checkOutPageAddr was created.')
     super(props, context)
     this.state = {
       // stuff goes here

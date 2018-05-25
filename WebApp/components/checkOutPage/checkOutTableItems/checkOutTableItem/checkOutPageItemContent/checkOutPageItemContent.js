@@ -19,7 +19,6 @@ Purpose: A single component that holds the address, price, and title for an item
 
 export class CheckOutPageItemContent extends Component {
   constructor (props, context) {
-    console.log('CheckOutPageItemContent was created.')
     super(props, context)
     this.state = {
       // stuff goes here
