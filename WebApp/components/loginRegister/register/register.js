@@ -5,6 +5,7 @@ import sheet from './register.scss'
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import {registerUserToDatabase} from '../../fireBaseFunctions.js'
 import cF from '../../../neonFunctions/contractFunctions'
+import neon from '@cityofzion/neon-js'
 // import sha256
 
 class Register extends Component {

@@ -217,35 +217,6 @@ export function editPostingToDatabase(id, description, title, price, imageFile, 
   });
 }
 
-export function pullUsersFromDatabase(that){
-  var arrayUserList = []
-  var currUser = {}
-
-  firebase.database().ref('/Users/').once('value').then((snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-      currUser = {
-        fullName: childSnapshot.child('fullName').val(),
-        userName: childSnapshot.child('userName').val(),
-        email: childSnapshot.child('email').val(),
-        myListings: childSnapshot.child('myListings').val(),
-        myPurchases: childSnapshot.child('myPurchases').val(),
-        photoId: childSnapshot.child('photoId').val(),
-        password: childSnapshot.child('password').val(),
-        wif: childSnapshot.child('wif').val(),
-        myCartItems: childSnapshot.child('myCartItems').val()
-      }
-      arrayUserList.push(currUser)
-
-    });
-
-		if(typeof arrayUserList !== 'undefined') {
-			that.setState({ users: arrayUserList})
-		}
-  }).catch(err => {
-    console.error(err)
-  });
-}
-
 export function pullUserData(that) {
 	return new Promise((resolve, reject) => {
 		let ref = firebase.database().ref('/Users/'+firebase.auth().currentUser.uid);
@@ -255,15 +226,6 @@ export function pullUserData(that) {
 			reject(err);
 		});
 	});
-}
-
-function isUserRegisterd(userName, userList) {
-  for(var i = 0; i<userList.length; i++) {
-    if(userName == userList[i]){
-      return true
-    }
-  }
-  return false
 }
 
 export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif, that) {
@@ -315,10 +277,10 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 
 export function deletePosting(id, that) {
   return new Promise((resolve,reject) => {
-    // Removing post from listing database 
+    // Removing post from listing database
     firebase.database().ref('/Listings/' + id).remove().then(function() {
 
-      // Removing reference image 
+      // Removing reference image
       firebase.database().ref('/ListingImages/' + id).remove()
 
       // Removing listing ID from myListings user field
@@ -326,7 +288,7 @@ export function deletePosting(id, that) {
       firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
 
         // Make into array to more easily parse through
-        var myListingsList = snapshot.child('myListings').val().split(','); 
+        var myListingsList = snapshot.child('myListings').val().split(',');
         if(myListingsList.length == 1) {
           // If delelting last myListing, then set database value back to blank value('')
           myListingsList = ''
@@ -363,7 +325,7 @@ export function deletePosting(id, that) {
 }
 
 export function getMyListings(that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
       if (snapshot.child('myListings').val() == '') {
@@ -382,7 +344,7 @@ export function getMyListings(that) {
 }
 
 export function addCartItemToDatabaseField(id, that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
       if (snapshot.child('myCartItems').val() == '') {
@@ -411,10 +373,10 @@ export function addCartItemToDatabaseField(id, that) {
 }
 
 export function removeCartItemFromDatabase(id, that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
-      var cartItemList = snapshot.child('myCartItems').val().split(','); 
+      var cartItemList = snapshot.child('myCartItems').val().split(',');
       if(cartItemList.length == 1) {
         cartItemList = ''
       } else {
@@ -443,7 +405,7 @@ export function removeCartItemFromDatabase(id, that) {
 }
 
 export function getCartItemsFromDatabase(that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
       if (snapshot.child('myCartItems').val() == '') {

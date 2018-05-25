@@ -100,21 +100,18 @@ export class App extends Component {
   }
 
   componentWillMount () {
-    if (!this.props.useFirebaseBackend) {
-      console.log('Pulling listings from backend')
-      pullUsersFromDatabase(this)
-      cF.getAllPostsFromStorage(this);
-    }
   }
 
   componentDidMount() {
     if (this.props.useFirebaseBackend) {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
-      pullUsersFromDatabase(this)
       getCartItemsFromDatabase(this)
       getMyPurchasesFromDatabase(this)
       getMyListings(this)
+    } else {
+          console.log('Pulling listings from SC')
+          cF.getAllPostsFromStorage(this);
     }
     this.updateNeoPrice();
   }
@@ -296,26 +293,26 @@ export class App extends Component {
         <div>
           <TopBar updateFilter={this.updateFilter} updateSearch={this.updateSearch}/>
           <LeftSideBar />
-          <RightSideBar 
-            cartItems={this.state.cartItems} 
-            returnCheckOutDataByID={this.returnCheckOutDataByID} 
-            addCartItem={this.addCartItem} 
-            removeCartItem={this.removeCartItem} 
+          <RightSideBar
+            cartItems={this.state.cartItems}
+            returnCheckOutDataByID={this.returnCheckOutDataByID}
+            addCartItem={this.addCartItem}
+            removeCartItem={this.removeCartItem}
             sumTotalCartItems={this.sumTotalCartItems}/>
           <LeftAccountBar />
           <RightAccountBar />
-          <RoutingComponent 
-            neoPrice={this.state.neoPrice} 
-            resetSearch={this.resetSearch} 
-            search={this.state.search} 
-            state={this.state} 
-            addCartItem={this.addCartItem} 
-            returnCheckOutDataByID={this.returnCheckOutDataByID} 
-            removeCartItem={this.removeCartItem} 
-            sumTotalCartItems={this.sumTotalCartItems} 
-            addItem={this.addItem} 
-            removeItem={this.removeItem} 
-            hasEdit={this.hasEdit} 
+          <RoutingComponent
+            neoPrice={this.state.neoPrice}
+            resetSearch={this.resetSearch}
+            search={this.state.search}
+            state={this.state}
+            addCartItem={this.addCartItem}
+            returnCheckOutDataByID={this.returnCheckOutDataByID}
+            removeCartItem={this.removeCartItem}
+            sumTotalCartItems={this.sumTotalCartItems}
+            addItem={this.addItem}
+            removeItem={this.removeItem}
+            hasEdit={this.hasEdit}
             useFirebaseBackend={this.props.useFirebaseBackend}
             addMyListing = {this.addMyListing}
             removeMyListing = {this.removeMyListing}

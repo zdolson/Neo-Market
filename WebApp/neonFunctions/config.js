@@ -5,7 +5,7 @@ module.exports = {
      * To retrieve your Script Hash: (in neo-gui: right click smart contract address > View Contract)
      */
      scriptHash: '1b938d4046367abbd97a2bce3b9b452f796d5b37',
-     //name: faith2
+     //name: testing
 
     /*
      * RESTEndpoint is an endpoint to a neon-wallet-db REST server that's connected to your desired net (MainNet, TestNet, PrivNet)
