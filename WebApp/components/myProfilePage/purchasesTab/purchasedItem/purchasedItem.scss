@@ -65,7 +65,6 @@ Purpose: Spacing and style for the purchased item
   margin-right: 3%;
   padding: 0px 5px;
   border-radius: 10px;
-  text-align: center;
   z-index: 1;
   display: flex;
   align-items: center;
@@ -73,13 +72,14 @@ Purpose: Spacing and style for the purchased item
 }
 
 .price {
-  margin-right: 7px;
+  display: inline;
+  margin-right: 4px;
   overflow-x: hidden;
   width: auto;
 }
 
 .neo {
-  width: auto;
+  margin-left: 3px;
   display: inline;
 }
 

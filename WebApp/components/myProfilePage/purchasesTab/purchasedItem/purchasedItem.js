@@ -47,7 +47,7 @@ class PurchasedItem extends Component {
 
         <div className="item-price">
            <div className="price"> {item.price} </div>
-           <div className="neo"> NEO </div>
+           <div className="neo"> {'NEO'} </div>
         </div>
 
         <div className="item-bottom">
