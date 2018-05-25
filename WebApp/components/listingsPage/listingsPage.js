@@ -2,11 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../stylesheet.js'
 import sheet from './listingsPage.scss'
 import Listing from './listing/listing.js'
-
-// Import for react-router package.
 import { Route, NavLink, Link, BrowserRouter } from "react-router-dom";
-import { pullNonPurchasedItemsFromDatabase } from '../fireBaseFunctions.js'
-
 
 /**
 
@@ -36,17 +32,9 @@ export class ListingsPage extends Component {
 
   }
 
-  // componentDidMount() {
-  //   pullNonPurchasedItemsFromDatabase()
-  // }
-
   render () {
     let {filter_price, search_string, items, nonPurchasedItems} = this.props.state;
     let {search, resetSearch} = this.props;
-
-    // filter items in here to show proper ones which arent purchased
-    // var new_items = this.props.returnNonPurchasedItems()
-    // console.log(new_items)
 
     items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1 || item.description.indexOf(search_string) !== -1);
     if(filter_price == 0) {

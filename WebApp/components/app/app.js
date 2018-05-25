@@ -95,7 +95,6 @@ export class App extends Component {
     this.addMyListing = this.addMyListing.bind(this);
     this.removeMyListing = this.removeMyListing.bind(this);
     this.resetCartItemState = this.resetCartItemState.bind(this);
-    this.returnNonPurchasedItems = this.returnNonPurchasedItems.bind(this);
     this.addToMyPurchases = this.addToMyPurchases.bind(this);
     this.removeItemFromNonPurchasedList = this.removeItemFromNonPurchasedList.bind(this);
   }
@@ -171,13 +170,9 @@ export class App extends Component {
 
   resetCartItemState() {
     this.setState({ cartItems: [] })
-    console.log(this.state.items)
-    pullDataFromDatabase(this)
-    console.log(this.state.items)
   }
 
   removeStateListings(id) {
-    console.log('Going to removeListing')
     var index = this.state.myListings.indexOf(id)
     if(index != -1){
       this.state.myListings.splice(index, 1)
@@ -186,33 +181,13 @@ export class App extends Component {
   }
 
   removeItemFromNonPurchasedList(id) {
-    console.log('Going to remove Item from nonPurhcasedList')
-    console.log(id)
-    console.log(this.state.nonPurchasedItems)
-    //If the item is also in the cart then it will be removed as well. Else it will just keep going.
     for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
       var currItem = this.state.nonPurchasedItems[i]
       if (currItem['id'] == id) {
         this.state.nonPurchasedItems.splice(i, 1)
       }
-      console.log('>>>> GOING TO RETURN! >>>>>')
-      console.log(this.state.nonPurchasedItems)
-      console.log(this.state.cartItems)
-      console.log('>>>>> END >>>>>>')
       this.setState({ nonPurchasedItems: this.state.nonPurchasedItems});
     }
-  }
-
-  returnNonPurchasedItems() {
-    var nonPurchItemList = this.state.nonPurchasedItems
-    for(var i=0; i<this.state.items.length;i++) {
-      if(this.state.items[i]['purchased'] == false) {
-        nonPurchItemList.push(this.state.items[i])
-      }
-    }
-    console.log(nonPurchItemList)
-    this.setState({ nonPurchasedItems: nonPurchItemList })
-    // return nonPurchItemList
   }
 
   isIDInItemList(id) {
@@ -227,9 +202,7 @@ export class App extends Component {
   }
 
   returnCheckOutDataByID(id){
-    // console.log(id)
     var dict = this.state.items
-    // console.log(dict)
     if (this.isIDInItemList(id) == true){
       for (let key in dict) {
         if (dict[key]['id'] == id) {
@@ -327,9 +300,6 @@ export class App extends Component {
       )
     }
 
-    // console.log(this.state.items)
-    // console.log(this.state.nonPurchasedItems)
-
     return (
       <main>
         <div>
@@ -359,7 +329,6 @@ export class App extends Component {
             addMyListing = {this.addMyListing}
             removeMyListing = {this.removeMyListing}
             resetCartItemState = {this.resetCartItemState}
-            returnNonPurchasedItems = {this.returnNonPurchasedItems}
             addToMyPurchases = {this.addToMyPurchases}
             removeItemFromNonPurchasedList = {this.removeItemFromNonPurchasedList}
           />

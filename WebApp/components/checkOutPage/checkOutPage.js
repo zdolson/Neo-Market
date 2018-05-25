@@ -35,25 +35,19 @@ export class CheckOutPage extends Component {
   }
 
   openModal() {
-    console.log("openModal()");
     this.setState({modal_is_open: true});
   }
 
   closeModal() {
-    console.log("closeModal()");
     this.setState({modal_is_open: false});
   }
 
   verificationSuccess = () => {
     var that = this;
     makePurchase(this.props.cartItems, that).then(function() {
-      console.log(that.props.cartItems)
       for(var i=0; i<that.props.cartItems.length;i++) {
-        console.log(i)
-        console.log(that.props.cartItems[i])
         that.props.addToMyPurchases(that.props.cartItems[i])
         that.props.removeItemFromNonPurchasedList(that.props.cartItems[i])
-        // that.props.removeCartItem(that.props.cartItems[i]) 
       }
       that.props.resetCartItemState()
     })

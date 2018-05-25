@@ -26,16 +26,15 @@ class PurchasesTab extends Component {
     var myPurchases = this.props.state.myPurchases;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
     var nonPurchasedItems = this.props.nonPurchasedItems;
-    console.log(myPurchases)
-    // Taking the myPurchases param passed in from app, goes through 
+
+    // Taking the myPurchases list passed in and goes through 
     // the list and gets the item information corresponding to listingID.
     var purchasesList = []
     for(var i = 0; i < myPurchases.length; i++) {
-      console.log(myPurchases[i])
       var currPurchases = returnCheckOutDataByID(myPurchases[i])
       purchasesList.push(currPurchases)
     }
-    console.log(purchasesList)
+
     return (
       <div className="purchasesPageContainer">
 

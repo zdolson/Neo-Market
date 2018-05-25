@@ -73,12 +73,12 @@ export function pullDataFromDatabase(that) {
             amount: childSnapshot.child('amount').val(),
             purchased: childSnapshot.child('purchased').val()
           }
-          // if (childSnapshot.child('purchased').val() )
-          console.log(childSnapshot.child('purchased').val())
-          console.log(typeof childSnapshot.child('purchased').val())
+          
+          // Checks to add items to a nonPurchased item list
           if (childSnapshot.child('purchased').val() == false) {
             nonPurchasedList.push(currItem)
           }
+
           arrayItemList.push(currItem)
         }
       })
@@ -88,6 +88,7 @@ export function pullDataFromDatabase(that) {
       console.log(error.message);
       reject(error);
     });
+
     // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
       that.setState({ items: arrayItemList})
@@ -480,23 +481,16 @@ export function getMyPurchasesFromDatabase(that) {
 }
 
 export function makePurchase(cartItems, that) {
-  console.log('calling makePurchase')
-  console.log(cartItems)
-  console.log(that)
   return new Promise((resolve,reject) => { 
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
-      // console.log('Inside user myPurchases')
-      // console.log(snapshot.child('myPurchases').val())
+      
+      // Getting the myPurchases field from firebase and adding the new cartItems to the user's current myPurchasesTab
       if (snapshot.child('myPurchases').val() == '') {
         var currPurchList = cartItems
-        console.log(currPurchList)
       } else {
         var currPurchList = snapshot.child('myPurchases').val().split(',');  
-        console.log(currPurchList)
-        console.log('adding list together')
         currPurchList = currPurchList.concat(cartItems)
-        console.log(currPurchList)
       }
       currPurchList = currPurchList.toString()
 
@@ -520,9 +514,8 @@ export function makePurchase(cartItems, that) {
         reject(error);
       })
 
-      // Goes into Listing and changes purchased flag to true
+      // Goes into each Listing and changes "purchased" flag to true, as to show that the item has been purchased
       for (var i=0;i < cartItems.length;i++) {
-        console.log(cartItems[i])
         firebase.database().ref('/Listings/' + cartItems[i]).update({
           purchased: true
         }).catch(function(error) {

@@ -44,9 +44,6 @@ class MyProfilePage extends Component {
     let myPurchases = this.props.state.myPurchases;
     let nonPurchasedItems = this.props.state.nonPurchasedItems;
 
-    console.log(myPurchases)
-    console.log(nonPurchasedItems)
-
     const Tab = this.state.tabs[this.state.tabSelected];
     const styles = {
       selectedStyle: {
