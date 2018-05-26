@@ -8,7 +8,7 @@ import CheckOutTableItems from './checkOutTableItems/checkOutTableItems.js'
 import TotalPurchase from './totalPurchase/totalPurchase.js'
 import CheckOutPageTotalValue from './checkOutPageTotalValue/checkOutPageTotalValue.js'
 import cF from '../../neonFunctions/contractFunctions'
-import { registerUserToDatabase } from '../fireBaseFunctions'
+import { makePurchase } from '../fireBaseFunctions'
 
 import * as firebase from 'firebase'
 
@@ -35,17 +35,23 @@ export class CheckOutPage extends Component {
   }
 
   openModal() {
-    console.log("openModal()");
     this.setState({modal_is_open: true});
   }
 
   closeModal() {
-    console.log("closeModal()");
     this.setState({modal_is_open: false});
   }
 
   verificationSuccess = () => {
-    console.log('this function fires after the WifModal verification is successful');
+    var that = this;
+    makePurchase(this.props.cartItems, that).then(function() {
+      for(var i=0; i<that.props.cartItems.length;i++) {
+        that.props.addToMyPurchases(that.props.cartItems[i])
+        that.props.removeItemFromNonPurchasedList(that.props.cartItems[i])
+      }
+      that.props.resetCartItemState()
+    })
+    //{this.purchaseLogic(cartItems, users, returnCheckOutDataByID, this)}
   }
 
   purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
@@ -97,8 +103,6 @@ export class CheckOutPage extends Component {
             <CheckOutTableItems key={key} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
-
-        {this.purchaseLogic(cartItems, users, returnCheckOutDataByID, this)}
 
         <div className="checkOutBottom">
           <div className="checkOutDetails">

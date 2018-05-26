@@ -20,7 +20,6 @@ Purpose: Component for creating each box-item in the checkout page
 
 class CheckOutTableItem extends Component {
   constructor(props, context) {
-    console.log('checkOutTableItem was created')
     super(props, context)
     this.State = {
 

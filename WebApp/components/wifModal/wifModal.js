@@ -19,12 +19,10 @@ class WifModal extends Component {
   }
 
   handleChange(event) {
-    console.log("handleChange()");
     this.setState({password: event.target.value});
   }
 
   handleSubmit(e) {
-    console.log('handleSubmit()');
     e.preventDefault();
     this.setState({loading: true});
     // firebase.auth().signInAndRetrieveDataWithEmailAndPassword(firebase.auth().currentUser.email, this.state.password).then(val => {
@@ -41,7 +39,6 @@ class WifModal extends Component {
       this.setState({loading: false});
       let {password} = snapshot.val();
       let entry = cF.sha256(this.state.password);
-      console.log('encryptedPassword:'+password+' entry:'+this.state.password+' encryptedEntry:'+entry);
       if(password === entry) {
         this.props.closeModal();
         this.props.verificationSuccess();
