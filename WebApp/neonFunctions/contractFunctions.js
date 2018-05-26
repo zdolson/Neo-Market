@@ -85,43 +85,21 @@ module.exports = {
                 };
                 node.getBalance(buyerAccount.address).then(balance => {
                     var multipleIntents = [];
-<<<<<<< HEAD
-=======
-                    //---- testing code below
-                    console.log('ownersArray before purge: ' + ownersArray);
-                    console.log('current size of ownersArray: ' + ownersArray.length);
->>>>>>> origin/master
                     // for each user in ownersArray, compare with all other users in ownersArray, strictly moving forward.
                     var i = 0;
                     while (i < ownersArray.length && ownersArray[i] !== null){
                         var currentTotalCost = parseInt(costArray[i]);
-<<<<<<< HEAD
                         var j = i + 1;
                         while (j < ownersArray.length && ownersArray[j] !== null){
                             if (ownersArray[i] === ownersArray[j]){
                                 currentTotalCost += parseInt(costArray[j]);
                                 ownersArray.splice(j, 1);
                                 costArray.splice(j, 1);
-=======
-                        var removedFlag = 0;
-                        var j = i + 1;
-                        while (j < ownersArray.length && ownersArray[j] !== null){
-                            if (ownersArray[i] === ownersArray[j]){
-                                console.log('i and j: '+i+', '+j);
-                                // copies.push(j); //add copy to array for later removal
-                                currentTotalCost += parseInt(costArray[j]);
-                                // newCost.push() // update cost for specific user
-                                ownersArray.splice(j, 1);
-                                costArray.splice(j, 1);
-                                // removedFlag = 1;
-                                // don't increment since we removed elements
->>>>>>> origin/master
                                 continue;
                             } else {
                                 j++;
                             }
                         }
-<<<<<<< HEAD
                         costArray[i] = currentTotalCost;
                         i++;
                     }
@@ -129,16 +107,6 @@ module.exports = {
                         console.log('ownersArray after purge: ' + ownersArray);
                         console.log('current size of ownersArray: ' + ownersArray.length);
                     }
-=======
-                        console.log('currentTotalCost: ' + currentTotalCost);
-                        costArray[i] = currentTotalCost;
-                        i++;
-                    }
-
-                    console.log('ownersArray after purge: ' + ownersArray);
-                    console.log('current size of ownersArray: ' + ownersArray.length);
-                    //---- current production code with flaw
->>>>>>> origin/master
                     for (let i = 0; i < ownersArray.length; i++){
                         var currOwnerName = ownersArray[i];
                         firebase.database().ref('/Users/'+currOwnerName).once('value').then(snapshot => {
@@ -153,10 +121,6 @@ module.exports = {
                                   privateKey: buyerAccount.privateKey,
                                   intents: multipleIntents
                                 };
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
                                 Neon.sendAsset(sendConfig).then(sendConfig => {
                                     if (debug) {
                                         console.log(sendConfig.response);
@@ -203,12 +167,6 @@ module.exports = {
             if (!firebase.apps.length) {
                 firebase.initializeApp(firebaseConfig);
             }
-<<<<<<< HEAD
-=======
-
-            // ownerName = 'XdwT8CqBZ0Q4JOLrlhk6MKHdOvF2';
-            // buyerName = 'DewA2n3NBHb6MpLvKEgsmrqYp2y1';
->>>>>>> origin/master
             firebase.database().ref('/Users/'+ownerName).once('value').then((snapshot) => {
                 var oWif = snapshot.child('wif').val();
                 firebase.database().ref('/Users/'+buyerName).once('value').then((snapshot) => {
