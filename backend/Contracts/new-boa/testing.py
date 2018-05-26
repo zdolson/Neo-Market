@@ -91,7 +91,7 @@ def createpost(args):
             print("done allocating id to user")
 
         # adding post to id here
-        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5]]]
+        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5]]
 
         finalInfo = serialize_array(postInfo)
         Put(GetContext(), args[0], finalInfo)
