@@ -6,6 +6,10 @@ import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import {registerUserToDatabase} from '../../fireBaseFunctions.js'
 import cF from '../../../neonFunctions/contractFunctions'
 import neon from '@cityofzion/neon-js'
+<<<<<<< HEAD
+=======
+// import sha256
+>>>>>>> origin/master
 
 class Register extends Component {
   constructor(props) {

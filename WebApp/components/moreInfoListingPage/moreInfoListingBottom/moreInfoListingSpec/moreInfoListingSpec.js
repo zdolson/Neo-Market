@@ -31,7 +31,6 @@ class MoreInfoListingSpec extends Component {
   }
 
   componentDidMount = () => {
-    console.log(this.props.item.owner);
     if(this.props.useFirebaseBackend) {
       this.setState({ owner: this.props.item.owner });
     } else {

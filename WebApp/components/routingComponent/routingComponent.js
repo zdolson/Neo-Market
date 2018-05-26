@@ -42,12 +42,15 @@ class RoutingComponent extends Component {
     var useFirebaseBackend = this.props.useFirebaseBackend;
     var addMyListing = this.props.addMyListing;
     var removeMyListing = this.props.removeMyListing;
+    var resetCartItemState = this.props.resetCartItemState;
+    var addToMyPurchases = this.props.addToMyPurchases;
+    var removeItemFromNonPurchasedList = this.props.removeItemFromNonPurchasedList;
 
     return (
       <main>
         <Switch>
           <Route exact path="/" render={ () => <ListingsPage state={state} resetSearch={resetSearch} search={search} /> } />
-          <Route path="/Listings" render={ () => <ListingsPage state={state} resetSearch={resetSearch} search={search} /> } />
+          <Route path="/Listings" render={ () => <ListingsPage state={state} resetSearch={resetSearch} search={search}/> } />
           <Route path="/Post"  render={ () => <MakePost addItem={addItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend} addMyListing={addMyListing}/> } />
           <Route path="/Profile" render={ () => <MyProfilePage state={state} returnCheckOutDataByID={returnCheckOutDataByID}/> } />
           <Route path="/Forums" component={ForumsPage} />
@@ -56,7 +59,7 @@ class RoutingComponent extends Component {
           <Route path="/Promos" component={PromosPage} />
           <Route path="/Purchases" component={PurchasesPage} />
           <Route path="/People" component={PeoplePage} />
-          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend}/> }/>
+          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend} removeItem={removeItem} addToMyPurchases={addToMyPurchases} removeItemFromNonPurchasedList={removeItemFromNonPurchasedList} resetCartItemState={resetCartItemState}/> }/>
           {items.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (

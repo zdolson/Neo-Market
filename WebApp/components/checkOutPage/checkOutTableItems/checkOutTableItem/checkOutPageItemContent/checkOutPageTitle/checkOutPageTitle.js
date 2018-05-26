@@ -14,7 +14,6 @@ Purpose: Component for holding the logic/rendering of the Title of the item in t
 
 export class CheckOutPageTitle extends Component {
   constructor (props, context) {
-    console.log('checkOutPageTitle was created.')
     super(props, context)
     this.state = {
       // stuff goes here
