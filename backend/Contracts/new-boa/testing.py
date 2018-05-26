@@ -61,7 +61,7 @@ def register(args):
         5. {int} price
         6. {int} amount
         7. {string} image
-        8. {string} purchased? status
+        8. {boolean} purchased? status
 @Return: void
 Purpose: for each register call, append the name to master list
 ```createPost: (id, owner, title, desc, price, amount)```
@@ -92,7 +92,6 @@ def createpost(args):
             print("done allocating id to user")
 
         # adding post to id here
-
         postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5], ';', args[6], ';', args[7]]
 
         finalInfo = serialize_array(postInfo)
