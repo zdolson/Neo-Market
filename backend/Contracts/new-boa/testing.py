@@ -61,7 +61,7 @@ def register(args):
         5. {int} price
         6. {int} amount
         7. {string} image
-        8. {string} purchased? status
+        8. {boolean} purchased? status
 @Return: void
 Purpose: for each register call, append the name to master list
 ```createPost: (id, owner, title, desc, price, amount)```
