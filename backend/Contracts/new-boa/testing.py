@@ -92,7 +92,7 @@ def createpost(args):
             print("done allocating id to user")
 
         # adding post to id here
-        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5]]]
+        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5], ';', args[6], ';', args[7]]
 
         finalInfo = serialize_array(postInfo)
         Put(GetContext(), args[0], finalInfo)
@@ -206,8 +206,6 @@ def isregister(args):
 Purpose: Runs the smart contract and acts accordingly to the user and their respective args
 """
 def editpost(args):
-    length = 7
-    i = 1 # trying to avoid "ID" from being tagged
     userPosts = Get(GetContext(), args[0]) # getting the id
     if not userPosts:
         Log("not a valid user, cant edit post")
