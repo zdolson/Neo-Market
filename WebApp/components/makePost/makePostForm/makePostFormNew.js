@@ -52,7 +52,10 @@ export class MakePostForm extends Component {
       })
     } else {
       console.log('Using makePost backend')
-      cF.createPost(id, currentUser, title, description, price, amount)
+      console.log(currentUser);
+      cF.createPost(id, currentUser, title, description, price, amount).then(result => {
+          console.log('makePost results: ' + result);
+      })
     }
   }
 

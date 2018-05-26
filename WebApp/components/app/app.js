@@ -99,9 +99,6 @@ export class App extends Component {
     this.removeItemFromNonPurchasedList = this.removeItemFromNonPurchasedList.bind(this);
   }
 
-  componentWillMount () {
-  }
-
   componentDidMount() {
     if (this.props.useFirebaseBackend) {
       console.log('Pulling listings from firebase')
