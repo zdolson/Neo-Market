@@ -18,7 +18,7 @@ import cF from '../../neonFunctions/contractFunctions'
 
 import * as firebase from 'firebase'
 
-import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase, getMyListings } from '../fireBaseFunctions.js'
+import { pullDataFromDatabase, pullUsersFromDatabase, getCartItemsFromDatabase, getMyListings, getMyPurchasesFromDatabase } from '../fireBaseFunctions.js'
 
 /**
 
@@ -45,7 +45,16 @@ export class App extends Component {
           amount: 0
         }
       ],
-
+      nonPurchasedItems: [
+        {
+          id: 'defaultValue',
+          owner:'...',
+          title: '...',
+          description: '...',
+          price: '0',
+          amount: 0
+        }
+      ],
       users: [
         {
           fullName: 'defaultfullName',
@@ -66,6 +75,7 @@ export class App extends Component {
       search: false,
       neoPrice: 0,
       myListings: [],
+      myPurchases: []
     }
 
     // Function List
@@ -84,9 +94,9 @@ export class App extends Component {
     this.updateNeoPrice = this.updateNeoPrice.bind(this);
     this.addMyListing = this.addMyListing.bind(this);
     this.removeMyListing = this.removeMyListing.bind(this);
-  }
-
-  componentWillMount () {
+    this.resetCartItemState = this.resetCartItemState.bind(this);
+    this.addToMyPurchases = this.addToMyPurchases.bind(this);
+    this.removeItemFromNonPurchasedList = this.removeItemFromNonPurchasedList.bind(this);
   }
 
   componentDidMount() {
@@ -94,6 +104,7 @@ export class App extends Component {
       console.log('Pulling listings from firebase')
       pullDataFromDatabase(this)
       getCartItemsFromDatabase(this)
+      getMyPurchasesFromDatabase(this)
       getMyListings(this)
     } else {
           console.log('Pulling listings from SC')
@@ -137,6 +148,10 @@ export class App extends Component {
     this.setState({ myListings: this.state.myListings.concat(id) })
   }
 
+  addToMyPurchases(id) {
+    this.setState({ myPurchases: this.state.myPurchases.concat(id) })
+  }
+
   removeMyListing(id) {
     var index = this.state.myListings.indexOf(id)
     if(index != -1){
@@ -145,7 +160,20 @@ export class App extends Component {
     }else{
       console.log("Could not find a myListing item to delete.")
     }
+  }
 
+  resetCartItemState() {
+    this.setState({ cartItems: [] })
+  }
+
+  removeItemFromNonPurchasedList(id) {
+    for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
+      var currItem = this.state.nonPurchasedItems[i]
+      if (currItem['id'] == id) {
+        this.state.nonPurchasedItems.splice(i, 1)
+      }
+      this.setState({ nonPurchasedItems: this.state.nonPurchasedItems});
+    }
   }
 
   isIDInItemList(id) {
@@ -287,6 +315,9 @@ export class App extends Component {
             useFirebaseBackend={this.props.useFirebaseBackend}
             addMyListing = {this.addMyListing}
             removeMyListing = {this.removeMyListing}
+            resetCartItemState = {this.resetCartItemState}
+            addToMyPurchases = {this.addToMyPurchases}
+            removeItemFromNonPurchasedList = {this.removeItemFromNonPurchasedList}
           />
         </div>
       </main>

@@ -14,7 +14,6 @@ Purpose: Component to hold logic/rendering for checkout page pricing
 
 export class CheckOutPagePrice extends Component {
   constructor (props, context) {
-    console.log('checkOutPagePrice was created!')
     super(props, context)
     this.state = {
       // stuff goes here

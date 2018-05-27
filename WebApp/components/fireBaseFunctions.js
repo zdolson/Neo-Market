@@ -57,29 +57,44 @@ export function pullMyPurchasesFromDatabase() {
 
 export function pullDataFromDatabase(that) {
   var arrayItemList = []
+  var nonPurchasedList = []
   var currItem = {}
 
-  var fireBaseDatabaseRef = firebase.database().ref('/Listings/');
-  fireBaseDatabaseRef.on('value', function(snapshot) {
-    snapshot.forEach((childSnapshot) => {
-      if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
-        currItem = {
-          id: childSnapshot.child('id').val(),
-          owner: childSnapshot.child('owner').val(),
-          title: childSnapshot.child('title').val(),
-          description: childSnapshot.child('description').val(),
-          price: childSnapshot.child('price').val(),
-          amount: childSnapshot.child('amount').val(),
-        }
+  return new Promise((resolve,reject) => { 
+    firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
+      snapshot.forEach((childSnapshot) => {
+        if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
+          currItem = {
+            id: childSnapshot.child('id').val(),
+            owner: childSnapshot.child('owner').val(),
+            title: childSnapshot.child('title').val(),
+            description: childSnapshot.child('description').val(),
+            price: childSnapshot.child('price').val(),
+            amount: childSnapshot.child('amount').val(),
+            purchased: childSnapshot.child('purchased').val()
+          }
+          
+          // Checks to add items to a nonPurchased item list
+          if (childSnapshot.child('purchased').val() == false) {
+            nonPurchasedList.push(currItem)
+          }
 
-        arrayItemList.push(currItem)
-      }
-    })
+          arrayItemList.push(currItem)
+        }
+      })
+    }).catch(function(error) {
+      console.log('An error occured while saving pulling listing data from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    });
 
     // First pass will usually be undefined so we have to account for it.
     if(typeof arrayItemList !== 'undefined') {
       that.setState({ items: arrayItemList})
+      that.setState({ nonPurchasedItems: nonPurchasedList})
     }
+    resolve(arrayItemList)
   })
 }
 
@@ -106,7 +121,8 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
         description: description,
         price: price,
         amount: amount,
-        imageName: imageFile['name']
+        imageName: imageFile['name'],
+        purchased: false
       }).catch(function(error) {
         console.log('An error occured while saving the posting to listings in firebase');
         console.log(error.code);
@@ -405,6 +421,82 @@ export function getCartItemsFromDatabase(that) {
       reject(error);
     })
   })
+}
+
+export function getMyPurchasesFromDatabase(that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      if (snapshot.child('myPurchases').val() == '') {
+        that.setState({myPurchases: []})
+      } else {
+        that.setState({myPurchases: (snapshot.child('myPurchases').val()).split(',')})
+      }
+      resolve(snapshot.child('myPurchases').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling myPurchases from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+}
+
+export function makePurchase(cartItems, that) {
+  return new Promise((resolve,reject) => { 
+    var currUserID = firebase.auth().currentUser.uid
+    firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      
+      // Getting the myPurchases field from firebase and adding the new cartItems to the user's current myPurchasesTab
+      if (snapshot.child('myPurchases').val() == '') {
+        var currPurchList = cartItems
+      } else {
+        var currPurchList = snapshot.child('myPurchases').val().split(',');  
+        currPurchList = currPurchList.concat(cartItems)
+      }
+      currPurchList = currPurchList.toString()
+
+      // Updating User's myPurchases field to hold what the user just purchased.
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myPurchases': currPurchList
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+
+      // Setting User's cartItems to '' since they just purhcased their items
+      firebase.database().ref('/Users/' + currUserID).update({
+        'myCartItems': ''
+      }).catch(function(error) {
+        console.log('An error occured while updating the cartItems field');
+        console.log(error.code);
+        console.log(error.message);
+        reject(error);
+      })
+
+      // Goes into each Listing and changes "purchased" flag to true, as to show that the item has been purchased
+      for (var i=0;i < cartItems.length;i++) {
+        firebase.database().ref('/Listings/' + cartItems[i]).update({
+          purchased: true
+        }).catch(function(error) {
+          console.log('An error occured while changing the Listing purchase field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
+      }
+
+      resolve(snapshot.child('myPurchases').val());
+    }).catch(function(error) {
+      console.log('An error occured while pulling myPurchases from firebase');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    })
+  })
+
 }
 
 export function loginUser(email, password, that) {
