@@ -41,7 +41,9 @@ export class RightAccountBarContent extends Component {
       return (
         <div className="rightAccountNavContent">
           <CartIcon className="cartIcon"/>
-          <p>CheckOut</p>
+          <div className="textPadding">
+            <p>CheckOut</p>
+          </div>
           <DownArrowIcon className="downArrowIcon"/>
           <Stylesheet sheet={sheet} />
         </div>
