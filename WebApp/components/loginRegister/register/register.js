@@ -6,7 +6,6 @@ import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import {registerUserToDatabase} from '../../fireBaseFunctions.js'
 import cF from '../../../neonFunctions/contractFunctions'
 import neon from '@cityofzion/neon-js'
-// import sha256
 
 class Register extends Component {
   constructor(props) {
@@ -19,9 +18,7 @@ class Register extends Component {
       verifyPassword: '',
       wif: '',
       imgRef: null,
-      file: null,
-      registerError: false,
-      registerErrorMessage: 'Passwords must be at least 6 characters long and have at least one special character and number'
+      file: null
     };
     this.registerHandler = this.registerHandler.bind(this);
     this.readFile = this.readFile.bind(this);
@@ -58,31 +55,21 @@ class Register extends Component {
   }
 
   registerHandler = () => {
-    var fields_array = [this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif];
-    // Make a field array to use to quickly check for fields that have no inputs
-    if(fields_array.indexOf('') == -1) {
-      if (this.checkPasswordFields()) {
-        this.setState({
-          registerError: false,
-          registerErrorMessage: 'Attempting to Register User...'
-        })
-        registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif, this).then(uid => {
-            // console.log(uid);
-            var text = "";
-            var possible = "0123456789";
+    // console.log(this.state.imgRef);
+    // console.log(this.state.file);
+    // if(this.state.imgRef != null && this.state.imgRef.files.length > 0) {
+    //   console.log(this.state.imgRef.files[0]);
+    // }
+    registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif).then(uid => {
+        // console.log(uid);
+        var text = "";
+        var possible = "0123456789";
 
-            for (var i = 0; i < 6; i++)
-            text += possible.charAt(Math.floor(Math.random() * possible.length));
+        for (var i = 0; i < 6; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-            cF.register(uid, text);
-        })
-      }
-    } else {
-      this.setState({
-        registerError: true,
-        registerErrorMessage: 'Please fill in all fields properly'
-      })
-    }
+        cF.register(uid, text);
+    })
   }
 
   readFile = (e) => {
@@ -124,16 +111,6 @@ class Register extends Component {
       <img src={this.state.imgRef} width="250"/> :
       <div className="imgDefault"> <div>upload image</div> </div>
 
-    const registerMessage = this.state.registerError ? (
-      <div className="registerErrorMessage">
-        {this.state.registerErrorMessage}
-      </div>
-    ) : (
-      <div className="registerMessage">
-        {this.state.registerErrorMessage}
-      </div>
-    )
-
     return (
       <div>
         <div className="registerPageContainer">
@@ -170,10 +147,6 @@ class Register extends Component {
                     Register
                   </div>
                 </div>
-              </div>
-
-              <div className="registerMessageContainer">
-                {registerMessage}
               </div>
 
             </div>
