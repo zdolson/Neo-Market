@@ -4,7 +4,7 @@ const config = require('./config')
 const axios = require("axios")
 const util = require("./util.js")
 
-var debug = true;
+var debug = false;
 
 
 module.exports = {
