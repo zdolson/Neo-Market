@@ -60,7 +60,8 @@ def register(args):
         4. {string} description of item
         5. {int} price
         6. {int} amount
-        7. {string} purchased? status
+        7. {string} image
+        8. {boolean} purchased? status
 @Return: void
 Purpose: for each register call, append the name to master list
 ```createPost: (id, owner, title, desc, price, amount)```
@@ -91,7 +92,7 @@ def createpost(args):
             print("done allocating id to user")
 
         # adding post to id here
-        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5]]
+        postInfo = [args[1],';', args[2],';', args[3],';', args[4],';', args[5], ';', args[6], ';', args[7]]
 
         finalInfo = serialize_array(postInfo)
         Put(GetContext(), args[0], finalInfo)
@@ -205,8 +206,6 @@ def isregister(args):
 Purpose: Runs the smart contract and acts accordingly to the user and their respective args
 """
 def editpost(args):
-    length = 7
-    i = 1 # trying to avoid "ID" from being tagged
     userPosts = Get(GetContext(), args[0]) # getting the id
     if not userPosts:
         Log("not a valid user, cant edit post")
