@@ -50,6 +50,8 @@ export class MakePostForm extends Component {
     console.log('Using makePost firebase')
     postNewPostingToDatabaseDemo(id, currentUser, title, description, price, amount, file, that).then(imageRef => {
         that.props.addMyListing(id);
+        // var pulledImgRef = imageRef;
+        // console.log(pulledImgRef);
         cF.createPost(id, currentUser, title, description, price, amount, imageRef, false).then(result => {
             console.log('makePost results: ' + result);
         })

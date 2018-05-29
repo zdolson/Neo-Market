@@ -9,7 +9,7 @@ const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -418,7 +418,10 @@ module.exports = {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
-                            that.setState({ items: allPosts});
+                            that.setState({
+                                items: allPosts,
+                                nonPurchasedItems: allPosts
+                            });
                             resolve(allPosts);
                         }
                     }).catch(err => {
@@ -511,9 +514,9 @@ module.exports = {
      * @Param: {boolean} isPurchased
      * @Return: Nothing
      * Purpose: Creates a Post on the smart contract.
-     *          Calls invokeContract() with createpost function to smart contract.
+     *          Calls invokeContract() with createpost function to smart contåract.
      */
-    createPost: (id, owner, title, desc, price, amount, imageReg, isPurchased) => {
+    createPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
         node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
             if (debug){
                 console.log('createPost(): res: ');
