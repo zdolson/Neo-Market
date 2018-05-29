@@ -416,7 +416,13 @@ module.exports = {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
-                            that.setState({ items: allPosts});
+                            var nonPurchasedItems = [];
+                            for(let i = 0; i < allPosts.length; i++) {
+                                if(!allPosts[i].purchased){
+                                    nonPurchasedItems.push(allPosts[i]);
+                                }
+                            }
+                            that.setState({ items: allPosts, nonPurchasedItems: nonPurchasedItems});
                             resolve(allPosts);
                         }
                     }).catch(err => {
