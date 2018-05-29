@@ -169,6 +169,21 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   })
 }
 
+
+export function postNewPostingToDatabaseDemo(id, owner, title, description, price, amount, imageFile, that) {
+  return new Promise((resolve, reject) => {
+    firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function(snapshot) {
+			resolve(snapshot.downloadURL);
+    }).catch(function(error) {
+      console.log('An error occured while posting image to storage');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    });
+  })
+}
+
+
 export function editPostingToDatabase(id, description, title, price, imageFile, that) {
   var imageDatabaseRef = firebase.database().ref('/ListingImages/' + id);
 

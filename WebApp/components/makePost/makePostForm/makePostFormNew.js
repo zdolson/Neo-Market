@@ -4,7 +4,7 @@ import sheet from './makePostFormNew.scss'
 
 import { Route } from 'react-router-dom'
 import * as firebase from 'firebase'
-import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase } from '../../fireBaseFunctions.js'
+import { pullDataFromDatabase, postNewPostingToDatabase, postNewImageToStorageDatabase, postNewPostingToDatabaseDemo } from '../../fireBaseFunctions.js'
 import cF from '../../../neonFunctions/contractFunctions'
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 
@@ -48,9 +48,8 @@ export class MakePostForm extends Component {
     currentUser = firebase.auth().currentUser.uid;
     // if (useFirebaseBackend) {
     console.log('Using makePost firebase')
-    postNewPostingToDatabase(id, currentUser, title, description, price, amount, file, that).then(function() {
-        that.props.addMyListing(id)
-        var imageRef = 'put Image Ref in here';
+    postNewPostingToDatabaseDemo(id, currentUser, title, description, price, amount, file, that).then(imageRef => {
+        that.props.addMyListing(id);
         cF.createPost(id, currentUser, title, description, price, amount, imageRef, false).then(result => {
             console.log('makePost results: ' + result);
         })
