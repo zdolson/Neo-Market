@@ -4,8 +4,8 @@ module.exports = {
      * scriptHash is your smart contract Script Hash, without the first 2 '0x' characters
      * To retrieve your Script Hash: (in neo-gui: right click smart contract address > View Contract)
      */
-     scriptHash: '4aacd5242613e7e6a9d3db30e12e0dd7b4b928e8',
-     //name: g
+     scriptHash: 'bc4f293ed20628520685a7322bcdb6ec01402d6a',
+     //name: newHope
 
     /*
      * RESTEndpoint is an endpoint to a neon-wallet-db REST server that's connected to your desired net (MainNet, TestNet, PrivNet)
