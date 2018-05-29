@@ -45,16 +45,7 @@ export class App extends Component {
           amount: 0
         }
       ],
-      nonPurchasedItems: [
-        {
-          id: 'defaultValue',
-          owner:'...',
-          title: '...',
-          description: '...',
-          price: '0',
-          amount: 0
-        }
-      ],
+      nonPurchasedItems: [],
       users: [
         {
           fullName: 'defaultfullName',

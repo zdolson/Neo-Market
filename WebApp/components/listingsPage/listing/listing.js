@@ -6,6 +6,8 @@ import sheet from './listing.scss'
 import ListingContent from './listingContent/listingContent.js'
 import { pullingDatabaseImage } from '../../fireBaseFunctions.js'
 
+import * as firebase from 'firebase'
+
 /**
 
 @ Alec
@@ -26,6 +28,7 @@ export class Listing extends Component {
       imgLoad: false,
       tryAgain: true
     }
+    this.getImage = this.getImage.bind(this);
   }
 
   componentDidMount = () => {
@@ -42,11 +45,24 @@ export class Listing extends Component {
     if(last && search) resetSearch();
   }
 
+  getImage = (item) => {
+    let ref = firebase.storage().ref(item.imageRef);
+    console.log(ref);
+    ref.getDownloadURL().then(url => {
+      console.log(url);
+      this.setState({ imgUrl: url, imgLoad: true, tryAgain: false });
+    }).catch(err => {
+      console.error(err);
+      this.setState({ tryAgain: true });
+    });
+  }
+
   render () {
     var {item, search_string, resetSearch, search, last} = this.props;
     let tryAgain, imgLoad;
     if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
-    pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
+    // pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
+    if(tryAgain && !imgLoad) this.getImage(item);
     // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
     var img = (
       this.state.imgLoad ?
