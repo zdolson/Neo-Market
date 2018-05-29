@@ -15,7 +15,10 @@ Purpose: Spacing / Styling for the description in moreInfoPage
 
 .moreInfoListingDesc {
   background: $grey65;
+  // overflow-x: scroll;
+  height: auto;
   width: 350px;
   border-radius: 5px;
   padding: 5px;
+  word-wrap: break-word;
 }

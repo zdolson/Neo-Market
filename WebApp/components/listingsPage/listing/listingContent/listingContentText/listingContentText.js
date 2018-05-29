@@ -33,9 +33,6 @@ class ListingContentText extends Component {
           {title}
         </div>
         <ItemSpecsLine />
-        <div className="listingContentDesc">
-          {description}
-        </div>
         <Stylesheet sheet={sheet} />
       </div>
     )

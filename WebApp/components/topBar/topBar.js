@@ -76,6 +76,7 @@ export class TopBar extends Component {
 
   handleKeyPress = (e) => {
     if(e.key === 'Enter') {
+      console.log('handleKeyPress');
       this.searchHandler(e);
     }
   }
@@ -93,7 +94,6 @@ export class TopBar extends Component {
   }
 
   lowToHighHandler = (e) => {
-    console.log('highToLowHandler');
     if(this.state.price_selected != 0) {
       this.props.updateFilter(0);
       this.setState({price_selected: 0});
@@ -101,7 +101,6 @@ export class TopBar extends Component {
   }
 
   highToLowHandler = (e) => {
-    console.log('lowToHighHandler');
     if(this.state.price_selected != 1) {
       this.props.updateFilter(1);
       this.setState({price_selected: 1});

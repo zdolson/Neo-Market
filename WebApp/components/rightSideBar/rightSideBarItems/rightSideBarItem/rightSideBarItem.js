@@ -39,7 +39,7 @@ class RightSideBarItem extends Component {
     return (
       <div className="rightSideBarItem">
 
-        <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX/> </div>
+        <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX className="xSVG"/> </div>
 
         <div className="rightSideBarItemTitle">
           {currCheckOutItem['title']}

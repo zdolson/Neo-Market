@@ -26,8 +26,13 @@ class RightSideBarTotal extends Component {
     return (
       <div className="rightSideBarTotal">
         <div className="totalText">
-          Total {' '}
-          {sumTotalCartItems()}N
+          <div className="numbers">
+            <div>{sumTotalCartItems()}</div>
+          </div>
+          <div className="space"></div>
+          <div className="neo">
+            <div>{' N'}</div>
+          </div>
         </div>
         <TotalLine />
         <Stylesheet sheet={sheet} />
