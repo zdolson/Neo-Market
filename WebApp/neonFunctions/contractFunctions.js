@@ -505,12 +505,14 @@ module.exports = {
      * @Param: {string} desc
      * @Param: {string} price
      * @Param: {string} amount
+     * @Param: {string} imageRef
+     * @Param: {boolean} isPurchased
      * @Return: Nothing
      * Purpose: Creates a Post on the smart contract.
      *          Calls invokeContract() with createpost function to smart contract.
      */
-    createPost: (id, owner, title, desc, price, amount) => {
-        node.invokeContract('createpost', [id,owner,title,desc,price,amount], account, (res) => {
+    createPost: (id, owner, title, desc, price, amount, imageReg, isPurchased) => {
+        node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
             if (debug){
                 console.log('createPost(): res: ');
                 console.dir(res);
