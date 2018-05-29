@@ -174,7 +174,7 @@ export function postNewPostingToDatabaseDemo(id, owner, title, description, pric
   return new Promise((resolve, reject) => {
     firebase.storage().ref().child(imageFile['name']).put(imageFile).then(function(snapshot) {
 			console.log('yolo');
-			resolve(snapshot.fullPath);
+			resolve(snapshot.metadata.fullPath);
     }).catch(function(error) {
       console.log('An error occured while posting image to storage');
       console.log(error.code);

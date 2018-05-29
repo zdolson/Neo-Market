@@ -9,7 +9,7 @@ const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = true;
+var debug = false;
 
 
 /**
@@ -418,13 +418,16 @@ module.exports = {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
-                            var nonPurchasedItems = [];
-                            for(let i = 0; i < allPosts.length; i++) {
-                                if(!allPosts[i].isPurchased){
-                                    nonPurchasedItems.push(allPosts[i]);
-                                }
-                            }
-                            that.setState({ items: allPosts, nonPurchasedItems: nonPurchasedItems});
+                            // var nonPurchasedItems = [];
+                            // for(let i = 0; i < allPosts.length; i++) {
+                            //     if(!allPosts[i].isPurchased){
+                            //         nonPurchasedItems.push(allPosts[i]);
+                            //     }
+                            // }
+                            that.setState({
+                                items: allPosts,
+                                nonPurchasedItems: allPosts
+                            });
                             resolve(allPosts);
                         }
                     }).catch(err => {
