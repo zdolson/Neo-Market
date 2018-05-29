@@ -34,7 +34,7 @@ export class Index extends Component {
       cart: [],
       data: {},
       inApp: false,
-      useFirebaseBackend: true
+      useFirebaseBackend: false
     }
     this.navToApp = this.navToApp.bind(this);
   }

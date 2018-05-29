@@ -9,7 +9,7 @@ const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -347,6 +347,8 @@ module.exports = {
                           description: cutPost[3],
                           price: cutPost[4],
                           amount: cutPost[5],
+                          imageRef: cutPost[6],
+                          isPurchased: cutPost[7]
                         }
                         if (debug) {
                             console.log('getUserPostsFromStorage(): currItem: ', currItem);
@@ -418,7 +420,7 @@ module.exports = {
                             }
                             var nonPurchasedItems = [];
                             for(let i = 0; i < allPosts.length; i++) {
-                                if(!allPosts[i].purchased){
+                                if(!allPosts[i].isPurchased){
                                     nonPurchasedItems.push(allPosts[i]);
                                 }
                             }
@@ -515,9 +517,9 @@ module.exports = {
      * @Param: {boolean} isPurchased
      * @Return: Nothing
      * Purpose: Creates a Post on the smart contract.
-     *          Calls invokeContract() with createpost function to smart contract.
+     *          Calls invokeContract() with createpost function to smart contåract.
      */
-    createPost: (id, owner, title, desc, price, amount, imageReg, isPurchased) => {
+    createPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
         node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
             if (debug){
                 console.log('createPost(): res: ');
@@ -550,7 +552,7 @@ module.exports = {
      * Purpose: Creates a Post on the smart contract.
      *          Calls invokeContract() with createpost function to smart contract.
      */
-    editPost: (id, owner, title, desc, price, amount) => {
+    editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
         id = id.replace(/[^\x20-\x7E]/g, '');
         owner = owner.replace(/[^\x20-\x7E]/g, '');
         title = title.replace(/[^\x20-\x7E]/g, '');
@@ -558,7 +560,7 @@ module.exports = {
         // price = price.replace(/[^\x20-\x7E]/g, '');
         // amount = amount.replace(/[^\x20-\x7E]/g, '');
         console.log(id+owner+title+desc+price+amount);
-        node.invokeContract('editpost', [id,owner,title,desc,price,amount], account, (res) => {
+        node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
             if (debug){
                 console.log('editPost(): res: ');
                 console.dir(res);

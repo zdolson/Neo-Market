@@ -75,7 +75,7 @@ class MoreInfoListingEditing extends Component {
     } else {
       console.log('editPost backend logic goes here.')
       var currentUser = firebase.auth().currentUser.uid;
-      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount);
+      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, this.props.item.imageRef, this.props.item.isPurchased);
     }
   }
 
