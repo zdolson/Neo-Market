@@ -70,7 +70,7 @@ export class App extends Component {
       ],
       cartItems: [],
       loadItemsAgain:false,
-      filter_price: 'title',
+      filter_price: 0,
       search_string: '',
       search: false,
       neoPrice: 0,
@@ -301,7 +301,6 @@ export class App extends Component {
           <RoutingComponent
             neoPrice={this.state.neoPrice}
             resetSearch={this.resetSearch}
-            search={this.state.search}
             state={this.state}
             addCartItem={this.addCartItem}
             returnCheckOutDataByID={this.returnCheckOutDataByID}

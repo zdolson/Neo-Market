@@ -18,7 +18,9 @@ export function initializeApp() {
 }
 
 export function pullingDatabaseImage(id, imgUrl, imgLoad, tryAgain, that) {
+	console.log('pullingDatabaseImage');
 	if(tryAgain && !imgLoad){
+		console.log('pullingDatabaseImage');
     var fireBaseDatabaseRef = firebase.database().ref('/ListingImages/');
     fireBaseDatabaseRef.on('value', function(snapshot) {
       var keys = Object.keys(snapshot.val())
@@ -60,7 +62,7 @@ export function pullDataFromDatabase(that) {
   var nonPurchasedList = []
   var currItem = {}
 
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     firebase.database().ref('/Listings/').once('value').then(function(snapshot) {
       snapshot.forEach((childSnapshot) => {
         if(!isInItemList(childSnapshot.child('id').val(), that.state.items)){
@@ -73,7 +75,7 @@ export function pullDataFromDatabase(that) {
             amount: childSnapshot.child('amount').val(),
             purchased: childSnapshot.child('purchased').val()
           }
-          
+
           // Checks to add items to a nonPurchased item list
           if (childSnapshot.child('purchased').val() == false) {
             nonPurchasedList.push(currItem)
@@ -424,7 +426,7 @@ export function getCartItemsFromDatabase(that) {
 }
 
 export function getMyPurchasesFromDatabase(that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
       if (snapshot.child('myPurchases').val() == '') {
@@ -443,15 +445,15 @@ export function getMyPurchasesFromDatabase(that) {
 }
 
 export function makePurchase(cartItems, that) {
-  return new Promise((resolve,reject) => { 
+  return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
-      
+
       // Getting the myPurchases field from firebase and adding the new cartItems to the user's current myPurchasesTab
       if (snapshot.child('myPurchases').val() == '') {
         var currPurchList = cartItems
       } else {
-        var currPurchList = snapshot.child('myPurchases').val().split(',');  
+        var currPurchList = snapshot.child('myPurchases').val().split(',');
         currPurchList = currPurchList.concat(cartItems)
       }
       currPurchList = currPurchList.toString()

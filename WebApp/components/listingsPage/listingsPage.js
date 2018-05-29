@@ -33,20 +33,22 @@ export class ListingsPage extends Component {
   }
 
   render () {
-    let {filter_price, search_string, items, nonPurchasedItems} = this.props.state;
-    let {search, resetSearch} = this.props;
-    items = items.filter((item) => search_string === '' || item.title.indexOf(search_string) !== -1 || item.description.indexOf(search_string) !== -1);
+    let {filter_price, search_string, nonPurchasedItems} = this.props.state;
+    let {resetSearch} = this.props;
+    let search = this.props.state.search;
+    let search_regEx = new RegExp(search_string, 'i');
+    nonPurchasedItems = nonPurchasedItems.filter((item) => search_string === '' || search_regEx.test(item.title) || search_regEx.test(item.description));
     if(filter_price == 0) {
-      items = items.sort((a, b) => a.price-b.price);
+      nonPurchasedItems = nonPurchasedItems.sort((a, b) => a.price-b.price);
     } else if(filter_price == 1) {
-      items = items.sort((a, b) => b.price-a.price);
+      nonPurchasedItems = nonPurchasedItems.sort((a, b) => b.price-a.price);
     }
     return (
       <div className='listings'>
 
         {nonPurchasedItems.map( (item, key) => {
           let last = false
-          if(key == items.length-1) last=true;
+          if(key == nonPurchasedItems.length-1) last=true;
           var link = '/MoreInfoItem/'+item.id;
           return (
             <div key={key}>
