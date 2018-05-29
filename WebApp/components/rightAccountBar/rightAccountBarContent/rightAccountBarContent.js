@@ -36,14 +36,29 @@ export class RightAccountBarContent extends Component {
   }
 
   render () {
-    return (
-      <div className="rightAccountNavContent">
-        <CartIcon className="cartIcon"/>
-        <NavLink to={"/CheckOut"}> <p>CheckOut</p> </NavLink>
-        <DownArrowIcon className="downArrowIcon"/>
-        <Stylesheet sheet={sheet} />
-      </div>
-    )
+    var cartItems = this.props.cartItems;
+    if(cartItems.length <= 0){
+      return (
+        <div className="rightAccountNavContent">
+          <CartIcon className="cartIcon"/>
+          <div className="textPadding">
+            <p>CheckOut</p>
+          </div>
+          <DownArrowIcon className="downArrowIcon"/>
+          <Stylesheet sheet={sheet} />
+        </div>
+      )
+    }
+    else{
+      return (
+        <div className="rightAccountNavContent">
+          <CartIcon className="cartIcon"/>
+          <NavLink to={"/CheckOut"}> <p>CheckOut</p> </NavLink>
+          <DownArrowIcon className="downArrowIcon"/>
+          <Stylesheet sheet={sheet} />
+        </div>
+      )
+    }
   }
 }
 
