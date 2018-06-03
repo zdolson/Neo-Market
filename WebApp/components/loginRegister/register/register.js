@@ -57,6 +57,7 @@ class Register extends Component {
   }
 
   registerHandler = () => {
+      console.log('registerHandler');
       var fields_array = [this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif];
       // Make a field array to use to quickly check for fields that have no inputs
       if(fields_array.indexOf('') == -1) {

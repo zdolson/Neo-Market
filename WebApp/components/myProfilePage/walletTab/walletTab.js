@@ -2,12 +2,13 @@ import {Component} from 'react'
 import {Stylesheet} from '../../stylesheet.js'
 import sheet from './walletTab.scss'
 import * as firebase from 'firebase'
+import {updateUserPhoto} from '../../fireBaseFunctions.js'
 
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 import ProfilePhoto from '../../assets/DSC_0046.jpg'
 import WifModal from '../../wifModal/wifModal.js'
 
-
+import defaultPhoto from '../../assets/defaultPhoto.png'
 
 class WalletTab extends Component {
   constructor(props) {
@@ -16,7 +17,8 @@ class WalletTab extends Component {
       modal_is_open: false,
       user_name: '',
       full_name: '',
-      wif: ''
+      wif: '',
+      imgRef: false
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
@@ -33,14 +35,32 @@ class WalletTab extends Component {
 
   componentWillMount = () => {
     firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
-      let {fullName, userName, wif} = snapshot.val();
-      this.setState( {full_name: fullName, user_name: userName, wif: wif} );
+      let {fullName, userName, wif, photoId} = snapshot.val();
+      if(photoId == 'defaultPhoto.png') photoId = defaultPhoto;
+      this.setState( {full_name: fullName, user_name: userName, wif: wif, imgRef: photoId} );
+    }).catch(err => {
+      console.error(err);
+    });
+  }
+
+  readFile = (e) => {
+    let file = e.target.files[0];
+    console.log('readFile');
+    updateUserPhoto(file).then(imgRef => {
+      this.setState({ imgRef: imgRef });
     }).catch(err => {
       console.error(err);
     });
   }
 
   render () {
+    console.log('imgRef: '+this.state.imgRef);
+    var Img =
+      this.state.imgRef ?
+        <img src={this.state.imgRef} alt='loading...' height="200"/>
+      :
+        <div className="imgLoading"> <div>loading...</div> </div>
+
     return (
       <div className="walletTab">
 
@@ -48,7 +68,7 @@ class WalletTab extends Component {
           <div className="photoImportName">
             <div className="photoName">
               <div className="photo">
-                <img src={ProfilePhoto} width="150" />
+                {Img}
               </div>
               <div className="userName">
                 {this.state.user_name}
@@ -56,6 +76,13 @@ class WalletTab extends Component {
             </div>
             <div className="importIcon">
               <ImportPhotoIcon/>
+              <input
+                type="file"
+                name="file"
+                accept="image/*"
+                onChange={ (e) => {this.readFile(e)} }
+                onClick={ (event)=> { event.target.value = null } }
+              />
             </div>
           </div>
         </div>
@@ -63,17 +90,20 @@ class WalletTab extends Component {
         <div className="topBottomContainer">
           <div className="walletForm">
             <div className="name">
-              {this.state.full_name}
+              <div>name: </div>
+              <div>{this.state.full_name}</div>
             </div>
             <div className="email">
-              {firebase.auth().currentUser.email}
+              <div>email: </div>
+              <div>{firebase.auth().currentUser.email}</div>
             </div>
             <div className="address">
-              ADDRESS GOES HERE
+              <div>ADDRESS GOES HERE: </div>
+              <div> </div>
             </div>
             <div className="wifForm">
               <div className="wifInput">
-                {this.state.wif}
+                ........
               </div>
               <div className="wifButton" onClick={this.openModal}>
                 change

@@ -47,7 +47,7 @@ export class MakePostForm extends Component {
 
     currentUser = firebase.auth().currentUser.uid;
     // if (useFirebaseBackend) {
-    console.log('Using makePost firebase')
+    // console.log('Using makePost firebase')
     postNewPostingToDatabaseDemo(id, currentUser, title, description, price, amount, file, that).then(imageRef => {
         that.props.addMyListing(id);
         // var pulledImgRef = imageRef;
