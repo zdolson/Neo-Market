@@ -27,12 +27,6 @@ class Register extends Component {
     this.checkPasswordFields = this.checkPasswordFields.bind(this);
   }
 
-  handleKeyPress = (e) => {
-    if(e.key === 'Enter') {
-      this.registerHandler();
-    }
-  }
-
   checkPasswordFields = () => {
     // Checking to see if the passwords match
     if (this.state.password == this.state.verifyPassword) {
@@ -57,7 +51,8 @@ class Register extends Component {
   }
 
   registerHandler = () => {
-      console.log('registerHandler');
+      var tempAcc = neon.create.account(this.state.wif);
+      var pubAdd = tempAcc.address; //<-- this is the public address you need Alec
       var fields_array = [this.state.fullName, this.state.userName, this.state.email, this.state.file, this.state.password, this.state.verifyPassword, this.state.wif];
       // Make a field array to use to quickly check for fields that have no inputs
       if(fields_array.indexOf('') == -1) {
@@ -141,27 +136,27 @@ class Register extends Component {
             <div className="registerFormContainer">
 
               <div className="userNameContainer">
-                <input className="userNameInput" value={this.state.userName} onChange={ (e) => this.updateUserName(e) } type="text" placeholder="Your User Name" onKeyPress={this.handleKeyPress}/>
+                <input className="userNameInput" value={this.state.userName} onChange={ (e) => this.updateUserName(e) } type="text" placeholder="Your User Name"/>
               </div>
 
               <div className="fullNameContainer">
-                <input className="fullNameInput" value={this.state.fullName} onChange={ (e) => this.updateFullName(e) } type="text" placeholder="Your Full Name" onKeyPress={this.handleKeyPress}/>
+                <input className="fullNameInput" value={this.state.fullName} onChange={ (e) => this.updateFullName(e) } type="text" placeholder="Your Full Name"/>
               </div>
 
               <div className="emailNameContainer">
-                <input className="emailNameInput" value={this.state.email} onChange={ (e) => this.updateEmail(e) } type="text" placeholder="Your email" onKeyPress={this.handleKeyPress}/>
+                <input className="emailNameInput" value={this.state.email} onChange={ (e) => this.updateEmail(e) } type="text" placeholder="Your email"/>
               </div>
 
               <div className="passwordNameContainer">
-                <input className="passwordNameInput" value={this.state.password} onChange={ (e) => this.updatePassword(e) } type="password" placeholder="Your password" onKeyPress={this.handleKeyPress}/>
+                <input className="passwordNameInput" value={this.state.password} onChange={ (e) => this.updatePassword(e) } type="password" placeholder="Your password"/>
               </div>
 
               <div className="verifyPasswordNameContainer">
-                <input className="verifyPasswordNameInput" value={this.state.verifyPassword} onChange={ (e) => this.updateVerifyPassword(e) } type="password" placeholder="Verify password" onKeyPress={this.handleKeyPress}/>
+                <input className="verifyPasswordNameInput" value={this.state.verifyPassword} onChange={ (e) => this.updateVerifyPassword(e) } type="password" placeholder="Verify password"/>
               </div>
 
               <div className="importWalletContainer">
-                <input className="walletInput" value={this.state.wif} onChange={ (e) => this.updateWif(e) } type="password" placeholder="Import WIF" onKeyPress={this.handleKeyPress}/>
+                <input className="walletInput" value={this.state.wif} onChange={ (e) => this.updateWif(e) } type="password" placeholder="Import WIF"/>
               </div>
 
               <div className="registerButtonContainer">
