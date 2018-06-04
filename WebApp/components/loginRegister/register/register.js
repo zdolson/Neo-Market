@@ -130,7 +130,7 @@ class Register extends Component {
     )
 
     return (
-      <div>
+      <div className="wrapper">
         <div className="registerPageContainer">
           <div className="leftSideRegisterPage">
             <div className="registerFormContainer">
