@@ -276,7 +276,7 @@ function uploadImage(img, uid) {
 	});
 }
 
-export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif, that) {
+export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, pubAdd, wif, that) {
 	return new Promise((resolve,reject) => {
   	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
 			console.log(user);
@@ -290,6 +290,7 @@ export function registerUserToDatabase(fullName, userName, email, photoId, passw
 	      	myPurchases: '',
 	      	photoId: imgRef,
 	      	password: password,
+					publicAddress: pubAdd,
 	      	wif: wif,
 	        myCartItems: '',
 	    	}

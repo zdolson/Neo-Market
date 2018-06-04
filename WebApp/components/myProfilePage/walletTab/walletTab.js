@@ -18,11 +18,13 @@ class WalletTab extends Component {
       user_name: '',
       full_name: '',
       wif: '',
-      imgRef: false
+      imgRef: false,
+      public_address: ''
     };
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    // this.handleSubmit = this.handleSubmit.bind(this);
+    this.wifChange = this.wifChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   openModal = () => {
@@ -33,11 +35,22 @@ class WalletTab extends Component {
     this.setState({modal_is_open: false});
   }
 
+  wifChange = (e) => {
+    this.setState({ wif: e.target.value });
+  }
+
+  handleSubmit = () => {
+    console.log('handleSubmit');
+    firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).update({ wif: this.state.wif }).catch(err => {
+      console.error(err);
+    });
+  }
+
   componentWillMount = () => {
     firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).once('value').then(snapshot => {
-      let {fullName, userName, wif, photoId} = snapshot.val();
+      let {fullName, userName, wif, photoId, publicAddress} = snapshot.val();
       if(photoId == 'defaultPhoto.png') photoId = defaultPhoto;
-      this.setState( {full_name: fullName, user_name: userName, wif: wif, imgRef: photoId} );
+      this.setState( {full_name: fullName, user_name: userName, wif: wif, imgRef: photoId, public_address: publicAddress} );
     }).catch(err => {
       console.error(err);
     });
@@ -54,7 +67,6 @@ class WalletTab extends Component {
   }
 
   render () {
-    console.log('imgRef: '+this.state.imgRef);
     var Img =
       this.state.imgRef ?
         <img src={this.state.imgRef} alt='loading...' height="200"/>
@@ -91,28 +103,27 @@ class WalletTab extends Component {
           <div className="walletForm">
             <div className="name">
               <div>name: </div>
-              <div>{this.state.full_name}</div>
+              <div className="name_val">{this.state.full_name}</div>
             </div>
             <div className="email">
               <div>email: </div>
-              <div>{firebase.auth().currentUser.email}</div>
+              <div className="email_val">{firebase.auth().currentUser.email}</div>
             </div>
             <div className="address">
-              <div>ADDRESS GOES HERE: </div>
-              <div> </div>
+              <div> public_address: </div>
+              <div className="pub_address_val">{this.state.public_address}</div>
             </div>
             <div className="wifForm">
-              <div className="wifInput">
-                ........
-              </div>
+              <div className="wif_name"> <div>wif:</div> </div>
+              <input type="password" className="wif_val" value={this.state.wif} onChange={e => this.wifChange(e)}/>
               <div className="wifButton" onClick={this.openModal}>
-                change
+                update
               </div>
             </div>
           </div>
         </div>
 
-        <WifModal modal_is_open={this.state.modal_is_open} closeModal={this.closeModal} handleSubmit={this.handleSubmit}/>
+        <WifModal modal_is_open={this.state.modal_is_open} closeModal={this.closeModal} verificationSuccess={this.handleSubmit}/>
 
         <Stylesheet sheet={sheet} />
       </div>
