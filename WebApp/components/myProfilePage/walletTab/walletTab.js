@@ -112,6 +112,7 @@ class WalletTab extends Component {
             <div className="address">
               <div> public_address: </div>
               <div className="pub_address_val">{this.state.public_address}</div>
+              <div className="pub_address_dots">...</div>
             </div>
             <div className="wifForm">
               <div className="wif_name"> <div>wif:</div> </div>
