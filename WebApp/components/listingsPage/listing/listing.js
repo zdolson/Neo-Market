@@ -23,21 +23,7 @@ TODO: Add props logic so parent component can determine content of the listing
 export class Listing extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      imgUrl: 'defaultURL',
-      imgLoad: false,
-      tryAgain: true
-    }
-    this.getImage = this.getImage.bind(this);
-  }
-
-  componentDidMount = () => {
-    // console.log('listing mounted');
-    // var {item, search_string, resetSearch, search, last} = this.props;
-    // let tryAgain, imgLoad;
-    // if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
-    // pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
-    // if(last && search) resetSearch();
+    this.state = {}
   }
 
   componentDidUpdate = () => {
@@ -45,29 +31,12 @@ export class Listing extends Component {
     if(last && search) resetSearch();
   }
 
-  getImage = (item) => {
-    let ref = firebase.storage().ref(item.imageRef);
-    console.log(ref);
-    ref.getDownloadURL().then(url => {
-      console.log(url);
-      this.setState({ imgUrl: url, imgLoad: true, tryAgain: false });
-    }).catch(err => {
-      console.error(err);
-      this.setState({ tryAgain: true });
-    });
-  }
-
   render () {
-    var {item, search_string, resetSearch, search, last} = this.props;
-    let tryAgain, imgLoad;
-    if(search) { tryAgain=true; imgLoad=false; } else { tryAgain=this.state.tryAgain; imgLoad=this.state.imgLoad; }
-    // pullingDatabaseImage(item.id, this.state.imgUrl, imgLoad, tryAgain, this);
-    if(tryAgain && !imgLoad) this.getImage(item);
-    // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
+
+    let {item} = this.props;
+
     var img = (
-      this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' height="200"/> :
-      <div className="imgLoading"> <div>loading...</div> </div>
+      <img src={item.imageRef} alt='loading...' height="200"/>
     );
 
     return (

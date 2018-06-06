@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../../../stylesheet.js'
 import sheet from './moreInfoListingImg.scss'
 
-import { pullingDatabaseImage } from '../../../../fireBaseFunctions.js'
-
 import * as firebase from 'firebase'
 
 /**
@@ -19,23 +17,12 @@ Purpose: img that for moreInfoPage
 class MoreInfoListingImg extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      imgUrl: '',
-      imgLoad: false,
-      tryAgain: true
-    }
-  }
-
-  componentWillMount() {
-    var that = this;
-    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
+    this.state = {}
   }
 
   render () {
     var img = (
-      this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' width="350"/> :
-      <div className="imgLoading"> <div>loading...</div> </div>
+      <img src={this.props.imgRef} alt='loading...' width="350"/> 
     );
     return (
       <div className='moreInfoListingImg'>
