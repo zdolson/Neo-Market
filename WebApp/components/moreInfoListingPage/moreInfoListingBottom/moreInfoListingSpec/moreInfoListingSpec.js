@@ -82,10 +82,26 @@ class MoreInfoListingSpec extends Component {
 
   render () {
     let item = this.props.item;
+    let owner = item.owner;
+    let currentUser = firebase.auth().currentUser.uid;
     let itemID = item['id'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
+
+    let btn = (owner == currentUser) ? (
+      <Route render={({ history}) => (
+        <button className='removeBtn' type='button' onClick={() => { this.removeItemHandler(); history.push('/') }}>
+          Remove Item
+        </button>
+      )}/>
+    ) : (
+      <Route render={({ history}) => (
+        <button className='cartBtn' type='button' onClick={() => { this.addItemHandler(); history.push('/') }}>
+          Add to Cart
+        </button>
+      )}/>
+    )
 
     return (
       <div className='moreInfoListingSpec'>
@@ -116,16 +132,7 @@ class MoreInfoListingSpec extends Component {
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="btnContainer">
-          <Route render={({ history}) => (
-            <button className='cartBtn' type='button' onClick={() => { this.addItemHandler(); history.push('/') }}>
-              Add to Cart
-            </button>
-          )}/>
-          <Route render={({ history}) => (
-            <button className='removeBtn' type='button' onClick={() => { this.removeItemHandler(); history.push('/') }}>
-              Remove Item
-            </button>
-          )}/>
+          {btn}
         </div>
         <Stylesheet sheet={sheet} />
       </div>
