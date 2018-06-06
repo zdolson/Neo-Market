@@ -109,9 +109,6 @@ export class App extends Component {
   }
 
   addCartItem(id) {
-    console.log('addCartItem: '+id);
-    console.log('before: '+this.state.cartItems);
-    console.log('after: '+this.state.cartItems.concat(id));
     this.setState({ cartItems: this.state.cartItems.concat(id) });
   }
 

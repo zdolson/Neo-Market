@@ -47,7 +47,7 @@ class MoreInfoListingPage extends Component {
       </div>
     ) : (
       <div>
-        <MoreInfoListingTop toggle_edit={this.toggle_edit}/>
+        <MoreInfoListingTop toggle_edit={this.toggle_edit} owner={item.owner}/>
         <MoreInfoListingBottom neoPrice={neoPrice} item={item} addCartItem={addCartItem} removeItem={removeItem} useFirebaseBackend={useFirebaseBackend} removeMyListing={removeMyListing}/>
       </div>
     );
