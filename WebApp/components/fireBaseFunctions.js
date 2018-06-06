@@ -502,16 +502,16 @@ export function makePurchase(cartItems, that) {
       })
 
       // Goes into each Listing and changes "purchased" flag to true, as to show that the item has been purchased
-      for (var i=0;i < cartItems.length;i++) {
-        firebase.database().ref('/Listings/' + cartItems[i]).update({
-          purchased: true
-        }).catch(function(error) {
-          console.log('An error occured while changing the Listing purchase field');
-          console.log(error.code);
-          console.log(error.message);
-          reject(error);
-        })
-      }
+      // for (var i=0;i < cartItems.length;i++) {
+      //   firebase.database().ref('/Listings/' + cartItems[i]).update({
+      //     purchased: true
+      //   }).catch(function(error) {
+      //     console.log('An error occured while changing the Listing purchase field');
+      //     console.log(error.code);
+      //     console.log(error.message);
+      //     reject(error);
+      //   })
+      // }
 
       resolve(snapshot.child('myPurchases').val());
     }).catch(function(error) {

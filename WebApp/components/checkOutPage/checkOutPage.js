@@ -30,7 +30,7 @@ export class CheckOutPage extends Component {
     }
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
-    this.purchaseLogic = this.purchaseLogic.bind(this)
+    this.purchaseLogic = this.purchaseLogic.bind(this);
     this.verificationSuccess = this.verificationSuccess.bind(this);
   }
 
@@ -43,42 +43,57 @@ export class CheckOutPage extends Component {
   }
 
   verificationSuccess = () => {
-    var that = this;
-    makePurchase(this.props.cartItems, that).then(function() {
-      for(var i=0; i<that.props.cartItems.length;i++) {
-        that.props.addToMyPurchases(that.props.cartItems[i])
-        that.props.removeItemFromNonPurchasedList(that.props.cartItems[i])
-      }
-      that.props.resetCartItemState()
-    })
-    //{this.purchaseLogic(cartItems, users, returnCheckOutDataByID, this)}
+
+    this.purchaseLogic().then(val => {
+      console.log(val);
+      var that = this;
+      makePurchase(this.props.cartItems, that).then(function() {
+        for(var i=0; i<that.props.cartItems.length;i++) {
+          that.props.addToMyPurchases(that.props.cartItems[i])
+          that.props.removeItemFromNonPurchasedList(that.props.cartItems[i])
+        }
+        that.props.resetCartItemState()
+      });
+    }).catch(err => {
+      console.error(err);
+    });
+
   }
 
-  purchaseLogic(cartItems, users, returnCheckOutDataByID, that){
-    if(!this.props.useFirebaseBackend) {
-      let buyerName = firebase.auth().currentUser.uid;
-      if (cartItems.length == 0) {
-          // disable purchase button functionality here.
-      } else if (cartItems.length == 1) {
-          var currCartItem = returnCheckOutDataByID(cartItems[0])
-          var listingOwner = currCartItem['owner'];
-          var listingCost = currCartItem['price'];
-          listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
-          listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-          cF.purchase(listingOwner, buyerName, listingCost);
-      } else {
-          var ownersArray = [];
-          var costArray = [];
-          for (let i = 0; i < cartItems.length; i++){
-              var currCartItem = returnCheckOutDataByID(cartItems[i]);
-              ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
-              costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
-          }
-          cF.multipurchase(ownersArray, buyerName, costArray);
+  purchaseLogic = () => {
+    return new Promise((resolve, reject) => {
+      if(!this.props.useFirebaseBackend) {
+        let buyerName = firebase.auth().currentUser.uid;
+        if (cartItems.length == 0) {
+            // disable purchase button functionality here.
+        } else if (cartItems.length == 1) {
+            var currCartItem = returnCheckOutDataByID(cartItems[0])
+            var listingOwner = currCartItem['owner'];
+            var listingCost = currCartItem['price'];
+            listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
+            listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
+            cF.purchase(listingOwner, buyerName, listingCost).then(val => {
+              resolve(val);
+            }).catch(err => {
+              reject(err);
+            });
+        } else {
+            var ownersArray = [];
+            var costArray = [];
+            for (let i = 0; i < cartItems.length; i++){
+                var currCartItem = returnCheckOutDataByID(cartItems[i]);
+                ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
+                costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
+            }
+            cF.multipurchase(ownersArray, buyerName, costArray).then(val => {
+              resolve(val);
+            }).catch(err => {
+              reject(err);
+            });
+        }
       }
-    }
+    });
   }
-
 
   render () {
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID
