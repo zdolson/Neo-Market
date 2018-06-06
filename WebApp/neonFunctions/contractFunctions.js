@@ -418,15 +418,25 @@ module.exports = {
                             if (debug){
                                 console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                             }
-                            // var nonPurchasedItems = [];
+                            var nonPurchasedItems = [];
                             // for(let i = 0; i < allPosts.length; i++) {
                             //     if(!allPosts[i].isPurchased){
                             //         nonPurchasedItems.push(allPosts[i]);
                             //     }
                             // }
+                            for(let i = 0; i < allPosts.length; i++) {
+                                if(allPosts[i].isPurchased == 'false'){
+                                    allPosts[i].isPurchased = false;
+                                    nonPurchasedItems.push(allPosts[i]);
+                                }else{
+                                    allPosts[i].isPurchased = true;
+                                }
+                            }
+                            console.log(allPosts);
+                            console.log(nonPurchasedItems);
                             that.setState({
                                 items: allPosts,
-                                nonPurchasedItems: allPosts
+                                nonPurchasedItems: nonPurchasedItems
                             });
                             resolve(allPosts);
                         }
