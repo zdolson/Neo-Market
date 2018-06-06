@@ -101,6 +101,7 @@ export class App extends Component {
           console.log('Pulling listings from SC')
           cF.getAllPostsFromStorage(this).then(allPosts => {
             getCartItemsFromDatabase(this);
+            getMyPurchasesFromDatabase(this);
           }).catch(err => {
             console.error(err);
           });
