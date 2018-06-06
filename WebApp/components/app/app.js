@@ -99,12 +99,19 @@ export class App extends Component {
       getMyListings(this)
     } else {
           console.log('Pulling listings from SC')
-          cF.getAllPostsFromStorage(this);
+          cF.getAllPostsFromStorage(this).then(allPosts => {
+            getCartItemsFromDatabase(this);
+          }).catch(err => {
+            console.error(err);
+          });
     }
     this.updateNeoPrice();
   }
 
   addCartItem(id) {
+    console.log('addCartItem: '+id);
+    console.log('before: '+this.state.cartItems);
+    console.log('after: '+this.state.cartItems.concat(id));
     this.setState({ cartItems: this.state.cartItems.concat(id) });
   }
 
@@ -202,8 +209,7 @@ export class App extends Component {
     var currTotal = 0;
 
     for (var i = 0; i < this.state.cartItems.length; i++){
-      var currCartItem = this.state.cartItems[i]
-      console.log(this.state.cartItems.length);
+      var currCartItem = this.state.cartItems[i];
       var currCartItemData = this.returnCheckOutDataByID(currCartItem)
       if (currCartItemData == null) {
         break

@@ -365,11 +365,18 @@ export function addCartItemToDatabaseField(id, that) {
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+			var was_added;
       if (snapshot.child('myCartItems').val() == '') {
+				was_added = true;
         var cartItemList = id
       } else {
         var cartItemList = snapshot.child('myCartItems').val().split(',')
-        cartItemList.push(id)
+				if(cartItemList.includes(id)){
+					was_added = false;
+				}else{
+					was_added = true;
+					cartItemList.push(id);
+				}
         cartItemList = cartItemList.toString();
       }
       firebase.database().ref('/Users/' + currUserID).update({
@@ -380,7 +387,7 @@ export function addCartItemToDatabaseField(id, that) {
         console.log(error.message);
         reject(error);
       })
-      resolve(snapshot.child('myCartItems').val())
+      resolve(was_added);
     }).catch(function(error) {
       console.log('An error occured while adding cartitems to firebase');
       console.log(error.code);
