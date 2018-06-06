@@ -438,7 +438,7 @@ module.exports = {
                                 items: allPosts,
                                 nonPurchasedItems: nonPurchasedItems
                             });
-                            resolve(allPosts);
+                            resolve(nonPurchasedItems);
                         }
                     }).catch(err => {
                         if (debug){

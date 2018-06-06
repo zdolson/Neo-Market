@@ -41,7 +41,7 @@ class CheckOutTableItem extends Component {
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
-          <CheckOutPagePicture id={currCheckOutItem.id} />
+          <CheckOutPagePicture imgRef={currCheckOutItem.imageRef} />
           <div className="itemSeperator"></div>
           <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
           <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX/> </div>
