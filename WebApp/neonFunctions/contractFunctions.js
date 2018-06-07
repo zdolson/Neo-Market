@@ -451,8 +451,11 @@ module.exports = {
                                 }
                                 var nonPurchasedItems = [];
                                 for(let i = 0; i < allPosts.length; i++) {
-                                    if(allPosts[i].isPurchased == "false"){
+                                    if(allPosts[i].isPurchased == "false" || !allPosts[i].isPurchased){
+                                        allPosts[i].isPurchased = false;
                                         nonPurchasedItems.push(allPosts[i]);
+                                    }else{
+                                      allPosts[i].isPurchased = true;
                                     }
                                 }
                                 console.log(allPosts);
@@ -591,6 +594,11 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contract.
      */
     editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
+        if(isPurchased){
+            isPurchased = 'true';
+        }else{
+            isPurchased = 'false';
+        }
         id = id.replace(/[^\x20-\x7E]/g, '');
         owner = owner.replace(/[^\x20-\x7E]/g, '');
         title = title.replace(/[^\x20-\x7E]/g, '');

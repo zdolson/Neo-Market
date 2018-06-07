@@ -61,20 +61,26 @@ export class CheckOutPage extends Component {
   }
 
   purchaseLogic = () => {
+    console.log('purchaseLogic');
     return new Promise((resolve, reject) => {
       if(!this.props.useFirebaseBackend) {
+        let cartItems = this.props.cartItems;
         let buyerName = firebase.auth().currentUser.uid;
         if (cartItems.length == 0) {
             // disable purchase button functionality here.
         } else if (cartItems.length == 1) {
-            var currCartItem = returnCheckOutDataByID(cartItems[0])
+            var currCartItem = this.props.returnCheckOutDataByID(cartItems[0])
             var listingOwner = currCartItem['owner'];
             var listingCost = currCartItem['price'];
             listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
             listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
             cF.purchase(listingOwner, buyerName, listingCost).then(val => {
               // Check val to see if transaction worked or not
-              resolve(val);
+              if(val.response.result){
+                resolve(val);
+              }else{
+                reject(val);
+              }
             }).catch(err => {
               reject(err);
             });
@@ -82,13 +88,17 @@ export class CheckOutPage extends Component {
             var ownersArray = [];
             var costArray = [];
             for (let i = 0; i < cartItems.length; i++){
-                var currCartItem = returnCheckOutDataByID(cartItems[i]);
+                var currCartItem = this.props.returnCheckOutDataByID(cartItems[i]);
                 ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
                 costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
             }
             cF.multipurchase(ownersArray, buyerName, costArray).then(val => {
               // Check val to see if transaction worked or not
-              resolve(val);
+              if(val.response.result){
+                resolve(val);
+              }else{
+                reject(val);
+              }
             }).catch(err => {
               reject(err);
             });
