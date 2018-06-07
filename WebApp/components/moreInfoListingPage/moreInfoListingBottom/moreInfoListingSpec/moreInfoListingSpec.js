@@ -61,25 +61,6 @@ class MoreInfoListingSpec extends Component {
     });
   }
 
-  // <div className="cartBtn">
-  //   <div className="itemBtnText" onClick={this.addItemHandler}>
-  //     <Route render={({ history}) => (
-  //         <button className='addButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
-  //           Add to Cart
-  //         </button>
-  //       )}/>
-  //   </div>
-  // </div>
-  // <div className="removeBtn">
-  //   <div className="itemBtnText" onClick={this.removeItemHandler}>
-  //     <Route render={({ history}) => (
-  //         <button className='removeButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
-  //           Remove Item
-  //         </button>
-  //     )}/>
-  //   </div>
-  // </div>
-
   render () {
     let item = this.props.item;
     let owner = item.owner;

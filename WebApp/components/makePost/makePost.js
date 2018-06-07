@@ -13,13 +13,13 @@ export class MakePost extends Component {
   }
 
   render () {
-    var addItem = this.props.addItem;
     var useFirebaseBackend = this.props.useFirebaseBackend;
     var addMyListing = this.props.addMyListing;
+    var addToNonPurchasedItems = this.props.addToNonPurchasedItems;
 
     return (
       <div className = "makePost">
-        <MakePostFormNew addItem={addItem} useFirebaseBackend={useFirebaseBackend} addMyListing={addMyListing}/>
+        <MakePostFormNew useFirebaseBackend={useFirebaseBackend} addMyListing={addMyListing} addToNonPurchasedItems={addToNonPurchasedItems}/>
         <Stylesheet sheet={sheet} />
       </div>
 

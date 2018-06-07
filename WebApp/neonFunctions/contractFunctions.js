@@ -9,7 +9,7 @@ const axios = require("axios")
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = true;
+var debug = false;
 
 
 /**
@@ -435,17 +435,8 @@ module.exports = {
                             if (debug) {
                                 console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
                             }
-                            console.log(">>>>>>>>>>>> Beginning of getAllPostsFromStorage >>>>>>>>>>>>")
-                            console.log('internalCounter: ' + internalCounter);
-                            console.log("UserPosts: ")
-                            console.log(userPosts)
-                            console.log("allPosts: ")
-                            console.log(allPosts)
                             allPosts = allPosts.concat(userPosts);
-                            console.log("allPosts after concat")
-                            console.log(allPosts)
                             if(internalCounter == userList.length - 2) {
-                                console.log('Going to return!')
                                 if (debug){
                                     console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                                 }
@@ -459,6 +450,7 @@ module.exports = {
                                     }
                                 }
                                 console.log(allPosts);
+                                console.log(nonPurchasedItems)
                                 that.setState({
                                     items: allPosts,
                                     nonPurchasedItems: nonPurchasedItems
@@ -467,7 +459,6 @@ module.exports = {
                             }
                             // console.log(internalCounter);
                             internalCounter++;
-                            console.log('>>>>>>>>>>>>> End of getAllPostsFromStorage >>>>>>>>>>>>>>>>')
                         }
                     }).catch(err => {
                         if (debug){

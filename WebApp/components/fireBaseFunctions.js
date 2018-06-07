@@ -429,14 +429,67 @@ export function removeCartItemFromDatabase(id, that) {
   })
 }
 
-export function getCartItemsFromDatabase(that) {
+export function getCartItemsFromDatabase(that, items) {
+  console.log(items)
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
+      console.log(snapshot.child('myCartItems').val())
       if (snapshot.child('myCartItems').val() == '') {
         that.setState({cartItems: []})
       } else {
-        that.setState({cartItems: (snapshot.child('myCartItems').val()).split(',')})
+        var listOfCartItems = (snapshot.child('myCartItems').val()).split(',')
+        var removeIndexes = []
+        var listingItems = items
+        var foundItem = false
+
+        // Loop through the cartItems
+        for(var i=0; i<listOfCartItems.length;i++) {
+
+          // Loop to check if current CartItem is in the itemList
+          for(var k = 0; k<listingItems.length; k++) {
+
+            // If the cartItem is in the item list then go here
+            if(listOfCartItems[i] == listingItems[k]['id']) {
+              foundItem = true
+
+              // Check purchase Flag, if its true, then the item has been purchased
+              console.log(listingItems[k]["isPurchased"])
+              if (listingItems[k]["isPurchased"]) {
+                console.log('The item has been purchased, adding it to removeIndexes')
+                removeIndexes.push(i)
+              }
+            }
+          }
+
+          // Item was not found in the list of Items, therefore remove the cartItem
+          if(!foundItem) {
+            console.log('Item was not found, so removing it from indexes')
+            removeIndexes.push(i)
+          }
+          // resets the value afterwards for next check
+          foundItem = false
+
+          console.log(removeIndexes)
+          if (removeIndexes.length > 0) {
+            // Do a reverse for loop to splice indexes in order to preserve indexes after each splice
+            for(var i = removeIndexes.length-1;i>=0;i--) {
+              listOfCartItems.splice(removeIndexes[i], 1)
+            }
+          }
+
+          // Update firebase with new cartItem list
+          firebase.database().ref('/Users/' + currUserID).update({
+            'myCartItems': listOfCartItems.toString()
+          }).catch(function(error) {
+            console.log('An error occured while updating the cartItems field inside getCartItems');
+            console.log(error.code);
+            console.log(error.message);
+            reject(error);
+          })
+          console.log(listOfCartItems)
+          that.setState({cartItems: listOfCartItems})
+        }
       }
       resolve(snapshot.child('myCartItems').val());
     }).catch(function(error) {
@@ -502,18 +555,6 @@ export function makePurchase(cartItems, that) {
         console.log(error.message);
         reject(error);
       })
-
-      // Goes into each Listing and changes "purchased" flag to true, as to show that the item has been purchased
-      // for (var i=0;i < cartItems.length;i++) {
-      //   firebase.database().ref('/Listings/' + cartItems[i]).update({
-      //     purchased: true
-      //   }).catch(function(error) {
-      //     console.log('An error occured while changing the Listing purchase field');
-      //     console.log(error.code);
-      //     console.log(error.message);
-      //     reject(error);
-      //   })
-      // }
 
     }).catch(function(error) {
       console.log('An error occured while pulling myPurchases from firebase');
