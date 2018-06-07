@@ -5,11 +5,11 @@ const Neon = neon.default
 const config = require('./config')
 const node = require('./blockchain')
 const axios = require("axios")
-const account = Neon.create.account(config.wif)
+// const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -321,8 +321,9 @@ module.exports = {
      * @Function: getUserPostsFromStorage
      * @Contributor: Zachary Olson
      * @Param: {string} name
-     * @Return: {string array} posts
+     * @Return: {string array} posts OR null
      * Purpose: Returns array of strings, each index is a separate post under the passed username.
+     *          Returns null if a user has no posts.
      */
     getUserPostsFromStorage: (name) => {
         return new Promise((resolve,reject) => {
@@ -330,43 +331,48 @@ module.exports = {
                 var userPosts = [];
                 if(debug){
                     console.log(postingIDs);
+                    console.log(typeof(postingIDs));
                 }
-                for (var i = 0; i < postingIDs.length; i++) {
-                    module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): post: ', post);
-                        }
-                        let cutPost = post.split(';');
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): cutPosts: ', cutPost);
-                        }
-                        var currItem = {
-                          id: cutPost[0],
-                          owner: cutPost[1],
-                          title: cutPost[2],
-                          description: cutPost[3],
-                          price: cutPost[4],
-                          amount: cutPost[5],
-                          imageRef: cutPost[6],
-                          isPurchased: cutPost[7]
-                        }
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): currItem: ', currItem);
-                        }
-                        userPosts.push(currItem);
-                        if(userPosts.length == postingIDs.length) {
-                            if (debug){
-                                console.log('getUserPostsFromStorage(): userPosts: ', userPosts);
-                                console.log(userPosts.length);
+                if (postingIDs.length == 0){
+                    resolve(null);
+                } else {
+                    for (var i = 0; i < postingIDs.length; i++) {
+                        module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): post: ', post);
                             }
-                            resolve(userPosts);
-                        }
-                    }).catch(err => {
-                        if (debug){
-                            console.error('getUserPostsFromStorage(): err: ', err);
-                        }
-                        reject(err);
-                    })
+                            let cutPost = post.split(';');
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): cutPosts: ', cutPost);
+                            }
+                            var currItem = {
+                              id: cutPost[0],
+                              owner: cutPost[1],
+                              title: cutPost[2],
+                              description: cutPost[3],
+                              price: cutPost[4],
+                              amount: cutPost[5],
+                              imageRef: cutPost[6],
+                              isPurchased: cutPost[7]
+                            }
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): currItem: ', currItem);
+                            }
+                            userPosts.push(currItem);
+                            if(userPosts.length == postingIDs.length) {
+                                if (debug){
+                                    console.log('getUserPostsFromStorage(): userPosts: ', userPosts);
+                                    console.log(userPosts.length);
+                                }
+                                resolve(userPosts);
+                            }
+                        }).catch(err => {
+                            if (debug){
+                                console.error('getUserPostsFromStorage(): err: ', err);
+                            }
+                            reject(err);
+                        })
+                    }
                 }
             })
         })
@@ -407,28 +413,58 @@ module.exports = {
         return new Promise((resolve,reject) => {
             var allPosts = [];
             var currItem = {};
+            var internalCounter = 0;
             module.exports.getAllUsersFromStorage().then(userList => {
                 for (var i = 0; i < userList.length - 1; i++) {
                     module.exports.getUserPostsFromStorage(userList[i]).then((userPosts) => {
-                        if (debug) {
-                            console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
-                        }
-                        allPosts = allPosts.concat(userPosts);
-                        if(i == userList.length -1) {
+                        if(userPosts == null) {
                             if (debug){
-                                console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
+                                console.log('user has no posts');
                             }
-                            // var nonPurchasedItems = [];
-                            // for(let i = 0; i < allPosts.length; i++) {
-                            //     if(!allPosts[i].isPurchased){
-                            //         nonPurchasedItems.push(allPosts[i]);
-                            //     }
-                            // }
-                            that.setState({
-                                items: allPosts,
-                                nonPurchasedItems: allPosts
-                            });
-                            resolve(allPosts);
+                            if(internalCounter == userList.length - 2) {
+                                console.log('Going to return!')
+                                that.setState({
+                                    items: allPosts,
+                                    nonPurchasedItems: allPosts
+                                });
+                                resolve(allPosts);
+                            }
+                            // console.log(internalCounter);
+                            internalCounter++;
+                        } else {
+                            if (debug) {
+                                console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
+                            }
+                            console.log(">>>>>>>>>>>> Beginning of getAllPostsFromStorage >>>>>>>>>>>>")
+                            console.log('internalCounter: ' + internalCounter);
+                            console.log("UserPosts: ")
+                            console.log(userPosts)
+                            console.log("allPosts: ")
+                            console.log(allPosts)
+                            allPosts = allPosts.concat(userPosts);
+                            console.log("allPosts after concat")
+                            console.log(allPosts)
+                            if(internalCounter == userList.length - 2) {
+                                console.log('Going to return!')
+                                if (debug){
+                                    console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
+                                }
+                                // var nonPurchasedItems = [];
+                                // for(let i = 0; i < allPosts.length; i++) {
+                                //     if(!allPosts[i].isPurchased){
+                                //         nonPurchasedItems.push(allPosts[i]);
+                                //     }
+                                // }
+                                console.log(allPosts);
+                                that.setState({
+                                    items: allPosts,
+                                    nonPurchasedItems: allPosts
+                                });
+                                resolve(allPosts);
+                            }
+                            // console.log(internalCounter);
+                            internalCounter++;
+                            console.log('>>>>>>>>>>>>> End of getAllPostsFromStorage >>>>>>>>>>>>>>>>')
                         }
                     }).catch(err => {
                         if (debug){
@@ -457,24 +493,28 @@ module.exports = {
      *          Calls invokeContract() with register function to smart contract.
      */
     register: (name, address) => {
-        node.invokeContract('register', [name, address], account, (res) => {
-            if (debug){
-                console.log('register(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+name).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('register', [name, address], account, (res) => {
                 if (debug){
-                    console.log('register(): Transaction successful.')
+                    console.log('register(): res: ');
+                    console.dir(res);
                 }
-                // return true;
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('register(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('register(): Transaction successful.')
+                    }
+                    // return true;
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('register(): Transaction failed.')
+                    }
+                    // return false;
+                    //can do other things if failed, like scream at user.
                 }
-                // return false;
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -488,22 +528,26 @@ module.exports = {
      *          Calls invokeContract() with isregister function to smart contract.
      */
     isRegister: (name, address) => {
-        node.invokeContract('isregister', [name, address], account, (res) => {
-            if (debug){
-                console.log('isRegister(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+name).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('isregister', [name, address], account, (res) => {
                 if (debug){
-                    console.log('isRegister(): Transaction successful.')
+                    console.log('isRegister(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('isRegister(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('isRegister(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('isRegister(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -523,22 +567,26 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contåract.
      */
     createPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
-        node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
-            if (debug){
-                console.log('createPost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
                 if (debug){
-                    console.log('createPost(): Transaction successful.')
+                    console.log('createPost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('createPost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('createPost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('createPost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -563,22 +611,26 @@ module.exports = {
         // price = price.replace(/[^\x20-\x7E]/g, '');
         // amount = amount.replace(/[^\x20-\x7E]/g, '');
         console.log(id+owner+title+desc+price+amount);
-        node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
-            if (debug){
-                console.log('editPost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
                 if (debug){
-                    console.log('editPost(): Transaction successful.')
+                    console.log('editPost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('editPost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('editPost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('editPost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -592,22 +644,26 @@ module.exports = {
      *          Calls invokeContract() with deletepost function to smart contract.
      */
     deletePost: (owner, index) => {
-        node.invokeContract('deletepost', [owner,index], account, (res) => {
-            if (debug){
-                console.log('deletePost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('deletepost', [owner,index], account, (res) => {
                 if (debug){
-                    console.log('deletePost(): Transaction successful.')
+                    console.log('deletePost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('deletePost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('deletePost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('deletePost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     }
 }
