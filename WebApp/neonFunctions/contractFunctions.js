@@ -5,11 +5,11 @@ const Neon = neon.default
 const config = require('./config')
 const node = require('./blockchain')
 const axios = require("axios")
-const account = Neon.create.account(config.wif)
+// const account = Neon.create.account(config.wif)
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -451,8 +451,11 @@ module.exports = {
                                 }
                                 var nonPurchasedItems = [];
                                 for(let i = 0; i < allPosts.length; i++) {
-                                    if(allPosts[i].isPurchased == "false"){
+                                    if(allPosts[i].isPurchased == "false" || !allPosts[i].isPurchased){
+                                        allPosts[i].isPurchased = false;
                                         nonPurchasedItems.push(allPosts[i]);
+                                    }else{
+                                      allPosts[i].isPurchased = true;
                                     }
                                 }
                                 console.log(allPosts);
@@ -492,24 +495,28 @@ module.exports = {
      *          Calls invokeContract() with register function to smart contract.
      */
     register: (name, address) => {
-        node.invokeContract('register', [name, address], account, (res) => {
-            if (debug){
-                console.log('register(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+name).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('register', [name, address], account, (res) => {
                 if (debug){
-                    console.log('register(): Transaction successful.')
+                    console.log('register(): res: ');
+                    console.dir(res);
                 }
-                // return true;
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('register(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('register(): Transaction successful.')
+                    }
+                    // return true;
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('register(): Transaction failed.')
+                    }
+                    // return false;
+                    //can do other things if failed, like scream at user.
                 }
-                // return false;
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -523,22 +530,26 @@ module.exports = {
      *          Calls invokeContract() with isregister function to smart contract.
      */
     isRegister: (name, address) => {
-        node.invokeContract('isregister', [name, address], account, (res) => {
-            if (debug){
-                console.log('isRegister(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+name).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('isregister', [name, address], account, (res) => {
                 if (debug){
-                    console.log('isRegister(): Transaction successful.')
+                    console.log('isRegister(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('isRegister(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('isRegister(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('isRegister(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -558,22 +569,26 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contåract.
      */
     createPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
-        node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
-            if (debug){
-                console.log('createPost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('createpost', [id,owner,title,desc,price,amount, imageRef, isPurchased], account, (res) => {
                 if (debug){
-                    console.log('createPost(): Transaction successful.')
+                    console.log('createPost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('createPost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('createPost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('createPost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -591,6 +606,11 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contract.
      */
     editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
+        if(isPurchased){
+            isPurchased = 'true';
+        }else{
+            isPurchased = 'false';
+        }
         id = id.replace(/[^\x20-\x7E]/g, '');
         owner = owner.replace(/[^\x20-\x7E]/g, '');
         title = title.replace(/[^\x20-\x7E]/g, '');
@@ -598,22 +618,26 @@ module.exports = {
         // price = price.replace(/[^\x20-\x7E]/g, '');
         // amount = amount.replace(/[^\x20-\x7E]/g, '');
         console.log(id+owner+title+desc+price+amount);
-        node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
-            if (debug){
-                console.log('editPost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
                 if (debug){
-                    console.log('editPost(): Transaction successful.')
+                    console.log('editPost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('editPost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('editPost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('editPost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     },
 
@@ -627,22 +651,26 @@ module.exports = {
      *          Calls invokeContract() with deletepost function to smart contract.
      */
     deletePost: (owner, index) => {
-        node.invokeContract('deletepost', [owner,index], account, (res) => {
-            if (debug){
-                console.log('deletePost(): res: ');
-                console.dir(res);
-            }
-            if (res.result === true) {
+        firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
+            var wif = snapshot.child('wif').val();
+            var account = Neon.create.account(wif);
+            node.invokeContract('deletepost', [owner,index], account, (res) => {
                 if (debug){
-                    console.log('deletePost(): Transaction successful.')
+                    console.log('deletePost(): res: ');
+                    console.dir(res);
                 }
-                //can do other things if successful, like transition pages, etc.
-            } else {
-                if (debug){
-                    console.log('deletePost(): Transaction failed.')
+                if (res.result === true) {
+                    if (debug){
+                        console.log('deletePost(): Transaction successful.')
+                    }
+                    //can do other things if successful, like transition pages, etc.
+                } else {
+                    if (debug){
+                        console.log('deletePost(): Transaction failed.')
+                    }
+                    //can do other things if failed, like scream at user.
                 }
-                //can do other things if failed, like scream at user.
-            }
+            })
         })
     }
 }
