@@ -52,9 +52,7 @@ export class MakePostForm extends Component {
         that.props.addMyListing(id);
         // var pulledImgRef = imageRef;
         console.log(imageRef);
-        cF.createPost(id, currentUser, title, description, price, amount, imageRef, 'false').then(result => {
-            console.log('makePost results: ' + result);
-        })
+        cF.createPost(id, currentUser, title, description, price, amount, imageRef, 'false')
     })
     // }
     // else {

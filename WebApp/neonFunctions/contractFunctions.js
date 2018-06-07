@@ -321,8 +321,9 @@ module.exports = {
      * @Function: getUserPostsFromStorage
      * @Contributor: Zachary Olson
      * @Param: {string} name
-     * @Return: {string array} posts
+     * @Return: {string array} posts OR null
      * Purpose: Returns array of strings, each index is a separate post under the passed username.
+     *          Returns null if a user has no posts.
      */
     getUserPostsFromStorage: (name) => {
         return new Promise((resolve,reject) => {
@@ -330,43 +331,48 @@ module.exports = {
                 var userPosts = [];
                 if(debug){
                     console.log(postingIDs);
+                    console.log(typeof(postingIDs));
                 }
-                for (var i = 0; i < postingIDs.length; i++) {
-                    module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): post: ', post);
-                        }
-                        let cutPost = post.split(';');
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): cutPosts: ', cutPost);
-                        }
-                        var currItem = {
-                          id: cutPost[0],
-                          owner: cutPost[1],
-                          title: cutPost[2],
-                          description: cutPost[3],
-                          price: cutPost[4],
-                          amount: cutPost[5],
-                          imageRef: cutPost[6],
-                          isPurchased: cutPost[7]
-                        }
-                        if (debug) {
-                            console.log('getUserPostsFromStorage(): currItem: ', currItem);
-                        }
-                        userPosts.push(currItem);
-                        if(userPosts.length == postingIDs.length) {
-                            if (debug){
-                                console.log('getUserPostsFromStorage(): userPosts: ', userPosts);
-                                console.log(userPosts.length);
+                if (postingIDs.length == 0){
+                    resolve(null);
+                } else {
+                    for (var i = 0; i < postingIDs.length; i++) {
+                        module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): post: ', post);
                             }
-                            resolve(userPosts);
-                        }
-                    }).catch(err => {
-                        if (debug){
-                            console.error('getUserPostsFromStorage(): err: ', err);
-                        }
-                        reject(err);
-                    })
+                            let cutPost = post.split(';');
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): cutPosts: ', cutPost);
+                            }
+                            var currItem = {
+                              id: cutPost[0],
+                              owner: cutPost[1],
+                              title: cutPost[2],
+                              description: cutPost[3],
+                              price: cutPost[4],
+                              amount: cutPost[5],
+                              imageRef: cutPost[6],
+                              isPurchased: cutPost[7]
+                            }
+                            if (debug) {
+                                console.log('getUserPostsFromStorage(): currItem: ', currItem);
+                            }
+                            userPosts.push(currItem);
+                            if(userPosts.length == postingIDs.length) {
+                                if (debug){
+                                    console.log('getUserPostsFromStorage(): userPosts: ', userPosts);
+                                    console.log(userPosts.length);
+                                }
+                                resolve(userPosts);
+                            }
+                        }).catch(err => {
+                            if (debug){
+                                console.error('getUserPostsFromStorage(): err: ', err);
+                            }
+                            reject(err);
+                        })
+                    }
                 }
             })
         })
@@ -407,38 +413,58 @@ module.exports = {
         return new Promise((resolve,reject) => {
             var allPosts = [];
             var currItem = {};
+            var internalCounter = 0;
             module.exports.getAllUsersFromStorage().then(userList => {
                 for (var i = 0; i < userList.length - 1; i++) {
                     module.exports.getUserPostsFromStorage(userList[i]).then((userPosts) => {
-                        if (debug) {
-                            console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
-                        }
-                        allPosts = allPosts.concat(userPosts);
-                        if(i == userList.length -1) {
+                        if(userPosts == null) {
                             if (debug){
-                                console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
+                                console.log('user has no posts');
                             }
-                            var nonPurchasedItems = [];
-                            // for(let i = 0; i < allPosts.length; i++) {
-                            //     if(!allPosts[i].isPurchased){
-                            //         nonPurchasedItems.push(allPosts[i]);
-                            //     }
-                            // }
-                            for(let i = 0; i < allPosts.length; i++) {
-                                if(allPosts[i].isPurchased == 'false'){
-                                    allPosts[i].isPurchased = false;
-                                    nonPurchasedItems.push(allPosts[i]);
-                                }else{
-                                    allPosts[i].isPurchased = true;
+                            if(internalCounter == userList.length - 2) {
+                                console.log('Going to return!')
+                                that.setState({
+                                    items: allPosts,
+                                    nonPurchasedItems: allPosts
+                                });
+                                resolve(allPosts);
+                            }
+                            // console.log(internalCounter);
+                            internalCounter++;
+                        } else {
+                            if (debug) {
+                                console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
+                            }
+                            console.log(">>>>>>>>>>>> Beginning of getAllPostsFromStorage >>>>>>>>>>>>")
+                            console.log('internalCounter: ' + internalCounter);
+                            console.log("UserPosts: ")
+                            console.log(userPosts)
+                            console.log("allPosts: ")
+                            console.log(allPosts)
+                            allPosts = allPosts.concat(userPosts);
+                            console.log("allPosts after concat")
+                            console.log(allPosts)
+                            if(internalCounter == userList.length - 2) {
+                                console.log('Going to return!')
+                                if (debug){
+                                    console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                                 }
+                                var nonPurchasedItems = [];
+                                for(let i = 0; i < allPosts.length; i++) {
+                                    if(allPosts[i].isPurchased == "false"){
+                                        nonPurchasedItems.push(allPosts[i]);
+                                    }
+                                }
+                                console.log(allPosts);
+                                that.setState({
+                                    items: allPosts,
+                                    nonPurchasedItems: nonPurchasedItems
+                                });
+                                resolve(allPosts);
                             }
-                            console.log(allPosts);
-                            console.log(nonPurchasedItems);
-                            that.setState({
-                                items: allPosts,
-                                nonPurchasedItems: nonPurchasedItems
-                            });
-                            resolve(nonPurchasedItems);
+                            // console.log(internalCounter);
+                            internalCounter++;
+                            console.log('>>>>>>>>>>>>> End of getAllPostsFromStorage >>>>>>>>>>>>>>>>')
                         }
                     }).catch(err => {
                         if (debug){
@@ -455,7 +481,6 @@ module.exports = {
             })
         })
     },
-
 
     /*
      * @Function: register

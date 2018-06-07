@@ -73,6 +73,7 @@ export class CheckOutPage extends Component {
             listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
             listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
             cF.purchase(listingOwner, buyerName, listingCost).then(val => {
+              // Check val to see if transaction worked or not
               resolve(val);
             }).catch(err => {
               reject(err);
@@ -86,6 +87,7 @@ export class CheckOutPage extends Component {
                 costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
             }
             cF.multipurchase(ownersArray, buyerName, costArray).then(val => {
+              // Check val to see if transaction worked or not
               resolve(val);
             }).catch(err => {
               reject(err);

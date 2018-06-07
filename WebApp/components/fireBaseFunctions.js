@@ -484,16 +484,18 @@ export function makePurchase(cartItems, that) {
       // Updating User's myPurchases field to hold what the user just purchased.
       firebase.database().ref('/Users/' + currUserID).update({
         'myPurchases': currPurchList
-      }).catch(function(error) {
-        console.log('An error occured while updating the cartItems field');
-        console.log(error.code);
-        console.log(error.message);
-        reject(error);
-      })
-
-      // Setting User's cartItems to '' since they just purhcased their items
-      firebase.database().ref('/Users/' + currUserID).update({
-        'myCartItems': ''
+      }).then(function() {
+        // Setting User's cartItems to '' since they just purhcased their items
+        firebase.database().ref('/Users/' + currUserID).update({
+          'myCartItems': ''
+        }).then(function() {
+          resolve(snapshot.child('myPurchases').val());
+        }).catch(function(error) {
+          console.log('An error occured while updating the cartItems field');
+          console.log(error.code);
+          console.log(error.message);
+          reject(error);
+        })
       }).catch(function(error) {
         console.log('An error occured while updating the cartItems field');
         console.log(error.code);
@@ -513,7 +515,6 @@ export function makePurchase(cartItems, that) {
       //   })
       // }
 
-      resolve(snapshot.child('myPurchases').val());
     }).catch(function(error) {
       console.log('An error occured while pulling myPurchases from firebase');
       console.log(error.code);
