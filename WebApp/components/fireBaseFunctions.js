@@ -183,6 +183,19 @@ export function updateUserPhoto(file) {
   })
 }
 
+export function updateItemPhoto(file, id){
+	return new Promise((resolve, reject) => {
+		firebase.storage().ref().child(id).put(file).then(snapshot => {
+			resolve(snapshot.downloadURL);
+		}).catch(err => {
+			console.log('An error occured while posting image to storage');
+      console.log(err.code);
+      console.log(err.message);
+      reject(err);
+		});
+	});
+}
+
 export function postNewPostingToDatabaseDemo(id, owner, title, description, price, amount, imageFile, that) {
   return new Promise((resolve, reject) => {
     firebase.storage().ref().child(id).put(imageFile).then(function(snapshot) {

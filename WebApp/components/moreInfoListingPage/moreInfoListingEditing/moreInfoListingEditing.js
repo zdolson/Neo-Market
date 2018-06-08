@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Stylesheet } from '../../stylesheet.js'
 import sheet from './moreInfoListingEditing.scss'
 
-import {pullingDatabaseImage, editPostingToDatabase} from '../../fireBaseFunctions.js'
+import {updateItemPhoto} from '../../fireBaseFunctions.js'
 import ImportPhotoIcon from '../../assets/ImportPhotoIcon.svg'
 
 import { Route } from 'react-router-dom'
@@ -17,7 +17,7 @@ class MoreInfoListingEditing extends Component {
     this.state = {
       imgUrl: '',
       file: null,
-      imgRef: null,
+      imgRef: this.props.item.imageRef,
       imgLoad: false,
       tryAgain: true,
       description: this.props.item.description,
@@ -26,11 +26,6 @@ class MoreInfoListingEditing extends Component {
     }
     this.submitHandler = this.submitHandler.bind(this);
     this.readFile = this.readFile.bind(this);
-  }
-
-  componentDidMount() {
-    var that = this
-    pullingDatabaseImage(this.props.item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that);
   }
 
   handleKeyPress = (e) => {
@@ -66,17 +61,11 @@ class MoreInfoListingEditing extends Component {
   }
 
   submitHandler = () => {
-    var that = this
-    if (this.props.useFirebaseBackend) {
-      console.log('Using editPost Firebase')
-      editPostingToDatabase(this.props.item.id, this.state.description, this.state.title, this.state.price, this.state.file, that).then(function() {
-        that.props.hasEdit(that.props.item.id, that.state.description, that.state.title, that.state.price);
-      })
-    } else {
-      console.log('editPost backend logic goes here.')
-      var currentUser = firebase.auth().currentUser.uid;
-      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, this.props.item.imageRef, this.props.item.isPurchased);
-    }
+    var that = this;
+    var currentUser = firebase.auth().currentUser.uid;
+    updateItemPhoto(this.state.file, this.props.item.id).then(imgRef => {
+      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, imgRef, this.props.item.isPurchased);
+    });
   }
 
   render() {
@@ -86,12 +75,6 @@ class MoreInfoListingEditing extends Component {
         <img src={this.state.imgUrl} alt='loading...' width="350"/> :
         <div className="imgLoading"> <div>loading...</div> </div>
     );
-    img = (
-      this.state.imgRef != null ?
-        <img src={this.state.imgRef} alt='loading...' width="350"/> :
-        img
-    );
-
     return (
       <div className="moreInfoListingEditing">
 
@@ -113,7 +96,7 @@ class MoreInfoListingEditing extends Component {
           <div className="bottomLeft">
             <div className="editImage">
               <div className="image">
-                {img}
+                <img src={this.state.imgRef} alt='loading...' width="350"/> :
               </div>
               <div className="upload">
                 <ImportPhotoIcon />

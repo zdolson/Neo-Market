@@ -334,7 +334,7 @@ module.exports = {
                     console.log(typeof(postingIDs));
                 }
                 if (postingIDs.length == 0){
-                    resolve(null);
+                    resolve([]);
                 } else {
                     for (var i = 0; i < postingIDs.length; i++) {
                         module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
