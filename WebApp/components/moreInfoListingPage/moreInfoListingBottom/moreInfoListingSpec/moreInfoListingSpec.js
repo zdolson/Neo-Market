@@ -51,6 +51,7 @@ class MoreInfoListingSpec extends Component {
     } else {
       console.log('backend deletePosting logic goes here')
       cF.deletePost(firebase.auth().currentUser.uid, this.props.item['id'])
+      // make this thenable and add facade code
     }
   }
 
