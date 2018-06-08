@@ -17,28 +17,17 @@ Purpose: Component for creating each item in the purchases page
 class PurchasedItem extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      imgUrl: 'defaultURL',
-      imgLoad: false,
-      tryAgain: true
-    }
+    this.state = {}
   }
 
   render () {
     let {item} = this.props;
-    pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
-    // pullingDatabaseImage(item.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, this);
-    var img = (
-      this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' height="50"/> :
-      <div className="imgLoading"> <div>loading...</div> </div>
-    );
     return (
       <div className='item-container'>
 
         <div className="item-top">
           <div className="item-image">
-            <div>{img}</div>
+            <div><img src={item.imageRef} alt='loading...' height="50"/></div>
           </div>
           <div className="item-title">
             {item.title}

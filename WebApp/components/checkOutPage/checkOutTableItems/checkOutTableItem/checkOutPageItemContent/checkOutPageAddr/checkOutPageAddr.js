@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {Stylesheet} from '../../../../../stylesheet.js'
 import sheet from './checkOutPageAddr.scss'
 
+import * as firebase from 'firebase'
 /**
 
 @ Nicholas
@@ -16,14 +17,24 @@ export class CheckOutPageAddr extends Component {
   constructor (props, context) {
     super(props, context)
     this.state = {
-      // stuff goes here
+      owner: 'loading...'
     }
   }
 
+  componentDidMount = () => {
+    firebase.database().ref('Users/'+this.props.currCheckOutItemOwner).once('value').then(user => {
+      this.setState({ owner: user.val().userName });
+    }).catch(err => {
+      console.error(err);
+      this.setState({ owner: 'unknown' });
+    })
+  }
+
   render () {
+
     return (
       <div className='checkOutPageAddr'>
-        {this.props.currCheckOutItemOwner}
+        {this.state.owner}
         <Stylesheet sheet={sheet} />
       </div>
     )

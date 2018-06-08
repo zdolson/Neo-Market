@@ -46,19 +46,6 @@ export class App extends Component {
         }
       ],
       nonPurchasedItems: [],
-      users: [
-        {
-          fullName: 'defaultfullName',
-          userName: 'defualtUserName',
-          email: 'defaultEmail',
-          myListings: 'defaultMyListings',
-          myPurchases: 'defaultMyPurchases',
-          photoId: 'defaultPhotoId',
-          password: 'defualtPassword',
-          wif: 'defaultWif',
-          myCartItems: 'defaultMyCartItems'
-        }
-      ],
       cartItems: [],
       loadItemsAgain:false,
       filter_price: 0,
@@ -74,7 +61,6 @@ export class App extends Component {
     this.removeCartItem = this.removeCartItem.bind(this);
     this.returnCheckOutDataByID = this.returnCheckOutDataByID.bind(this);
     this.sumTotalCartItems = this.sumTotalCartItems.bind(this);
-    this.addItem = this.addItem.bind(this);
     this.removeItem = this.removeItem.bind(this);
     this.isIDInItemList = this.isIDInItemList.bind(this);
     this.itemsListToString = this.itemsListToString.bind(this);
@@ -88,6 +74,7 @@ export class App extends Component {
     this.resetCartItemState = this.resetCartItemState.bind(this);
     this.addToMyPurchases = this.addToMyPurchases.bind(this);
     this.removeItemFromNonPurchasedList = this.removeItemFromNonPurchasedList.bind(this);
+    this.addToNonPurchasedItems = this.addToNonPurchasedItems.bind(this);
   }
 
   componentDidMount() {
@@ -98,9 +85,13 @@ export class App extends Component {
       getMyPurchasesFromDatabase(this)
       getMyListings(this)
     } else {
-          console.log('Pulling listings from SC')
-          // get myListings, myPurchases, cartItems
-          cF.getAllPostsFromStorage(this);
+      console.log('Pulling listings from SC')
+      cF.getAllPostsFromStorage(this).then(allPosts => {
+        getCartItemsFromDatabase(this, allPosts);
+        getMyPurchasesFromDatabase(this);
+      }).catch(err => {
+        console.error(err);
+      });
     }
     this.updateNeoPrice();
   }
@@ -109,22 +100,18 @@ export class App extends Component {
     this.setState({ cartItems: this.state.cartItems.concat(id) });
   }
 
-  addItem(id, owner, title, desc, price, amount) {
-    let newItem = {id: id, owner: owner, title: title, desc: desc, price: price, amount: amount};
-    this.setState({ items: this.state.items.concat(newItem) })
-  }
-
   removeItem(id) {
     //If the item is also in the cart then it will be removed as well. Else it will just keep going.
     this.removeCartItem(id)
-    for (var i = 0; i < this.state.items.length; i++){
-      var currItem = this.state.items[i]
+    for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
+      var currItem = this.state.nonPurchasedItems[i]
       if (currItem['id'] == id) {
-        this.state.items.splice(i, 1)
+        this.state.nonPurchasedItems.splice(i, 1)
       }
-      this.setState({ items: this.state.items});
+      this.setState({ nonPurchasedItems: this.state.nonPurchasedItems});
     }
   }
+
 
   removeCartItem(id){
     var index = this.state.cartItems.indexOf(id)
@@ -136,7 +123,24 @@ export class App extends Component {
     }
   }
 
-  // get rid of this
+  addToNonPurchasedItems(id, owner, title, description, price, amount, imageFile) {
+    let newListingDict = {
+      id: id,
+      owner: owner,
+      title: title,
+      description: description,
+      price: price,
+      amount: amount,
+      imageName: imageFile['name'],
+      purchased: false
+    }
+
+    this.setState({
+      nonPurchasedItems: this.state.nonPurchasedItems.concat(newListingDict),
+      items: this.state.items.concat(newListingDict)
+    })
+  }
+
   addMyListing(id) {
     this.setState({ myListings: this.state.myListings.concat(id) })
   }
@@ -209,8 +213,7 @@ export class App extends Component {
     var currTotal = 0;
 
     for (var i = 0; i < this.state.cartItems.length; i++){
-      var currCartItem = this.state.cartItems[i]
-      console.log(this.state.cartItems.length);
+      var currCartItem = this.state.cartItems[i];
       var currCartItemData = this.returnCheckOutDataByID(currCartItem)
       if (currCartItemData == null) {
         break
@@ -245,19 +248,7 @@ export class App extends Component {
   hasEdit(id, description, title, price) {
     // This function is called when an update has been made to a listing.
     // Empty out the items list and then do another database pull
-    this.setState({
-      items: [
-        {
-          id: 'defaultValue',
-          owner:'...',
-          title: '...',
-          description: '...',
-          price: '0',
-          amount: 0
-        }
-      ]
-    })
-    pullDataFromDatabase(this)
+    console.log("test that dont need")
   }
 
   updateNeoPrice() {
@@ -306,7 +297,6 @@ export class App extends Component {
             returnCheckOutDataByID={this.returnCheckOutDataByID}
             removeCartItem={this.removeCartItem}
             sumTotalCartItems={this.sumTotalCartItems}
-            addItem={this.addItem}
             removeItem={this.removeItem}
             hasEdit={this.hasEdit}
             useFirebaseBackend={this.props.useFirebaseBackend}
@@ -315,6 +305,7 @@ export class App extends Component {
             resetCartItemState = {this.resetCartItemState}
             addToMyPurchases = {this.addToMyPurchases}
             removeItemFromNonPurchasedList = {this.removeItemFromNonPurchasedList}
+            addToNonPurchasedItems={this.addToNonPurchasedItems}
           />
         </div>
       </main>

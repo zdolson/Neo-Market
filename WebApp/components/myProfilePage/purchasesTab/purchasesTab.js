@@ -22,12 +22,13 @@ class PurchasesTab extends Component {
   }
 
   render () {
+    console.log(this.props);
     let items = this.props.state.items;
     var myPurchases = this.props.state.myPurchases;
     var returnCheckOutDataByID = this.props.returnCheckOutDataByID;
     var nonPurchasedItems = this.props.nonPurchasedItems;
 
-    // Taking the myPurchases list passed in and goes through 
+    // Taking the myPurchases list passed in and goes through
     // the list and gets the item information corresponding to listingID.
     var purchasesList = []
     for(var i = 0; i < myPurchases.length; i++) {

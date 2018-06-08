@@ -57,17 +57,33 @@ class MoreInfoListingSpec extends Component {
 
   addItemHandler = () => {
     var that = this;
-    addCartItemToDatabaseField(this.props.item['id'], that).then(function() {
-      that.props.addCartItem(that.props.item['id'])
+    addCartItemToDatabaseField(this.props.item['id'], that).then(function(was_added) {
+      if(was_added) that.props.addCartItem(that.props.item['id']);
     });
   }
 
   render () {
     let item = this.props.item;
+    let owner = item.owner;
+    let currentUser = firebase.auth().currentUser.uid;
     let itemID = item['id'];
     let addCartItem = this.props.addCartItem;
     let removeItem = this.props.removeItem;
     let currPrice = (Math.round((item.price * this.props.neoPrice) * 100) / 100);
+
+    let btn = (owner == currentUser) ? (
+      <Route render={({ history}) => (
+        <button className='removeBtn' type='button' onClick={() => { this.removeItemHandler(); history.push('/') }}>
+          Remove Item
+        </button>
+      )}/>
+    ) : (
+      <Route render={({ history}) => (
+        <button className='cartBtn' type='button' onClick={() => { this.addItemHandler(); history.push('/') }}>
+          Add to Cart
+        </button>
+      )}/>
+    )
 
     return (
       <div className='moreInfoListingSpec'>
@@ -98,29 +114,14 @@ class MoreInfoListingSpec extends Component {
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="btnContainer">
-          <div className="cartBtn">
-            <div className="itemBtnText" onClick={this.addItemHandler}>
-              <Route render={({ history}) => (
-                  <button className='addButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
-                    Add to Cart
-                  </button>
-                )}/>
-            </div>
-          </div>
-          <div className="removeBtn">
-            <div className="itemBtnText" onClick={this.removeItemHandler}>
-              <Route render={({ history}) => (
-                  <button className='removeButtonHandlerText' type='button' onClick={() => { history.push('/') }}>
-                    Remove Item
-                  </button>
-              )}/>
-            </div>
-          </div>
+          {btn}
         </div>
         <Stylesheet sheet={sheet} />
       </div>
     )
   }
 }
+
+
 
 export default MoreInfoListingSpec

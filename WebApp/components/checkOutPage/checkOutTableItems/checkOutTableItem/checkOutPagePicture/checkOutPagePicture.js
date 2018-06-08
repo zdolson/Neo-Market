@@ -19,27 +19,13 @@ Purpose: Picture component for the checkout page
 class CheckOutPagePictures extends Component {
   constructor(props, context) {
     super(props, context)
-    this.state = {
-      imgUrl: '',
-      imgLoad: false,
-      tryAgain: true
-    }
-  }
-
-  componentWillMount() {
-    var that = this
-    pullingDatabaseImage(this.props.id, this.state.imgUrl, this.state.imgLoad, this.state.tryAgain, that)
+    this.state = {}
   }
 
   render () {
-    var img = (
-      this.state.imgLoad ?
-      <img src={this.state.imgUrl} alt='loading...' width="350"/> :
-      <div className="imgLoading"> <div>loading...</div> </div>
-    );
     return (
       <div className='checkOutPagePicture'>
-        {img}
+        <img src={this.props.imgRef} alt='loading...' width="350"/>
         <Stylesheet sheet={sheet} />
       </div>
     )
