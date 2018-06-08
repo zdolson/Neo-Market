@@ -169,6 +169,19 @@ export function postNewPostingToDatabase(id, owner, title, description, price, a
   })
 }
 
+export function updateUserPhoto(file) {
+	return new Promise((resolve, reject) => {
+    firebase.storage().ref().child(firebase.auth().currentUser.uid).put(file).then(function(snapshot) {
+			console.log('yolo');
+			resolve(snapshot.downloadURL);
+    }).catch(function(error) {
+      console.log('An error occured while posting image to storage');
+      console.log(error.code);
+      console.log(error.message);
+      reject(error);
+    });
+  })
+}
 
 export function postNewPostingToDatabaseDemo(id, owner, title, description, price, amount, imageFile, that) {
   return new Promise((resolve, reject) => {
@@ -246,38 +259,64 @@ export function pullUserData(that) {
 	});
 }
 
-export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, wif, that) {
+function uploadImage(img, uid) {
+	return new Promise((resolve, reject) => {
+		if(img == null) {
+			resolve('defaultPhoto.png');
+		} else {
+			firebase.storage().ref().child(uid).put(img).then(function(snapshot) {
+				resolve(snapshot.downloadURL);
+			}).catch(err => {
+				console.log('An error occured while posting image to storage');
+	      console.log(error.code);
+	      console.log(error.message);
+	      reject(err);
+			});
+		}
+	});
+}
+
+export function registerUserToDatabase(fullName, userName, email, photoId, password, verifyPassword, pubAdd, wif, that) {
 	return new Promise((resolve,reject) => {
   	firebase.auth().createUserWithEmailAndPassword(email, password).then((user) => {
-    	if (typeof photoId == 'undefined') {
-      		console.log('photoIsUndefined')
-      		photoId = 'defaultPhoto.png'
-    	}
-      firebase.database().ref('/Users/').once('value').then(() => {
-      	var newUser = {
-        	fullName: fullName,
-        	userName: userName,
-        	email: email,
-        	myListings: '',
-        	myPurchases: '',
-        	photoId: photoId,
-        	password: password,
-        	wif: wif,
-          myCartItems: '',
-      	}
-      	firebase.database().ref('/Users/' + user.uid).set(newUser);
-				resolve(user.uid);
-      }).catch(function(error) {
-        // Handle Errors here.
-      	console.log('An error has occured while creating the user via Firebase: ')
-      	console.log(error.code)
-      	console.log(error.message)
-        that.setState({
-          registerError: true,
-          registerErrorMessage: error.message
-        });
-		  	reject(error);
-      });
+			// console.log(user);
+			uploadImage(photoId, user.uid).then((imgRef) => {
+				console.log(imgRef);
+				let newUser = {
+	      	fullName: fullName,
+	      	userName: userName,
+	      	email: email,
+	      	myListings: '',
+	      	myPurchases: '',
+	      	photoId: imgRef,
+	      	password: password,
+					publicAddress: pubAdd,
+	      	wif: wif,
+	        myCartItems: '',
+	    	}
+	    	firebase.database().ref('/Users/' + user.uid).set(newUser).then(() => {
+					resolve(user.uid);
+				}).catch((err) => {
+					// Handle Errors here.
+	    		console.log('An error has occured while registering the user via Firebase: ')
+	      	console.log(error.code)
+	      	console.log(error.message)
+	        that.setState({
+	          registerError: true,
+	          registerErrorMessage: error.message
+	        })
+					reject(error);
+				});
+			}).catch(err => {
+				console.log('An error has occured while uploading your image via Firebase: ')
+				console.log(err.code)
+				console.log(err.message)
+				that.setState({
+					registerError: true,
+					registerErrorMessage: error.message
+				})
+				reject(error);
+			})
 
     }).catch(function(error) {
         // Handle Errors here.

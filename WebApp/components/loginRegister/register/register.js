@@ -61,7 +61,7 @@ class Register extends Component {
             registerError: false,
             registerErrorMessage: 'Attempting to Register User...'
           })
-          registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), this.state.wif, this).then(uid => {
+          registerUserToDatabase(this.state.fullName, this.state.userName, this.state.email, this.state.file, cF.sha256(this.state.password), cF.sha256(this.state.verifyPassword), pubAdd, this.state.wif, this).then(uid => {
               // console.log(uid);
               var text = "";
               var possible = "0123456789";
@@ -183,7 +183,7 @@ class Register extends Component {
               <div className="importPhotoIconContainer">
                 <div className="file-input-wrapper">
                   <ImportPhotoIcon/>
-                  <input type="file" name="file" onChange={(e) => {this.readFile(e)}} onClick={(event)=> { event.target.value = null }} />
+                  <input type="file" name="file" accept="image/*" onChange={(e) => {this.readFile(e)}} onClick={(event)=> { event.target.value = null }} />
                 </div>
               </div>
 

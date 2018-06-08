@@ -145,10 +145,12 @@ export class App extends Component {
     this.setState({ myListings: this.state.myListings.concat(id) })
   }
 
+  // keep this
   addToMyPurchases(id) {
     this.setState({ myPurchases: this.state.myPurchases.concat(id) })
   }
 
+  // keep it
   removeMyListing(id) {
     var index = this.state.myListings.indexOf(id)
     if(index != -1){
@@ -159,10 +161,12 @@ export class App extends Component {
     }
   }
 
+  // keep it
   resetCartItemState() {
     this.setState({ cartItems: [] })
   }
 
+  // keep it
   removeItemFromNonPurchasedList(id) {
     for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
       var currItem = this.state.nonPurchasedItems[i]
@@ -172,6 +176,7 @@ export class App extends Component {
       this.setState({ nonPurchasedItems: this.state.nonPurchasedItems});
     }
   }
+
 
   isIDInItemList(id) {
     var itemList = this.state.items
