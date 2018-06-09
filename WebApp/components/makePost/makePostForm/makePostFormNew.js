@@ -34,6 +34,7 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
+    console.log('makePost');
     var file = this.state.file;
     var id = this.makeId();
     var currentUser;
@@ -47,7 +48,7 @@ export class MakePostForm extends Component {
     currentUser = firebase.auth().currentUser.uid;
     postNewPostingToDatabaseDemo(id, currentUser, title, description, price, amount, file, that).then(imageRef => {
         that.props.addMyListing(id);
-        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, amount, file);
+        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, amount, imageRef);
         cF.createPost(id, currentUser, title, description, price, amount, imageRef, 'false')
     })
   }
@@ -99,15 +100,13 @@ export class MakePostForm extends Component {
             </div>
 
             <div className="makePostButtonContainer">
-              <div className="makePostButton" onClick={this.makePost}>
-                <div className="makePostButtonText">
-                  <Route render={({ history}) => (
-                    <button type='button' onClick={() => { history.push('/') }}>
-                      Post
-                    </button>
-                  )}/>
-                </div>
-              </div>
+              <Route render={({ history}) => (
+                <button className="makePostButton" type='button' onClick={() => { this.makePost(); history.push('/') }}>
+                  <div className="makePostButtonText">
+                    Post
+                  </div>
+                </button>
+              )}/>
             </div>
           </div>
         </div>

@@ -123,7 +123,7 @@ export class App extends Component {
     }
   }
 
-  addToNonPurchasedItems(id, owner, title, description, price, amount, imageFile) {
+  addToNonPurchasedItems(id, owner, title, description, price, amount, imgRef) {
     let newListingDict = {
       id: id,
       owner: owner,
@@ -131,8 +131,8 @@ export class App extends Component {
       description: description,
       price: price,
       amount: amount,
-      imageName: imageFile['name'],
-      purchased: false
+      imageRef: imgRef,
+      isPurchased: false
     }
 
     this.setState({
@@ -147,6 +147,7 @@ export class App extends Component {
 
   // keep this
   addToMyPurchases(id) {
+    console.log('addToMyPurchases');
     this.setState({ myPurchases: this.state.myPurchases.concat(id) })
   }
 
@@ -163,11 +164,13 @@ export class App extends Component {
 
   // keep it
   resetCartItemState() {
+    console.log('resetCartItemState');
     this.setState({ cartItems: [] })
   }
 
   // keep it
   removeItemFromNonPurchasedList(id) {
+    console.log('removeItemFromNonPurchasedList');
     for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
       var currItem = this.state.nonPurchasedItems[i]
       if (currItem['id'] == id) {

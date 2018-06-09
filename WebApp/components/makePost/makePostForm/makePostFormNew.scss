@@ -27,7 +27,7 @@ Purpose: Styling for the makePostForm component
 }
 
 .rightSideForm {
-  dispaly: flex;
+  display: flex;
   flex: 5;
   flex-direction: column;
 }
@@ -136,14 +136,13 @@ Purpose: Styling for the makePostForm component
   height: 50px;
   background-color: $registerButtonOrange;
   border-radius: 4px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .makePostButtonText {
   text-align: center;
   margin: auto;
   font-size: 24px;
-  font-weight: lighter;
 }
-
-
-

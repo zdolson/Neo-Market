@@ -199,7 +199,6 @@ export function updateItemPhoto(file, id){
 export function postNewPostingToDatabaseDemo(id, owner, title, description, price, amount, imageFile, that) {
   return new Promise((resolve, reject) => {
     firebase.storage().ref().child(id).put(imageFile).then(function(snapshot) {
-			console.log('yolo');
 			resolve(snapshot.downloadURL);
     }).catch(function(error) {
       console.log('An error occured while posting image to storage');
@@ -433,13 +432,15 @@ export function addCartItemToDatabaseField(id, that) {
       }
       firebase.database().ref('/Users/' + currUserID).update({
         'myCartItems': cartItemList
-      }).catch(function(error) {
+      }).then(() => {
+				console.log('yolo');
+				resolve(was_added);
+			}).catch(function(error) {
         console.log('An error occured while updating the cartItems field');
         console.log(error.code);
         console.log(error.message);
         reject(error);
       })
-      resolve(was_added);
     }).catch(function(error) {
       console.log('An error occured while adding cartitems to firebase');
       console.log(error.code);
@@ -482,7 +483,8 @@ export function removeCartItemFromDatabase(id, that) {
 }
 
 export function getCartItemsFromDatabase(that, items) {
-  console.log(items)
+	console.log('getCartItemsFromDatabase');
+	console.log(items);
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {

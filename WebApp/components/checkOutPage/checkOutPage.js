@@ -99,8 +99,12 @@ export class CheckOutPage extends Component {
                   console.log('listingAmount: ' + listingAmount);
                   console.log('listingImgRef: ' + listingImgRef);
                   console.log('listingIsPurchased: ' + listingIsPurchased);
-                  cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true);
-                  resolve(val);
+                  cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true)
+                    .then(res => {
+                      resolve(res);
+                    }).catch(err => {
+                      reject(err);
+                    });
               }else{
                   reject(val);
               }
