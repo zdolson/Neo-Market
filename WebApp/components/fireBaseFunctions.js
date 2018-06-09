@@ -573,6 +573,7 @@ export function getMyPurchasesFromDatabase(that) {
 }
 
 export function makePurchase(cartItems, that) {
+	console.log(cartItems);
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {

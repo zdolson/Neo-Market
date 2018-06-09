@@ -95,7 +95,7 @@ module.exports = {
                                 currentTotalCost += parseInt(costArray[j]);
                                 ownersArray.splice(j, 1);
                                 costArray.splice(j, 1);
-                                updatePostsArray.splice(j, 1); 
+                                updatePostsArray.splice(j, 1);
                                 continue;
                             } else {
                                 j++;
@@ -611,7 +611,7 @@ module.exports = {
         desc = desc.replace(/[^\x20-\x7E]/g, '');
         // price = price.replace(/[^\x20-\x7E]/g, '');
         // amount = amount.replace(/[^\x20-\x7E]/g, '');
-        console.log(id+owner+title+desc+price+amount);
+        console.log(id+owner+title+desc+price+amount+imageRef+isPurchased);
         firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
             var wif = snapshot.child('wif').val();
             var account = Neon.create.account(wif);

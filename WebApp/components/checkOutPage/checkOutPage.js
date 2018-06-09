@@ -46,6 +46,7 @@ export class CheckOutPage extends Component {
 
     this.purchaseLogic().then(val => {
       console.log(val);
+      console.log(this.props);
       var that = this;
       makePurchase(this.props.cartItems, that).then(function() {
         for(var i=0; i<that.props.cartItems.length;i++) {
@@ -82,7 +83,7 @@ export class CheckOutPage extends Component {
                   var listingDesc = currCartItem['description'];
                   var listingAmount = currCartItem['amount'];
                   var listingImgRef = currCartItem['imageRef'];
-                  // var listingIsPurchased = currCartItem['isPurchased'];
+                  var listingIsPurchased = currCartItem['isPurchased'];
                   listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
                   listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
                   listingID = listingID.replace(/[^\x20-\x7E]/g, '');
@@ -90,14 +91,14 @@ export class CheckOutPage extends Component {
                   listingDesc = listingDesc.replace(/[^\x20-\x7E]/g, '');
                   listingAmount = listingAmount.replace(/[^\x20-\x7E]/g, '');
                   listingImgRef = listingImgRef.replace(/[^\x20-\x7E]/g, '');
-                  // console.log('listingID: ' + listingID);
-                  // console.log('listingOwner: ' + listingOwner);
-                  // console.log('listingTitle: ' + listingTitle);
-                  // console.log('listingDesc: ' + listingDesc);
-                  // console.log('listingCost: ' + listingCost);
-                  // console.log('listingAmount: ' + listingAmount);
-                  // console.log('listingImgRef: ' + listingImgRef);
-                  // console.log('listingIsPurchased: ' + listingIsPurchased);
+                  console.log('listingID: ' + listingID);
+                  console.log('listingOwner: ' + listingOwner);
+                  console.log('listingTitle: ' + listingTitle);
+                  console.log('listingDesc: ' + listingDesc);
+                  console.log('listingCost: ' + listingCost);
+                  console.log('listingAmount: ' + listingAmount);
+                  console.log('listingImgRef: ' + listingImgRef);
+                  console.log('listingIsPurchased: ' + listingIsPurchased);
                   cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true);
                   resolve(val);
               }else{
@@ -163,7 +164,6 @@ export class CheckOutPage extends Component {
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
     var cartItems = this.props.cartItems
-    var users = this.props.users
 
     const { modal_is_open } = this.state;
 
