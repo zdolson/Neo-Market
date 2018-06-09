@@ -68,7 +68,7 @@ class MoreInfoListingEditing extends Component {
         cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, imgRef, this.props.item.isPurchased);
       });
     }else{
-      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, this.props.imageRef, this.props.item.isPurchased);
+      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, this.props.item.imageRef, this.props.item.isPurchased);
     }
 
   }
