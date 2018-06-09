@@ -597,6 +597,7 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contract.
      */
     editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
+      return new Promise((resolve, reject) => {
         if(isPurchased){
             isPurchased = 'true';
         }else{
@@ -621,15 +622,20 @@ module.exports = {
                     if (debug){
                         console.log('editPost(): Transaction successful.')
                     }
+                    resolve(res);
                     //can do other things if successful, like transition pages, etc.
                 } else {
                     if (debug){
                         console.log('editPost(): Transaction failed.')
                     }
+                    reject(res);
                     //can do other things if failed, like scream at user.
                 }
             })
-        })
+        }).catch(err => {
+            reject(err);
+        });
+      });
     },
 
     /*
