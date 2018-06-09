@@ -63,9 +63,14 @@ class MoreInfoListingEditing extends Component {
   submitHandler = () => {
     var that = this;
     var currentUser = firebase.auth().currentUser.uid;
-    updateItemPhoto(this.state.file, this.props.item.id).then(imgRef => {
-      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, imgRef, this.props.item.isPurchased);
-    });
+    if(this.state.file != null){
+      updateItemPhoto(this.state.file, this.props.item.id).then(imgRef => {
+        cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, imgRef, this.props.item.isPurchased);
+      });
+    }else{
+      cF.editPost(this.props.item.id, currentUser, this.state.title, this.state.description, this.state.price, this.props.item.amount, this.props.imageRef, this.props.item.isPurchased);
+    }
+
   }
 
   render() {
