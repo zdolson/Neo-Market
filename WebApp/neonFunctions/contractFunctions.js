@@ -9,7 +9,7 @@ const axios = require("axios")
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -60,7 +60,7 @@ module.exports = {
      * @Return: {promise} sendConfig
      * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
      */
-    multipurchase: (ownersArray, buyerName, costArray) => {
+    multipurchase: (ownersArray, buyerName, costArray, updatePostsArray) => {
         return new Promise((resolve,reject) => {
             var firebaseConfig = {
               apiKey: "AIzaSyAm2AxvW9dp_lAsP_hvgAUYnGWKGro8L00",
@@ -95,6 +95,7 @@ module.exports = {
                                 currentTotalCost += parseInt(costArray[j]);
                                 ownersArray.splice(j, 1);
                                 costArray.splice(j, 1);
+                                updatePostsArray.splice(j, 1); 
                                 continue;
                             } else {
                                 j++;
@@ -334,7 +335,7 @@ module.exports = {
                     console.log(typeof(postingIDs));
                 }
                 if (postingIDs.length == 0){
-                    resolve([]);
+                    resolve(null);
                 } else {
                     for (var i = 0; i < postingIDs.length; i++) {
                         module.exports.getPostFromStorage(postingIDs[i]).then((post) => {
@@ -435,30 +436,36 @@ module.exports = {
                             if (debug) {
                                 console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
                             }
+                            console.log(">>>>>>>>>>>> Beginning of getAllPostsFromStorage >>>>>>>>>>>>")
+                            console.log('internalCounter: ' + internalCounter);
+                            console.log("UserPosts: ")
+                            console.log(userPosts)
+                            console.log("allPosts: ")
+                            console.log(allPosts)
                             allPosts = allPosts.concat(userPosts);
+                            console.log("allPosts after concat")
+                            console.log(allPosts)
                             if(internalCounter == userList.length - 2) {
+                                console.log('Going to return!')
                                 if (debug){
                                     console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                                 }
-                                var nonPurchasedItems = [];
-                                for(let i = 0; i < allPosts.length; i++) {
-                                    if(allPosts[i].isPurchased == "false" || !allPosts[i].isPurchased){
-                                        allPosts[i].isPurchased = false;
-                                        nonPurchasedItems.push(allPosts[i]);
-                                    }else{
-                                      allPosts[i].isPurchased = true;
-                                    }
-                                }
+                                // var nonPurchasedItems = [];
+                                // for(let i = 0; i < allPosts.length; i++) {
+                                //     if(!allPosts[i].isPurchased){
+                                //         nonPurchasedItems.push(allPosts[i]);
+                                //     }
+                                // }
                                 console.log(allPosts);
-                                console.log(nonPurchasedItems)
                                 that.setState({
                                     items: allPosts,
-                                    nonPurchasedItems: nonPurchasedItems
+                                    nonPurchasedItems: allPosts
                                 });
                                 resolve(allPosts);
                             }
                             // console.log(internalCounter);
                             internalCounter++;
+                            console.log('>>>>>>>>>>>>> End of getAllPostsFromStorage >>>>>>>>>>>>>>>>')
                         }
                     }).catch(err => {
                         if (debug){
@@ -475,6 +482,7 @@ module.exports = {
             })
         })
     },
+
 
     /*
      * @Function: register
@@ -597,11 +605,6 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contract.
      */
     editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
-        if(isPurchased){
-            isPurchased = 'true';
-        }else{
-            isPurchased = 'false';
-        }
         id = id.replace(/[^\x20-\x7E]/g, '');
         owner = owner.replace(/[^\x20-\x7E]/g, '');
         title = title.replace(/[^\x20-\x7E]/g, '');

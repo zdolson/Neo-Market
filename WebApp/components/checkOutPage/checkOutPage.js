@@ -77,9 +77,31 @@ export class CheckOutPage extends Component {
             cF.purchase(listingOwner, buyerName, listingCost).then(val => {
               // Check val to see if transaction worked or not
               if(val.response.result){
-                resolve(val);
+                  var listingID = currCartItem['id'];
+                  var listingTitle = currCartItem['title'];
+                  var listingDesc = currCartItem['description'];
+                  var listingAmount = currCartItem['amount'];
+                  var listingImgRef = currCartItem['imageRef'];
+                  // var listingIsPurchased = currCartItem['isPurchased'];
+                  listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
+                  listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
+                  listingID = listingID.replace(/[^\x20-\x7E]/g, '');
+                  listingTitle = listingTitle.replace(/[^\x20-\x7E]/g, '');
+                  listingDesc = listingDesc.replace(/[^\x20-\x7E]/g, '');
+                  listingAmount = listingAmount.replace(/[^\x20-\x7E]/g, '');
+                  listingImgRef = listingImgRef.replace(/[^\x20-\x7E]/g, '');
+                  // console.log('listingID: ' + listingID);
+                  // console.log('listingOwner: ' + listingOwner);
+                  // console.log('listingTitle: ' + listingTitle);
+                  // console.log('listingDesc: ' + listingDesc);
+                  // console.log('listingCost: ' + listingCost);
+                  // console.log('listingAmount: ' + listingAmount);
+                  // console.log('listingImgRef: ' + listingImgRef);
+                  // console.log('listingIsPurchased: ' + listingIsPurchased);
+                  cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true);
+                  resolve(val);
               }else{
-                reject(val);
+                  reject(val);
               }
             }).catch(err => {
               reject(err);
@@ -87,17 +109,46 @@ export class CheckOutPage extends Component {
         } else {
             var ownersArray = [];
             var costArray = [];
+            var updatePostsArray = [];
             for (let i = 0; i < cartItems.length; i++){
                 var currCartItem = this.props.returnCheckOutDataByID(cartItems[i]);
                 ownersArray.push(currCartItem['owner'].replace(/[^\x20-\x7E]/g, ''));
                 costArray.push(currCartItem['price'].replace(/[^\x20-\x7E]/g, ''));
+                updatePostsArray.push(currCartItem);
+                // console.log(updatePostsArray[i]);
             }
-            cF.multipurchase(ownersArray, buyerName, costArray).then(val => {
+            console.log('before: ' + ownersArray.length);
+            cF.multipurchase(ownersArray, buyerName, costArray, updatePostsArray).then(val => {
               // Check val to see if transaction worked or not
               if(val.response.result){
-                resolve(val);
+
+                  var i = 0;
+                  while (i < ownersArray.length && ownersArray[i] !== null){
+                      var currentPost = updatePostsArray[i];
+                      // var j = i + 1;
+                      console.log(ownersArray[i]);
+                      console.log('after: ' + ownersArray.length);
+
+                      // below is not necessary I believe
+                      // while (j < ownersArray.length && ownersArray[j] !== null){
+                      //     console.log(ownersArray[j]);
+                      //     if (ownersArray[i] === ownersArray[j]){
+                      //         // currentTotalCost += parseInt(costArray[j]);
+                      //         console.log('cutting out j: ' + j);
+                      //         ownersArray.splice(j, 1);
+                      //         updatePostsArray.splice(j, 1);
+                      //         continue;
+                      //     } else {
+                      //         j++;
+                      //     }
+                      // }
+                      // costArray[i] = currentTotalCost;
+                      i++;
+                  }
+                  console.log(updatePostsArray);
+                  resolve(val);
               }else{
-                reject(val);
+                  reject(val);
               }
             }).catch(err => {
               reject(err);
