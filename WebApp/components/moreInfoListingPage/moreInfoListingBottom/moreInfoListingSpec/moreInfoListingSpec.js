@@ -96,6 +96,13 @@ class MoreInfoListingSpec extends Component {
           </div>
         </div>
 
+        <div className="sellerAndRating">
+          <div className="seller">
+            {this.state.owner}
+          </div>
+        </div>
+
+
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="btnContainer">
