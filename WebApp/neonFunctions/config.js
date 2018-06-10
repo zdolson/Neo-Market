@@ -13,7 +13,7 @@ module.exports = {
      * TestNet: http://testnet-api.wallet.cityofzion.io
      * PrivNet: HTTP URL to your neon-wallet-db instance IP with port 5000
      */
-     //RESTEndpoint: 'http://testnet-api.wallet.cityofzion.io',
+     // RESTEndpoint: 'http://testnet-api.wallet.cityofzion.io',
      RESTEndpoint: 'http://localhost:4000/api/main_net',
 
      wif: 'KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr',

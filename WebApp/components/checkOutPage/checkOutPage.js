@@ -78,27 +78,20 @@ export class CheckOutPage extends Component {
             cF.purchase(listingOwner, buyerName, listingCost).then(val => {
               // Check val to see if transaction worked or not
               if(val.response.result){
-                  var listingID = currCartItem['id'];
-                  var listingTitle = currCartItem['title'];
-                  var listingDesc = currCartItem['description'];
-                  var listingAmount = currCartItem['amount'];
-                  var listingImgRef = currCartItem['imageRef'];
-                  var listingIsPurchased = currCartItem['isPurchased'];
-                  listingOwner = listingOwner.replace(/[^\x20-\x7E]/g, '');
-                  listingCost = listingCost.replace(/[^\x20-\x7E]/g, '');
-                  listingID = listingID.replace(/[^\x20-\x7E]/g, '');
-                  listingTitle = listingTitle.replace(/[^\x20-\x7E]/g, '');
-                  listingDesc = listingDesc.replace(/[^\x20-\x7E]/g, '');
-                  listingAmount = listingAmount.replace(/[^\x20-\x7E]/g, '');
-                  listingImgRef = listingImgRef.replace(/[^\x20-\x7E]/g, '');
-                  console.log('listingID: ' + listingID);
-                  console.log('listingOwner: ' + listingOwner);
-                  console.log('listingTitle: ' + listingTitle);
-                  console.log('listingDesc: ' + listingDesc);
-                  console.log('listingCost: ' + listingCost);
-                  console.log('listingAmount: ' + listingAmount);
-                  console.log('listingImgRef: ' + listingImgRef);
-                  console.log('listingIsPurchased: ' + listingIsPurchased);
+                  var listingID = currCartItem['id'].replace(/[^\x20-\x7E]/g, '');
+                  var listingTitle = currCartItem['title'].replace(/[^\x20-\x7E]/g, '');
+                  var listingDesc = currCartItem['description'].replace(/[^\x20-\x7E]/g, '');
+                  var listingAmount = currCartItem['amount'].replace(/[^\x20-\x7E]/g, '');
+                  var listingImgRef = currCartItem['imageRef'].replace(/[^\x20-\x7E]/g, '');
+                  var listingIsPurchased = currCartItem['isPurchased'].replace(/[^\x20-\x7E]/g, '');
+                  // console.log('listingID: ' + listingID);
+                  // console.log('listingOwner: ' + listingOwner);
+                  // console.log('listingTitle: ' + listingTitle);
+                  // console.log('listingDesc: ' + listingDesc);
+                  // console.log('listingCost: ' + listingCost);
+                  // console.log('listingAmount: ' + listingAmount);
+                  // console.log('listingImgRef: ' + listingImgRef);
+                  // console.log('listingIsPurchased: ' + listingIsPurchased);
                   cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true)
                     .then(res => {
                       resolve(res);
@@ -142,13 +135,13 @@ export class CheckOutPage extends Component {
                       listingCost = currentPost['price'].replace(/[^\x20-\x7E]/g, '');
                       listingAmount = currentPost['amount'].replace(/[^\x20-\x7E]/g, '');
                       listingImgRef = currentPost['imageRef'].replace(/[^\x20-\x7E]/g, '');
-                      console.log('listingID: ' + listingID);
-                      console.log('listingOwner: ' + listingOwner);
-                      console.log('listingTitle: ' + listingTitle);
-                      console.log('listingDesc: ' + listingDesc);
-                      console.log('listingCost: ' + listingCost);
-                      console.log('listingAmount: ' + listingAmount);
-                      console.log('listingImgRef: ' + listingImgRef);
+                      // console.log('listingID: ' + listingID);
+                      // console.log('listingOwner: ' + listingOwner);
+                      // console.log('listingTitle: ' + listingTitle);
+                      // console.log('listingDesc: ' + listingDesc);
+                      // console.log('listingCost: ' + listingCost);
+                      // console.log('listingAmount: ' + listingAmount);
+                      // console.log('listingImgRef: ' + listingImgRef);
                       cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true).then(res => {
                           numSuccess++;
                           if (i === updatePostsArray.length - 1){
