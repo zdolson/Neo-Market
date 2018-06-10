@@ -44,10 +44,10 @@ export class MakePostForm extends Component {
     var that = this;
 
     currentUser = firebase.auth().currentUser.uid;
-    postNewPostingToDatabaseDemo(id, currentUser, title, description, price, 1, file, that).then(imageRef => {
+    postNewPostingToDatabaseDemo(id, currentUser, title, description, price, '1', file, that).then(imageRef => {
         that.props.addMyListing(id);
-        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, 1, file);
-        cF.createPost(id, currentUser, title, description, price, 1, imageRef, 'false')
+        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, '1', file);
+        cF.createPost(id, currentUser, title, description, price, '1', imageRef, 'false')
     })
   }
 
