@@ -174,7 +174,7 @@ export function updateUserPhoto(file) {
     firebase.storage().ref().child(firebase.auth().currentUser.uid).put(file).then(function(snapshot) {
 			console.log('yolo');
 			firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).update({
-				imageRef: snapshot.downloadURL
+				photoId: snapshot.downloadURL
 			}).then(() => {
 				resolve(snapshot.downloadURL);
 			});
