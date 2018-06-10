@@ -138,16 +138,11 @@ export class CheckOutPage extends Component {
                       // console.log('listingCost: ' + listingCost);
                       // console.log('listingAmount: ' + listingAmount);
                       // console.log('listingImgRef: ' + listingImgRef);
-                      cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,'true').then(res => {
-                          numSuccess++;
-                          if (i === updatePostsArray.length - 1){
-                              console.log(numSuccess);
-                              resolve(numSuccess);
-                          }
-                      }).catch(err => {
-                          reject(err);
-                      });
+                      cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,'true');
                       i++;
+                      if(i == updatePostsArray.length) {
+                          resolve(val);
+                      }
                   }
               }else{
                   reject(val);
