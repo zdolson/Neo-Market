@@ -9,7 +9,7 @@ const axios = require("axios")
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = false;
+var debug = true;
 
 
 /**
@@ -25,6 +25,12 @@ var debug = false;
 
 module.exports = {
 
+    /*
+     * @Function: getNeoUsPrice
+     * @Contributor: Zachary Olson
+     * @Return: {number} price
+     * Purpose: Returns the current price of NEO in USD.
+     */
     getNeoUsPrice: () => {
         return new Promise ((resolve,reject) => {
             Neon.get.price('NEO').then(price => {
@@ -57,6 +63,7 @@ module.exports = {
      * @Param: {string} ownersArray
      * @Param: {string} buyerName
      * @Param: {string} costArray
+     * @Param: {string} updatePostsArray
      * @Return: {promise} sendConfig
      * Purpose: Handles multiple transactions from buyerName to all owners in ownersArray.
      */
@@ -416,7 +423,6 @@ module.exports = {
             var currItem = {};
             var internalCounter = 0;
             module.exports.getAllUsersFromStorage().then(userList => {
-                console.log(userList);
                 for (var i = 0; i < userList.length - 1; i++) {
                     module.exports.getUserPostsFromStorage(userList[i]).then((userPosts) => {
                         if(userPosts == null) {
@@ -436,35 +442,31 @@ module.exports = {
                         } else {
                             if (debug) {
                                 console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
+                                console.log('internalCounter: ' + internalCounter);
+                                console.log("UserPosts: ");
+                                console.log(userPosts);
+                                console.log("allPosts: ");
+                                console.log(allPosts);
                             }
-                            console.log(">>>>>>>>>>>> Beginning of getAllPostsFromStorage >>>>>>>>>>>>")
-                            console.log('internalCounter: ' + internalCounter);
-                            console.log("UserPosts: ")
-                            console.log(userPosts)
-                            console.log("allPosts: ")
-                            console.log(allPosts)
                             allPosts = allPosts.concat(userPosts);
-                            console.log("allPosts after concat")
-                            console.log(allPosts)
+                            if (debug) {
+                                console.log("allPosts after concat");
+                                console.log(allPosts);
+                            }
                             if(internalCounter == userList.length - 2) {
-                                console.log('Going to return!')
                                 if (debug){
                                     console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                                 }
-                                var nonPurchasedItems = [];
-                                for(let i = 0; i < allPosts.length; i++) {
-                                    console.log(allPosts[i]);
-                                    if(!allPosts[i].isPurchased || allPosts[i].isPurchased == 'false'){
-                                        allPosts[i].isPurchased = false;
-                                        nonPurchasedItems.push(allPosts[i]);
-                                    }else{
-                                        allPosts[i].isPurchased = true;
-                                    }
-                                }
+                                // var nonPurchasedItems = [];
+                                // for(let i = 0; i < allPosts.length; i++) {
+                                //     if(!allPosts[i].isPurchased){
+                                //         nonPurchasedItems.push(allPosts[i]);
+                                //     }
+                                // }
                                 console.log(allPosts);
                                 that.setState({
                                     items: allPosts,
-                                    nonPurchasedItems: nonPurchasedItems
+                                    nonPurchasedItems: allPosts
                                 });
                                 resolve(allPosts);
                             }
@@ -610,24 +612,17 @@ module.exports = {
      *          Calls invokeContract() with createpost function to smart contract.
      */
     editPost: (id, owner, title, desc, price, amount, imageRef, isPurchased) => {
-      return new Promise((resolve, reject) => {
-        if(isPurchased){
-            isPurchased = 'true';
-        }else{
-            isPurchased = 'false';
-        }
         id = id.replace(/[^\x20-\x7E]/g, '');
         owner = owner.replace(/[^\x20-\x7E]/g, '');
         title = title.replace(/[^\x20-\x7E]/g, '');
         desc = desc.replace(/[^\x20-\x7E]/g, '');
-        price = price.replace(/[^\x20-\x7E]/g, '');
-        console.log(id+owner+title+desc+price+amount+imageRef+isPurchased);
+        // price = price.replace(/[^\x20-\x7E]/g, '');
+        // amount = amount.replace(/[^\x20-\x7E]/g, '');
+        console.log(id+owner+title+desc+price+amount);
         firebase.database().ref('/Users/'+owner).once('value').then((snapshot) => {
             var wif = snapshot.child('wif').val();
             var account = Neon.create.account(wif);
-            console.log(wif+account);
             node.invokeContract('editpost', [id,owner,title,desc,price,amount,imageRef,isPurchased], account, (res) => {
-              console.log('yolo');
                 if (debug){
                     console.log('editPost(): res: ');
                     console.dir(res);
@@ -641,15 +636,10 @@ module.exports = {
                     if (debug){
                         console.log('editPost(): Transaction failed.')
                     }
-                    reject(res);
                     //can do other things if failed, like scream at user.
                 }
             })
-            resolve(val);
-        }).catch(err => {
-            reject(err);
-        });
-      });
+        })
     },
 
     /*
