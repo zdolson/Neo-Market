@@ -17,12 +17,9 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
   margin-top: 5%;
   display: flex;
   flex-direction: column;
-  // justify-content: start;
   height: auto;
   width: 300px;
   margin-left: 5%;
-  // padding-top: 5%;
-  // margin-top: 10%;
 }
 
 .titleAndPrice {
@@ -32,13 +29,12 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
   justify-content: space-between;
   align-items: flex-start;
   height: auto;
-  // padding-bottom: 5px;
 }
 
 .title {
   flex: 2;
   overflow-x: hidden;
-  line-height: 35px;
+  line-height: 50px;
   font-size: 35px;
   height: auto;
 }
@@ -78,10 +74,6 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
   align-content: flex-start;
 }
 
-.shipsTo {
-  // padding-bottom: -1px;
-}
-
 .sellerAndRating {
   width: 300px;
   overflow-x: hidden;
@@ -95,7 +87,6 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 }
 
 .seller {
-  // width: 200px;
   height: 25px;
   overflow-x: hidden;
   flex: 2;
@@ -103,7 +94,6 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 }
 
 .rating {
-  // width: 100px;
   height: 25px;
   overflow-x: hidden;
   flex: 1;
@@ -129,7 +119,6 @@ Purpose: Spacing for the specifications of an item in moreInfoPage
 .cartBtn {
   display: table;
   color: white;
-  // margin-top: 20px;
   background: $brightGreen;
   height: 40px;
   width: 40%;

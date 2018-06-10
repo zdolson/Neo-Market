@@ -20,3 +20,31 @@ Purpose: CSS file for styling the component
   max-width: 200px;
   margin-left: 10px;
 }
+
+.currItemTitle {
+	font-size: 20px;
+	font-weight: 200;
+	margin-top: 10%;
+	margin-bottom: 13px;
+}
+
+.currItemPriceNeo {
+	color: $neoGreen;
+	font-size: 20px;
+	font-weight: 200;
+	margin-bottom: 13px;
+}
+
+.currItemOwner {
+	overflow-x: hidden;
+	font-size: 20px;
+	font-weight: 200;
+	margin-bottom: 13px;
+}
+
+.currItemPriceUS {
+	font-size: 20px;
+	font-weight: 200;
+  	color: $lightBlue;
+  	margin-bottom: 13px;
+}

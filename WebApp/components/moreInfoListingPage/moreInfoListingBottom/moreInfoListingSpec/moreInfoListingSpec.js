@@ -3,7 +3,6 @@ import { Stylesheet } from '../../../stylesheet.js'
 import sheet from './moreInfoListingSpec.scss'
 
 import ItemSpecsLine from '../../../assets/ItemSpecsLine.svg'
-import Star from '../../../assets/Star.svg'
 import { Route } from 'react-router-dom'
 
 import cF from '../../../../neonFunctions/contractFunctions'
@@ -97,17 +96,9 @@ class MoreInfoListingSpec extends Component {
           </div>
         </div>
 
-        <div className="shippingDetails">
-          <div className="shipsTo"> ships to blah </div>
-          <div> 3-4 days </div>
-        </div>
-
         <div className="sellerAndRating">
           <div className="seller">
             {this.state.owner}
-          </div>
-          <div className="rating">
-            rating <Star />
           </div>
         </div>
 

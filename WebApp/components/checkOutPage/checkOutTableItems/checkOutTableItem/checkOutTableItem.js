@@ -37,13 +37,14 @@ class CheckOutTableItem extends Component {
   render () {
     var currCheckOutItem = this.props.currCheckOutItem
     var removeCartItem = this.props.removeCartItem
+    var neoPrice = this.props.neoPrice
 
     return (
       <div className='checkOutTableItem'>
         <div className="itemWrapper">
           <CheckOutPagePicture imgRef={currCheckOutItem.imageRef} />
           <div className="itemSeperator"></div>
-          <CheckOutPageItemContent currCheckOutItem={currCheckOutItem}/>
+          <CheckOutPageItemContent currCheckOutItem={currCheckOutItem} neoPrice={neoPrice}/>
           <div className="itemX" onClick={this.removeCartItemHandler}> <ItemX/> </div>
           <Stylesheet sheet={sheet} />
         </div>
