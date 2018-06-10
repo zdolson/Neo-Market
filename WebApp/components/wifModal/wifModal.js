@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 import {Stylesheet} from '../stylesheet.js'
 import sheet from './wifModal.scss'
 
@@ -16,6 +17,7 @@ class WifModal extends Component {
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.focusInput = this.focusInput.bind(this);
   }
 
   handleChange(event) {
@@ -52,6 +54,12 @@ class WifModal extends Component {
     })
   }
 
+  focusInput(component) {
+    if (component) {
+      ReactDOM.findDOMNode(component).focus();
+    }
+  }
+
   render () {
     let {closeModal, modal_is_open} = this.props;
     return (
@@ -63,7 +71,14 @@ class WifModal extends Component {
             <h1>Confirm password!</h1>
             <form className="wif-form" onSubmit={this.handleSubmit}>
               <label>
-                <div className="passwordInput"> <input type="password" value={this.state.password} onChange={this.handleChange} placeholder="password..."/> </div>
+                <div className="passwordInput">
+                  <input
+                    type="password"
+                    value={this.state.password}
+                    onChange={this.handleChange}
+                    ref={this.focusInput}
+                    placeholder="password..."/>
+                </div>
               </label>
               <input className="submitButton" type="submit" value="Submit" />
             </form>
