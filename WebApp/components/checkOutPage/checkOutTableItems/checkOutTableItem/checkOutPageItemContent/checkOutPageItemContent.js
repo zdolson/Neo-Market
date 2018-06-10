@@ -3,8 +3,6 @@ import {Stylesheet} from '../../../../stylesheet.js'
 import sheet from './checkOutPageItemContent.scss'
 
 import CheckOutPageAddr from './checkOutPageAddr/checkOutPageAddr.js'
-import CheckOutPagePrice from './checkOutPagePrice/checkOutPagePrice.js'
-import CheckOutPageTitle from './checkOutPageTitle/checkOutPageTitle.js'
 import DeleteCartItem from '../../../../assets/DeleteCartItem.svg'
 
 /**
