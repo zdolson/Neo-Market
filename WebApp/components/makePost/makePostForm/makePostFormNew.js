@@ -40,15 +40,14 @@ export class MakePostForm extends Component {
     var title = this.title.value;
     var description = this.description.value;
     var price = this.price.value;
-    var amount = this.amount.value;
     var useFirebaseBackend = this.props.useFirebaseBackend
     var that = this;
 
     currentUser = firebase.auth().currentUser.uid;
-    postNewPostingToDatabaseDemo(id, currentUser, title, description, price, amount, file, that).then(imageRef => {
+    postNewPostingToDatabaseDemo(id, currentUser, title, description, price, 1, file, that).then(imageRef => {
         that.props.addMyListing(id);
-        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, amount, file);
-        cF.createPost(id, currentUser, title, description, price, amount, imageRef, 'false')
+        that.props.addToNonPurchasedItems(id, currentUser, title, description, price, 1, file);
+        cF.createPost(id, currentUser, title, description, price, 1, imageRef, 'false')
     })
   }
 
@@ -88,10 +87,6 @@ export class MakePostForm extends Component {
 
             <div className="priceContainer">
               <input className="priceInput" ref={(ref) => { this.price = ref; }} type="text" placeholder="Price"/>
-            </div>
-
-            <div className="amountContainer">
-              <input className="amountInput" ref={(ref) => { this.amount = ref; }} type="text" placeholder="Amount"/>
             </div>
 
             <div className="descriptionContainer">
