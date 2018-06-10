@@ -9,7 +9,7 @@ const axios = require("axios")
 const SHA256 = require('crypto-js/sha256')
 
 const masterList = '1';
-var debug = true;
+var debug = false;
 
 
 /**
@@ -296,7 +296,9 @@ module.exports = {
                         var j = i + 1;
                         while (j < postingIDsArray.length && postingIDsArray[j] !== null){
                             if (postingIDsArray[i] === postingIDsArray[j]){
-                                console.log('i and j: '+i+', '+j);
+                                if(debug){
+                                    console.log('i and j: '+i+', '+j);
+                                }
                                 postingIDsArray.splice(j, 1);
                                 continue;
                             } else {
@@ -430,49 +432,43 @@ module.exports = {
                                 console.log('user has no posts');
                             }
                             if(internalCounter == userList.length - 2) {
-                                console.log('Going to return!')
                                 that.setState({
                                     items: allPosts,
                                     nonPurchasedItems: allPosts
                                 });
                                 resolve(allPosts);
                             }
-                            // console.log(internalCounter);
                             internalCounter++;
                         } else {
                             if (debug) {
                                 console.log('getAllPostsFromStorage(): userPosts: ', userPosts);
-                                console.log('internalCounter: ' + internalCounter);
-                                console.log("UserPosts: ");
-                                console.log(userPosts);
-                                console.log("allPosts: ");
-                                console.log(allPosts);
                             }
                             allPosts = allPosts.concat(userPosts);
-                            if (debug) {
-                                console.log("allPosts after concat");
-                                console.log(allPosts);
-                            }
                             if(internalCounter == userList.length - 2) {
                                 if (debug){
                                     console.log('getAllPostsFromStorage(): allPosts: ', allPosts);
                                 }
-                                // var nonPurchasedItems = [];
-                                // for(let i = 0; i < allPosts.length; i++) {
-                                //     if(!allPosts[i].isPurchased){
-                                //         nonPurchasedItems.push(allPosts[i]);
-                                //     }
-                                // }
-                                console.log(allPosts);
+                                var nonPurchasedItems = [];
+                                for(let i = 0; i < allPosts.length; i++) {
+                                    if(allPosts[i].isPurchased == "false" || !allPosts[i].isPurchased){
+                                        allPosts[i].isPurchased = false;
+                                        nonPurchasedItems.push(allPosts[i]);
+                                    }else{
+                                      allPosts[i].isPurchased = true;
+                                    }
+                                }
+                                if (debug) {
+                                    console.log(allPosts);
+                                    console.log(nonPurchasedItems);
+                                }
                                 that.setState({
                                     items: allPosts,
-                                    nonPurchasedItems: allPosts
+                                    nonPurchasedItems: nonPurchasedItems
                                 });
                                 resolve(allPosts);
+
                             }
-                            // console.log(internalCounter);
                             internalCounter++;
-                            console.log('>>>>>>>>>>>>> End of getAllPostsFromStorage >>>>>>>>>>>>>>>>')
                         }
                     }).catch(err => {
                         if (debug){

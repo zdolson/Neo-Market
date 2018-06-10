@@ -483,12 +483,12 @@ export function removeCartItemFromDatabase(id, that) {
 }
 
 export function getCartItemsFromDatabase(that, items) {
-	console.log('getCartItemsFromDatabase');
-	console.log(items);
+	// console.log('getCartItemsFromDatabase');
+	// console.log(items);
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {
-      console.log(snapshot.child('myCartItems').val())
+      // console.log(snapshot.child('myCartItems').val())
       if (snapshot.child('myCartItems').val() == '') {
         that.setState({cartItems: []})
       } else {

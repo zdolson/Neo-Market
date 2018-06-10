@@ -23,10 +23,10 @@ class ListingsTab extends Component {
           var myListings = posts;
           var listingsList = []
           for(var i = 0; i < myListings.length; i++) {
-              console.log(myListings[i].id);
+              // console.log(myListings[i].id);
             // var currListing = returnCheckOutDataByID(myListings[i].id)
             var currListing = myListings[i];
-            console.log('currListing: '+currListing);
+            // console.log('currListing: '+currListing);
             listingsList.push(currListing)
           }
           console.log('yolo');
