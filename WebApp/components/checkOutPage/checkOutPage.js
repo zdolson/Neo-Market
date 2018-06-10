@@ -83,7 +83,7 @@ export class CheckOutPage extends Component {
                   var listingDesc = currCartItem['description'].replace(/[^\x20-\x7E]/g, '');
                   var listingAmount = currCartItem['amount'].replace(/[^\x20-\x7E]/g, '');
                   var listingImgRef = currCartItem['imageRef'].replace(/[^\x20-\x7E]/g, '');
-                  var listingIsPurchased = currCartItem['isPurchased'].replace(/[^\x20-\x7E]/g, '');
+                  // var listingIsPurchased = currCartItem['isPurchased'].replace(/[^\x20-\x7E]/g, '');
                   // console.log('listingID: ' + listingID);
                   // console.log('listingOwner: ' + listingOwner);
                   // console.log('listingTitle: ' + listingTitle);
@@ -92,12 +92,8 @@ export class CheckOutPage extends Component {
                   // console.log('listingAmount: ' + listingAmount);
                   // console.log('listingImgRef: ' + listingImgRef);
                   // console.log('listingIsPurchased: ' + listingIsPurchased);
-                  cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true)
-                    .then(res => {
-                      resolve(res);
-                    }).catch(err => {
-                      reject(err);
-                    });
+                  cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,'true')
+                  resolve(1); // 1 for one successful editing
               }else{
                   reject(val);
               }
@@ -142,7 +138,7 @@ export class CheckOutPage extends Component {
                       // console.log('listingCost: ' + listingCost);
                       // console.log('listingAmount: ' + listingAmount);
                       // console.log('listingImgRef: ' + listingImgRef);
-                      cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true).then(res => {
+                      cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,'true').then(res => {
                           numSuccess++;
                           if (i === updatePostsArray.length - 1){
                               console.log(numSuccess);
