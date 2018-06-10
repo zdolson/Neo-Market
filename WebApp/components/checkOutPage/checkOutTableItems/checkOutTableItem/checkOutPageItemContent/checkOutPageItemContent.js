@@ -27,11 +27,26 @@ export class CheckOutPageItemContent extends Component {
 
   render () {
     var currCheckOutItem = this.props.currCheckOutItem
+    let currPrice = (Math.round((currCheckOutItem['price'] * this.props.neoPrice) * 100) / 100);
+
     return (
       <div className='checkOutPageItemContent'>
-        <CheckOutPageAddr currCheckOutItemOwner={currCheckOutItem['owner']}/>
-        <CheckOutPagePrice currCheckOutItemPrice={currCheckOutItem['price']}/>
-        <CheckOutPageTitle currCheckOutItemTitle={currCheckOutItem['title']}/>
+        <div className='currItemTitle'>
+          {currCheckOutItem['title']}
+        </div>
+
+        <div className='currItemOwner'>
+          <CheckOutPageAddr currCheckOutItemOwner={currCheckOutItem['owner']}/>
+        </div>
+
+        <div className='currItemPriceNeo'>
+          Neo: {currCheckOutItem['price']}
+        </div>
+
+        <div className='currItemPriceUS'>
+          USD: {currPrice}
+        </div>
+
         <Stylesheet sheet={sheet} />
       </div>
     )

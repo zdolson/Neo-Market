@@ -102,7 +102,6 @@ class MoreInfoListingSpec extends Component {
           </div>
         </div>
 
-
         <div className="itemSpecsLine"> <ItemSpecsLine /> </div>
 
         <div className="btnContainer">

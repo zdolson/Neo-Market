@@ -25,10 +25,11 @@
       //Pass in values here to populate rest.
       var currCheckOutItem = this.props.currCheckOutItem
       var removeCartItem = this.props.removeCartItem
+      var neoPrice = this.props.neoPrice
 
       return (
         <div className='checkoutItems'>
-          <CheckOutTableItem currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+          <CheckOutTableItem currCheckOutItem={currCheckOutItem} neoPrice={neoPrice} removeCartItem={removeCartItem}/>
         </div>
       )
     }

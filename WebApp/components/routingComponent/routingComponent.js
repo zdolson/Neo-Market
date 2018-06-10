@@ -59,7 +59,7 @@ class RoutingComponent extends Component {
           <Route path="/Promos" component={PromosPage} />
           <Route path="/Purchases" component={PurchasesPage} />
           <Route path="/People" component={PeoplePage} />
-          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend} removeItem={removeItem} addToMyPurchases={addToMyPurchases} removeItemFromNonPurchasedList={removeItemFromNonPurchasedList} resetCartItemState={resetCartItemState}/> }/>
+          <Route path="/CheckOut" render={ () => <CheckOutPage users={users} neoPrice={neoPrice} cartItems={cartItems} removeCartItem={removeCartItem} sumTotalCartItems={sumTotalCartItems} returnCheckOutDataByID={returnCheckOutDataByID} useFirebaseBackend={useFirebaseBackend} removeItem={removeItem} addToMyPurchases={addToMyPurchases} removeItemFromNonPurchasedList={removeItemFromNonPurchasedList} resetCartItemState={resetCartItemState}/> }/>
           {nonPurchasedItems.map( (item, key) => {
             var path="/MoreInfoItem/"+item.id;
             return (
