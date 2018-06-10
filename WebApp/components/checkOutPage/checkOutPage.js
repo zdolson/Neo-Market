@@ -126,32 +126,40 @@ export class CheckOutPage extends Component {
             cF.multipurchase(ownersArray, buyerName, costArray, updatePostsArray).then(val => {
               // Check val to see if transaction worked or not
               if(val.response.result){
-
+                  var listingID = '';
+                  var listingTitle = '';
+                  var listingDesc = '';
+                  var listingAmount = '';
+                  var listingImgRef = '';
                   var i = 0;
-                  while (i < ownersArray.length && ownersArray[i] !== null){
+                  var numSuccess = 0;
+                  while (i < updatePostsArray.length && updatePostsArray[i] !== null){
                       var currentPost = updatePostsArray[i];
-                      // var j = i + 1;
-                      console.log(ownersArray[i]);
-                      console.log('after: ' + ownersArray.length);
-
-                      // below is not necessary I believe
-                      // while (j < ownersArray.length && ownersArray[j] !== null){
-                      //     console.log(ownersArray[j]);
-                      //     if (ownersArray[i] === ownersArray[j]){
-                      //         // currentTotalCost += parseInt(costArray[j]);
-                      //         console.log('cutting out j: ' + j);
-                      //         ownersArray.splice(j, 1);
-                      //         updatePostsArray.splice(j, 1);
-                      //         continue;
-                      //     } else {
-                      //         j++;
-                      //     }
-                      // }
-                      // costArray[i] = currentTotalCost;
+                      listingID = currentPost['id'].replace(/[^\x20-\x7E]/g, '');
+                      listingOwner = currentPost['owner'].replace(/[^\x20-\x7E]/g, '');
+                      listingTitle = currentPost['title'].replace(/[^\x20-\x7E]/g, '');
+                      listingDesc = currentPost['description'].replace(/[^\x20-\x7E]/g, '');
+                      listingCost = currentPost['price'].replace(/[^\x20-\x7E]/g, '');
+                      listingAmount = currentPost['amount'].replace(/[^\x20-\x7E]/g, '');
+                      listingImgRef = currentPost['imageRef'].replace(/[^\x20-\x7E]/g, '');
+                      console.log('listingID: ' + listingID);
+                      console.log('listingOwner: ' + listingOwner);
+                      console.log('listingTitle: ' + listingTitle);
+                      console.log('listingDesc: ' + listingDesc);
+                      console.log('listingCost: ' + listingCost);
+                      console.log('listingAmount: ' + listingAmount);
+                      console.log('listingImgRef: ' + listingImgRef);
+                      cF.editPost(listingID,listingOwner,listingTitle,listingDesc,listingCost,listingAmount,listingImgRef,true).then(res => {
+                          numSuccess++;
+                          if (i === updatePostsArray.length - 1){
+                              console.log(numSuccess);
+                              resolve(numSuccess);
+                          }
+                      }).catch(err => {
+                          reject(err);
+                      });
                       i++;
                   }
-                  console.log(updatePostsArray);
-                  resolve(val);
               }else{
                   reject(val);
               }
