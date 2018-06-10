@@ -76,16 +76,14 @@ class LoginRegister extends Component {
                   Welcome!
                 </div>
                 <div className="informationText">
-                  HelloWorld! This defines the default size of an element before the remaining space is distributed.
-                  It can be a length (e.g. 20%, 5rem, etc.) or a keyword. The auto keyword means "look at my width or
-                  height property" (which was temporarily done by the main-size keyword until deprecated). The content
-                  keyword means "size it based on the item's content" - this keyword isn't well supported yet, so it's
-                  hard to test and harder to know what its brethren max-content, min-content, and fit-content do.
+                  Founded in the winter of 2018 by a group of 6 UCSC students for their senior design project, Neo-Market aims to create
+                  a new market in the cryptocurrency, blockchain world. Here we want to provide a domain where individuals can use their
+                  Neo cryptocurrency freely, wether its to purchase, or to sell items. 
                 </div>
                 <div className="buttonContainer">
                   <div className="registerButton" onClick={this.registerHandler}>
                     <div className="registerButtonText">
-                      Register Button
+                      Register
                     </div>
                   </div>
                 </div>

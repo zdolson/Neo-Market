@@ -25,7 +25,7 @@ class CheckOutPagePictures extends Component {
   render () {
     return (
       <div className='checkOutPagePicture'>
-        <img src={this.props.imgRef} alt='loading...' width="350"/>
+        <img src={this.props.imgRef} alt='loading...' width="175"/>
         <Stylesheet sheet={sheet} />
       </div>
     )

@@ -160,6 +160,8 @@ export class CheckOutPage extends Component {
     var removeCartItem = this.props.removeCartItem
     var sumTotalCartItems = this.props.sumTotalCartItems
     var cartItems = this.props.cartItems
+    var users = this.props.users
+    var neoPrice = this.props.neoPrice
 
     const { modal_is_open } = this.state;
 
@@ -174,7 +176,7 @@ export class CheckOutPage extends Component {
         {this.props.cartItems.map( (id, key) => {
           var currCheckOutItem = returnCheckOutDataByID(id)
           return (
-            <CheckOutTableItems key={key} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
+            <CheckOutTableItems key={key} neoPrice={neoPrice} currCheckOutItem={currCheckOutItem} removeCartItem={removeCartItem}/>
           )
         })}
 

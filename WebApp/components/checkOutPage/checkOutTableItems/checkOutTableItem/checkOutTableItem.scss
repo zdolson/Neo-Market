@@ -17,20 +17,16 @@ Purpose: Spacing and style for the listing description in the checkOut page
 .checkOutTableItem {
   height: auto;
   width: 100%;
-  // padding: 20px;
   flex: 1;
-  // background: $grey65;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
   justify-content: center;
   margin-bottom: 40px;
-  // border: 20px solid transparent;
 }
 
 .itemSeperator {
-  background: $grey50;
-  width: 2px;
+  width: 80px;
   display: flex;
 }
 
