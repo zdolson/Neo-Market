@@ -433,7 +433,6 @@ export function addCartItemToDatabaseField(id, that) {
       firebase.database().ref('/Users/' + currUserID).update({
         'myCartItems': cartItemList
       }).then(() => {
-				console.log('yolo');
 				resolve(was_added);
 			}).catch(function(error) {
         console.log('An error occured while updating the cartItems field');
@@ -575,7 +574,6 @@ export function getMyPurchasesFromDatabase(that) {
 }
 
 export function makePurchase(cartItems, that) {
-	console.log(cartItems);
   return new Promise((resolve,reject) => {
     var currUserID = firebase.auth().currentUser.uid
     firebase.database().ref('/Users/' + currUserID).once('value').then((snapshot) => {

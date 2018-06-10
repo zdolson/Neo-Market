@@ -45,8 +45,6 @@ export class CheckOutPage extends Component {
   verificationSuccess = () => {
 
     this.purchaseLogic().then(val => {
-      console.log(val);
-      console.log(this.props);
       var that = this;
       makePurchase(this.props.cartItems, that).then(function() {
         for(var i=0; i<that.props.cartItems.length;i++) {
@@ -111,7 +109,6 @@ export class CheckOutPage extends Component {
                 updatePostsArray.push(currCartItem);
                 // console.log(updatePostsArray[i]);
             }
-            console.log('before: ' + ownersArray.length);
             cF.multipurchase(ownersArray, buyerName, costArray, updatePostsArray).then(val => {
               // Check val to see if transaction worked or not
               if(val.response.result){

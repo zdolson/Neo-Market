@@ -147,7 +147,6 @@ export class App extends Component {
 
   // keep this
   addToMyPurchases(id) {
-    console.log('addToMyPurchases');
     this.setState({ myPurchases: this.state.myPurchases.concat(id) })
   }
 
@@ -164,13 +163,11 @@ export class App extends Component {
 
   // keep it
   resetCartItemState() {
-    console.log('resetCartItemState');
     this.setState({ cartItems: [] })
   }
 
   // keep it
   removeItemFromNonPurchasedList(id) {
-    console.log('removeItemFromNonPurchasedList');
     for (var i = 0; i < this.state.nonPurchasedItems.length; i++){
       var currItem = this.state.nonPurchasedItems[i]
       if (currItem['id'] == id) {

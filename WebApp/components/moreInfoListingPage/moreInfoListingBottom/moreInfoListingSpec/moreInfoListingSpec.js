@@ -56,7 +56,6 @@ class MoreInfoListingSpec extends Component {
 
   addItemHandler = () => {
     var that = this;
-    console.log(this.props.item['id']);
     addCartItemToDatabaseField(this.props.item['id'], that).then(function(was_added) {
       if(was_added) that.props.addCartItem(that.props.item['id']);
     });

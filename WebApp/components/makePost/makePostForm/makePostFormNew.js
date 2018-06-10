@@ -34,7 +34,6 @@ export class MakePostForm extends Component {
   }
 
   makePost(ev) {
-    console.log('makePost');
     var file = this.state.file;
     var id = this.makeId();
     var currentUser;
