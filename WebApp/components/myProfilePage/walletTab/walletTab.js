@@ -60,7 +60,9 @@ class WalletTab extends Component {
     let file = e.target.files[0];
     console.log('readFile');
     updateUserPhoto(file).then(imgRef => {
-      this.setState({ imgRef: imgRef });
+      this.setState({
+        imgRef: imgRef
+      });
     }).catch(err => {
       console.error(err);
     });

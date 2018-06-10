@@ -173,7 +173,11 @@ export function updateUserPhoto(file) {
 	return new Promise((resolve, reject) => {
     firebase.storage().ref().child(firebase.auth().currentUser.uid).put(file).then(function(snapshot) {
 			console.log('yolo');
-			resolve(snapshot.downloadURL);
+			firebase.database().ref('/Users/'+firebase.auth().currentUser.uid).update({
+				imageRef: snapshot.downloadURL
+			}).then(() => {
+				resolve(snapshot.downloadURL);
+			});
     }).catch(function(error) {
       console.log('An error occured while posting image to storage');
       console.log(error.code);
